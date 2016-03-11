@@ -17,6 +17,7 @@ namespace HelloWorld
             shape.Position = new SFML.System.Vector2f(150, 150);
 
 
+
             RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(500, 500), "HelloWorld");
             while (window.IsOpen)
             {
