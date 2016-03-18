@@ -24,7 +24,7 @@ namespace HelloWorld
                 window.Clear();
                 window.Draw(shape);
                 window.Display();
-    
+                
 
             }
         }
