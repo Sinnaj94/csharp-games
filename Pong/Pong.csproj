@@ -64,6 +64,7 @@
     <Compile Include="InputHandler.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Ball.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
