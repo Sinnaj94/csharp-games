@@ -16,12 +16,18 @@ namespace Pong
             _PlayerOnePosition = new Vector2f(10, 100);
             _playerOneSize = new Vector2f(10, 100);
             _shape = new RectangleShape(_playerOneSize);
-            _shape.Position = _PlayerOnePosition;
         }
 
         Vector2f _PlayerOnePosition;
         Vector2f _playerOneSize;
         RectangleShape _shape;
+
+        public void update()
+        {
+            _shape.Position = _PlayerOnePosition;
+        }
+        
+
 
 
         public Vector2f PlayerOnePosition
