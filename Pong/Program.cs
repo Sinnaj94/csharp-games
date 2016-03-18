@@ -15,6 +15,7 @@ namespace Pong
 
         static void Main(string[] args)
         {
+            int X = 500
             Player PlayerOne = new Player();
             RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(500, 500), "HelloWorld");
             InputHandler inputHandler = new InputHandler(window);
