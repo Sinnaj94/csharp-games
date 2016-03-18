@@ -17,6 +17,7 @@ namespace Pong
         {
             uint ResX = 500;
             uint ResY = 500;
+            uint test = 1;
             Player PlayerOne = new Player();
             RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "HelloWorld");
             InputHandler inputHandler = new InputHandler(window);
