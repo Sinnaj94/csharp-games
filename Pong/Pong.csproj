@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ball.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Player.cs" />
