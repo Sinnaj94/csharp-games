@@ -11,46 +11,54 @@ namespace Pong
     class Program
     {
 
-
+        static RenderWindow initWindow(uint ResolutionX, uint ResolutionY)
+        {
+            uint ResX = ResolutionX;
+            uint ResY = ResolutionY;
+            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong");
+            window.SetFramerateLimit(50);
+            return window;
+        }
 
         static void Main(string[] args)
         {
-            uint ResX = 500;
-            uint ResY = 500;
-            uint test = 1;
-            Player PlayerOne = new Player();
-            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "HelloWorld");
-            InputHandler inputHandler = new InputHandler(window);
-            Ball ball = new Ball(new Vector2f(10, 0), new Vector2f(250, 250));
-            window.SetFramerateLimit(50);
+
+            RenderWindow window = initWindow(800,800);
+            InputHandler inputHandler = new InputHandler();
+            Player player = new Player(window);
+            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250));
 
             while (window.IsOpen)
             {
                 //Refreshing the window and drawing the shape
                 window.Clear();
                 inputHandler.listenToEvents();
-                window.Draw(PlayerOne.shape);
-                window.Draw(ball.circle);
-               
+                window.Draw(player.shape);
+                window.Draw(ball.Circle);
 
-                if (PlayerOne.PlayerOnePosition.Y > 0 && inputHandler.Direction == -10)
+
+                if (inputHandler.PlayerIsMoving)
                 {
-                    PlayerOne.PlayerOnePosition += new Vector2f(0, inputHandler.Direction);
-               
+                    if (player.PlayerOnePosition.Y > 0 && inputHandler.deltaY < 0)
+                    {
+                        player.PlayerOnePosition += new Vector2f(0, inputHandler.deltaY);
+                    }
+
+                    if (player.PlayerOnePosition.Y < window.Size.Y - player.PlayerOneSize.Y && inputHandler.deltaY > 0)
+                    {
+                        player.PlayerOnePosition += new Vector2f(0, inputHandler.deltaY);
+                    }
                 }
 
-                if (PlayerOne.PlayerOnePosition.Y < 400 && inputHandler.Direction == 10)
-                {
-                    PlayerOne.PlayerOnePosition += new Vector2f(0, inputHandler.Direction);
-                    
-                }
-                PlayerOne.update();
-
-                ball.updatePosition();
 
 
-
+                player.update();
+                ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerOnePosition.X);
                 window.Display();
+
+
+                System.Diagnostics.Debug.Write(" Min: " + player.YBoundMin + " Max: " + player.YBoundMax);
+
             }
         }
     }

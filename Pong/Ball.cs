@@ -10,24 +10,51 @@ namespace Pong
 {
     class Ball
     {
-        public Ball(Vector2f deltaXY, Vector2f position)
+        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position)
         {
-            circle = new CircleShape(10);
+            Circle = new CircleShape(10);
             this.deltaXY = deltaXY;
-            this.position = new Vector2f(position.X - (1 / 2 * circle.Radius), position.Y - (1 / 2 * circle.Radius));
+            this.position = new Vector2f(position.X - (1 / 2 * Circle.Radius), position.Y - (1 / 2 * Circle.Radius));
+            this.window = window;
         }
-        public CircleShape circle;
-        Vector2f deltaXY;
-        Vector2f position;
+        private CircleShape circle;
+        private Vector2f deltaXY;
+        private Vector2f position;
+        private RenderWindow window;
 
-        public void updatePosition()
+        public CircleShape Circle
         {
-            if (position.X < 1 || position.X > 499)
+            get
+            {
+                return circle;
+            }
+
+            set
+            {
+                circle = value;
+            }
+        }
+
+        public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition)
+        {
+            if (position.X < 1 || position.X > window.Size.X)
             {
                 deltaXY.X = -deltaXY.X;
             }
-            position.X = position.X + deltaXY.X;
-            circle.Position = position;
+
+            if (position.Y < 1 || position.Y > window.Size.Y)
+            {
+                deltaXY.Y = -deltaXY.Y;
+            }
+
+            if (position.X <= playerXPosition && position.Y > YBoundMin && position.Y < YBoundMax)
+            {
+                deltaXY.X = -deltaXY.X;
+            }
+
+            position.X += deltaXY.X;
+            position.Y += deltaXY.Y;
+            Circle.Position = position;
         }
 
     }

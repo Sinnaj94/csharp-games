@@ -11,19 +11,26 @@ namespace Pong
     class Player
     {
 
-        public Player()
+        public Player(RenderWindow window)
         {
-            _PlayerOnePosition = new Vector2f(10, 100);
-            _playerOneSize = new Vector2f(10, 100);
+              _playerOneSize = new Vector2f(window.Size.X * 0.02f, window.Size.Y * 0.25f);
+            _PlayerOnePosition = new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f);
             _shape = new RectangleShape(_playerOneSize);
+           // _shape.Origin = _PlayerOnePosition + 1 / 2 * _playerOneSize;      
         }
 
         Vector2f _PlayerOnePosition;
         Vector2f _playerOneSize;
         RectangleShape _shape;
+        float yBoundMin;
+        float yBoundMax;
+
 
         public void update()
         {
+
+            YBoundMin = _PlayerOnePosition.Y;     // upper bounds
+            YBoundMax = _PlayerOnePosition.Y + _playerOneSize.Y;     // lower bounds
             _shape.Position = _PlayerOnePosition;
         }
         
@@ -53,6 +60,32 @@ namespace Pong
             set
             {
                 _playerOneSize = value;
+            }
+        }
+
+        public float YBoundMin
+        {
+            get
+            {
+                return yBoundMin;
+            }
+
+            set
+            {
+                yBoundMin = value;
+            }
+        }
+
+        public float YBoundMax
+        {
+            get
+            {
+                return yBoundMax;
+            }
+
+            set
+            {
+                yBoundMax = value;
             }
         }
     }
