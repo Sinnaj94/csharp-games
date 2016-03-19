@@ -25,7 +25,8 @@ namespace Pong
 
             RenderWindow window = initWindow(800,800);
             InputHandler inputHandler = new InputHandler();
-            Player player = new Player(window);
+            Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f));
+            Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.05f));
             Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250));
 
             while (window.IsOpen)
@@ -33,32 +34,26 @@ namespace Pong
                 //Refreshing the window and drawing the shape
                 window.Clear();
                 inputHandler.listenToEvents();
-                window.Draw(player.shape);
+                window.Draw(player.Shape);
+                window.Draw(Ki.Shape);
                 window.Draw(ball.Circle);
-
 
                 if (inputHandler.PlayerIsMoving)
                 {
-                    if (player.PlayerOnePosition.Y > 0 && inputHandler.deltaY < 0)
+                    if (player.PlayerPosition.Y > 0 && inputHandler.deltaY < 0)
                     {
-                        player.PlayerOnePosition += new Vector2f(0, inputHandler.deltaY);
+                        player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
                     }
 
-                    if (player.PlayerOnePosition.Y < window.Size.Y - player.PlayerOneSize.Y && inputHandler.deltaY > 0)
+                    if (player.PlayerPosition.Y < window.Size.Y - player.PlayerSize.Y && inputHandler.deltaY > 0)
                     {
-                        player.PlayerOnePosition += new Vector2f(0, inputHandler.deltaY);
+                        player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
                     }
                 }
 
-
-
                 player.update();
-                ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerOnePosition.X);
+                ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X);
                 window.Display();
-
-
-                System.Diagnostics.Debug.Write(" Min: " + player.YBoundMin + " Max: " + player.YBoundMax);
-
             }
         }
     }

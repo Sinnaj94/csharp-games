@@ -11,55 +11,50 @@ namespace Pong
     class Player
     {
 
-        public Player(RenderWindow window)
+        public Player(RenderWindow window, Vector2f startPosition)
         {
-              _playerOneSize = new Vector2f(window.Size.X * 0.02f, window.Size.Y * 0.25f);
-            _PlayerOnePosition = new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f);
-            _shape = new RectangleShape(_playerOneSize);
-           // _shape.Origin = _PlayerOnePosition + 1 / 2 * _playerOneSize;      
+            playerSize = new Vector2f(10, 200);
+            playerPosition = startPosition;
+            shape = new RectangleShape(playerSize);
+            shape.Position = playerPosition;
         }
 
-        Vector2f _PlayerOnePosition;
-        Vector2f _playerOneSize;
-        RectangleShape _shape;
+        Vector2f playerPosition;
+        Vector2f playerSize;
+        RectangleShape shape;
         float yBoundMin;
         float yBoundMax;
 
 
         public void update()
         {
-
-            YBoundMin = _PlayerOnePosition.Y;     // upper bounds
-            YBoundMax = _PlayerOnePosition.Y + _playerOneSize.Y;     // lower bounds
-            _shape.Position = _PlayerOnePosition;
+            YBoundMin = playerPosition.Y;                       // upper bounds
+            YBoundMax = playerPosition.Y + playerSize.Y;     // lower bounds
+            shape.Position = playerPosition;
         }
-        
 
-
-
-        public Vector2f PlayerOnePosition
+        public Vector2f PlayerPosition
         {
-            get { return _PlayerOnePosition; }
-            set { _PlayerOnePosition = value; }
+            get { return playerPosition; }
+            set { playerPosition = value; }
         }
 
-
-        public RectangleShape shape
+        public RectangleShape Shape
         {
-            get { return _shape; }
-            set { _shape = value; }
+            get { return shape; }
+            set { shape = value; }
         }
 
-        public Vector2f PlayerOneSize
+        public Vector2f PlayerSize
         {
             get
             {
-                return _playerOneSize;
+                return playerSize;
             }
 
             set
             {
-                _playerOneSize = value;
+                playerSize = value;
             }
         }
 
