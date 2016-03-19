@@ -13,7 +13,7 @@ namespace Pong
         {
             Vector2f deltaPositionVector = new Vector2f(0, 0); ;
 
-            if (KIPosition.Y + (1/2 * (KIMax - KIMin)) < Ballposition.Y)
+            if (0.5 * (KIMax + KIMin) < Ballposition.Y)
             {
                 deltaPositionVector.Y = 10;
             } else
