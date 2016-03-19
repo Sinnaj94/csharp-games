@@ -11,16 +11,22 @@ namespace Pong
     {
         public Vector2f moveToDirection(Vector2f KIPosition, Vector2f Ballposition, float KIMin, float KIMax)
         {
-            Vector2f deltaPositionVector = new Vector2f(0, 0); ;
+            Vector2f deltaPositionVector = new Vector2f(0, 0);
 
-            if (0.5 * (KIMax + KIMin) < Ballposition.Y)
+            float KIposition = 0.5f * (KIMax + KIMin);
+
+            if(!(Math.Abs(KIposition - Ballposition.Y) < 7))
             {
-                deltaPositionVector.Y = 10;
-            } else
-            {
-                deltaPositionVector.Y = -10;
+                if (KIposition < Ballposition.Y)
+                {
+                    deltaPositionVector.Y = 10;
+                }
+                else
+                {
+                    deltaPositionVector.Y = -10;
+                }
             }
-            
+
             return deltaPositionVector;
         }
 
