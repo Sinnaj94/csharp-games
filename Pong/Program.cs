@@ -25,8 +25,9 @@ namespace Pong
 
             RenderWindow window = initWindow(800,800);
             InputHandler inputHandler = new InputHandler();
-            Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f));
-            Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.05f));
+            KIHandler watson = new KIHandler();
+            Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true );
+            Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
             Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250));
 
             while (window.IsOpen)
@@ -51,8 +52,10 @@ namespace Pong
                     }
                 }
 
+                Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax);
                 player.update();
-                ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X);
+                Ki.update();
+                ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
                 window.Display();
             }
         }

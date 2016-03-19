@@ -47,10 +47,7 @@ namespace Pong
         }
 
         public void listenToEvents()
-        {
-            
-
-      
+        { 
                 if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
                 {
                     //System.Diagnostics.Debug.Write("triggerd");
@@ -67,8 +64,6 @@ namespace Pong
                     playerIsMoving = false;
             }
 
-
-            
         }
 
     }

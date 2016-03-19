@@ -11,12 +11,13 @@ namespace Pong
     class Player
     {
 
-        public Player(RenderWindow window, Vector2f startPosition)
+        public Player(RenderWindow window, Vector2f startPosition, bool playerSide)
         {
             playerSize = new Vector2f(10, 200);
             playerPosition = startPosition;
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
+            leftPlayer = playerSide;
         }
 
         Vector2f playerPosition;
@@ -24,6 +25,7 @@ namespace Pong
         RectangleShape shape;
         float yBoundMin;
         float yBoundMax;
+        bool leftPlayer;
 
 
         public void update()
@@ -81,6 +83,19 @@ namespace Pong
             set
             {
                 yBoundMax = value;
+            }
+        }
+
+        public bool LeftPlayer
+        {
+            get
+            {
+                return leftPlayer;
+            }
+
+            set
+            {
+                leftPlayer = value;
             }
         }
     }
