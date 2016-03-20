@@ -19,6 +19,7 @@ namespace Pong
             this.window = window;
         }
         private CircleShape circle;
+        private float ballSpeed = 10;
         private Vector2f deltaXY;
         private Vector2f position;
         private RenderWindow window;
@@ -46,18 +47,20 @@ namespace Pong
             
             if (position.X < 1 || position.X > window.Size.X)
             {
-                position.X = 400;
-                position.Y = 400;
+                ballSpeed = 10;
 
-                deltaXY.X = 5;
-                deltaXY.Y = 10;
+                if (position.X < 1)
+                {
+                    deltaXY.X =  1 * ballSpeed;
+                    deltaXY.Y =  0;
 
-                /*  funktioniert noch nicht so geil
-                Random rnd = new Random();
-                deltaXY.X = (float)rnd.NextDouble() * 10;
-                deltaXY.Y = (float)rnd.NextDouble() * 10;
-                */
-
+                } else
+                {
+                    deltaXY.X = -1 * ballSpeed;
+                    deltaXY.Y = 0;
+                }
+                position.X = window.Size.X / 2;
+                position.Y = window.Size.Y / 2;             
             }
             
                 if (position.X <= playerXPosition && position.Y > YBoundMin && position.Y < YBoundMax)
@@ -65,8 +68,10 @@ namespace Pong
                     double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
                     double normalizedRelativeIntersectionY = ((relativeIntersectY / ((YBoundMax - YBoundMin) / 2)));
                     double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
-                    deltaXY.X = 10 * (float)Math.Cos(bounceAngle);
-                    deltaXY.Y = 10 * (float)-Math.Sin(bounceAngle);
+                    deltaXY.X = ballSpeed * (float)Math.Cos(bounceAngle);
+                    deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
+                    ballSpeed += 1;
+
                 }
 
                 if (position.X >= KiXPosition && position.Y > KiYBoundMin && position.Y < KiYBoundMax)
@@ -74,9 +79,10 @@ namespace Pong
                     double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
                     double normalizedRelativeIntersectionY = ((relativeIntersectY / ((KiYBoundMax - KiYBoundMin) / 2)));
                     double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
-                    deltaXY.X = 10 * (float)-Math.Cos(bounceAngle);
-                    deltaXY.Y = 10 * (float)-Math.Sin(bounceAngle);
-                }
+                    deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
+                    deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
+                    ballSpeed += 1;
+            }
 
             position.X += deltaXY.X;
                 position.Y += deltaXY.Y;

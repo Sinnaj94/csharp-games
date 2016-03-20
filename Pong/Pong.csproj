@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="InputHandler.cs" />
     <Compile Include="KIHandler.cs" />
-    <Compile Include="Physics.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Ball.cs" />
     <Compile Include="Program.cs" />
