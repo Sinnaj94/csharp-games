@@ -11,45 +11,51 @@ namespace Pong
     class Program
     {
 
-
+        static RenderWindow initWindow(uint ResolutionX, uint ResolutionY)
+        {
+            uint ResX = ResolutionX;
+            uint ResY = ResolutionY;
+            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong");
+            window.SetFramerateLimit(50);
+            return window;
+        }
 
         static void Main(string[] args)
         {
-            uint ResX = 500;
-            uint ResY = 500;
-            uint test = 1;
-            Player PlayerOne = new Player();
-            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "HelloWorld");
-            InputHandler inputHandler = new InputHandler(window);
-            Ball ball = new Ball(new Vector2f(10, 0), new Vector2f(250, 250));
-            window.SetFramerateLimit(50);
+
+            RenderWindow window = initWindow(800,800);
+            InputHandler inputHandler = new InputHandler();
+            KIHandler watson = new KIHandler();
+            Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true );
+            Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
+            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250));
 
             while (window.IsOpen)
             {
                 //Refreshing the window and drawing the shape
                 window.Clear();
                 inputHandler.listenToEvents();
-                window.Draw(PlayerOne.shape);
-                window.Draw(ball.circle);
-               
+                window.Draw(player.Shape);
+                window.Draw(Ki.Shape);
+                window.Draw(ball.Circle);
 
-                if (PlayerOne.PlayerOnePosition.Y > 0 && inputHandler.Direction == -10)
+                if (inputHandler.PlayerIsMoving)
                 {
-                    PlayerOne.PlayerOnePosition += new Vector2f(0, inputHandler.Direction);
-               
+                    if (player.PlayerPosition.Y > 0 && inputHandler.deltaY < 0)
+                    {
+                        player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
+                    }
+
+                    if (player.PlayerPosition.Y < window.Size.Y - player.PlayerSize.Y && inputHandler.deltaY > 0)
+                    {
+                        player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
+                    }
                 }
 
-                if (PlayerOne.PlayerOnePosition.Y < 400 && inputHandler.Direction == 10)
-                {
-                    PlayerOne.PlayerOnePosition += new Vector2f(0, inputHandler.Direction);
-                    
-                }
-                PlayerOne.update();
-
-                ball.updatePosition();
-
-
-
+                Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax);
+                player.update();
+                Ki.update();
+                ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
                 window.Display();
             }
         }

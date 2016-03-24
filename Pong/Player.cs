@@ -11,48 +11,91 @@ namespace Pong
     class Player
     {
 
-        public Player()
+        public Player(RenderWindow window, Vector2f startPosition, bool playerSide)
         {
-            _PlayerOnePosition = new Vector2f(10, 100);
-            _playerOneSize = new Vector2f(10, 100);
-            _shape = new RectangleShape(_playerOneSize);
+            playerSize = new Vector2f(10, 200);
+            playerPosition = startPosition;
+            shape = new RectangleShape(playerSize);
+            shape.Position = playerPosition;
+            leftPlayer = playerSide;
         }
 
-        Vector2f _PlayerOnePosition;
-        Vector2f _playerOneSize;
-        RectangleShape _shape;
+        Vector2f playerPosition;
+        Vector2f playerSize;
+        RectangleShape shape;
+        float yBoundMin;
+        float yBoundMax;
+        bool leftPlayer;
+
 
         public void update()
         {
-            _shape.Position = _PlayerOnePosition;
+            YBoundMin = playerPosition.Y;                       // upper bounds
+            YBoundMax = playerPosition.Y + playerSize.Y;     // lower bounds
+            shape.Position = playerPosition;
         }
-        
 
-
-
-        public Vector2f PlayerOnePosition
+        public Vector2f PlayerPosition
         {
-            get { return _PlayerOnePosition; }
-            set { _PlayerOnePosition = value; }
+            get { return playerPosition; }
+            set { playerPosition = value; }
         }
 
-
-        public RectangleShape shape
+        public RectangleShape Shape
         {
-            get { return _shape; }
-            set { _shape = value; }
+            get { return shape; }
+            set { shape = value; }
         }
 
-        public Vector2f PlayerOneSize
+        public Vector2f PlayerSize
         {
             get
             {
-                return _playerOneSize;
+                return playerSize;
             }
 
             set
             {
-                _playerOneSize = value;
+                playerSize = value;
+            }
+        }
+
+        public float YBoundMin
+        {
+            get
+            {
+                return yBoundMin;
+            }
+
+            set
+            {
+                yBoundMin = value;
+            }
+        }
+
+        public float YBoundMax
+        {
+            get
+            {
+                return yBoundMax;
+            }
+
+            set
+            {
+                yBoundMax = value;
+            }
+        }
+
+        public bool LeftPlayer
+        {
+            get
+            {
+                return leftPlayer;
+            }
+
+            set
+            {
+                leftPlayer = value;
             }
         }
     }
