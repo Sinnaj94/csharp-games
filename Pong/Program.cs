@@ -15,9 +15,11 @@ namespace Pong
 
         static void Main(string[] args)
         {
-            int X = 500
+            uint ResX = 500;
+            uint ResY = 500;
+            uint test = 1;
             Player PlayerOne = new Player();
-            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(500, 500), "HelloWorld");
+            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "HelloWorld");
             InputHandler inputHandler = new InputHandler(window);
             Ball ball = new Ball(new Vector2f(10, 0), new Vector2f(250, 250));
             window.SetFramerateLimit(50);
