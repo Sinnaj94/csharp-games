@@ -18,6 +18,7 @@ namespace Pong
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
             leftPlayer = playerSide;
+            score = 0;
         }
 
         Vector2f playerPosition;
@@ -26,6 +27,7 @@ namespace Pong
         float yBoundMin;
         float yBoundMax;
         bool leftPlayer;
+        int score;
 
 
         public void update()
@@ -96,6 +98,19 @@ namespace Pong
             set
             {
                 leftPlayer = value;
+            }
+        }
+
+        public int Score
+        {
+            get
+            {
+                return score;
+            }
+
+            set
+            {
+                score = value;
             }
         }
     }

@@ -28,7 +28,7 @@ namespace Pong
             KIHandler watson = new KIHandler();
             Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true );
             Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
-            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250));
+            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250),10);
 
             while (window.IsOpen)
             {

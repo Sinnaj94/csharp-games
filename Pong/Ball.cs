@@ -11,9 +11,11 @@ namespace Pong
 {
     class Ball
     {
-        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position)
+        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position,float radius)
         {
-            Circle = new CircleShape(10);
+            Circle = new CircleShape(radius);
+            this.radius = radius;
+            this.durchmesser = radius * 2;
             this.deltaXY = deltaXY;
             this.position = new Vector2f(position.X - (1 / 2 * Circle.Radius), position.Y - (1 / 2 * Circle.Radius));
             this.window = window;
@@ -23,6 +25,8 @@ namespace Pong
         private Vector2f deltaXY;
         private Vector2f position;
         private RenderWindow window;
+        private float radius;
+        private float durchmesser;
 
         public CircleShape Circle
         {
@@ -40,16 +44,17 @@ namespace Pong
         public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
 
-            if (position.Y < 1 || position.Y > window.Size.Y)
+            if (position.Y <= 1 || position.Y+durchmesser >= window.Size.Y)
             {
                 deltaXY.Y = -deltaXY.Y;
             }
             
-            if (position.X < 1 || position.X > window.Size.X)
+            //Ball out of Bounds
+            if (position.X <= 1 || position.X+radius >= window.Size.X)
             {
                 ballSpeed = 10;
 
-                if (position.X < 1)
+                if (position.X <= 1)
                 {
                     deltaXY.X =  1 * ballSpeed;
                     deltaXY.Y =  0;
@@ -74,7 +79,7 @@ namespace Pong
 
                 }
 
-                if (position.X >= KiXPosition && position.Y > KiYBoundMin && position.Y < KiYBoundMax)
+                if (position.X+radius >= KiXPosition && position.Y > KiYBoundMin && position.Y < KiYBoundMax)
                 {
                     double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
                     double normalizedRelativeIntersectionY = ((relativeIntersectY / ((KiYBoundMax - KiYBoundMin) / 2)));
