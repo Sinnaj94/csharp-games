@@ -11,7 +11,7 @@ namespace Pong
 {
     class Ball
     {
-        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position,float radius)
+        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position,float radius,Rules rulesystem)
         {
             Circle = new CircleShape(radius);
             this.radius = radius;
@@ -20,6 +20,7 @@ namespace Pong
             this.position = new Vector2f(position.X - (1 / 2 * Circle.Radius), position.Y - (1 / 2 * Circle.Radius));
             this.window = window;
             ballSpeed = 10;
+            this.rulesystem = rulesystem;
         }
         private CircleShape circle;
         private float ballSpeed;
@@ -28,7 +29,7 @@ namespace Pong
         private RenderWindow window;
         private float radius;
         private float durchmesser;
-
+        private Rules rulesystem;
         public CircleShape Circle
         {
             get
@@ -89,6 +90,7 @@ namespace Pong
                 {
                     //TODO:
                     //right player  (KI) gets a point
+                    rulesystem.addPointToPlayer(1);
                     Console.WriteLine("Right player (KI) got a point.");
                     deltaXY.X = 1 * ballSpeed;
                     deltaXY.Y = 0;
@@ -101,6 +103,7 @@ namespace Pong
                 {
                     //TODO:
                     //Left player gets a point
+                    rulesystem.addPointToPlayer(0);
                     Console.WriteLine("Left player got a point.");
                     deltaXY.X = -1 * ballSpeed;
                     deltaXY.Y = 0;

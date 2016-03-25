@@ -10,7 +10,7 @@ namespace Pong
 {
     class Player
     {
-
+        static int id=0;
         public Player(RenderWindow window, Vector2f startPosition, bool playerSide)
         {
             playerSize = new Vector2f(10, 200);
@@ -19,6 +19,8 @@ namespace Pong
             shape.Position = playerPosition;
             leftPlayer = playerSide;
             score = 0;
+            playerid = id;
+            id++;
         }
 
         Vector2f playerPosition;
@@ -28,6 +30,7 @@ namespace Pong
         float yBoundMax;
         bool leftPlayer;
         int score;
+        int playerid;
 
 
         public void update()
@@ -117,6 +120,19 @@ namespace Pong
             set
             {
                 score = value;
+            }
+        }
+
+        public int Playerid
+        {
+            get
+            {
+                return playerid;
+            }
+
+            set
+            {
+                playerid = value;
             }
         }
     }

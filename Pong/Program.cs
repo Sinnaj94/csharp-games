@@ -28,8 +28,9 @@ namespace Pong
             KIHandler watson = new KIHandler();
             Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true );
             Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
-            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250),10);
-
+            Rules rulesystem = new Rules(player, Ki, 5);
+            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250),10,rulesystem);
+            
             while (window.IsOpen)
             {
 
@@ -55,14 +56,8 @@ namespace Pong
                 player.update();
                 Ki.update();
                 ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
-                int point = ball.CheckOutOfBounds();
-                if(point == 0)
-                {
-                    player.AddPoint();
-                }else if(point == 1)
-                {
-                    Ki.AddPoint();
-                }
+                ball.CheckOutOfBounds();
+                
                 //Draw the screen
                 window.Clear();
                 window.Draw(player.Shape);
