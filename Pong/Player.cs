@@ -37,6 +37,12 @@ namespace Pong
             shape.Position = playerPosition;
         }
 
+        public void AddPoint()
+        {
+            score += 1;
+            Console.WriteLine("New Score: " + score);
+        }
+
         public Vector2f PlayerPosition
         {
             get { return playerPosition; }

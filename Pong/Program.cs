@@ -32,13 +32,9 @@ namespace Pong
 
             while (window.IsOpen)
             {
-                //Refreshing the window and drawing the shape
-                window.Clear();
-                inputHandler.listenToEvents();
-                window.Draw(player.Shape);
-                window.Draw(Ki.Shape);
-                window.Draw(ball.Circle);
 
+                //Input Handler
+                inputHandler.listenToEvents();
                 if (inputHandler.PlayerIsMoving)
                 {
                     if (player.PlayerPosition.Y > 0 && inputHandler.deltaY < 0)
@@ -52,10 +48,26 @@ namespace Pong
                     }
                 }
 
+                //KI Handler
                 Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax);
+
+                //Updates
                 player.update();
                 Ki.update();
                 ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
+                int point = ball.CheckOutOfBounds();
+                if(point == 0)
+                {
+                    player.AddPoint();
+                }else if(point == 1)
+                {
+                    Ki.AddPoint();
+                }
+                //Draw the screen
+                window.Clear();
+                window.Draw(player.Shape);
+                window.Draw(Ki.Shape);
+                window.Draw(ball.Circle);
                 window.Display();
             }
         }
