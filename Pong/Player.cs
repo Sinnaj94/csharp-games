@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using Pong.Properties;
 
 namespace Pong
 {
     class Player
     {
-
+        static int id=0;
         public Player(RenderWindow window, Vector2f startPosition, bool playerSide)
         {
             playerSize = new Vector2f(10, 200);
@@ -18,26 +19,50 @@ namespace Pong
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
             leftPlayer = playerSide;
+            score = 0;
+            playerid = id;
+            id++;
             this.window = window;
+            scoreText = new Text("" + score, new Font(Resources.arial), 200);
+            scoreText.Color = new Color(255, 255, 255, 128);
+            if (leftPlayer)
+            {
+                scoreText.Position = new Vector2f(100, 100);
+            }
+            else
+            {
+                scoreText.Position = new Vector2f(600, 100);
+            }
+
         }
 
-        Vector2f playerPosition;
-        Vector2f playerSize;
-        RectangleShape shape;
-        float yBoundMin;
-        float yBoundMax;
-        bool leftPlayer;
-        RenderWindow window;
+        private     Vector2f playerPosition;
+        private     Vector2f playerSize;
+        private     RectangleShape shape;
+        private     float yBoundMin;
+        private     float yBoundMax;
+        private     bool leftPlayer;
+        private     int score;
+        private     int playerid;
+        private     RenderWindow window;
+        private     Text scoreText;
 
 
         public void update()
         {
             YBoundMin = playerPosition.Y;                       // upper bounds
             YBoundMax = playerPosition.Y + playerSize.Y;     // lower bounds
-
-
             shape.Position = playerPosition;
         }
+
+        public void AddPoint()
+        {
+            score += 1;
+            Console.WriteLine("New Score: " + score);
+            ScoreText.DisplayedString = score.ToString();
+        }
+
+
 
         public Vector2f PlayerPosition
         {
@@ -100,6 +125,45 @@ namespace Pong
             set
             {
                 leftPlayer = value;
+            }
+        }
+
+        public int Score
+        {
+            get
+            {
+                return score;
+            }
+
+            set
+            {
+                score = value;
+            }
+        }
+
+        public int Playerid
+        {
+            get
+            {
+                return playerid;
+            }
+
+            set
+            {
+                playerid = value;
+            }
+        }
+
+        public Text ScoreText
+        {
+            get
+            {
+                return scoreText;
+            }
+
+            set
+            {
+                scoreText = value;
             }
         }
     }
