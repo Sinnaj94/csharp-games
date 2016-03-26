@@ -18,6 +18,7 @@ namespace Pong
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
             leftPlayer = playerSide;
+            this.window = window;
         }
 
         Vector2f playerPosition;
@@ -26,12 +27,15 @@ namespace Pong
         float yBoundMin;
         float yBoundMax;
         bool leftPlayer;
+        RenderWindow window;
 
 
         public void update()
         {
             YBoundMin = playerPosition.Y;                       // upper bounds
             YBoundMax = playerPosition.Y + playerSize.Y;     // lower bounds
+
+
             shape.Position = playerPosition;
         }
 
