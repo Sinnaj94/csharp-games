@@ -11,7 +11,18 @@ namespace Pong
 {
     class Player
     {
-        static int id=0;
+        static int id = 0;
+        private Vector2f playerPosition;
+        private Vector2f playerSize;
+        private RectangleShape shape;
+        private float yBoundMin;
+        private float yBoundMax;
+        private bool leftPlayer;
+        private int score;
+        private int playerid;
+        private RenderWindow window;
+        private Text scoreText;
+
         public Player(RenderWindow window, Vector2f startPosition, bool playerSide)
         {
             playerSize = new Vector2f(10, 200);
@@ -36,16 +47,7 @@ namespace Pong
 
         }
 
-        private     Vector2f playerPosition;
-        private     Vector2f playerSize;
-        private     RectangleShape shape;
-        private     float yBoundMin;
-        private     float yBoundMax;
-        private     bool leftPlayer;
-        private     int score;
-        private     int playerid;
-        private     RenderWindow window;
-        private     Text scoreText;
+
 
 
         public void update()

@@ -25,27 +25,14 @@ namespace Pong
         static void Main(string[] args)
         {
 
-
-/*
-            Font arial = new Font(Resources.arial);
-            Text renderScore = new Text("", arial, 50);
-            renderScore.Color = Color.Magenta;
-            renderScore.Position = new Vector2f(100, 100);
-            renderScore.Style = Text.Styles.Regular;
-  */          
-
-
-
-
-
-            RenderWindow window = initWindow(800,800);
+            RenderWindow window = initWindow(800, 800);
             InputHandler inputHandler = new InputHandler();
             KIHandler watson = new KIHandler();
-            Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true );
+            Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true);
             Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
             Rules rulesystem = new Rules(player, Ki, 5);
-            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250),10,rulesystem);
-            
+            Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem);
+
             while (window.IsOpen)
             {
 
@@ -84,7 +71,7 @@ namespace Pong
                 window.Draw(player.ScoreText);
                 window.Draw(Ki.ScoreText);
                 window.Display();
-                
+
             }
         }
     }

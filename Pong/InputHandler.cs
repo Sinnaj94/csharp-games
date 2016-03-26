@@ -11,14 +11,15 @@ namespace Pong
 {
     class InputHandler
     {
+
+        int direction;
+        bool playerIsMoving;
+
         public InputHandler()
         {
             direction = 0;
             playerIsMoving = false;
         }
-
-        int direction;
-        bool playerIsMoving;
 
         public int deltaY
         {
@@ -47,21 +48,23 @@ namespace Pong
         }
 
         public void listenToEvents()
-        { 
-                if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-                {
-                    //System.Diagnostics.Debug.Write("triggerd");
-                    deltaY = -10;
-                    playerIsMoving = true;
-                } else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-                {
-                   // System.Diagnostics.Debug.Write("triggerd");
-                    deltaY = 10;
-                    playerIsMoving = true;
-                } else
-                {
-                    deltaY = 0;
-                    playerIsMoving = false;
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            {
+                //System.Diagnostics.Debug.Write("triggerd");
+                deltaY = -10;
+                playerIsMoving = true;
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            {
+                // System.Diagnostics.Debug.Write("triggerd");
+                deltaY = 10;
+                playerIsMoving = true;
+            }
+            else
+            {
+                deltaY = 0;
+                playerIsMoving = false;
             }
 
         }

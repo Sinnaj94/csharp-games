@@ -15,7 +15,7 @@ namespace Pong
 
             float KIposition = 0.5f * (KIMax + KIMin);
 
-            if(!(Math.Abs(KIposition - Ballposition.Y) < 7))
+            if (!(Math.Abs(KIposition - Ballposition.Y) < 7))
             {
                 if (KIposition < Ballposition.Y)
                 {

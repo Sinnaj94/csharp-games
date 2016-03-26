@@ -8,22 +8,25 @@ namespace Pong
 {
     class Rules
     {
-        public Rules(Player p1, Player p2,int winningScore)
+
+        private Player p1;
+        private Player p2;
+        private int winningScore;
+
+        public Rules(Player p1, Player p2, int winningScore)
         {
             this.p1 = p1;
             this.p2 = p2;
             this.winningScore = winningScore;
         }
-        private Player p1;
-        private Player p2;
-        private int winningScore;
 
         public void addPointToPlayer(int id)
         {
-            if(id == 0)
+            if (id == 0)
             {
                 p1.AddPoint();
-            }else if(id == 1)
+            }
+            else if (id == 1)
             {
                 p2.AddPoint();
             }
@@ -35,11 +38,11 @@ namespace Pong
         }
         public Player checkForWin()
         {
-            if(p1.Score >= winningScore)
+            if (p1.Score >= winningScore)
             {
                 return p1;
             }
-            if(p2.Score >= winningScore)
+            if (p2.Score >= winningScore)
             {
                 return p2;
             }
