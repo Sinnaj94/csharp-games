@@ -22,10 +22,10 @@ namespace Pong
         private float radius;
         private float durchmesser;
         private Rules rulesystem;
+        private SoundManager soundManage;
 
 
-
-        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Rules rulesystem)
+        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Rules rulesystem,SoundManager soundManage)
         {
             Circle = new CircleShape(radius);
             this.radius = radius;
@@ -35,6 +35,7 @@ namespace Pong
             this.window = window;
             ballSpeed = 10;
             this.rulesystem = rulesystem;
+            this.soundManage = soundManage;
         }
 
 
@@ -59,6 +60,7 @@ namespace Pong
             if (position.Y <= 1 || position.Y + durchmesser >= window.Size.Y)
             {
                 deltaXY.Y = -deltaXY.Y;
+                soundManage.playSound(2);
             }
 
 
@@ -70,6 +72,7 @@ namespace Pong
                 deltaXY.X = ballSpeed * (float)Math.Cos(bounceAngle);
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
+                soundManage.playSound(0);
 
             }
 
@@ -81,6 +84,7 @@ namespace Pong
                 deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
+                soundManage.playSound(0);
             }
 
             position.X += deltaXY.X;
@@ -102,10 +106,12 @@ namespace Pong
                     //right player  (KI) gets a point
                     rulesystem.addPointToPlayer(1);
                     Console.WriteLine("Right player (KI) got a point.");
+                    soundManage.playSound(1);
                     deltaXY.X = 1 * ballSpeed;
                     deltaXY.Y = 0;
                     position.X = window.Size.X / 2;
                     position.Y = window.Size.Y / 2;
+                    
                     return 0;
 
                 }
