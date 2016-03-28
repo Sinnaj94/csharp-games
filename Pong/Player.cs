@@ -69,7 +69,9 @@ namespace Pong
         public Vector2f PlayerPosition
         {
             get { return playerPosition; }
-            set { playerPosition = value; }
+            set {
+                playerPosition = value;
+            }
         }
 
         public RectangleShape Shape

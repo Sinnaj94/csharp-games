@@ -72,7 +72,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Rules.cs" />
+    <Compile Include="Logic.cs" />
     <Compile Include="SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>

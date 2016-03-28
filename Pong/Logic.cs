@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Pong
 {
-    class Rules
+    class Logic
     {
 
         private Player p1;
         private Player p2;
         private int winningScore;
         private RenderWindow window;
-        public Rules(Player p1, Player p2, int winningScore,RenderWindow window)
+        public Logic(Player p1, Player p2, int winningScore,RenderWindow window)
         {
             this.p1 = p1;
             this.p2 = p2;

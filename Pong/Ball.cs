@@ -21,11 +21,11 @@ namespace Pong
         private RenderWindow window;
         private float radius;
         private float durchmesser;
-        private Rules rulesystem;
+        private Logic rulesystem;
         private SoundManager soundManage;
 
 
-        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Rules rulesystem,SoundManager soundManage)
+        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Logic rulesystem,SoundManager soundManage)
         {
             Circle = new CircleShape(radius);
             this.radius = radius;
@@ -63,7 +63,16 @@ namespace Pong
                 soundManage.playSound(2);
             }
 
+            playerCollision(YBoundMin, YBoundMax, playerXPosition, KiYBoundMin, KiYBoundMax, KiXPosition);
 
+            position.X += deltaXY.X;
+            position.Y += deltaXY.Y;
+            Circle.Position = position;
+
+        }
+
+        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
+        {
             if (position.X <= playerXPosition && position.Y > YBoundMin && position.Y < YBoundMax)
             {
                 double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
@@ -86,11 +95,6 @@ namespace Pong
                 ballSpeed += 1;
                 soundManage.playSound(0);
             }
-
-            position.X += deltaXY.X;
-            position.Y += deltaXY.Y;
-            Circle.Position = position;
-
         }
 
         public int CheckOutOfBounds()
@@ -102,8 +106,7 @@ namespace Pong
 
                 if (position.X <= 0)
                 {
-                    //TODO:
-                    //right player  (KI) gets a point
+                    
                     rulesystem.addPointToPlayer(1);
                     Console.WriteLine("Right player (KI) got a point.");
                     soundManage.playSound(1);
@@ -117,8 +120,7 @@ namespace Pong
                 }
                 else if (position.X + radius >= window.Size.X)
                 {
-                    //TODO:
-                    //Left player gets a point
+                    
                     rulesystem.addPointToPlayer(0);
                     Console.WriteLine("Left player got a point.");
                     deltaXY.X = -1 * ballSpeed;
