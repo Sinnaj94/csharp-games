@@ -57,8 +57,16 @@ namespace Pong
         public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
 
-            if (position.Y <= 1 || position.Y + durchmesser >= window.Size.Y)
+            if (position.Y < 0 || position.Y + durchmesser > window.Size.Y)
             {
+                if(position.Y < 0)
+                {
+                    position.Y = 0;
+                }
+                else
+                {
+                    position.Y = window.Size.Y - durchmesser;
+                }
                 deltaXY.Y = -deltaXY.Y;
                 soundManage.playSound(2);
             }
@@ -73,7 +81,7 @@ namespace Pong
 
         private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
-            if (position.X <= playerXPosition && position.Y > YBoundMin && position.Y < YBoundMax)
+            if (position.X <= playerXPosition && position.Y+radius > YBoundMin && position.Y < YBoundMax)
             {
                 double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
                 double normalizedRelativeIntersectionY = ((relativeIntersectY / ((YBoundMax - YBoundMin) / 2)));
@@ -85,8 +93,9 @@ namespace Pong
 
             }
 
-            if (position.X + radius >= KiXPosition && position.Y > KiYBoundMin && position.Y < KiYBoundMax)
+            if (position.X + radius >= KiXPosition && position.Y+radius > KiYBoundMin && position.Y < KiYBoundMax)
             {
+                
                 double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
                 double normalizedRelativeIntersectionY = ((relativeIntersectY / ((KiYBoundMax - KiYBoundMin) / 2)));
                 double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);

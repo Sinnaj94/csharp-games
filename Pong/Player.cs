@@ -65,12 +65,22 @@ namespace Pong
         }
 
 
-
         public Vector2f PlayerPosition
         {
             get { return playerPosition; }
             set {
-                playerPosition = value;
+                if(value.Y < 0)
+                {
+                    playerPosition.Y = 0;
+                }else if(value.Y > window.Size.Y - playerSize.Y)
+                {
+                    playerPosition.Y = window.Size.Y - playerSize.Y;
+                }
+                else
+                {
+                    playerPosition = value;
+                }
+                
             }
         }
 

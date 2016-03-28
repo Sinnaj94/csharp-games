@@ -44,12 +44,12 @@ namespace Pong
                 inputHandler.listenToEvents();
                 if (inputHandler.PlayerIsMoving)
                 {
-                    if (player.PlayerPosition.Y > 0 && inputHandler.deltaY < 0)
+                    if (inputHandler.deltaY < 0)
                     {
                         player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
                     }
 
-                    if (player.PlayerPosition.Y < window.Size.Y - player.PlayerSize.Y && inputHandler.deltaY > 0)
+                    if (inputHandler.deltaY > 0)
                     {
                         player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
                     }
