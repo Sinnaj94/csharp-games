@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Button.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="KIHandler.cs" />
     <Compile Include="Menu.cs" />

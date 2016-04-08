@@ -15,43 +15,38 @@ namespace Pong
 
         Button start;
         Button settings;
+        Button exit;
+        bool returnPressed;
 
         public Menu()
         {
-            
             start =      new Button(new Vector2f(100, 100), true, "start game");
             settings =   new Button(new Vector2f(100, 300), false, "setting");
-            
+            exit =       new Button(new Vector2f(100, 500), false, "exit");
         }
 
-        void updateMenu(bool direction)
+        public int returnNewGamestate()
         {
-            // ture = up
-            // false = down
-            if (direction)
-            {
-                start.IsActive = true;
-            } else
-            {
-                start.IsActive = false;
-            }
+            return 1;
         }
+
+ 
 
         public void Draw(RenderTarget target, RenderStates states)
         {
             try
             {
-                //   start.Draw(target, states);
                 start.updateText();
                 settings.updateText();
+                exit.updateText();
                 start.ButtonText.Draw(target, states);
                 settings.ButtonText.Draw(target, states);
+                exit.ButtonText.Draw(target, states);
             }
             catch (NotImplementedException)
             {
-                Console.Out.Write("asd");
+                Console.Out.Write("menu not implemented");
             }
-            //throw new NotImplementedException();
         }
     }
 }

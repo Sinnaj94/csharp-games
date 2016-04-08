@@ -14,11 +14,44 @@ namespace Pong
 
         int direction;
         bool playerIsMoving;
+        bool returnIsPressed;
 
         public InputHandler()
         {
             direction = 0;
             playerIsMoving = false;
+        }
+
+        public void listenToEvents()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape)){
+                System.Environment.Exit(1);
+            }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            {
+                returnIsPressed = true;
+            } else
+            {
+                returnIsPressed = false;
+            }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            {
+                deltaY = -10;
+                playerIsMoving = true;
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            {
+                deltaY = 10;
+                playerIsMoving = true;
+            }
+            else
+            {
+                deltaY = 0;
+                playerIsMoving = false;
+            }
+
         }
 
         public int deltaY
@@ -47,27 +80,17 @@ namespace Pong
             }
         }
 
-        public void listenToEvents()
+        public bool ReturnIsPressed
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            get
             {
-                //System.Diagnostics.Debug.Write("triggerd");
-                deltaY = -10;
-                playerIsMoving = true;
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-            {
-                // System.Diagnostics.Debug.Write("triggerd");
-                deltaY = 10;
-                playerIsMoving = true;
-            }
-            else
-            {
-                deltaY = 0;
-                playerIsMoving = false;
+                return returnIsPressed;
             }
 
+            set
+            {
+                returnIsPressed = value;
+            }
         }
-
     }
 }

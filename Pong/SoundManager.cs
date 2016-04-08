@@ -15,7 +15,10 @@ namespace Pong
         public SoundManager()
         {
             soundList = new List<SoundPlayer>();
-   
+            addSound(@"Resources\hit.wav");
+            addSound(@"Resources\lose.wav");
+            addSound(@"Resources\side.wav");
+
         }
 
         public void addSound(String stream)
