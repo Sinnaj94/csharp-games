@@ -9,11 +9,12 @@ namespace Pong
 {
     class Logic
     {
-
+        private bool gameOver;
         private Player p1;
         private Player p2;
         private int winningScore;
         private RenderWindow window;
+
         public Logic(Player p1, Player p2, int winningScore,RenderWindow window)
         {
             this.p1 = p1;
@@ -23,7 +24,7 @@ namespace Pong
         }
 
         public void addPointToPlayer(int id)
-        {
+        { 
             if (id == 0)
             {
                 p1.AddPoint();
@@ -37,7 +38,7 @@ namespace Pong
             if (winner != null)
             {
                 Console.WriteLine("Player " + winner.Playerid + " hat gewonnen.");
-                //window.Close();
+                gameOver = true;
             }
         }
         public Player checkForWin()
@@ -52,5 +53,19 @@ namespace Pong
             }
             return null;
         }
+
+        public bool GameOver
+        {
+            get
+            {
+                return gameOver;
+            }
+
+            set
+            {
+                gameOver = value;
+            }
+        }
+
     }
 }

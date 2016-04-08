@@ -16,7 +16,6 @@ namespace Pong
         Button start;
         Button settings;
         Button exit;
-        bool returnPressed;
 
         public Menu()
         {
@@ -30,7 +29,7 @@ namespace Pong
             return 1;
         }
 
- 
+        
 
         public void Draw(RenderTarget target, RenderStates states)
         {

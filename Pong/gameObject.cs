@@ -8,31 +8,45 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Audio;
 
-
 namespace Pong
 {
     class GameObject : SFML.Graphics.Drawable
     {
-
         InputHandler inputHandler;
         KIHandler watson;
         Logic rulesystem;
         Ball ball;
         Player player;
         Player Ki;
-        
-        public GameObject(RenderWindow window, SoundManager soundManage, InputHandler asd)
+        RenderWindow window;
+        SoundManager soundManage;
+        int gamestate;
+
+        public GameObject(RenderWindow renderWindow, SoundManager soundManager, InputHandler input)
         {
-            inputHandler = asd;
+            window = renderWindow;
+            inputHandler = input;
+            soundManage = soundManager;
+        }
+
+        public void init()
+        {
             watson = new KIHandler();
             player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true);
             Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
-            rulesystem = new Logic(player, Ki, 10, window);
+            rulesystem = new Logic(player, Ki, 2, window);
             ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem, soundManage);
+            gamestate = 1;
         }
 
         public void updateGame()
         {
+
+            if(player == null)
+            {
+                init();
+            }
+
             if (inputHandler.PlayerIsMoving)
             {
                 if (inputHandler.deltaY < 0)
@@ -71,6 +85,37 @@ namespace Pong
                 Console.Out.Write("Gameobject draw failed");
             }
 
+            // check for gameover after rendering
+            if (rulesystem.GameOver)
+            {
+                resetGame();
+            }
+
         }
+
+        void resetGame()
+        {
+            gamestate = 0;
+            watson = null;
+            player = null;
+            Ki = null;
+            rulesystem = null;
+            ball = null;
+        }
+
+
+        public int Gamestate
+        {
+            get
+            {
+                return gamestate;
+            }
+
+            set
+            {
+                gamestate = value;
+            }
+        }
+
     }
 }

@@ -21,8 +21,6 @@ namespace Pong
             return window;
         }
 
-
-
         static void Main(string[] args)
         {
             RenderWindow window = initWindow(800, 800);
@@ -30,12 +28,10 @@ namespace Pong
             InputHandler inputHandler = new InputHandler();
             Menu menu = new Menu();
             GameObject gameObject = new GameObject(window, soundManage, inputHandler);
- 
             int gamestate = 0;
 
             while (window.IsOpen)
             {
-
                 window.Clear();
                 inputHandler.listenToEvents();
 
@@ -48,10 +44,12 @@ namespace Pong
                         gamestate = menu.returnNewGamestate();
                     }
                 } 
+
                 else if(gamestate == 1)
                 {
                     gameObject.updateGame();
                     window.Draw(gameObject);
+                    gamestate = gameObject.Gamestate;
                 } 
 
                 window.Display();
