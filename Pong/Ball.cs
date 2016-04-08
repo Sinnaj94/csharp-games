@@ -76,6 +76,7 @@ namespace Pong
             position.X += deltaXY.X;
             position.Y += deltaXY.Y;
             Circle.Position = position;
+            CheckOutOfBounds();
 
         }
 

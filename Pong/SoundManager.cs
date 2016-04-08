@@ -4,6 +4,8 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using Pong.Properties;
+
 
 namespace Pong
 {
@@ -13,6 +15,7 @@ namespace Pong
         public SoundManager()
         {
             soundList = new List<SoundPlayer>();
+   
         }
 
         public void addSound(System.IO.UnmanagedMemoryStream stream)

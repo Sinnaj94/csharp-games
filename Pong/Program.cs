@@ -22,23 +22,29 @@ namespace Pong
             return window;
         }
 
+
+
         static void Main(string[] args)
         {
 
             RenderWindow window = initWindow(800, 800);
             SoundManager soundManage = new SoundManager();
-            soundManage.addSound(Resources.hit);
-            soundManage.addSound(Resources.lose);
-            soundManage.addSound(Resources.side);
             InputHandler inputHandler = new InputHandler();
             KIHandler watson = new KIHandler();
             Player player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true);
             Player Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
             Logic rulesystem = new Logic(player, Ki, 5,window);
             Ball ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem,soundManage);
-            
+            Menu menu = new Menu();
+
+            soundManage.addSound(Resources.hit);
+            soundManage.addSound(Resources.lose);
+            soundManage.addSound(Resources.side);
+
             while (window.IsOpen)
             {
+
+
 
                 //Input Handler
                 inputHandler.listenToEvents();
@@ -62,10 +68,6 @@ namespace Pong
                 player.update();
                 Ki.update();
                 ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
-                ball.CheckOutOfBounds();
-
-
-                //renderScore.DisplayedString = player.Score.ToString();
 
                 //Draw the screen
                 window.Clear();
@@ -74,7 +76,10 @@ namespace Pong
                 window.Draw(ball.Circle);
                 window.Draw(player.ScoreText);
                 window.Draw(Ki.ScoreText);
+            //    window.Draw(menu);
                 window.Display();
+                
+
 
             }
         }
