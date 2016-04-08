@@ -12,12 +12,12 @@ using Pong.Properties;
 
 namespace Pong
 {
-    class Button
+    class Button : Drawable
     {
 
         Vector2f        buttonPosition;
         bool            isActive;
-        Font arial = new Font(Resources.arial);
+        Font arial = new Font(@"Resources\arial.ttf");
         Text buttonText;
 
 
@@ -30,7 +30,7 @@ namespace Pong
             buttonText.Position = position;
         }
 
-        void updateText()
+        public void updateText()
         {
             if (IsActive)
             {
@@ -39,6 +39,19 @@ namespace Pong
             {
                 buttonText.Color = new Color(255, 255, 255, 128);
             }
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            try{
+                buttonText.Draw(target, states);
+            }
+            catch (NotImplementedException)
+            {
+                Console.Out.Write("asd");
+            }
+            
+            //throw new NotImplementedException();
         }
 
         public bool IsActive

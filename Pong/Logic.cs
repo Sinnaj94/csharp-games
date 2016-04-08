@@ -37,7 +37,7 @@ namespace Pong
             if (winner != null)
             {
                 Console.WriteLine("Player " + winner.Playerid + " hat gewonnen.");
-                window.Close();
+                //window.Close();
             }
         }
         public Player checkForWin()

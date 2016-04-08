@@ -18,8 +18,10 @@ namespace Pong
 
         public Menu()
         {
+            
             start =      new Button(new Vector2f(100, 100), true, "start game");
             settings =   new Button(new Vector2f(100, 300), false, "setting");
+            
         }
 
         void updateMenu(bool direction)
@@ -39,6 +41,9 @@ namespace Pong
         {
             try
             {
+                //   start.Draw(target, states);
+                start.updateText();
+                settings.updateText();
                 start.ButtonText.Draw(target, states);
                 settings.ButtonText.Draw(target, states);
             }
@@ -48,28 +53,5 @@ namespace Pong
             }
             //throw new NotImplementedException();
         }
-
-        //void menuState(int menuState)
-        //{
-        //    switch (menuState)
-        //    {
-        //        case 0:
-        //            Console.WriteLine("Case 0");
-        //            break;
-        //        case 1:
-        //            Console.WriteLine("Case 1");
-        //            break;
-        //        case 2:
-        //            Console.WriteLine("Case 2");
-        //            break;
-        //        case 3:
-        //            Console.WriteLine("Case 3");
-        //            break;
-        //    }
-
-        //}
-
-
-
     }
 }

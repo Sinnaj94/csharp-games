@@ -18,7 +18,7 @@ namespace Pong
    
         }
 
-        public void addSound(System.IO.UnmanagedMemoryStream stream)
+        public void addSound(String stream)
         {
             SoundPlayer thisSound = new SoundPlayer(stream);
             soundList.Add(@thisSound);
