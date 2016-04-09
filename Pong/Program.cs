@@ -25,7 +25,6 @@ namespace Pong
         {
             RenderWindow window = initWindow(800, 800);
             SoundManager soundManage = new SoundManager();
-            InputHandler inputHandler = new InputHandler();
             Menu menu = new Menu();
             GameObject gameObject = new GameObject(window, soundManage);
             int gamestate = 0;
@@ -33,17 +32,12 @@ namespace Pong
             while (window.IsOpen)
             {
                 window.Clear();
-                inputHandler.listenToEvents();
 
                 if (gamestate == 0)
                 {
                     window.Draw(menu);
+                    gamestate = menu.updateGameState();
 
-                    if (inputHandler.ReturnIsPressed)
-                    {
-                        gamestate = menu.returnNewGamestate();
-
-                    }
                 } 
 
                 else if(gamestate == 1)
