@@ -16,7 +16,7 @@ namespace Pong
         {
             uint ResX = ResolutionX;
             uint ResY = ResolutionY;
-            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong");
+            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong",Styles.Fullscreen);
             window.SetFramerateLimit(50);
             return window;
         }
@@ -25,43 +25,35 @@ namespace Pong
         {
             RenderWindow window = initWindow(800, 800);
             SoundManager soundManage = new SoundManager();
+            InputHandler inputHandler = new InputHandler();
             Menu menu = new Menu();
-            GameObject gameObject = new GameObject(window, soundManage);
+            GameObject gameObject = new GameObject(window, soundManage, inputHandler);
             int gamestate = 0;
-
 
             while (window.IsOpen)
             {
                 window.Clear();
+                inputHandler.listenToEvents();
 
-                // MENU
                 if (gamestate == 0)
                 {
                     window.Draw(menu);
-                    gamestate = menu.updateGameState();
+
+                    if (inputHandler.ReturnIsPressed)
+                    {
+                        gamestate = menu.returnNewGamestate();
+
+                    }
                 } 
 
-                // GAME
                 else if(gamestate == 1)
                 {
                     gameObject.updateGame();
                     window.Draw(gameObject);
                     gamestate = gameObject.Gamestate;
-                }
+                } 
 
-                // GameOver
-                else if(gamestate == 2)
-                {
-                    // TODO
-                }
                 window.Display();
-
-                // Exit Conditions
-                if (BetterInputHandler.Instance.Escape())
-                {
-                    System.Environment.Exit(1);
-                }
-                
             }
             
         }

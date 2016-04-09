@@ -113,6 +113,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\s.ogg" />
     <None Include="Resources\side.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

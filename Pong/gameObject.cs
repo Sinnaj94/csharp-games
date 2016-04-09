@@ -76,6 +76,7 @@ namespace Pong
                 player.Shape.Draw(target, states);
                 Ki.Shape.Draw(target, states);
                 ball.Circle.Draw(target, states);
+                //ball.BoundingBox.Draw(target, states);
                 player.ScoreText.Draw(target, states);
                 Ki.ScoreText.Draw(target, states);
                 item.Rectangle.Draw(target, states);
