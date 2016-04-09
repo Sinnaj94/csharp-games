@@ -27,7 +27,7 @@ namespace Pong
             SoundManager soundManage = new SoundManager();
             InputHandler inputHandler = new InputHandler();
             Menu menu = new Menu();
-            GameObject gameObject = new GameObject(window, soundManage, inputHandler);
+            GameObject gameObject = new GameObject(window, soundManage);
             int gamestate = 0;
 
             while (window.IsOpen)
