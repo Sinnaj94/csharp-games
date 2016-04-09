@@ -40,15 +40,20 @@ namespace Pong
 
         public void playSound(int nr)
         {
-
-            sound.SoundBuffer = bufferList[nr];
-            sound.Play();
+            //TODO: play multiple sounds at once!!!
+             sound.SoundBuffer = bufferList[nr];
+             sound.Play();
+            
         }
+
+
 
         public void playSound(String name)
         {
 
         }
+
+       
 
     }
 }
