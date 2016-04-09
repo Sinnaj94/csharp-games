@@ -23,10 +23,10 @@ namespace Pong
         Item item;
         int gamestate;
 
-        public GameObject(RenderWindow renderWindow, SoundManager soundManager, InputHandler input)
+        public GameObject(RenderWindow renderWindow, SoundManager soundManager)
         {
             window = renderWindow;
-            inputHandler = input;
+          //  inputHandler = input;
             soundManage = soundManager;
         }
 
@@ -49,17 +49,14 @@ namespace Pong
                 init();
             }
 
-            if (inputHandler.PlayerIsMoving)
+            if (BetterInputHandler.Instance.Up())
             {
-                if (inputHandler.deltaY < 0)
-                {
-                    player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
-                }
+                player.PlayerPosition += new Vector2f(0, -10);
+            }
 
-                if (inputHandler.deltaY > 0)
-                {
-                    player.PlayerPosition += new Vector2f(0, inputHandler.deltaY);
-                }
+            if (BetterInputHandler.Instance.Down())
+            {
+                player.PlayerPosition += new Vector2f(0, 10);
             }
 
             //KI Handler

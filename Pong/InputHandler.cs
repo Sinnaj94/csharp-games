@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.System;
 
+
+
 namespace Pong
 {
     class InputHandler

@@ -28,9 +28,18 @@ namespace Pong
         {
             return 1;
         }
-
         
-
+        public int updateGameState()
+        {
+            if (BetterInputHandler.Instance.Return())
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         public void Draw(RenderTarget target, RenderStates states)
         {
             try

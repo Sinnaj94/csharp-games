@@ -18,8 +18,6 @@ namespace Pong
         
         public SoundManager()
         {
-
-
             sound = new Sound();
             bufferList = new List<SoundBuffer>();
             addSound(@"Resources\hit.wav");
