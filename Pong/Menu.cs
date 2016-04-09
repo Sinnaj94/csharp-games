@@ -11,29 +11,74 @@ namespace Pong
     class Menu : SFML.Graphics.Drawable
     {
 
-    //    const int menu = 0, start = 1, gameOver = 2, settings = 3;
-
-        Button start;
-        Button settings;
-        Button exit;
+        List<Button> ButtonList;
+        int menuState;
 
         public Menu()
         {
-            start =      new Button(new Vector2f(100, 100), true, "start game");
-            settings =   new Button(new Vector2f(100, 300), false, "setting");
-            exit =       new Button(new Vector2f(100, 500), false, "exit");
+            menuState = 0;
+            ButtonList = new List<Button>
+            {
+                new Button(new Vector2f(100, 100), true, "start game"),
+                new Button(new Vector2f(100, 300), false, "setting"),
+                new Button(new Vector2f(100, 500), false, "exit")
+            };
         }
 
         public int returnNewGamestate()
         {
             return 1;
         }
+
+        public void updateMenuState()
+        {
+            if (BetterInputHandler.Instance.SlowUp())
+            {
+                ButtonList[menuState].IsActive = false;
+                menuState -= 1;
+                if (menuState < 0)
+                {
+                    menuState = 2;
+                }
+                ButtonList[menuState].IsActive = true;
+            }
+
+            else if (BetterInputHandler.Instance.SlowDown())
+            {
+                ButtonList[menuState].IsActive = false;
+                menuState += 1;
+                if (menuState > 2)
+                {
+                    menuState = 0;
+                }
+                ButtonList[menuState].IsActive = true;
+            }
+        }
         
         public int updateGameState()
         {
+            updateMenuState();
+
             if (BetterInputHandler.Instance.Return())
             {
-                return 1;
+                if(menuState == 0)
+                {
+                    return 1;
+                }
+
+                else if (menuState == 1)
+                {
+                    return 3;
+                }
+
+                else if (menuState == 2)
+                {
+                    System.Environment.Exit(1);
+                    return 0;
+                } else
+                {
+                    return 0;
+                }
             }
             else
             {
@@ -44,12 +89,11 @@ namespace Pong
         {
             try
             {
-                start.updateText();
-                settings.updateText();
-                exit.updateText();
-                start.ButtonText.Draw(target, states);
-                settings.ButtonText.Draw(target, states);
-                exit.ButtonText.Draw(target, states);
+                foreach(Button b in ButtonList)
+                {
+                    b.updateText();
+                    b.Draw(target, states);
+                }
             }
             catch (NotImplementedException)
             {

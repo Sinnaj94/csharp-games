@@ -14,6 +14,10 @@ namespace Pong
 
         private BetterInputHandler() { }
 
+        private bool returnPressed;
+        private bool upPressed;
+        private bool downPressed;
+
         public static BetterInputHandler Instance
         {
             get
@@ -33,7 +37,16 @@ namespace Pong
 
         public bool Return()
         {
-            return Keyboard.IsKeyPressed(Keyboard.Key.Return);
+            if(Keyboard.IsKeyPressed(Keyboard.Key.Return) && !returnPressed)
+            {
+                returnPressed = true;
+                return true;
+            } else
+            {
+                returnPressed = Keyboard.IsKeyPressed(Keyboard.Key.Return);
+                return false;
+            }
+            
         }
 
         public bool Up()
@@ -44,6 +57,34 @@ namespace Pong
         public bool Down()
         {
             return Keyboard.IsKeyPressed(Keyboard.Key.Down);
+        }
+
+        public bool SlowUp()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !upPressed)
+            {
+                upPressed = true;
+                return true;
+            }
+            else
+            {
+                upPressed = Keyboard.IsKeyPressed(Keyboard.Key.Up);
+                return false;
+            }
+        }
+
+        public bool SlowDown()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Down) && !downPressed)
+            {
+                downPressed = true;
+                return true;
+            }
+            else
+            {
+                downPressed = Keyboard.IsKeyPressed(Keyboard.Key.Down);
+                return false;
+            }
         }
 
     }

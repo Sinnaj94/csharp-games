@@ -96,7 +96,7 @@ namespace Pong
 
         void resetGame()
         {
-            gamestate = 0;
+            gamestate = 2;
             watson = null;
             player = null;
             Ki = null;

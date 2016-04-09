@@ -64,6 +64,7 @@
     <Compile Include="BetterInputHandler.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="GameOver.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="KIHandler.cs" />
@@ -78,6 +79,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Logic.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
