@@ -15,18 +15,22 @@ namespace Pong
 
         private Font crackmanFront;
         private Font crackmanBack;
-        Color grey;
-        Color yellow;
-        Color green;
-        Color white;
+        private Font arcadeClassic;
+        private Color grey;
+        private Color yellow;
+        private Color green;
+        private Color white;
+        private Color flashingYellow;
 
         private ManageText() {
             crackmanFront = new Font(@"Resources/crackman front.ttf");
             crackmanBack = new Font(@"Resources/crackman back.ttf");
+            arcadeClassic = new Font(@"Resources/ARCADECLASSIC.TTF");
             grey = new Color(255, 255, 255, 32);
             yellow = new Color(0, 255, 255, 255);
             green = new Color(0, 255, 0, 255);
             white = new Color(255, 255, 255, 255);
+            flashingYellow = yellow;
         }
 
         public static ManageText Instance
@@ -39,6 +43,12 @@ namespace Pong
                 }
                 return instance;
             }
+        }
+
+        public Color getFlashingYellow()
+        {
+            flashingYellow.A -= 10;
+            return flashingYellow;
         }
 
         public Font CrackmanFront
@@ -116,6 +126,19 @@ namespace Pong
             set
             {
                 white = value;
+            }
+        }
+
+        public Font ArcadeClassic
+        {
+            get
+            {
+                return arcadeClassic;
+            }
+
+            set
+            {
+                arcadeClassic = value;
             }
         }
     }

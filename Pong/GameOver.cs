@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
+using SFML.System;
 
 namespace Pong
 {
@@ -11,18 +12,23 @@ namespace Pong
     {
 
         Text gameOver;
-        Text menu;
-        Text startAgain;
-        Font arial = new Font(@"Resources\arial.ttf");
+        Text continueToMenu;
+        int screenMid = 683;
 
         public GameOver()
         {
-            gameOver = new Text("Game Over", arial, 100);
-            gameOver.Color = new Color(0, 255, 0, 255);
+            gameOver = new Text("Game Over", ManageText.Instance.CrackmanFront, 100);
+            gameOver.Color = ManageText.Instance.getFlashingYellow();
+            gameOver.Position = new Vector2f(screenMid - gameOver.GetLocalBounds().Width / 2, 100);
+            continueToMenu = new Text("press return to continue", ManageText.Instance.ArcadeClassic, 50);
+            continueToMenu.Color = ManageText.Instance.Grey;
+            continueToMenu.Position = new Vector2f(screenMid - continueToMenu.GetLocalBounds().Width / 2, 300);
         }
 
         public int updateGameState()
         {
+            gameOver.Color = ManageText.Instance.getFlashingYellow();
+
             if (ManageInput.Instance.Return())
             {
                 return 0;
@@ -35,6 +41,7 @@ namespace Pong
             try
             {
                 gameOver.Draw(target, states);
+                continueToMenu.Draw(target, states);
             }
             catch (NotImplementedException)
             {

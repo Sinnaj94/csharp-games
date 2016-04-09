@@ -28,11 +28,10 @@ namespace Pong
             IsActive = active;
             buttonText = new Text(text, ManageText.Instance.CrackmanFront, 100);
             buttonText.Color = ManageText.Instance.White;
-            buttonText.Position = position;
-
+            buttonText.Position = new Vector2f(position.X - buttonText.GetLocalBounds().Width / 2, position.Y);
             buttonTextBack = new Text(text, ManageText.Instance.CrackmanBack, 100);
             buttonTextBack.Color = ManageText.Instance.Grey;
-            buttonTextBack.Position = position - new Vector2f(5,5);
+            buttonTextBack.Position = buttonText.Position - new Vector2f(5,5);
         }
 
         public void updateText()

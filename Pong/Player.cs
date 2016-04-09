@@ -37,9 +37,10 @@ namespace Pong
             playerid = id;
             id++;
             this.window = window;
-            scoreText = new Text("" + score, arial, 200);
-            scoreText.Color = new Color(255, 255, 255, 128);
-            
+            scoreText = new Text("" + score, ManageText.Instance.ArcadeClassic, 200);
+            scoreText.Color = ManageText.Instance.Grey;
+
+
 
             if (leftPlayer)
             {

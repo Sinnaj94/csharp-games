@@ -13,15 +13,16 @@ namespace Pong
         
         List<Button> ButtonList;
         int menuState;
+        int screenMid = 683;
 
         public Menu()
         {
             menuState = 0;
             ButtonList = new List<Button>
             {
-                new Button(new Vector2f(100, 100), true, "start game"),
-                new Button(new Vector2f(100, 300), false, "setting"),
-                new Button(new Vector2f(100, 500), false, "exit")
+                new Button(new Vector2f(screenMid, 100), true, "start game"),
+                new Button(new Vector2f(screenMid, 300), false, "setting"),
+                new Button(new Vector2f(screenMid, 500), false, "exit")
             };
         }
 
