@@ -28,23 +28,26 @@ namespace Pong
             }
         }
 
-        public Item()
+        
+
+        public Item(RenderWindow window)
         {
-            position = getRandomPosition();
+            Vector2u windowSize = window.Size;
+            Console.Write(window.Size.X + " " + window.Size.Y);
+            position = getRandomPosition(windowSize);
             size = 40;
             sizeChange = 10;
             rectangle = new RectangleShape(new Vector2f(size, size));
             rectangle.Position = position;
             rectangle.FillColor = Color.Cyan;
-            
         }
 
-        Vector2f getRandomPosition()
+        Vector2f getRandomPosition(Vector2u windowSize)
         {
             Vector2f value;
             Random r = new Random();
-            value.X = 400-size/2;
-            value.Y = r.Next(0, (int)(400-size/2));
+            value.X = windowSize.X/2- size/2;
+            value.Y = r.Next(0, (int)(windowSize.Y/2 - size/2));
             return value;
         }
     }

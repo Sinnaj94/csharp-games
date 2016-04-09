@@ -38,7 +38,7 @@ namespace Pong
             rulesystem = new Logic(player, Ki, 2, window);
             ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem, soundManage);
             gamestate = 1;
-            item = new Item();
+            item = new Item(window);
         }
 
         public void updateGame()
