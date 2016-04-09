@@ -10,7 +10,7 @@ namespace Pong
 {
     class Menu : SFML.Graphics.Drawable
     {
-
+        
         List<Button> ButtonList;
         int menuState;
 
@@ -30,6 +30,7 @@ namespace Pong
             return 1;
         }
 
+   
         public void updateMenuState()
         {
             if (BetterInputHandler.Instance.SlowUp())
@@ -54,36 +55,25 @@ namespace Pong
                 ButtonList[menuState].IsActive = true;
             }
         }
-        
+
+        // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit
         public int updateGameState()
         {
             updateMenuState();
 
             if (BetterInputHandler.Instance.Return())
             {
-                if(menuState == 0)
+                switch (menuState)
                 {
-                    return 1;
-                }
-
-                else if (menuState == 1)
-                {
-                    return 3;
-                }
-
-                else if (menuState == 2)
-                {
-                    System.Environment.Exit(1);
-                    return 0;
-                } else
-                {
-                    return 0;
+                    case 0:
+                        return 1;
+                    case 1:
+                        return 3;
+                    case 2:
+                        return 4;
                 }
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
         public void Draw(RenderTarget target, RenderStates states)
         {

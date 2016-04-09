@@ -29,6 +29,9 @@ namespace Pong
             GameObject gameObject = new GameObject(window, soundManage);
             GameOver gameOverScreen = new GameOver();
             Settings settings = new Settings();
+
+            // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit
+
             int gamestate = 0;
 
             while (window.IsOpen)
@@ -67,7 +70,7 @@ namespace Pong
                 }
 
                 // EXIT
-                if (BetterInputHandler.Instance.Escape())
+                if (BetterInputHandler.Instance.Escape() || gamestate == 4)
                 {
                     System.Environment.Exit(1);
                 }
