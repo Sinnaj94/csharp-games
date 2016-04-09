@@ -23,11 +23,13 @@ namespace Pong
         private float durchmesser;
         private Logic rulesystem;
         private SoundManager soundManage;
-
+        private RectangleShape boundingBox;
 
         public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Logic rulesystem,SoundManager soundManage)
         {
             Circle = new CircleShape(radius);
+            BoundingBox = new RectangleShape();
+            BoundingBox.Size = new Vector2f(radius*2,radius*2);
             this.radius = radius;
             this.durchmesser = radius * 2;
             this.deltaXY = deltaXY;
@@ -36,6 +38,12 @@ namespace Pong
             ballSpeed = 10;
             this.rulesystem = rulesystem;
             this.soundManage = soundManage;
+        }
+
+        public void setBoundingBox()
+        {
+            BoundingBox.Position = circle.Position;
+            
         }
 
 
@@ -51,6 +59,19 @@ namespace Pong
             set
             {
                 circle = value;
+            }
+        }
+
+        public RectangleShape BoundingBox
+        {
+            get
+            {
+                return boundingBox;
+            }
+
+            set
+            {
+                boundingBox = value;
             }
         }
 
@@ -77,6 +98,7 @@ namespace Pong
             position.Y += deltaXY.Y;
             Circle.Position = position;
             CheckOutOfBounds();
+            setBoundingBox();
 
         }
 

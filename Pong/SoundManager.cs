@@ -15,11 +15,12 @@ namespace Pong
 
         List<SoundBuffer> bufferList;
         Sound sound;
-        
+
         public SoundManager()
         {
 
-
+            
+            
             sound = new Sound();
             bufferList = new List<SoundBuffer>();
             addSound(@"Resources\hit.wav");
@@ -43,8 +44,10 @@ namespace Pong
             //TODO: play multiple sounds at once!!!
              sound.SoundBuffer = bufferList[nr];
              sound.Play();
-            
+
         }
+
+    
 
 
 

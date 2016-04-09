@@ -43,11 +43,11 @@ namespace Pong
 
             if (leftPlayer)
             {
-                scoreText.Position = new Vector2f(100, 100);
+                scoreText.Position = new Vector2f(window.Size.X*.2f, window.Size.Y*.2f);
             }
             else
             {
-                scoreText.Position = new Vector2f(600, 100);
+                scoreText.Position = new Vector2f(window.Size.X * .8f, window.Size.Y * .2f);
             }
 
             
