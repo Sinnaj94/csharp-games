@@ -20,6 +20,7 @@ namespace Pong
         Player Ki;
         RenderWindow window;
         SoundManager soundManage;
+        Item item;
         int gamestate;
 
         public GameObject(RenderWindow renderWindow, SoundManager soundManager, InputHandler input)
@@ -37,6 +38,7 @@ namespace Pong
             rulesystem = new Logic(player, Ki, 2, window);
             ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem, soundManage);
             gamestate = 1;
+            item = new Item();
         }
 
         public void updateGame()
@@ -79,6 +81,7 @@ namespace Pong
                 ball.Circle.Draw(target, states);
                 player.ScoreText.Draw(target, states);
                 Ki.ScoreText.Draw(target, states);
+                item.Rectangle.Draw(target, states);
             }
             catch (NotImplementedException)
             {

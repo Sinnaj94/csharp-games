@@ -13,11 +13,30 @@ namespace Pong
         Vector2f position;
         float size;
         float sizeChange;
+        RectangleShape rectangle;
+
+        public RectangleShape Rectangle
+        {
+            get
+            {
+                return rectangle;
+            }
+
+            set
+            {
+                rectangle = value;
+            }
+        }
+
         public Item()
         {
             position = getRandomPosition();
-            size = 20;
-            float sizeChange = 10;
+            size = 40;
+            sizeChange = 10;
+            rectangle = new RectangleShape(new Vector2f(size, size));
+            rectangle.Position = position;
+            rectangle.FillColor = Color.Cyan;
+            
         }
 
         Vector2f getRandomPosition()
