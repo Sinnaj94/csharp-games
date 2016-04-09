@@ -12,15 +12,16 @@ namespace Pong
     class SoundManager
     {
         
-        List<SoundPlayer> soundList;
-        SoundBuffer buffer;
+
+        List<SoundBuffer> bufferList;
         Sound sound;
         
         public SoundManager()
         {
-            buffer = new SoundBuffer(@"Resources\hit.wav");
 
-            soundList = new List<SoundPlayer>();
+
+            sound = new Sound();
+            bufferList = new List<SoundBuffer>();
             addSound(@"Resources\hit.wav");
             addSound(@"Resources\lose.wav");
             addSound(@"Resources\side.wav");
@@ -29,16 +30,19 @@ namespace Pong
 
         public void addSound(String stream)
         {
-            SoundPlayer thisSound = new SoundPlayer(stream);
-            soundList.Add(@thisSound);
 
+
+            SoundBuffer currentBuffer = new SoundBuffer(stream);
+            bufferList.Add(currentBuffer);
             
             
         }
 
         public void playSound(int nr)
         {
-            soundList[nr].Play();
+
+            sound.SoundBuffer = bufferList[nr];
+            sound.Play();
         }
 
         public void playSound(String name)
