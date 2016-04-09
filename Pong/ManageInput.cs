@@ -8,23 +8,23 @@ using SFML.Window;
 
 namespace Pong
 {
-    class BetterInputHandler
+    class ManageInput
     {
-        private static BetterInputHandler instance;
+        private static ManageInput instance;
 
-        private BetterInputHandler() { }
+        private ManageInput() { }
 
         private bool returnPressed;
         private bool upPressed;
         private bool downPressed;
 
-        public static BetterInputHandler Instance
+        public static ManageInput Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new BetterInputHandler();
+                    instance = new ManageInput();
                 }
                 return instance;
             }

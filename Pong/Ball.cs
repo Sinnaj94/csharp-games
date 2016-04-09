@@ -11,9 +11,6 @@ namespace Pong
 {
     class Ball
     {
-
-
-
         private CircleShape circle;
         private float ballSpeed;
         private Vector2f deltaXY;
@@ -22,10 +19,9 @@ namespace Pong
         private float radius;
         private float durchmesser;
         private Logic rulesystem;
-        private SoundManager soundManage;
         private RectangleShape boundingBox;
 
-        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Logic rulesystem,SoundManager soundManage)
+        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Logic rulesystem)
         {
             Circle = new CircleShape(radius);
             BoundingBox = new RectangleShape();
@@ -37,7 +33,6 @@ namespace Pong
             this.window = window;
             ballSpeed = 10;
             this.rulesystem = rulesystem;
-            this.soundManage = soundManage;
         }
 
         public void setBoundingBox()
@@ -89,7 +84,7 @@ namespace Pong
                     position.Y = window.Size.Y - durchmesser;
                 }
                 deltaXY.Y = -deltaXY.Y;
-                soundManage.playSound(2);
+                ManageSound.Instance.side();
             }
 
             playerCollision(YBoundMin, YBoundMax, playerXPosition, KiYBoundMin, KiYBoundMax, KiXPosition);
@@ -112,7 +107,7 @@ namespace Pong
                 deltaXY.X = ballSpeed * (float)Math.Cos(bounceAngle);
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
-                soundManage.playSound(0);
+                ManageSound.Instance.hit();
 
             }
 
@@ -125,7 +120,7 @@ namespace Pong
                 deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
-                soundManage.playSound(0);
+                ManageSound.Instance.hit();
             }
         }
 
@@ -141,7 +136,7 @@ namespace Pong
                     
                     rulesystem.addPointToPlayer(1);
                     Console.WriteLine("Right player (KI) got a point.");
-                    soundManage.playSound(1);
+                    ManageSound.Instance.lose();
                     deltaXY.X = 1 * ballSpeed;
                     deltaXY.Y = 0;
                     position.X = window.Size.X / 2;

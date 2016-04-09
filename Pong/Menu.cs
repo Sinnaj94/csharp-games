@@ -33,7 +33,7 @@ namespace Pong
    
         public void updateMenuState()
         {
-            if (BetterInputHandler.Instance.SlowUp())
+            if (ManageInput.Instance.SlowUp())
             {
                 ButtonList[menuState].IsActive = false;
                 menuState -= 1;
@@ -44,7 +44,7 @@ namespace Pong
                 ButtonList[menuState].IsActive = true;
             }
 
-            else if (BetterInputHandler.Instance.SlowDown())
+            else if (ManageInput.Instance.SlowDown())
             {
                 ButtonList[menuState].IsActive = false;
                 menuState += 1;
@@ -61,7 +61,7 @@ namespace Pong
         {
             updateMenuState();
 
-            if (BetterInputHandler.Instance.Return())
+            if (ManageInput.Instance.Return())
             {
                 switch (menuState)
                 {

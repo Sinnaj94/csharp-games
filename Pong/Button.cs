@@ -17,41 +17,45 @@ namespace Pong
 
         Vector2f        buttonPosition;
         bool            isActive;
-        Font arial = new Font(@"Resources\arial.ttf");
         Text buttonText;
-
+        Text buttonTextBack;
+       // Color backColor = new Color(255, 255, 255, 32);
 
 
         public Button(Vector2f position, bool active, String text)
         {
             buttonPosition = position;
             IsActive = active;
-            buttonText = new Text(text, arial, 100);
+            buttonText = new Text(text, ManageText.Instance.CrackmanFront, 100);
+            buttonText.Color = ManageText.Instance.White;
             buttonText.Position = position;
+
+            buttonTextBack = new Text(text, ManageText.Instance.CrackmanBack, 100);
+            buttonTextBack.Color = ManageText.Instance.Grey;
+            buttonTextBack.Position = position - new Vector2f(5,5);
         }
 
         public void updateText()
         {
             if (IsActive)
             {
-                buttonText.Color = new Color(0, 255, 0, 255);
+                buttonText.Color = ManageText.Instance.Yellow;
             } else
             {
-                buttonText.Color = new Color(255, 255, 255, 128);
+                buttonText.Color = ManageText.Instance.White;
             }
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
             try{
+                buttonTextBack.Draw(target, states);
                 buttonText.Draw(target, states);
             }
             catch (NotImplementedException)
             {
                 Console.Out.Write("asd");
             }
-            
-            //throw new NotImplementedException();
         }
 
         public bool IsActive

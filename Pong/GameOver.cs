@@ -23,7 +23,7 @@ namespace Pong
 
         public int updateGameState()
         {
-            if (BetterInputHandler.Instance.Return())
+            if (ManageInput.Instance.Return())
             {
                 return 0;
             }

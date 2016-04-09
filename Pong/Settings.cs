@@ -21,7 +21,7 @@ namespace Pong
 
         public int update()
         {
-            if (BetterInputHandler.Instance.Return())
+            if (ManageInput.Instance.Return())
             {
                 return 0;
             }

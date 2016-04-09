@@ -12,22 +12,20 @@ namespace Pong
 {
     class GameObject : SFML.Graphics.Drawable
     {
-        InputHandler inputHandler;
         KIHandler watson;
         Logic rulesystem;
         Ball ball;
         Player player;
         Player Ki;
         RenderWindow window;
-        SoundManager soundManage;
         Item item;
         int gamestate;
 
-        public GameObject(RenderWindow renderWindow, SoundManager soundManager)
+        public GameObject(RenderWindow renderWindow)
         {
             window = renderWindow;
           //  inputHandler = input;
-            soundManage = soundManager;
+          //  soundManage = soundManager;
         }
 
         public void init()
@@ -36,7 +34,7 @@ namespace Pong
             player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true);
             Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
             rulesystem = new Logic(player, Ki, 2, window);
-            ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem, soundManage);
+            ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem);
             gamestate = 1;
             item = new Item(window);
         }
@@ -49,12 +47,12 @@ namespace Pong
                 init();
             }
 
-            if (BetterInputHandler.Instance.Up())
+            if (ManageInput.Instance.Up())
             {
                 player.PlayerPosition += new Vector2f(0, -10);
             }
 
-            if (BetterInputHandler.Instance.Down())
+            if (ManageInput.Instance.Down())
             {
                 player.PlayerPosition += new Vector2f(0, 10);
             }

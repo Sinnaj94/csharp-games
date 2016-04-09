@@ -16,19 +16,19 @@ namespace Pong
         {
             uint ResX = ResolutionX;
             uint ResY = ResolutionY;
-            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong",Styles.Fullscreen);
+            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong", Styles.Fullscreen);
             window.SetFramerateLimit(50);
             return window;
         }
 
         static void Main(string[] args)
         {
-            RenderWindow window = initWindow(800, 800);
-            SoundManager soundManage = new SoundManager();
+            RenderWindow window = initWindow(1366, 768);
             Menu menu = new Menu();
-            GameObject gameObject = new GameObject(window, soundManage);
+            GameObject gameObject = new GameObject(window);
             GameOver gameOverScreen = new GameOver();
             Settings settings = new Settings();
+
 
             // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit
 
@@ -45,7 +45,6 @@ namespace Pong
                     gamestate = menu.updateGameState();
                 } 
 
-
                 // GAME
                 else if(gamestate == 1)
                 {
@@ -53,7 +52,6 @@ namespace Pong
                     window.Draw(gameObject);
                     gamestate = gameObject.Gamestate;
                 }
-
 
                 // GAME OVER
                 else if (gamestate == 2)
@@ -70,7 +68,7 @@ namespace Pong
                 }
 
                 // EXIT
-                if (BetterInputHandler.Instance.Escape() || gamestate == 4)
+                if (ManageInput.Instance.Escape() || gamestate == 4)
                 {
                     System.Environment.Exit(1);
                 }
