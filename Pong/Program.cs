@@ -27,16 +27,17 @@ namespace Pong
             Menu menu = new Menu();
             GameObject gameObject = new GameObject(new Vector2f(1366, 768));
             GameOver gameOverScreen = new GameOver();
-            Settings settings = new Settings(2,1);
+            Settings settings = new Settings(0,1);
+            ManageSound.Instance.setVolume(0);
             Intro intro = new Intro();
+            Background bg = new Background(new Vector2f(1366, 768));
 
             View defaultView = window.GetView();
             View GameView = window.GetView();
             GameView.Size = new Vector2f(1366 * 1.25f, 768 * 1.25f);
-            Texture image = new Texture(@"Resources/Unbenannt2.jpg");
-            Sprite drawImage = new Sprite(image, new IntRect(0,0,(int)(1366 * 1.25),(int)(768 * 1.25)));
-            drawImage.Position = new Vector2f(-1366f * 0.125f, -768f * 0.125f);
-//            window.SetView(GameView);
+
+
+            window.SetView(GameView);
             // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit, 5: Intro
 
             int gamestate = 0;
@@ -55,10 +56,9 @@ namespace Pong
                 // GAME
                 else if(gamestate == 1)
                 {
-                    window.Draw(drawImage);
-                    
+                    //window.Draw(bg);
                     gameObject.updateGame();
-                //    window.Draw(gameObject);
+                    window.Draw(gameObject);
                     gamestate = gameObject.Gamestate;
                 }
 
