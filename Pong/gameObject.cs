@@ -17,7 +17,6 @@ namespace Pong
         Ball ball;
         Player player;
         Player Ki;
-        RenderWindow window;
         Vector2f windowSize;
         Item item;
         int gamestate;
@@ -35,9 +34,10 @@ namespace Pong
             player = new Player(windowSize, new Vector2f(windowSize.X * 0.05f, windowSize.Y * 0.5f));
             Ki = new Player(windowSize, new Vector2f(windowSize.X * 0.95f, windowSize.Y * 0.5f));
             score = new Score(3);
-            ball = new Ball(windowSize, new Vector2f(10, 5), new Vector2f(250, 250), 10);
+            ball = new Ball(windowSize, new Vector2f(4, 4), new Vector2f(windowSize.X/2, windowSize.Y/2), 10);
             gamestate = 1;
             item = new Item(windowSize);
+
         }
 
         public void updateGame()
@@ -64,7 +64,7 @@ namespace Pong
             //Updates
             player.update();
             Ki.update();
-            ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
+            ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X,player.Shape,Ki.Shape);
 
         }
 
@@ -85,7 +85,7 @@ namespace Pong
                 ball.Draw(target, states);
                 score.Draw(target, states);
                 item.Draw(target, states);
-
+                
 
             if (score.GameOver(ball.ScoreState))
             {

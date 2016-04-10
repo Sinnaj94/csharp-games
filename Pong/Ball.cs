@@ -41,7 +41,7 @@ namespace Pong
         }
 
 
-        public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
+        public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition, RectangleShape leftShape, RectangleShape rightShape)
         {
 
             if (position.Y < 0 || position.Y + durchmesser > windowSize.Y)
@@ -59,13 +59,44 @@ namespace Pong
             }
 
             playerCollision(YBoundMin, YBoundMax, playerXPosition, KiYBoundMin, KiYBoundMax, KiXPosition);
-
+            
             position.X += deltaXY.X;
             position.Y += deltaXY.Y;
             Circle.Position = position;
-            CheckOutOfBounds();
             setBoundingBox();
+            CheckOutOfBounds();
+            
 
+        }
+
+        
+
+        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition, RectangleShape leftplayer, RectangleShape rightplayer)
+        {
+            if (Collision.Instance.collide(leftplayer,boundingBox))
+            {
+
+                double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
+                double normalizedRelativeIntersectionY = ((relativeIntersectY / ((YBoundMax - YBoundMin) / 2)));
+                double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
+                deltaXY.X = ballSpeed * (float)Math.Cos(bounceAngle);
+                deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
+                ballSpeed += 1;
+                ManageSound.Instance.hit();
+
+            }
+
+            if (Collision.Instance.collide(boundingBox,rightplayer))
+            {
+
+                double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
+                double normalizedRelativeIntersectionY = ((relativeIntersectY / ((KiYBoundMax - KiYBoundMin) / 2)));
+                double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
+                deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
+                deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
+                ballSpeed += 1;
+                ManageSound.Instance.hit();
+            }
         }
 
         private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
@@ -174,6 +205,7 @@ namespace Pong
         public void Draw(RenderTarget target, RenderStates states)
         {
             ((Drawable)circle).Draw(target, states);
+            ((Drawable)boundingBox).Draw(target, states);
         }
 
     }
