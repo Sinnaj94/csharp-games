@@ -8,7 +8,7 @@ using SFML.Graphics;
 
 namespace Pong
 {
-    class Item 
+    class Item : Drawable
     {
         Vector2f position;
         float size;
@@ -33,7 +33,7 @@ namespace Pong
         public Item(RenderWindow window)
         {
             Vector2u windowSize = window.Size;
-            Console.Write(window.Size.X + " " + window.Size.Y);
+        //    Console.Write(window.Size.X + " " + window.Size.Y);
             position = getRandomPosition(windowSize);
             size = 40;
             sizeChange = 10;
@@ -49,6 +49,11 @@ namespace Pong
             value.X = windowSize.X/2- size/2;
             value.Y = r.Next(0, (int)(windowSize.Y/2 - size/2));
             return value;
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            ((Drawable)Rectangle).Draw(target, states);
         }
     }
 }

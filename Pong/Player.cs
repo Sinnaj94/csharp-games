@@ -9,7 +9,7 @@ using Pong.Properties;
 
 namespace Pong
 {
-    class Player
+    class Player : Drawable
     {
         private Vector2f playerPosition;
         private Vector2f playerSize;
@@ -32,6 +32,11 @@ namespace Pong
             YBoundMin = playerPosition.Y;                       // upper bounds
             YBoundMax = playerPosition.Y + playerSize.Y;     // lower bounds
             shape.Position = playerPosition;
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            ((Drawable)shape).Draw(target, states);
         }
 
         public Vector2f PlayerPosition

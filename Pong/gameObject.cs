@@ -77,25 +77,18 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            try
-            {
-                player.Shape.Draw(target, states);
-                Ki.Shape.Draw(target, states);
-                ball.Circle.Draw(target, states);
+
+                player.Draw(target, states);
+                Ki.Draw(target, states);
+                ball.Draw(target, states);
                 score.Draw(target, states);
-            
-                item.Rectangle.Draw(target, states);
-            }
-            catch (NotImplementedException)
-            {
-                Console.Out.Write("Gameobject draw failed");
-            }
+                item.Draw(target, states);
+
 
             if (score.GameOver(ball.ScoreState))
             {
                 resetGame();
             }
-
         }
 
         public int Gamestate

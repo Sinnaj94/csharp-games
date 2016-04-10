@@ -9,7 +9,7 @@ using SFML.Graphics;
 
 namespace Pong
 {
-    class Ball
+    class Ball : Drawable
     {
         private CircleShape circle;
         private float ballSpeed;
@@ -19,7 +19,6 @@ namespace Pong
         private float radius;
         private float durchmesser;
         private int scoreState;
-      //  private Logic rulesystem;
         private RectangleShape boundingBox;
 
         public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius)
@@ -34,7 +33,6 @@ namespace Pong
             this.window = window;
             ballSpeed = 10;
             scoreState = 0;
-            //  this.rulesystem = rulesystem;
         }
 
         public void setBoundingBox()
@@ -99,19 +97,13 @@ namespace Pong
 
         public int CheckOutOfBounds()
         {
-            //Ball out of Bounds
+            // Ball out of Bounds
             if (position.X <= 0 || position.X + radius >= window.Size.X)
             {
                 ballSpeed = 10;
 
                 if (position.X <= 0)
                 {
-                    
-                 //   rulesystem.addPointToPlayer(1);
-                 //   Console.WriteLine("Right player (KI) got a point.");
-
-
-
                     ManageSound.Instance.lose();
                     deltaXY.X = 1 * ballSpeed;
                     deltaXY.Y = 0;
@@ -122,10 +114,7 @@ namespace Pong
 
                 }
                 else if (position.X + radius >= window.Size.X)
-                {
-                    
-                 //   rulesystem.addPointToPlayer(0);
-                 //   Console.WriteLine("Left player got a point.");
+                {                  
                     deltaXY.X = -1 * ballSpeed;
                     deltaXY.Y = 0;
                     position.X = window.Size.X / 2;
@@ -139,6 +128,11 @@ namespace Pong
             scoreState = 0;
             return -1;
 
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            ((Drawable)circle).Draw(target, states);
         }
 
         public CircleShape Circle
