@@ -66,6 +66,7 @@ namespace Pong
                 {
                     window.Draw(settings);
                     gamestate = settings.update();
+                    gameObject.Difficulty = settings.updateDifficulty();
                 }
 
                 // INTRO

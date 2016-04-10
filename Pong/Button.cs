@@ -15,7 +15,7 @@ namespace Pong
     class Button : Drawable
     {
 
-        private Vector2f        buttonPosition;
+        private Vector2f buttonPosition;
         private  bool isActive;
         private  Text buttonText;
         private Text buttonTextBack;
@@ -57,6 +57,7 @@ namespace Pong
                 if (buttonState < optionButtonText.Count - 1)
                 {
                     buttonState += 1;
+                    ManageSound.Instance.click();
                 }
             }
 
@@ -65,6 +66,7 @@ namespace Pong
                 if (buttonState > 0)
                 {
                     buttonState -= 1;
+                    ManageSound.Instance.click();
                 }
 
             }

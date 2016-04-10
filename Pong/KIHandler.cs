@@ -9,7 +9,7 @@ namespace Pong
 {
     class KIHandler
     {
-        public Vector2f moveToDirection(Vector2f KIPosition, Vector2f Ballposition, float KIMin, float KIMax)
+        public Vector2f moveToDirection(Vector2f KIPosition, Vector2f Ballposition, float KIMin, float KIMax, int speed)
         {
             Vector2f deltaPositionVector = new Vector2f(0, 0);
 
@@ -19,11 +19,11 @@ namespace Pong
             {
                 if (KIposition < Ballposition.Y)
                 {
-                    deltaPositionVector.Y = 10;
+                    deltaPositionVector.Y = speed;
                 }
                 else
                 {
-                    deltaPositionVector.Y = -10;
+                    deltaPositionVector.Y = -speed;
                 }
             }
 

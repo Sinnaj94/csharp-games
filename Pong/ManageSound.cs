@@ -20,7 +20,8 @@ namespace Pong
             {
             new Sound(new SoundBuffer(@"Resources\hit.wav")),
             new Sound(new SoundBuffer(@"Resources\lose.wav")),
-            new Sound(new SoundBuffer(@"Resources\side.wav"))
+            new Sound(new SoundBuffer(@"Resources\side.wav")),
+            new Sound(new SoundBuffer(@"Resources\CLICK15B.WAV"))
             };
         }
 
@@ -57,6 +58,11 @@ namespace Pong
         public void side()
         {
             sounds[2].Play();
+        }
+
+        public void click()
+        {
+            sounds[3].Play();
         }
 
     }

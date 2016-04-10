@@ -23,7 +23,7 @@ namespace Pong
             {
                 new Button(new Vector2f(screenMid, 100), true, difficulty, setDifficulty),
                 new Button(new Vector2f(screenMid, 300), false, volume, setVolume),
-                new Button(new Vector2f(screenMid, 500), false, "exit")
+                new Button(new Vector2f(screenMid, 500), false, "back")
             };
         }
 
@@ -57,9 +57,9 @@ namespace Pong
             ManageSound.Instance.setVolume(ButtonList[1].ButtonState * 25);
         }
 
-        private void updateDifficulty()
+        public int updateDifficulty()
         {
-            ManageSound.Instance.setVolume(ButtonList[1].ButtonState * 25);
+            return ButtonList[0].ButtonState * 2 + 9;
         }
 
         public int update()
@@ -73,17 +73,17 @@ namespace Pong
             if (ManageInput.Instance.SlowRight() && menuState != 2)
                 {
                     ButtonList[menuState].updateText(1);
-                    ManageSound.Instance.hit();
+                   // ManageSound.Instance.click();
                 }
 
                 if (ManageInput.Instance.SlowLeft() && menuState != 2)
                 {
                     ButtonList[menuState].updateText(-1);
-                    ManageSound.Instance.hit();
+                   // ManageSound.Instance.click();
             }
 
 
-            if (ManageInput.Instance.Return())
+            if (ManageInput.Instance.Return() && menuState == 2)
             {
                 return 0;
             }

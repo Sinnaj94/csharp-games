@@ -36,6 +36,7 @@ namespace Pong
         {
             if (ManageInput.Instance.SlowUp())
             {
+                ManageSound.Instance.click();
                 ButtonList[menuState].IsActive = false;
                 menuState -= 1;
                 if (menuState < 0)
@@ -47,6 +48,7 @@ namespace Pong
 
             else if (ManageInput.Instance.SlowDown())
             {
+                ManageSound.Instance.click();
                 ButtonList[menuState].IsActive = false;
                 menuState += 1;
                 if (menuState > 2)

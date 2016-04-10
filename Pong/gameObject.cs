@@ -20,10 +20,12 @@ namespace Pong
         RenderWindow window;
         Item item;
         int gamestate;
+        int difficulty;
 
         public GameObject(RenderWindow renderWindow)
         {
             window = renderWindow;
+            difficulty = 11;
         }
 
         public void init()
@@ -56,7 +58,7 @@ namespace Pong
 
 
             //KI Handler
-            Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax);
+            Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax, difficulty);
 
             //Updates
             player.update();
@@ -103,5 +105,17 @@ namespace Pong
             }
         }
 
+        public int Difficulty
+        {
+            get
+            {
+                return difficulty;
+            }
+
+            set
+            {
+                difficulty = value;
+            }
+        }
     }
 }
