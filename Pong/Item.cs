@@ -13,6 +13,7 @@ namespace Pong
         Vector2f position;
         float size;
         float sizeChange;
+        bool active;
         RectangleShape rectangle;
 
         public RectangleShape Rectangle
@@ -28,18 +29,31 @@ namespace Pong
             }
         }
 
-        
+        public bool Active
+        {
+            get
+            {
+                return active;
+            }
+
+            set
+            {
+                active = value;
+            }
+        }
 
         public Item(Vector2f window)
         {
+            Active = true;
             Vector2u windowSize = new Vector2u((uint)window.X, (uint)window.Y);
-        //    Console.Write(window.Size.X + " " + window.Size.Y);
-            position = getRandomPosition(windowSize);
+
+            
             size = 40;
+            position = getRandomPosition(windowSize);
             sizeChange = 10;
             rectangle = new RectangleShape(new Vector2f(size, size));
             rectangle.Position = position;
-            rectangle.FillColor = Color.Cyan;
+            rectangle.FillColor = Color.White;
         }
 
         Vector2f getRandomPosition(Vector2u windowSize)
@@ -53,7 +67,12 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            ((Drawable)Rectangle).Draw(target, states);
+            if (active)
+            {
+                ((Drawable)Rectangle).Draw(target, states);
+            }
+            
+
         }
     }
 }

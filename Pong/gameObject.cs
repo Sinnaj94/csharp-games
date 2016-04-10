@@ -37,7 +37,7 @@ namespace Pong
             ball = new Ball(windowSize, new Vector2f(4, 4), new Vector2f(windowSize.X/2, windowSize.Y/2), 10);
             gamestate = 1;
             item = new Item(windowSize);
-
+            
         }
 
         public void updateGame()
@@ -64,9 +64,16 @@ namespace Pong
             //Updates
             player.update();
             Ki.update();
-            ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X,player.Shape,Ki.Shape);
-
+            ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X, player.Shape, Ki.Shape);
+            if (item.Active) { 
+                if (Collision.Instance.collide(item.Rectangle, ball.Circle))
+                {
+                    item.Active = false;
+                }
+            }
         }
+
+
 
         void resetGame()
         {

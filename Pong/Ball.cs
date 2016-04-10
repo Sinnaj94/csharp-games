@@ -20,9 +20,10 @@ namespace Pong
         private float durchmesser;
         private int scoreState;
         private RectangleShape boundingBox;
-
+        
         public Ball(Vector2f windowSize, Vector2f deltaXY, Vector2f position, float radius)
         {
+            
             Circle = new CircleShape(radius);
             BoundingBox = new RectangleShape();
             BoundingBox.Size = new Vector2f(radius*2,radius*2);
@@ -103,6 +104,7 @@ namespace Pong
         {
             if (position.X <= playerXPosition && position.Y+radius > YBoundMin && position.Y < YBoundMax)
             {
+                
                 double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
                 double normalizedRelativeIntersectionY = ((relativeIntersectY / ((YBoundMax - YBoundMin) / 2)));
                 double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
@@ -205,7 +207,7 @@ namespace Pong
         public void Draw(RenderTarget target, RenderStates states)
         {
             ((Drawable)circle).Draw(target, states);
-            ((Drawable)boundingBox).Draw(target, states);
+            //((Drawable)boundingBox).Draw(target, states);
         }
 
     }
