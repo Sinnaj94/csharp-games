@@ -51,7 +51,7 @@ namespace Pong
             }
             catch (NotImplementedException)
             {
-                Console.Out.Write("asd");
+                Console.Out.Write("Button not implemented");
             }
         }
 

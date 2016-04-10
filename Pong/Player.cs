@@ -22,8 +22,6 @@ namespace Pong
         private int playerid;
         private RenderWindow window;
         private Text scoreText;
-     //   Font arial = new Font(@"Resources\coure.fon");
-        Font arial = new Font(@"Resources\comic.ttf");
 
 
         public Player(RenderWindow window, Vector2f startPosition, bool playerSide)
@@ -50,9 +48,6 @@ namespace Pong
             {
                 scoreText.Position = new Vector2f(window.Size.X * .8f, window.Size.Y * .2f);
             }
-
-            
-
         }
 
 
@@ -67,7 +62,6 @@ namespace Pong
 
         public void AddPoint()
         {
-            
             score += 1;
             Console.WriteLine("New Score: " + score);
             ScoreText.DisplayedString = score.ToString();

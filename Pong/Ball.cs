@@ -18,10 +18,11 @@ namespace Pong
         private RenderWindow window;
         private float radius;
         private float durchmesser;
-        private Logic rulesystem;
+        private int scoreState;
+      //  private Logic rulesystem;
         private RectangleShape boundingBox;
 
-        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius, Logic rulesystem)
+        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius)
         {
             Circle = new CircleShape(radius);
             BoundingBox = new RectangleShape();
@@ -32,43 +33,15 @@ namespace Pong
             this.position = new Vector2f(position.X - (1 / 2 * Circle.Radius), position.Y - (1 / 2 * Circle.Radius));
             this.window = window;
             ballSpeed = 10;
-            this.rulesystem = rulesystem;
+            scoreState = 0;
+            //  this.rulesystem = rulesystem;
         }
 
         public void setBoundingBox()
         {
             BoundingBox.Position = circle.Position;
-            
         }
 
-
-
-
-        public CircleShape Circle
-        {
-            get
-            {
-                return circle;
-            }
-
-            set
-            {
-                circle = value;
-            }
-        }
-
-        public RectangleShape BoundingBox
-        {
-            get
-            {
-                return boundingBox;
-            }
-
-            set
-            {
-                boundingBox = value;
-            }
-        }
 
         public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
@@ -134,33 +107,77 @@ namespace Pong
                 if (position.X <= 0)
                 {
                     
-                    rulesystem.addPointToPlayer(1);
-                    Console.WriteLine("Right player (KI) got a point.");
+                 //   rulesystem.addPointToPlayer(1);
+                 //   Console.WriteLine("Right player (KI) got a point.");
+
+
+
                     ManageSound.Instance.lose();
                     deltaXY.X = 1 * ballSpeed;
                     deltaXY.Y = 0;
                     position.X = window.Size.X / 2;
                     position.Y = window.Size.Y / 2;
-                    
+                    scoreState = 2;
                     return 0;
 
                 }
                 else if (position.X + radius >= window.Size.X)
                 {
                     
-                    rulesystem.addPointToPlayer(0);
-                    Console.WriteLine("Left player got a point.");
+                 //   rulesystem.addPointToPlayer(0);
+                 //   Console.WriteLine("Left player got a point.");
                     deltaXY.X = -1 * ballSpeed;
                     deltaXY.Y = 0;
                     position.X = window.Size.X / 2;
                     position.Y = window.Size.Y / 2;
+                    scoreState = 1;
                     return 1;
 
                 }
 
             }
+            scoreState = 0;
             return -1;
 
-        }     
+        }
+
+        public CircleShape Circle
+        {
+            get
+            {
+                return circle;
+            }
+
+            set
+            {
+                circle = value;
+            }
+        }
+
+        public RectangleShape BoundingBox
+        {
+            get
+            {
+                return boundingBox;
+            }
+
+            set
+            {
+                boundingBox = value;
+            }
+        }
+
+        public int ScoreState
+        {
+            get
+            {
+                return scoreState;
+            }
+
+            set
+            {
+                scoreState = value;
+            }
+        }
     }
 }

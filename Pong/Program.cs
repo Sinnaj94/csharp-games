@@ -33,7 +33,7 @@ namespace Pong
 
             // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit, 5: Intro
 
-            int gamestate = 5;
+            int gamestate = 1;
 
             while (window.IsOpen)
             {

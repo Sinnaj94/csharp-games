@@ -13,7 +13,7 @@ namespace Pong
     class GameObject : SFML.Graphics.Drawable
     {
         KIHandler watson;
-        Logic rulesystem;
+        Score score;
         Ball ball;
         Player player;
         Player Ki;
@@ -33,8 +33,8 @@ namespace Pong
             watson = new KIHandler();
             player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true);
             Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
-            rulesystem = new Logic(player, Ki, 2, window);
-            ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10, rulesystem);
+            score = new Score(3);
+            ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10);
             gamestate = 1;
             item = new Item(window);
         }
@@ -42,7 +42,9 @@ namespace Pong
         public void updateGame()
         {
 
-            if(player == null)
+            // check for gameover after rendering
+
+            if (player == null)
             {
                 init();
             }
@@ -57,6 +59,7 @@ namespace Pong
                 player.PlayerPosition += new Vector2f(0, 10);
             }
 
+
             //KI Handler
             Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax);
 
@@ -64,6 +67,8 @@ namespace Pong
             player.update();
             Ki.update();
             ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
+
+
 
         }
 
@@ -75,8 +80,10 @@ namespace Pong
                 Ki.Shape.Draw(target, states);
                 ball.Circle.Draw(target, states);
                 //ball.BoundingBox.Draw(target, states);
-                player.ScoreText.Draw(target, states);
-                Ki.ScoreText.Draw(target, states);
+                //  player.ScoreText.Draw(target, states);
+                //  Ki.ScoreText.Draw(target, states);
+                score.Draw(target, states);
+            
                 item.Rectangle.Draw(target, states);
             }
             catch (NotImplementedException)
@@ -84,8 +91,7 @@ namespace Pong
                 Console.Out.Write("Gameobject draw failed");
             }
 
-            // check for gameover after rendering
-            if (rulesystem.GameOver)
+            if (score.GameOver(ball.ScoreState))
             {
                 resetGame();
             }
@@ -98,7 +104,7 @@ namespace Pong
             watson = null;
             player = null;
             Ki = null;
-            rulesystem = null;
+            score = null;
             ball = null;
         }
 
