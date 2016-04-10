@@ -12,20 +12,18 @@ namespace Pong
 
         private static ManageSound instance;
 
-        List<SoundBuffer> bufferList;
-        Sound hitSound;
-        Sound loseSound;
-        Sound sideSound;
-
-
+        List<Sound> sounds;
 
         private ManageSound()
         {
-            bufferList = new List<SoundBuffer>();
-            hitSound = new Sound(new SoundBuffer(@"Resources\hit.wav"));
-            loseSound = new Sound(new SoundBuffer(@"Resources\lose.wav"));
-            sideSound = new Sound(new SoundBuffer(@"Resources\side.wav"));
+            sounds = new List<Sound>
+            {
+            new Sound(new SoundBuffer(@"Resources\hit.wav")),
+            new Sound(new SoundBuffer(@"Resources\lose.wav")),
+            new Sound(new SoundBuffer(@"Resources\side.wav"))
+            };
         }
+
         public static ManageSound Instance
         {
             get
@@ -38,19 +36,27 @@ namespace Pong
             }
         }
 
+        public void setVolume(int volume)
+        {
+            foreach(Sound s in sounds)
+            {
+                s.Volume = volume;
+            }
+        }
+
         public void hit()
         {
-            hitSound.Play();
+            sounds[0].Play();
         }
 
         public void lose()
         {
-            loseSound.Play();
+            sounds[1].Play();
         }
 
         public void side()
         {
-            sideSound.Play();
+            sounds[2].Play();
         }
 
     }

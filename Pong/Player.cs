@@ -11,47 +11,21 @@ namespace Pong
 {
     class Player
     {
-        static int id = 0;
         private Vector2f playerPosition;
         private Vector2f playerSize;
         private RectangleShape shape;
         private float yBoundMin;
         private float yBoundMax;
-        private bool leftPlayer;
-        private int score;
-        private int playerid;
         private RenderWindow window;
-        private Text scoreText;
 
-
-        public Player(RenderWindow window, Vector2f startPosition, bool playerSide)
+        public Player(RenderWindow window, Vector2f startPosition)
         {
             playerSize = new Vector2f(10, 200);
             playerPosition = startPosition;
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
-            leftPlayer = playerSide;
-            score = 0;
-            playerid = id;
-            id++;
             this.window = window;
-            scoreText = new Text("" + score, ManageText.Instance.ArcadeClassic, 200);
-            scoreText.Color = ManageText.Instance.Grey;
-
-
-
-            if (leftPlayer)
-            {
-                scoreText.Position = new Vector2f(window.Size.X*.2f, window.Size.Y*.2f);
-            }
-            else
-            {
-                scoreText.Position = new Vector2f(window.Size.X * .8f, window.Size.Y * .2f);
-            }
         }
-
-
-
 
         public void update()
         {
@@ -59,14 +33,6 @@ namespace Pong
             YBoundMax = playerPosition.Y + playerSize.Y;     // lower bounds
             shape.Position = playerPosition;
         }
-
-        public void AddPoint()
-        {
-            score += 1;
-            Console.WriteLine("New Score: " + score);
-            ScoreText.DisplayedString = score.ToString();
-        }
-
 
         public Vector2f PlayerPosition
         {
@@ -93,19 +59,6 @@ namespace Pong
             set { shape = value; }
         }
 
-        public Vector2f PlayerSize
-        {
-            get
-            {
-                return playerSize;
-            }
-
-            set
-            {
-                playerSize = value;
-            }
-        }
-
         public float YBoundMin
         {
             get
@@ -129,58 +82,6 @@ namespace Pong
             set
             {
                 yBoundMax = value;
-            }
-        }
-
-        public bool LeftPlayer
-        {
-            get
-            {
-                return leftPlayer;
-            }
-
-            set
-            {
-                leftPlayer = value;
-            }
-        }
-
-        public int Score
-        {
-            get
-            {
-                return score;
-            }
-
-            set
-            {
-                score = value;
-            }
-        }
-
-        public int Playerid
-        {
-            get
-            {
-                return playerid;
-            }
-
-            set
-            {
-                playerid = value;
-            }
-        }
-
-        public Text ScoreText
-        {
-             get
-            {
-                return scoreText;
-            }
-
-            set
-            {
-                scoreText = value;
             }
         }
     }

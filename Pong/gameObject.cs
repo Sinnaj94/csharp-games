@@ -24,15 +24,13 @@ namespace Pong
         public GameObject(RenderWindow renderWindow)
         {
             window = renderWindow;
-          //  inputHandler = input;
-          //  soundManage = soundManager;
         }
 
         public void init()
         {
             watson = new KIHandler();
-            player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f), true);
-            Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f), false);
+            player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f));
+            Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f));
             score = new Score(3);
             ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10);
             gamestate = 1;
@@ -41,9 +39,6 @@ namespace Pong
 
         public void updateGame()
         {
-
-            // check for gameover after rendering
-
             if (player == null)
             {
                 init();
@@ -68,8 +63,16 @@ namespace Pong
             Ki.update();
             ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X);
 
+        }
 
-
+        void resetGame()
+        {
+            gamestate = 2;
+            watson = null;
+            player = null;
+            Ki = null;
+            score = null;
+            ball = null;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -79,9 +82,6 @@ namespace Pong
                 player.Shape.Draw(target, states);
                 Ki.Shape.Draw(target, states);
                 ball.Circle.Draw(target, states);
-                //ball.BoundingBox.Draw(target, states);
-                //  player.ScoreText.Draw(target, states);
-                //  Ki.ScoreText.Draw(target, states);
                 score.Draw(target, states);
             
                 item.Rectangle.Draw(target, states);
@@ -97,17 +97,6 @@ namespace Pong
             }
 
         }
-
-        void resetGame()
-        {
-            gamestate = 2;
-            watson = null;
-            player = null;
-            Ki = null;
-            score = null;
-            ball = null;
-        }
-
 
         public int Gamestate
         {

@@ -15,11 +15,14 @@ namespace Pong
     class Button : Drawable
     {
 
-        Vector2f        buttonPosition;
-        bool            isActive;
-        Text buttonText;
-        Text buttonTextBack;
+        private Vector2f        buttonPosition;
+        private  bool isActive;
+        private  Text buttonText;
+        private Text buttonTextBack;
+        private int buttonState;
+        private  List<String> optionButtonText;
 
+        // Regular Button
         public Button(Vector2f position, bool active, String text)
         {
             buttonPosition = position;
@@ -30,6 +33,69 @@ namespace Pong
             buttonTextBack = new Text(text, ManageText.Instance.CrackmanBack, 100);
             buttonTextBack.Color = ManageText.Instance.Grey;
             buttonTextBack.Position = buttonText.Position - new Vector2f(5,5);
+        }
+
+        // Option Button
+        public Button(Vector2f position, bool active, List<String> text, int setId)
+        {
+            optionButtonText = text;
+            buttonState = setId;
+            buttonPosition = position;
+            IsActive = active;
+            buttonText = new Text(optionButtonText[buttonState], ManageText.Instance.CrackmanFront, 100);
+            buttonText.Color = ManageText.Instance.White;   
+            buttonTextBack = new Text(optionButtonText[buttonState], ManageText.Instance.CrackmanBack, 100);
+            buttonTextBack.Color = ManageText.Instance.Grey;
+            buttonText.Position = new Vector2f(buttonPosition.X - buttonText.GetLocalBounds().Width / 2, position.Y);
+            buttonTextBack.Position = buttonText.Position - new Vector2f(5, 5);
+        }
+
+        public void updateOptionButton(int buttonPressed)
+        {
+            if (buttonPressed == 1)
+            {
+                if (buttonState < optionButtonText.Count - 1)
+                {
+                    buttonState += 1;
+                }
+            }
+
+            if (buttonPressed == -1)
+            {
+                if (buttonState > 0)
+                {
+                    buttonState -= 1;
+                }
+
+            }
+
+            buttonText.DisplayedString = optionButtonText[buttonState];
+            buttonTextBack.DisplayedString = optionButtonText[buttonState];
+            buttonText.Position = new Vector2f(buttonPosition.X - buttonText.GetLocalBounds().Width / 2, buttonPosition.Y);
+            buttonTextBack.Position = buttonText.Position - new Vector2f(5, 5);
+
+        }
+
+        public void updateText(int buttonPressed)
+        {
+
+            // only triggers if Button is an option button
+            // TODO: find nicer way to fix 
+
+            if (optionButtonText != null)
+            {
+                updateOptionButton(buttonPressed);
+            }
+
+
+            if (IsActive)
+            {
+                buttonText.Color = ManageText.Instance.Yellow;
+            }
+            else
+            {
+                buttonText.Color = ManageText.Instance.White;
+            }
         }
 
         public void updateText()
@@ -78,6 +144,19 @@ namespace Pong
             set
             {
                 buttonText = value;
+            }
+        }
+
+        public int ButtonState
+        {
+            get
+            {
+                return buttonState;
+            }
+
+            set
+            {
+                buttonState = value;
             }
         }
     }

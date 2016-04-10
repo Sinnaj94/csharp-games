@@ -17,6 +17,8 @@ namespace Pong
         private bool returnPressed;
         private bool upPressed;
         private bool downPressed;
+        private bool leftPressed;
+        private bool rightPressed;
 
         public static ManageInput Instance
         {
@@ -58,6 +60,14 @@ namespace Pong
         {
             return Keyboard.IsKeyPressed(Keyboard.Key.Down);
         }
+        public bool Left()
+        {
+            return Keyboard.IsKeyPressed(Keyboard.Key.Left);
+        }
+        public bool Right()
+        {
+            return Keyboard.IsKeyPressed(Keyboard.Key.Right);
+        }
 
         public bool SlowUp()
         {
@@ -83,6 +93,34 @@ namespace Pong
             else
             {
                 downPressed = Keyboard.IsKeyPressed(Keyboard.Key.Down);
+                return false;
+            }
+        }
+
+        public bool SlowLeft()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left) && !leftPressed)
+            {
+                leftPressed = true;
+                return true;
+            }
+            else
+            {
+                leftPressed = Keyboard.IsKeyPressed(Keyboard.Key.Left);
+                return false;
+            }
+        }
+
+        public bool SlowRight()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Right) && !rightPressed)
+            {
+                rightPressed = true;
+                return true;
+            }
+            else
+            {
+                rightPressed = Keyboard.IsKeyPressed(Keyboard.Key.Right);
                 return false;
             }
         }

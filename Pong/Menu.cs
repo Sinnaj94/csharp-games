@@ -76,6 +76,7 @@ namespace Pong
             }
             return 0;
         }
+
         public void Draw(RenderTarget target, RenderStates states)
         {
             try

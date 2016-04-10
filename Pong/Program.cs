@@ -27,13 +27,13 @@ namespace Pong
             Menu menu = new Menu();
             GameObject gameObject = new GameObject(window);
             GameOver gameOverScreen = new GameOver();
-            Settings settings = new Settings();
+            Settings settings = new Settings(2,1);
             Intro intro = new Intro();
 
 
             // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit, 5: Intro
 
-            int gamestate = 1;
+            int gamestate = 0;
 
             while (window.IsOpen)
             {
