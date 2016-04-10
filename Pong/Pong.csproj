@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collision.cs" />
     <Compile Include="Intro.cs" />
     <Compile Include="ManageInput.cs" />
     <Compile Include="Button.cs" />

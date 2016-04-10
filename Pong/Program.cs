@@ -16,7 +16,7 @@ namespace Pong
         {
             uint ResX = ResolutionX;
             uint ResY = ResolutionY;
-            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong", Styles.Fullscreen);
+            RenderWindow window = new RenderWindow(new SFML.Window.VideoMode(ResX, ResY), "Pong");
             window.SetFramerateLimit(50);
             return window;
         }
