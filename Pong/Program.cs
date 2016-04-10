@@ -25,7 +25,7 @@ namespace Pong
         {
             RenderWindow window = initWindow(1366, 768);
             Menu menu = new Menu();
-            GameObject gameObject = new GameObject(window);
+            GameObject gameObject = new GameObject(new Vector2f(window.Size.X, window.Size.Y));
             GameOver gameOverScreen = new GameOver();
             Settings settings = new Settings(2,1);
             Intro intro = new Intro();

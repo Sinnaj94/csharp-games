@@ -16,15 +16,15 @@ namespace Pong
         private RectangleShape shape;
         private float yBoundMin;
         private float yBoundMax;
-        private RenderWindow window;
+        private Vector2f windowSize;
 
-        public Player(RenderWindow window, Vector2f startPosition)
+        public Player(Vector2f windowSize, Vector2f startPosition)
         {
             playerSize = new Vector2f(10, 200);
             playerPosition = startPosition;
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
-            this.window = window;
+            this.windowSize = windowSize;
         }
 
         public void update()
@@ -46,9 +46,9 @@ namespace Pong
                 if(value.Y < 0)
                 {
                     playerPosition.Y = 0;
-                }else if(value.Y > window.Size.Y - playerSize.Y)
+                }else if(value.Y > windowSize.Y - playerSize.Y)
                 {
-                    playerPosition.Y = window.Size.Y - playerSize.Y;
+                    playerPosition.Y = windowSize.Y - playerSize.Y;
                 }
                 else
                 {

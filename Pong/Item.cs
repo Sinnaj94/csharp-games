@@ -30,9 +30,9 @@ namespace Pong
 
         
 
-        public Item(RenderWindow window)
+        public Item(Vector2f window)
         {
-            Vector2u windowSize = window.Size;
+            Vector2u windowSize = new Vector2u((uint)window.X, (uint)window.Y);
         //    Console.Write(window.Size.X + " " + window.Size.Y);
             position = getRandomPosition(windowSize);
             size = 40;

@@ -18,25 +18,26 @@ namespace Pong
         Player player;
         Player Ki;
         RenderWindow window;
+        Vector2f windowSize;
         Item item;
         int gamestate;
         int difficulty;
 
-        public GameObject(RenderWindow renderWindow)
+        public GameObject(Vector2f renderWindowSize)
         {
-            window = renderWindow;
             difficulty = 11;
+            windowSize = renderWindowSize;
         }
 
         public void init()
         {
             watson = new KIHandler();
-            player = new Player(window, new Vector2f(window.Size.X * 0.05f, window.Size.Y * 0.5f));
-            Ki = new Player(window, new Vector2f(window.Size.X * 0.95f, window.Size.Y * 0.5f));
+            player = new Player(windowSize, new Vector2f(windowSize.X * 0.05f, windowSize.Y * 0.5f));
+            Ki = new Player(windowSize, new Vector2f(windowSize.X * 0.95f, windowSize.Y * 0.5f));
             score = new Score(3);
-            ball = new Ball(window, new Vector2f(10, 5), new Vector2f(250, 250), 10);
+            ball = new Ball(windowSize, new Vector2f(10, 5), new Vector2f(250, 250), 10);
             gamestate = 1;
-            item = new Item(window);
+            item = new Item(windowSize);
         }
 
         public void updateGame()

@@ -15,13 +15,13 @@ namespace Pong
         private float ballSpeed;
         private Vector2f deltaXY;
         private Vector2f position;
-        private RenderWindow window;
+        private Vector2f windowSize;
         private float radius;
         private float durchmesser;
         private int scoreState;
         private RectangleShape boundingBox;
 
-        public Ball(RenderWindow window, Vector2f deltaXY, Vector2f position, float radius)
+        public Ball(Vector2f windowSize, Vector2f deltaXY, Vector2f position, float radius)
         {
             Circle = new CircleShape(radius);
             BoundingBox = new RectangleShape();
@@ -30,7 +30,7 @@ namespace Pong
             this.durchmesser = radius * 2;
             this.deltaXY = deltaXY;
             this.position = new Vector2f(position.X - (1 / 2 * Circle.Radius), position.Y - (1 / 2 * Circle.Radius));
-            this.window = window;
+            this.windowSize = windowSize;
             ballSpeed = 10;
             scoreState = 0;
         }
@@ -44,7 +44,7 @@ namespace Pong
         public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
 
-            if (position.Y < 0 || position.Y + durchmesser > window.Size.Y)
+            if (position.Y < 0 || position.Y + durchmesser > windowSize.Y)
             {
                 if(position.Y < 0)
                 {
@@ -52,7 +52,7 @@ namespace Pong
                 }
                 else
                 {
-                    position.Y = window.Size.Y - durchmesser;
+                    position.Y = windowSize.Y - durchmesser;
                 }
                 deltaXY.Y = -deltaXY.Y;
                 ManageSound.Instance.side();
@@ -98,7 +98,7 @@ namespace Pong
         public int CheckOutOfBounds()
         {
             // Ball out of Bounds
-            if (position.X <= 0 || position.X + radius >= window.Size.X)
+            if (position.X <= 0 || position.X + radius >= windowSize.X)
             {
                 ballSpeed = 10;
 
@@ -107,18 +107,18 @@ namespace Pong
                     ManageSound.Instance.lose();
                     deltaXY.X = 1 * ballSpeed;
                     deltaXY.Y = 0;
-                    position.X = window.Size.X / 2;
-                    position.Y = window.Size.Y / 2;
+                    position.X = windowSize.X / 2;
+                    position.Y = windowSize.Y / 2;
                     scoreState = 2;
                     return 0;
 
                 }
-                else if (position.X + radius >= window.Size.X)
+                else if (position.X + radius >= windowSize.X)
                 {                  
                     deltaXY.X = -1 * ballSpeed;
                     deltaXY.Y = 0;
-                    position.X = window.Size.X / 2;
-                    position.Y = window.Size.Y / 2;
+                    position.X = windowSize.X / 2;
+                    position.Y = windowSize.Y / 2;
                     scoreState = 1;
                     return 1;
 
