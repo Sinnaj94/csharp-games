@@ -28,11 +28,12 @@ namespace Pong
             GameObject gameObject = new GameObject(window);
             GameOver gameOverScreen = new GameOver();
             Settings settings = new Settings();
+            Intro intro = new Intro();
 
 
-            // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit
+            // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit, 5: Intro
 
-            int gamestate = 2;
+            int gamestate = 5;
 
             while (window.IsOpen)
             {
@@ -67,11 +68,20 @@ namespace Pong
                     gamestate = settings.update();
                 }
 
+                // INTRO
+                else if (gamestate == 5)
+                {
+                    gamestate = intro.updateIntro();
+                    window.Draw(intro);
+                }
+
                 // EXIT
                 if (ManageInput.Instance.Escape() || gamestate == 4)
                 {
                     System.Environment.Exit(1);
                 }
+
+                
 
                 window.Display();
             }

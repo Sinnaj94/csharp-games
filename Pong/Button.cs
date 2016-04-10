@@ -19,8 +19,6 @@ namespace Pong
         bool            isActive;
         Text buttonText;
         Text buttonTextBack;
-       // Color backColor = new Color(255, 255, 255, 32);
-
 
         public Button(Vector2f position, bool active, String text)
         {
