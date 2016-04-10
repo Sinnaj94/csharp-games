@@ -12,11 +12,15 @@ namespace Pong
     {
 
         Text introText;
+        Text introTextBack;
         private int screenMid = 683;
 
         public Intro()
         {
             introText = new Text("Super Pong", ManageText.Instance.CrackmanFront, 400);
+            introTextBack = new Text("Super Pong", ManageText.Instance.CrackmanFront, 410);
+            introText.Color = ManageText.Instance.Yellow;
+            introTextBack.Color = ManageText.Instance.Grey;
         }
 
         public int updateIntro()
@@ -24,8 +28,9 @@ namespace Pong
             if(introText.CharacterSize > 20)
             {
                 introText.Position = new Vector2f(screenMid - introText.GetLocalBounds().Width / 2, 100);
-                introText.Color = ManageText.Instance.Yellow;
+                introTextBack.Position = introText.Position;
                 introText.CharacterSize -= 2;
+                introTextBack.CharacterSize -= 2;
                 return 5;
             } else
             {
@@ -37,6 +42,7 @@ namespace Pong
             try
             {
                 introText.Draw(target, states);
+                introTextBack.Draw(target, states);
             }
             catch (NotImplementedException)
             {
