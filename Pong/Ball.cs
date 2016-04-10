@@ -130,10 +130,7 @@ namespace Pong
 
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            ((Drawable)circle).Draw(target, states);
-        }
+
 
         public CircleShape Circle
         {
@@ -173,5 +170,11 @@ namespace Pong
                 scoreState = value;
             }
         }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            ((Drawable)circle).Draw(target, states);
+        }
+
     }
 }

@@ -79,17 +79,10 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            try
+            foreach(Button b in ButtonList)
             {
-                foreach(Button b in ButtonList)
-                {
-                    b.updateText();
-                    b.Draw(target, states);
-                }
-            }
-            catch (NotImplementedException)
-            {
-                Console.Out.Write("menu not implemented");
+                b.updateText();
+                b.Draw(target, states);
             }
         }
     }

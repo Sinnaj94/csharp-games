@@ -111,14 +111,8 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            try{
-                buttonTextBack.Draw(target, states);
-                buttonText.Draw(target, states);
-            }
-            catch (NotImplementedException)
-            {
-                Console.Out.Write("Button not implemented");
-            }
+            buttonTextBack.Draw(target, states);
+            buttonText.Draw(target, states);
         }
 
         public bool IsActive

@@ -77,7 +77,6 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-
                 player.Draw(target, states);
                 Ki.Draw(target, states);
                 ball.Draw(target, states);

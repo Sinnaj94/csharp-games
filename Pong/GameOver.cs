@@ -38,15 +38,8 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            try
-            {
-                gameOver.Draw(target, states);
-                continueToMenu.Draw(target, states);
-            }
-            catch (NotImplementedException)
-            {
-                Console.Out.Write("gameOver not Implemented");
-            }
+            gameOver.Draw(target, states);
+            continueToMenu.Draw(target, states);
         }
     }
 }

@@ -60,15 +60,8 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            try
-            {
-                scoreTextLeft.Draw(target, states);
-                scoreTextRight.Draw(target, states);
-            }
-            catch (NotImplementedException)
-            {
-                Console.Out.Write("Score not implemented");
-            }
+            scoreTextLeft.Draw(target, states);
+            scoreTextRight.Draw(target, states);
         }
     }
 }

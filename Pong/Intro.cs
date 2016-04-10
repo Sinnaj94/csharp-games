@@ -39,15 +39,8 @@ namespace Pong
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
-            try
-            {
                 introText.Draw(target, states);
                 introTextBack.Draw(target, states);
-            }
-            catch (NotImplementedException)
-            {
-                Console.Out.Write("Intro draw failed");
-            }
         }
     }
 }
