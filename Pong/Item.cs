@@ -15,6 +15,56 @@ namespace Pong
         float sizeChange;
         bool active;
         RectangleShape rectangle;
+        Clock clock;
+        float secondsToAppear;
+        Random r;
+
+
+
+        public Item(Vector2f window)
+        {
+            r = new Random();
+            Active = true;
+            Vector2u windowSize = new Vector2u((uint)window.X, (uint)window.Y);
+            size = 40;
+            position = getRandomPosition(windowSize);
+            sizeChange = 10;
+            rectangle = new RectangleShape(new Vector2f(size, size));
+            rectangle.Position = position;
+            rectangle.FillColor = Color.White;
+            secondsToAppear = getRandomSeconds(1, 30);
+        }
+
+        private float getRandomSeconds(int min, int max)
+        {
+            return r.Next(min, max);
+        }
+
+        public void appearAfterSeconds(Time t)
+        {
+            clock = new Clock();
+            Time elapsed = clock.ElapsedTime;
+            Console.Out.WriteLine(elapsed.AsMilliseconds());
+        }
+
+        Vector2f getRandomPosition(Vector2u windowSize)
+        {
+            Vector2f value;
+            
+            value.X = windowSize.X/2- size/2;
+            value.Y = r.Next(0, (int)(windowSize.Y/2 - size/2));
+            return value;
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            if (active)
+            {
+                ((Drawable)Rectangle).Draw(target, states);
+            }
+            
+
+        }
 
         public RectangleShape Rectangle
         {
@@ -40,39 +90,6 @@ namespace Pong
             {
                 active = value;
             }
-        }
-
-        public Item(Vector2f window)
-        {
-            Active = true;
-            Vector2u windowSize = new Vector2u((uint)window.X, (uint)window.Y);
-
-            
-            size = 40;
-            position = getRandomPosition(windowSize);
-            sizeChange = 10;
-            rectangle = new RectangleShape(new Vector2f(size, size));
-            rectangle.Position = position;
-            rectangle.FillColor = Color.White;
-        }
-
-        Vector2f getRandomPosition(Vector2u windowSize)
-        {
-            Vector2f value;
-            Random r = new Random();
-            value.X = windowSize.X/2- size/2;
-            value.Y = r.Next(0, (int)(windowSize.Y/2 - size/2));
-            return value;
-        }
-
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            if (active)
-            {
-                ((Drawable)Rectangle).Draw(target, states);
-            }
-            
-
         }
     }
 }
