@@ -24,7 +24,7 @@ namespace Pong
         public Item(Vector2f window)
         {
             r = new Random();
-            Active = true;
+            Active = false;
             Vector2u windowSize = new Vector2u((uint)window.X, (uint)window.Y);
             size = 40;
             position = getRandomPosition(windowSize);
@@ -32,7 +32,10 @@ namespace Pong
             rectangle = new RectangleShape(new Vector2f(size, size));
             rectangle.Position = position;
             rectangle.FillColor = Color.White;
-            secondsToAppear = getRandomSeconds(1, 30);
+            //At least every minute, fastest is 10 seconds
+            secondsToAppear = getRandomSeconds(10, 60);
+            //Starts the clock.
+            clock = new Clock();
         }
 
         private float getRandomSeconds(int min, int max)
@@ -40,11 +43,16 @@ namespace Pong
             return r.Next(min, max);
         }
 
-        public void appearAfterSeconds(Time t)
+        //Start time to appear
+        public bool timeOver()
         {
-            clock = new Clock();
             Time elapsed = clock.ElapsedTime;
-            Console.Out.WriteLine(elapsed.AsMilliseconds());
+            Console.Out.WriteLine(elapsed.AsSeconds());
+            if(elapsed.AsSeconds() >= secondsToAppear)
+            {
+                return true;
+            }
+            return false;
         }
 
         Vector2f getRandomPosition(Vector2u windowSize)

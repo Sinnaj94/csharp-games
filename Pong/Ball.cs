@@ -20,7 +20,8 @@ namespace Pong
         private float durchmesser;
         private int scoreState;
         private RectangleShape boundingBox;
-        
+        private int touchedLast;
+
         public Ball(Vector2f windowSize, Vector2f deltaXY, Vector2f position, float radius)
         {
             
@@ -34,6 +35,8 @@ namespace Pong
             this.windowSize = windowSize;
             ballSpeed = 10;
             scoreState = 0;
+            //touched Last: 0 is left, 1 is right.
+            TouchedLast = -1;
         }
 
         public void setBoundingBox()
@@ -41,9 +44,17 @@ namespace Pong
             BoundingBox.Position = circle.Position;
         }
 
-
-        public void updatePosition(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition, RectangleShape leftShape, RectangleShape rightShape)
+        //returns the player who touched the ball last.
+        public void updatePosition(Player player, Player ki)
         {
+
+            float YBoundMin = player.YBoundMin;
+            float YBoundMax = player.YBoundMax;
+            float playerXPosition = player.PlayerPosition.X;
+
+            float KiYBoundMin = ki.YBoundMin;
+            float KiYBoundMax = ki.YBoundMax;
+            float KiXPosition = ki.PlayerPosition.X;
 
             if (position.Y < 0 || position.Y + durchmesser > windowSize.Y)
             {
@@ -72,34 +83,6 @@ namespace Pong
 
         
 
-        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition, RectangleShape leftplayer, RectangleShape rightplayer)
-        {
-            if (Collision.Instance.collide(leftplayer,boundingBox))
-            {
-
-                double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
-                double normalizedRelativeIntersectionY = ((relativeIntersectY / ((YBoundMax - YBoundMin) / 2)));
-                double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
-                deltaXY.X = ballSpeed * (float)Math.Cos(bounceAngle);
-                deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
-                ballSpeed += 1;
-                ManageSound.Instance.hit();
-
-            }
-
-            if (Collision.Instance.collide(boundingBox,rightplayer))
-            {
-
-                double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
-                double normalizedRelativeIntersectionY = ((relativeIntersectY / ((KiYBoundMax - KiYBoundMin) / 2)));
-                double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
-                deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
-                deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
-                ballSpeed += 1;
-                ManageSound.Instance.hit();
-            }
-        }
-
         private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
             if (position.X <= playerXPosition && position.Y+radius > YBoundMin && position.Y < YBoundMax)
@@ -112,7 +95,7 @@ namespace Pong
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
                 ManageSound.Instance.hit();
-
+                TouchedLast = 0;
             }
 
             if (position.X + radius >= KiXPosition && position.Y+radius > KiYBoundMin && position.Y < KiYBoundMax)
@@ -125,6 +108,7 @@ namespace Pong
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
                 ManageSound.Instance.hit();
+                TouchedLast = 1;
             }
         }
 
@@ -201,6 +185,19 @@ namespace Pong
             set
             {
                 scoreState = value;
+            }
+        }
+
+        public int TouchedLast
+        {
+            get
+            {
+                return touchedLast;
+            }
+
+            set
+            {
+                touchedLast = value;
             }
         }
 
