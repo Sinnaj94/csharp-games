@@ -155,6 +155,8 @@ namespace Pong
             return false;
         }
 
+        
+
         private bool playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
             if (position.X <= playerXPosition && position.X >= playerXPosition - 100 && position.Y+radius > YBoundMin && position.Y < YBoundMax)

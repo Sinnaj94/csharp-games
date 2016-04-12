@@ -87,7 +87,16 @@ namespace Pong
                 {
 
                     int feature = item.FeatureNr;
-                    touchedLast.giveFeature(feature);
+                    if(feature <= 4)
+                    {
+                        touchedLast.giveFeature(feature);
+                    }
+                    else
+                    {
+                        //hier müssen die features für den ball gemacht werden.
+                        //ball.giveFeature();
+                    }
+                    
 
                     item = new Item(windowSize);
                 }
