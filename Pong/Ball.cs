@@ -21,7 +21,9 @@ namespace Pong
         private int scoreState;
         private RectangleShape boundingBox;
         private int touchedLast;
-        
+        private int featureNr;
+        private Clock featureTime;
+        private float standardSize;
         public Ball(Vector2f windowSize, Vector2f deltaXY, Vector2f position, float radius)
         {
             
@@ -30,6 +32,7 @@ namespace Pong
             BoundingBox.Size = new Vector2f(radius*2,radius*2);
             this.radius = radius;
             this.durchmesser = radius * 2;
+            this.standardSize = radius;
             this.deltaXY = deltaXY;
             this.position = new Vector2f(position.X - (1 / 2 * Circle.Radius), position.Y - (1 / 2 * Circle.Radius));
             this.windowSize = windowSize;
@@ -37,7 +40,7 @@ namespace Pong
             scoreState = 0;
             //touched Last: 0 is left, 1 is right.
             TouchedLast = -1;
-
+            featureNr = 0;
         }
 
         public void setBoundingBox()
@@ -276,6 +279,109 @@ namespace Pong
         {
             ((Drawable)circle).Draw(target, states);
             //((Drawable)boundingBox).Draw(target, states);
+        }
+        
+
+
+        //FEATURES
+        public void giveFeature(int nr)
+        {
+            //Ball: 5-8:
+            //Neither good nor bad:
+            //Feature 5: Bigger Ball
+            //Feature 6: Smaller Ball
+            //Feature 7: Slower Ball
+            //Feature 8: Faster Ball
+
+            applyFeature(nr, false);
+            featureNr = nr;
+
+
+
+            featureTime = new Clock();
+        }
+
+        public void removeFeature()
+        {
+
+            applyFeature(featureNr, true);
+            featureNr = 0;
+        }
+
+        private void changeBallRadius(float newRadius)
+        {
+            radius = newRadius;
+            Circle.Radius = newRadius;
+            durchmesser = newRadius * 2;
+        }
+
+        private void applyFeature(int nr, bool revert)
+        {
+            switch (nr)
+            {
+                case 5:
+                    if (revert)
+                    {
+                        changeBallRadius(standardSize);
+
+                    }
+                    else
+                    {
+                        changeBallRadius(standardSize*3);
+                    }
+                    break;
+                case 6:
+                    if (revert)
+                    {
+                        changeBallRadius(standardSize);
+                    }
+                    else
+                    {
+                        changeBallRadius(standardSize - standardSize * .5f);
+                    }
+                    break;
+                case 7:
+                    if (revert)
+                    {
+                        
+                    }
+                    else
+                    {
+                        deltaXY = new Vector2f(deltaXY.X * .1f, deltaXY.Y * .1f);
+                    }
+                    break;
+                case 8:
+                    if (revert)
+                    {
+                        
+                    }
+                    else
+                    {
+                        deltaXY = new Vector2f(deltaXY.X * 1.5f, deltaXY.Y * 1.5f);
+                    }
+                    break;
+            }
+            
+        }
+
+        public bool hasFeature()
+        {
+            if (featureNr != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool timesUp()
+        {
+            Time now = featureTime.ElapsedTime;
+
+            if (now.AsSeconds() >= 8)
+            {
+                return true;
+            }
+            return false;
         }
 
     }

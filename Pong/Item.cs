@@ -53,13 +53,13 @@ namespace Pong
                 case 4:
                     return Color.Red;
                 case 5:
-                    return Color.Green;
+                    return Color.Magenta;
                 case 6:
-                    return Color.Yellow;
+                    return Color.Magenta;
                 case 7:
                     return Color.Cyan;
                 case 8:
-                    return Color.Magenta;
+                    return Color.Cyan;
             }
             return Color.Black;
         }
@@ -80,7 +80,7 @@ namespace Pong
             //Feature 6: Smaller Ball
             //Feature 7: Slower Ball
             //Feature 8: Faster Ball
-            return r.Next(1, 4);
+            return r.Next(1, 8);
         }
         private float getRandomSeconds(int min, int max)
         {

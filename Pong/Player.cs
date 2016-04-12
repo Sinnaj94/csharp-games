@@ -40,14 +40,14 @@ namespace Pong
             featureRect.Position = new Vector2f(shape.Position.X, windowSize.Y * .8f);
             featureRect.OutlineColor = Color.Black;
             standardSize = playerSize.Y;
-            
+
             featureText = "";
-            
+
         }
 
         public bool hasFeature()
         {
-            if(featureNr == 0)
+            if (featureNr == 0)
             {
                 return false;
             }
@@ -73,7 +73,7 @@ namespace Pong
             if (hasFeature())
             {
 
-                ((Drawable)featureRect).Draw(target,states);
+                ((Drawable)featureRect).Draw(target, states);
             }
         }
 
@@ -87,7 +87,7 @@ namespace Pong
             //Bad Features:
             //Feature 3: Smaller Racket
             //Feature 4: Slower Racket
-            
+
             applyFeature(nr, false);
             featureNr = nr;
 
@@ -98,27 +98,30 @@ namespace Pong
 
         private void setFeatureText(int featureNr)
         {
-            if(featureNr == 0)
+            if (featureNr == 0)
             {
                 featureText = "";
             }
-            else if(featureNr == 1)
+            else if (featureNr == 1)
             {
                 featureText = "Big Racket";
-            }else if(featureNr == 2)
+            }
+            else if (featureNr == 2)
             {
                 featureText = "Fast Racket";
-            }else if (featureNr == 3)
+            }
+            else if (featureNr == 3)
             {
                 featureText = "Small Racket";
-            }else if (featureNr == 4)
+            }
+            else if (featureNr == 4)
             {
                 featureText = "Slow Racket";
             }
             Console.Out.WriteLine(featureText);
         }
 
-        private void applyFeature(int nr,bool revert)
+        private void applyFeature(int nr, bool revert)
         {
             switch (nr)
             {
@@ -182,11 +185,13 @@ namespace Pong
         public Vector2f PlayerPosition
         {
             get { return playerPosition; }
-            set {
-                if(value.Y < 0)
+            set
+            {
+                if (value.Y < 0)
                 {
                     playerPosition.Y = 0;
-                }else if(value.Y > windowSize.Y - playerSize.Y)
+                }
+                else if (value.Y > windowSize.Y - playerSize.Y)
                 {
                     playerPosition.Y = windowSize.Y - playerSize.Y;
                 }
@@ -194,13 +199,13 @@ namespace Pong
                 {
                     playerPosition = value;
                 }
-                
+
             }
         }
 
         public void removeFeature()
         {
-            
+
             applyFeature(featureNr, true);
             featureNr = 0;
         }

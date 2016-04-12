@@ -94,7 +94,7 @@ namespace Pong
                     else
                     {
                         //hier müssen die features für den ball gemacht werden.
-                        //ball.giveFeature();
+                        ball.giveFeature(feature);
                     }
                     
 
@@ -113,7 +113,7 @@ namespace Pong
 
             applyToPlayer(player);
             applyToPlayer(Ki);
-
+            applyToBall();
         }
 
         public void applyToPlayer(Player p)
@@ -128,6 +128,16 @@ namespace Pong
             }
         }
 
+        public void applyToBall()
+        {
+            if (ball.hasFeature())
+            {
+                if (ball.timesUp())
+                {
+                    ball.removeFeature();
+                }
+            }
+        }
 
 
         void resetGame()
