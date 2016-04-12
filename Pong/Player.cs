@@ -19,6 +19,9 @@ namespace Pong
         private Vector2f windowSize;
         private float playerSpeed;
         private float speedFactor;
+        private float sizeFactor;
+        private bool hasFeature;
+
         public Player(Vector2f windowSize, Vector2f startPosition)
         {
             playerSize = new Vector2f(10, 200);
@@ -28,6 +31,8 @@ namespace Pong
             this.windowSize = windowSize;
             PlayerSpeed = 10;
             SpeedFactor = 1;
+            sizeFactor = 1;
+            hasFeature = false;
         }
 
         public void update()
@@ -37,14 +42,42 @@ namespace Pong
             shape.Position = playerPosition;
         }
 
+        public void changePlayerSize(float newSize)
+        {
+            Shape.Size = new Vector2f(Shape.Size.X, newSize);
+            playerSize.Y = newSize;
+        }
+
         public void Draw(RenderTarget target, RenderStates states)
         {
             ((Drawable)shape).Draw(target, states);
         }
 
-        public void giveFeature()
+        public void giveFeature(int nr)
         {
-            SpeedFactor = 2;
+            //Feature List:
+            //Racket: 1-4
+            //Good Features:
+            //Feature 1: Bigger Racket 
+            //Feature 2: Faster Racket
+            //Bad Features:
+            //Feature 3: Smaller Racket
+            //Feature 4: Slower Racket
+            if (nr == 1)
+            {
+                changePlayerSize(500);
+            }else if(nr == 2)
+            {
+                //Geschwindigkeit aendern
+            }else if(nr == 3)
+            {
+
+            }else if (nr == 4)
+            {
+
+            }
+            
+            hasFeature = true;
         }
 
         public Vector2f PlayerPosition
