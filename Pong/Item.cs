@@ -91,7 +91,7 @@ namespace Pong
         public bool timeOver()
         {
             Time elapsed = clock.ElapsedTime;
-            
+
             if(elapsed.AsSeconds() >= secondsToAppear)
             {
                 return true;
@@ -112,6 +112,7 @@ namespace Pong
         {
             if (active)
             {
+                
                 ((Drawable)Rectangle).Draw(target, states);
             }
             
