@@ -21,7 +21,7 @@ namespace Pong
         private int scoreState;
         private RectangleShape boundingBox;
         private int touchedLast;
-
+        
         public Ball(Vector2f windowSize, Vector2f deltaXY, Vector2f position, float radius)
         {
             
@@ -83,11 +83,11 @@ namespace Pong
 
         
 
-        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
+        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition, RectangleShape leftplayer, RectangleShape rightplayer)
         {
-            if (position.X <= playerXPosition && position.Y+radius > YBoundMin && position.Y < YBoundMax)
+            if (Collision.Instance.collide(leftplayer,boundingBox))
             {
-                
+
                 double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
                 double normalizedRelativeIntersectionY = ((relativeIntersectY / ((YBoundMax - YBoundMin) / 2)));
                 double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
@@ -95,15 +95,43 @@ namespace Pong
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
                 ManageSound.Instance.hit();
+
+            }
+
+            if (Collision.Instance.collide(boundingBox,rightplayer))
+            {
+
+                double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
+                double normalizedRelativeIntersectionY = ((relativeIntersectY / ((KiYBoundMax - KiYBoundMin) / 2)));
+                double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
+                deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
+                deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
+                ballSpeed += 1;
+                ManageSound.Instance.hit();
+            }
+        }
+
+        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
+        {
+            if (position.X <= playerXPosition && position.X >= playerXPosition-10 && position.Y+radius > YBoundMin && position.Y < YBoundMax)
+            {
+                
+                double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
+                double normalizedRelativeIntersectionY = ((relativeIntersectY / ((YBoundMax - YBoundMin) / 2)));
+                double bounceAngle = normalizedRelativeIntersectionY * ((3* Math.PI) / 12);
+                deltaXY.X = ballSpeed * (float)Math.Cos(bounceAngle);
+                deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
+                ballSpeed += 1;
+                ManageSound.Instance.hit();
                 TouchedLast = 0;
             }
 
-            if (position.X + radius >= KiXPosition && position.Y+radius > KiYBoundMin && position.Y < KiYBoundMax)
+            if (position.X + radius >= KiXPosition && position.X <= KiXPosition + 10 && position.Y+radius > KiYBoundMin && position.Y < KiYBoundMax)
             {
                 
                 double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
                 double normalizedRelativeIntersectionY = ((relativeIntersectY / ((KiYBoundMax - KiYBoundMin) / 2)));
-                double bounceAngle = normalizedRelativeIntersectionY * ((5 * Math.PI) / 12);
+                double bounceAngle = normalizedRelativeIntersectionY * ((3* Math.PI) / 12);
                 deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;

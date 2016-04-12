@@ -27,7 +27,7 @@ namespace Pong
             crackmanBack = new Font(@"Resources/crackman back.ttf");
             arcadeClassic = new Font(@"Resources/ARCADECLASSIC.TTF");
             grey = new Color(255, 255, 255, 32);
-            yellow = new Color(0, 255, 255, 255);
+            yellow = new Color(0, 100, 0, 255);
             green = new Color(0, 255, 0, 255);
             white = new Color(255, 255, 255, 255);
             flashingYellow = yellow;
