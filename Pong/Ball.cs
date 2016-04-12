@@ -37,6 +37,7 @@ namespace Pong
             scoreState = 0;
             //touched Last: 0 is left, 1 is right.
             TouchedLast = -1;
+
         }
 
         public void setBoundingBox()
@@ -44,7 +45,7 @@ namespace Pong
             BoundingBox.Position = circle.Position;
         }
 
-        //returns the player who touched the ball last.
+
         public void updatePosition(Player player, Player ki)
         {
 

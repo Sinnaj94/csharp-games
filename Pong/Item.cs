@@ -18,7 +18,7 @@ namespace Pong
         Clock clock;
         float secondsToAppear;
         Random r;
-
+        int featureNr;
 
 
         public Item(Vector2f window)
@@ -33,11 +33,55 @@ namespace Pong
             rectangle.Position = position;
             rectangle.FillColor = Color.White;
             //At least every minute, fastest is 10 seconds
-            secondsToAppear = getRandomSeconds(10, 60);
+            secondsToAppear = getRandomSeconds(1, 5);
             //Starts the clock.
             clock = new Clock();
+            FeatureNr = getRandomFeatureNr();
+            rectangle.FillColor = getColor(featureNr);
         }
 
+        public Color getColor(int nr)
+        {
+            switch (nr)
+            {
+                case 1:
+                    return Color.Green;
+                case 2:
+                    return Color.Green;
+                case 3:
+                    return Color.Red;
+                case 4:
+                    return Color.Red;
+                case 5:
+                    return Color.Green;
+                case 6:
+                    return Color.Yellow;
+                case 7:
+                    return Color.Cyan;
+                case 8:
+                    return Color.Magenta;
+            }
+            return Color.Black;
+        }
+
+        private int getRandomFeatureNr()
+        {
+            //Racket: 1-4
+            //Good Features:
+            //Feature 1: Bigger Racket 
+            //Feature 2: Faster Racket
+            //Bad Features:
+            //Feature 3: Smaller Racket
+            //Feature 4: Slower Racket
+
+            //Ball: 5-8:
+            //Neither good nor bad:
+            //Feature 5: Bigger Ball
+            //Feature 6: Smaller Ball
+            //Feature 7: Slower Ball
+            //Feature 8: Faster Ball
+            return r.Next(1, 8);
+        }
         private float getRandomSeconds(int min, int max)
         {
             return r.Next(min, max);
@@ -97,6 +141,19 @@ namespace Pong
             set
             {
                 active = value;
+            }
+        }
+
+        public int FeatureNr
+        {
+            get
+            {
+                return featureNr;
+            }
+
+            set
+            {
+                featureNr = value;
             }
         }
     }

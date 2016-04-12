@@ -11,7 +11,7 @@ namespace Pong
     class Collision
     {
         private static Collision instance;
-
+        int precision;
         public static Collision Instance
         {
             get
@@ -22,6 +22,11 @@ namespace Pong
                 }
                 return instance;
             }
+        }
+
+        public Collision()
+        {
+            precision = 4;
         }
 
         public bool collide(RectangleShape a, RectangleShape b)
@@ -35,12 +40,12 @@ namespace Pong
 
         public bool collide(RectangleShape a, CircleShape b)
         {
-            List<Vector2f> edges = getEdges(a);
+            List<Vector2f> points = getCollisionPoints(a);
 
             //liegt eine ecke im kreis?
-            foreach(Vector2f edge in edges)
+            foreach(Vector2f point in points)
             {
-                if(Math.Pow((edge.X - b.Position.X),2) + Math.Pow((edge.Y-b.Position.Y),2) <= b.Radius)
+                if(Math.Pow((point.X - b.Position.X),2) + Math.Pow((point.Y-b.Position.Y),2) <= b.Radius)
                 {
                     return true;
                 }
@@ -73,6 +78,34 @@ namespace Pong
                 
 
             return 0;
+        }
+
+        private List<Vector2f> getCollisionPoints(RectangleShape a)
+        {
+            List<Vector2f> edges = getEdges(a);
+            List<Vector2f> re = new List<Vector2f>();
+
+            re.AddRange(getIntermediatedPoints(edges[0],edges[1]));
+            re.AddRange(getIntermediatedPoints(edges[1], edges[2]));
+            re.AddRange(getIntermediatedPoints(edges[2], edges[3]));
+            re.AddRange(getIntermediatedPoints(edges[3], edges[0]));
+
+            re.AddRange(edges);
+
+            return re;
+        }
+
+        private List<Vector2f> getIntermediatedPoints(Vector2f A, Vector2f B)
+        {
+            //direction vector
+            Vector2f _d = B - A;
+            List<Vector2f> re = new List<Vector2f>();
+            for(int i = 1; i <= precision; i++)
+            {
+                Vector2f add = A + _d*(i / (precision + 1));
+                re.Add(add);
+            }
+            return re;
         }
 
         private List<Vector2f> getEdges(RectangleShape a)
