@@ -65,6 +65,8 @@ namespace Pong
             player.update();
             Ki.update();
             ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X, player.Shape, Ki.Shape);
+
+
             if (item.Active) { 
                 if (Collision.Instance.collide(item.Rectangle, ball.Circle))
                 {

@@ -59,20 +59,43 @@ namespace Pong
                 ManageSound.Instance.side();
             }
 
-            playerCollision(YBoundMin, YBoundMax, playerXPosition, KiYBoundMin, KiYBoundMax, KiXPosition);
-            
+
+        if(playerCollision(YBoundMin, YBoundMax, playerXPosition, KiYBoundMin, KiYBoundMax, KiXPosition))
+            {
+                ballSpeed += 1;
+                ManageSound.Instance.hit();
+            }
+
+
+
+
             position.X += deltaXY.X;
             position.Y += deltaXY.Y;
             Circle.Position = position;
-            setBoundingBox();
+           // setBoundingBox();
             CheckOutOfBounds();
-            
 
+
+        }
+
+        public void moveByOne(Vector2f deltaXY)
+        {
+            Vector2f delta = deltaXY;
+            if(delta.X >= delta.Y)
+            {
+                delta.Y = delta.Y / delta.X;
+                delta.X = 1;
+                
+            } else
+            {
+                delta.X = delta.X / delta.Y;
+                delta.Y = 1;
+            }
         }
 
         
 
-        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition, RectangleShape leftplayer, RectangleShape rightplayer)
+        private bool playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition, RectangleShape leftplayer, RectangleShape rightplayer)
         {
             if (Collision.Instance.collide(leftplayer,boundingBox))
             {
@@ -84,7 +107,7 @@ namespace Pong
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
                 ManageSound.Instance.hit();
-
+                return true;
             }
 
             if (Collision.Instance.collide(boundingBox,rightplayer))
@@ -96,12 +119,14 @@ namespace Pong
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
                 ballSpeed += 1;
                 ManageSound.Instance.hit();
+                return true;
             }
+            return false;
         }
 
-        private void playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
+        private bool playerCollision(float YBoundMin, float YBoundMax, float playerXPosition, float KiYBoundMin, float KiYBoundMax, float KiXPosition)
         {
-            if (position.X <= playerXPosition && position.X >= playerXPosition-10 && position.Y+radius > YBoundMin && position.Y < YBoundMax)
+            if (position.X <= playerXPosition && position.X >= playerXPosition-1 && position.Y+radius > YBoundMin && position.Y < YBoundMax)
             {
                 
                 double relativeIntersectY = ((YBoundMax + YBoundMin) / 2) - position.Y;
@@ -109,12 +134,11 @@ namespace Pong
                 double bounceAngle = normalizedRelativeIntersectionY * ((3* Math.PI) / 12);
                 deltaXY.X = ballSpeed * (float)Math.Cos(bounceAngle);
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
-                ballSpeed += 1;
-                ManageSound.Instance.hit();
 
+                return true;
             }
 
-            if (position.X + radius >= KiXPosition && position.X <= KiXPosition + 10 && position.Y+radius > KiYBoundMin && position.Y < KiYBoundMax)
+            if (position.X + radius >= KiXPosition && position.X <= KiXPosition + 1 && position.Y+radius > KiYBoundMin && position.Y < KiYBoundMax)
             {
                 
                 double relativeIntersectY = ((KiYBoundMax + KiYBoundMin) / 2) - position.Y;
@@ -122,9 +146,10 @@ namespace Pong
                 double bounceAngle = normalizedRelativeIntersectionY * ((3* Math.PI) / 12);
                 deltaXY.X = ballSpeed * (float)-Math.Cos(bounceAngle);
                 deltaXY.Y = ballSpeed * (float)-Math.Sin(bounceAngle);
-                ballSpeed += 1;
-                ManageSound.Instance.hit();
+
+                return true;
             }
+            return false;
         }
 
         public int CheckOutOfBounds()
