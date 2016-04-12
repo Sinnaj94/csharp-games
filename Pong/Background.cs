@@ -24,15 +24,16 @@ namespace Pong
 
         public void changeOpacity()
         {
-            Byte opacity = (Byte)Math.Sin(c.ElapsedTime.AsSeconds());
+            Byte opacity = (Byte)(Math.Abs(Math.Sin(c.ElapsedTime.AsSeconds())*255));
             backGroundGlow.Color = new Color(255, 255, 255, opacity);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            ((Drawable)backGroundSprite).Draw(target, states);
             changeOpacity();
+            ((Drawable)backGroundSprite).Draw(target, states);
             ((Drawable)backGroundGlow).Draw(target, states);
+
         }
     }
 }

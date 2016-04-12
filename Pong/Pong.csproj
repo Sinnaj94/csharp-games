@@ -84,6 +84,7 @@
     <Compile Include="Score.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ManageText.cs" />
+    <Compile Include="Taskbar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -127,9 +128,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\background.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\backgroundred.jpg" />
+    <Content Include="Resources\backgroundred.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\CLICK15B.WAV">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

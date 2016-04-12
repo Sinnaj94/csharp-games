@@ -24,9 +24,11 @@ namespace Pong
         private int featureNr;
         private Clock featureTime;
         private float standardSize;
+        CircleShape copy;
         public Ball(Vector2f windowSize, Vector2f deltaXY, Vector2f position, float radius)
         {
-            
+            copy = new CircleShape();
+            copy.FillColor = new Color(0, 0, 0, 128);
             Circle = new CircleShape(radius);
             BoundingBox = new RectangleShape();
             BoundingBox.Size = new Vector2f(radius*2,radius*2);
@@ -277,8 +279,17 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            ((Drawable)circle).Draw(target, states);
+            
             //((Drawable)boundingBox).Draw(target, states);
+            //Shadow:
+
+           copy.Position = circle.Position + new Vector2f(3,3);
+            
+            copy.Radius = circle.Radius;
+            ((Drawable)copy).Draw(target, states);
+
+
+            ((Drawable)circle).Draw(target, states);
         }
         
 

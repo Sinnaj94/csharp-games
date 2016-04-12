@@ -21,7 +21,9 @@ namespace Pong
 
         static void Main(string[] args)
         {
+            Taskbar.Hide();
             RenderWindow window = initWindow();
+
             View GameView = window.GetView();
             GameView.Center = new Vector2f(960 - 277,540 - 156);
             window.SetView(GameView);
@@ -84,7 +86,9 @@ namespace Pong
                 // EXIT
                 if (ManageInput.Instance.Escape() || gamestate == 4)
                 {
+                    Taskbar.Show();
                     System.Environment.Exit(1);
+
                 }
 
                 
