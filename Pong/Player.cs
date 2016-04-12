@@ -20,8 +20,11 @@ namespace Pong
         private float playerSpeed;
         private float speedFactor;
         private float sizeFactor;
-        private bool hasFeature;
-
+        private int featureNr;
+        private RectangleShape featureRect;
+        private Clock featureTime;
+        private float standardSize;
+        private String featureText;
         public Player(Vector2f windowSize, Vector2f startPosition)
         {
             playerSize = new Vector2f(10, 200);
@@ -32,7 +35,23 @@ namespace Pong
             PlayerSpeed = 10;
             SpeedFactor = 1;
             sizeFactor = 1;
-            hasFeature = false;
+            featureNr = 0;
+            featureRect = new RectangleShape(new Vector2f(20, 20));
+            featureRect.Position = new Vector2f(shape.Position.X, windowSize.Y * .8f);
+            featureRect.OutlineColor = Color.Black;
+            standardSize = playerSize.Y;
+            
+            featureText = "";
+            
+        }
+
+        public bool hasFeature()
+        {
+            if(featureNr == 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public void update()
@@ -51,6 +70,11 @@ namespace Pong
         public void Draw(RenderTarget target, RenderStates states)
         {
             ((Drawable)shape).Draw(target, states);
+            if (hasFeature())
+            {
+
+                ((Drawable)featureRect).Draw(target,states);
+            }
         }
 
         public void giveFeature(int nr)
@@ -63,21 +87,96 @@ namespace Pong
             //Bad Features:
             //Feature 3: Smaller Racket
             //Feature 4: Slower Racket
-            if (nr == 1)
-            {
-                changePlayerSize(500);
-            }else if(nr == 2)
-            {
-                //Geschwindigkeit aendern
-            }else if(nr == 3)
-            {
-
-            }else if (nr == 4)
-            {
-
-            }
             
-            hasFeature = true;
+            applyFeature(nr, false);
+            featureNr = nr;
+
+
+
+            featureTime = new Clock();
+        }
+
+        private void setFeatureText(int featureNr)
+        {
+            if(featureNr == 0)
+            {
+                featureText = "";
+            }
+            else if(featureNr == 1)
+            {
+                featureText = "Big Racket";
+            }else if(featureNr == 2)
+            {
+                featureText = "Fast Racket";
+            }else if (featureNr == 3)
+            {
+                featureText = "Small Racket";
+            }else if (featureNr == 4)
+            {
+                featureText = "Slow Racket";
+            }
+            Console.Out.WriteLine(featureText);
+        }
+
+        private void applyFeature(int nr,bool revert)
+        {
+            switch (nr)
+            {
+                case 1:
+                    if (revert)
+                    {
+                        changePlayerSize(standardSize);
+                        featureText = "";
+                    }
+                    else
+                    {
+                        changePlayerSize(standardSize + standardSize * .5f);
+                    }
+                    break;
+                case 2:
+                    if (revert)
+                    {
+                        speedFactor = 1;
+                    }
+                    else
+                    {
+                        speedFactor = 2;
+                    }
+                    break;
+                case 3:
+                    if (revert)
+                    {
+                        changePlayerSize(standardSize);
+                    }
+                    else
+                    {
+                        changePlayerSize(standardSize - standardSize * .5f);
+                    }
+                    break;
+                case 4:
+                    if (revert)
+                    {
+                        speedFactor = 1;
+                    }
+                    else
+                    {
+                        speedFactor = .5f;
+                    }
+                    break;
+            }
+            setFeatureText(nr);
+        }
+
+
+        public bool timesUp()
+        {
+            Time now = featureTime.ElapsedTime;
+
+            if (now.AsSeconds() >= 8)
+            {
+                return true;
+            }
+            return false;
         }
 
         public Vector2f PlayerPosition
@@ -97,6 +196,13 @@ namespace Pong
                 }
                 
             }
+        }
+
+        public void removeFeature()
+        {
+            
+            applyFeature(featureNr, true);
+            featureNr = 0;
         }
 
         public RectangleShape Shape

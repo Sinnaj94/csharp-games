@@ -32,8 +32,8 @@ namespace Pong
             rectangle = new RectangleShape(new Vector2f(size, size));
             rectangle.Position = position;
             rectangle.FillColor = Color.White;
-            //At least every minute, fastest is 10 seconds
-            secondsToAppear = getRandomSeconds(1, 5);
+            //At least every minute, fastest is 8 seconds
+            secondsToAppear = getRandomSeconds(8, 30);
             //Starts the clock.
             clock = new Clock();
             FeatureNr = getRandomFeatureNr();
@@ -80,7 +80,7 @@ namespace Pong
             //Feature 6: Smaller Ball
             //Feature 7: Slower Ball
             //Feature 8: Faster Ball
-            return r.Next(1, 8);
+            return r.Next(1, 4);
         }
         private float getRandomSeconds(int min, int max)
         {
@@ -91,7 +91,7 @@ namespace Pong
         public bool timeOver()
         {
             Time elapsed = clock.ElapsedTime;
-            Console.Out.WriteLine(elapsed.AsSeconds());
+            
             if(elapsed.AsSeconds() >= secondsToAppear)
             {
                 return true;

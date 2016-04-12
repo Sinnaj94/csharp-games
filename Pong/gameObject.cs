@@ -81,37 +81,14 @@ namespace Pong
             }
 
 
+            //Item tests
             if (item.Active) { 
                 if (Collision.Instance.collide(item.Rectangle, ball.Circle))
                 {
 
-                    //Feature List:
-                    //Racket: 1-4
-                    //Good Features:
-                    //Feature 1: Bigger Racket 
-                    //Feature 2: Faster Racket
-                    //Bad Features:
-                    //Feature 3: Smaller Racket
-                    //Feature 4: Slower Racket
                     int feature = item.FeatureNr;
-                    if(feature <= 4)
-                    {
-                        touchedLast.giveFeature(feature);
-                    }
-                    else
-                    {
+                    touchedLast.giveFeature(feature);
 
-                    }
-
-
-                    //Ball: 5-8:
-                    //Neither good nor bad:
-                    //Feature 5: Bigger Ball
-                    //Feature 6: Smaller Ball
-                    //Feature 7: Slower Ball
-                    //Feature 8: Faster Ball
-
-                    //Item wieder erstellen.
                     item = new Item(windowSize);
                 }
             }
@@ -121,6 +98,23 @@ namespace Pong
                 {
                     
                     item.Active = true;
+                }
+            }
+
+
+            applyToPlayer(player);
+            applyToPlayer(Ki);
+
+        }
+
+        public void applyToPlayer(Player p)
+        {
+            //Apply to player
+            if (p.hasFeature())
+            {
+                if (p.timesUp())
+                {
+                    p.removeFeature();
                 }
             }
         }
