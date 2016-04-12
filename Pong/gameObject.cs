@@ -21,7 +21,7 @@ namespace Pong
         Item item;
         int gamestate;
         int difficulty;
-
+        Player touchedLast;
         public GameObject(Vector2f renderWindowSize)
         {
             difficulty = 11;
@@ -37,7 +37,8 @@ namespace Pong
             ball = new Ball(windowSize, new Vector2f(4, 4), new Vector2f(windowSize.X/2, windowSize.Y/2), 10);
             gamestate = 1;
             item = new Item(windowSize);
-            
+            //touched Last: who touched the ball last.
+            touchedLast = null;
         }
 
         public void updateGame()
@@ -49,28 +50,54 @@ namespace Pong
 
             if (ManageInput.Instance.Up())
             {
-                player.PlayerPosition += new Vector2f(0, -10);
+                player.PlayerPosition += new Vector2f(0, -player.PlayerSpeed * player.SpeedFactor);
             }
 
             if (ManageInput.Instance.Down())
             {
-                player.PlayerPosition += new Vector2f(0, 10);
+                player.PlayerPosition += new Vector2f(0, player.PlayerSpeed *player.SpeedFactor);
             }
 
 
             //KI Handler
-            Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax, difficulty);
+            Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax, (int)(difficulty*Ki.SpeedFactor));
 
             //Updates
             player.update();
             Ki.update();
-            ball.updatePosition(player.YBoundMin, player.YBoundMax, player.PlayerPosition.X, Ki.YBoundMin, Ki.YBoundMax, Ki.PlayerPosition.X, player.Shape, Ki.Shape);
+            ball.updatePosition(player,Ki);
+            
+            //Get last touched player
+            if(ball.TouchedLast == 0)
+            {
+                touchedLast = player;
+            }else if(ball.TouchedLast == 1)
+            {
+                touchedLast = Ki;
+            }
+            else
+            {
+                touchedLast = null;
+            }
 
 
             if (item.Active) { 
                 if (Collision.Instance.collide(item.Rectangle, ball.Circle))
                 {
-                    item.Active = false;
+                    //give the player who touched the ball last some feature.
+                    
+                    touchedLast.giveFeature();
+                    
+                    //Item wieder erstellen.
+                    item = new Item(windowSize);
+                }
+            }
+            else
+            {
+                if (item.timeOver())
+                {
+                    
+                    item.Active = true;
                 }
             }
         }

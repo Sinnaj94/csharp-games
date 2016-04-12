@@ -17,7 +17,8 @@ namespace Pong
         private float yBoundMin;
         private float yBoundMax;
         private Vector2f windowSize;
-
+        private float playerSpeed;
+        private float speedFactor;
         public Player(Vector2f windowSize, Vector2f startPosition)
         {
             playerSize = new Vector2f(10, 200);
@@ -25,6 +26,8 @@ namespace Pong
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
             this.windowSize = windowSize;
+            PlayerSpeed = 10;
+            SpeedFactor = 1;
         }
 
         public void update()
@@ -37,6 +40,11 @@ namespace Pong
         public void Draw(RenderTarget target, RenderStates states)
         {
             ((Drawable)shape).Draw(target, states);
+        }
+
+        public void giveFeature()
+        {
+            SpeedFactor = 2;
         }
 
         public Vector2f PlayerPosition
@@ -87,6 +95,32 @@ namespace Pong
             set
             {
                 yBoundMax = value;
+            }
+        }
+
+        public float PlayerSpeed
+        {
+            get
+            {
+                return playerSpeed;
+            }
+
+            set
+            {
+                playerSpeed = value;
+            }
+        }
+
+        public float SpeedFactor
+        {
+            get
+            {
+                return speedFactor;
+            }
+
+            set
+            {
+                speedFactor = value;
             }
         }
     }
