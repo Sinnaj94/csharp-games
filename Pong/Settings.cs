@@ -14,7 +14,7 @@ namespace Pong
         private int menuState;
         private int screenMid = 683;
         private List<String> difficulty = new List<string> { "Easy ->", "<- Medium ->", "<- Hard"};
-        private List<String> volume = new List<string> { "volume: 0%", "<- volume: 25% ->", "volume: 50%,", "volume: 75%", "volume: 100%" };
+        private List<String> volume = new List<string> { "volume: 0%", "volume: 25%", "volume: 50%,", "volume: 75%", "volume: 100%" };
 
         public Settings(int setVolume, int setDifficulty)
         {
@@ -38,6 +38,7 @@ namespace Pong
                     menuState = 2;
                 }
                 ButtonList[menuState].IsActive = true;
+                ManageSound.Instance.click();
             }
 
             else if (ManageInput.Instance.SlowDown())
@@ -49,6 +50,7 @@ namespace Pong
                     menuState = 0;
                 }
                 ButtonList[menuState].IsActive = true;
+                ManageSound.Instance.click();
             }
         }
 
@@ -73,13 +75,11 @@ namespace Pong
             if (ManageInput.Instance.SlowRight() && menuState != 2)
                 {
                     ButtonList[menuState].updateText(1);
-                   // ManageSound.Instance.click();
                 }
 
                 if (ManageInput.Instance.SlowLeft() && menuState != 2)
                 {
                     ButtonList[menuState].updateText(-1);
-                   // ManageSound.Instance.click();
             }
 
 

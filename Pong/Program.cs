@@ -22,7 +22,6 @@ namespace Pong
         static void Main(string[] args)
         {
             RenderWindow window = initWindow();
-          //  View defaultView = window.GetView();
             View GameView = window.GetView();
             GameView.Center = new Vector2f(960 - 277,540 - 156);
             window.SetView(GameView);
@@ -30,7 +29,7 @@ namespace Pong
             Menu menu = new Menu();
             GameObject gameObject = new GameObject(new Vector2f(1366, 768));
             GameOver gameOverScreen = new GameOver();
-            Settings settings = new Settings(0,1);
+            Settings settings = new Settings(4,1);
             Intro intro = new Intro();
             Background bg = new Background(new Vector2f(1366, 768));
 
@@ -38,7 +37,7 @@ namespace Pong
 
             // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit, 5: Intro
 
-            int gamestate = 0;
+            int gamestate = 5;
 
             while (window.IsOpen)
             {
