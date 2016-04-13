@@ -13,7 +13,7 @@ namespace Pong
         private List<Button> ButtonList;
         private int menuState;
         private int screenMid = 683;
-        private List<String> difficulty = new List<string> { "Easy ->", "<- Medium ->", "<- Hard"};
+        private List<String> difficulty = new List<string> { "Easy ->", "<- Medium ->", "<- Hard ->", "<- 2 Player" };
         private List<String> volume = new List<string> { "volume: 0%", "volume: 25%", "volume: 50%,", "volume: 75%", "volume: 100%" };
 
         public Settings(int setVolume, int setDifficulty)
