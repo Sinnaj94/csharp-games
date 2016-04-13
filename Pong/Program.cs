@@ -45,53 +45,51 @@ namespace Pong
             {
                 window.Clear();
 
-                // MENU
-                if (gamestate == 0)
-                {
-                    window.Draw(menu);
-                    gamestate = menu.updateGameState();
-                } 
 
-                // GAME
-                else if(gamestate == 1)
+                switch (gamestate)
                 {
-                    window.Draw(bg);
-                    gameObject.updateGame();
-                    window.Draw(gameObject);
-                    gamestate = gameObject.Gamestate;
+                    case 0:
+                        window.Draw(menu);
+                        gamestate = menu.updateGameState();
+                        break;
+
+                    case 1:
+                        window.Draw(bg);
+                        gameObject.TwoPlayerGame = false;
+                        gameObject.updateGame();
+                        window.Draw(gameObject);
+                        gamestate = gameObject.Gamestate;
+                        break;
+
+                    case 2:
+                        window.Draw(gameOverScreen);
+                        gamestate = gameOverScreen.updateGameState();
+                        break;
+
+                    case 3:
+                        window.Draw(settings);
+                        gamestate = settings.update();
+                        gameObject.Difficulty = settings.updateDifficulty();
+                        break;
+
+                    case 4:
+                        Taskbar.Show();
+                        System.Environment.Exit(1);
+                        break;
+
+                    case 5:
+                        gamestate = intro.updateIntro();
+                        window.Draw(intro);
+                        break;
+
+                    case 6:
+                        window.Draw(bg);
+                        gameObject.TwoPlayerGame = true;
+                        gameObject.updateGame();
+                        window.Draw(gameObject);
+                        gamestate = gameObject.Gamestate;
+                        break;
                 }
-
-                // GAME OVER
-                else if (gamestate == 2)
-                {
-                    window.Draw(gameOverScreen);
-                    gamestate = gameOverScreen.updateGameState();
-                }
-
-                // SETTINGS
-                else if (gamestate == 3)
-                {
-                    window.Draw(settings);
-                    gamestate = settings.update();
-                    gameObject.Difficulty = settings.updateDifficulty();
-                }
-
-                // INTRO
-                else if (gamestate == 5)
-                {
-                    gamestate = intro.updateIntro();
-                    window.Draw(intro);
-                }
-
-                // EXIT
-                if (ManageInput.Instance.Escape() || gamestate == 4)
-                {
-                    Taskbar.Show();
-                    System.Environment.Exit(1);
-
-                }
-
-                
 
                 window.Display();
             }

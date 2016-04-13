@@ -22,7 +22,9 @@ namespace Pong
         int gamestate;
         int difficulty;
         Player touchedLast;
+        bool twoPlayerGame;
         public GameObject(Vector2f renderWindowSize)
+
         {
             difficulty = 11;
             windowSize = renderWindowSize;
@@ -35,7 +37,6 @@ namespace Pong
             playerTwo = new Player(windowSize, new Vector2f(windowSize.X * 0.95f, windowSize.Y * 0.5f));
             score = new Score(3);
             ball = new Ball(windowSize, new Vector2f(4, 4), new Vector2f(windowSize.X/2, windowSize.Y/2), 10);
-            gamestate = 1;
             item = new Item(windowSize);
             //touched Last: who touched the ball last.
             touchedLast = null;
@@ -95,13 +96,14 @@ namespace Pong
         public void updateGame()
         {
 
-            if (false)
+            if (!twoPlayerGame)
             {
+                gamestate = 1;
                 updateInput();
             } else
             {
+                gamestate = 6;
                 updateInputTwoPlayer();
-
             }
 
             //Updates
@@ -230,6 +232,19 @@ namespace Pong
             set
             {
                 difficulty = value;
+            }
+        }
+
+        public bool TwoPlayerGame
+        {
+            get
+            {
+                return twoPlayerGame;
+            }
+
+            set
+            {
+                twoPlayerGame = value;
             }
         }
     }

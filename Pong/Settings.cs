@@ -22,8 +22,8 @@ namespace Pong
             ButtonList = new List<Button>
             {
                 new Button(new Vector2f(screenMid, 100), true, difficulty, setDifficulty),
-                new Button(new Vector2f(screenMid, 300), false, volume, setVolume),
-                new Button(new Vector2f(screenMid, 500), false, "back")
+                new Button(new Vector2f(screenMid, 250), false, volume, setVolume),
+                new Button(new Vector2f(screenMid, 400), false, "back")
             };
         }
 

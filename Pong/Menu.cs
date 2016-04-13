@@ -20,9 +20,10 @@ namespace Pong
             menuState = 0;
             ButtonList = new List<Button>
             {
-                new Button(new Vector2f(screenMid, 100), true, "start game"),
-                new Button(new Vector2f(screenMid, 300), false, "setting"),
-                new Button(new Vector2f(screenMid, 500), false, "exit")
+                new Button(new Vector2f(screenMid, 100), true, "1 Player"),
+                new Button(new Vector2f(screenMid, 250), false, "2 Player"),
+                new Button(new Vector2f(screenMid, 400), false, "setting"),
+                new Button(new Vector2f(screenMid, 550), false, "exit")
             };
         }
 
@@ -41,7 +42,7 @@ namespace Pong
                 menuState -= 1;
                 if (menuState < 0)
                 {
-                    menuState = 2;
+                    menuState = ButtonList.Count - 1;
                 }
                 ButtonList[menuState].IsActive = true;
             }
@@ -51,7 +52,7 @@ namespace Pong
                 ManageSound.Instance.click();
                 ButtonList[menuState].IsActive = false;
                 menuState += 1;
-                if (menuState > 2)
+                if (menuState > ButtonList.Count - 1)
                 {
                     menuState = 0;
                 }
@@ -71,8 +72,10 @@ namespace Pong
                     case 0:
                         return 1;
                     case 1:
-                        return 3;
+                        return 6;
                     case 2:
+                        return 3;
+                    case 3:
                         return 4;
                 }
             }
