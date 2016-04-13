@@ -13,6 +13,7 @@ namespace Pong
 
         private static ManageText instance;
 
+        private Font pixelOperator;
         private Font crackmanFront;
         private Font crackmanBack;
         private Font arcadeClassic;
@@ -26,6 +27,7 @@ namespace Pong
             crackmanFront = new Font(@"Resources/crackman front.ttf");
             crackmanBack = new Font(@"Resources/crackman back.ttf");
             arcadeClassic = new Font(@"Resources/ARCADECLASSIC.TTF");
+            PixelOperator = new Font(@"Resources/PixelOperator.ttf");
             grey = new Color(255, 255, 255, 32);
             yellow = new Color(0, 100, 0, 255);
             green = new Color(0, 255, 0, 255);
@@ -139,6 +141,19 @@ namespace Pong
             set
             {
                 arcadeClassic = value;
+            }
+        }
+
+        public Font PixelOperator
+        {
+            get
+            {
+                return pixelOperator;
+            }
+
+            set
+            {
+                pixelOperator = value;
             }
         }
     }

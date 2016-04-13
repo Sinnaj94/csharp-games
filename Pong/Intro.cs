@@ -20,7 +20,7 @@ namespace Pong
         {
             introText = new Text("Super Pong", ManageText.Instance.CrackmanFront, 400);
             introTextBack = new Text("Super Pong", ManageText.Instance.CrackmanFront, 410);
-            developers = new Text("Developed by Niklas Hinte and Jannis Jahr @HS Bremen", ManageText.Instance.CrackmanFront, 30); 
+            developers = new Text("Developed by Niklas Hinte and Jannis Jahr - HS Bremen", ManageText.Instance.PixelOperator, 30); 
 
             introText.Color = ManageText.Instance.Yellow;
             introTextBack.Color = ManageText.Instance.Grey;
