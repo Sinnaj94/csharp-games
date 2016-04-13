@@ -121,6 +121,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\PixelOperator.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\s.ogg" />
     <None Include="Resources\side.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
