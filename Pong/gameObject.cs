@@ -16,7 +16,7 @@ namespace Pong
         Score score;
         Ball ball;
         Player player;
-        Player Ki;
+        Player playerTwo;
         Vector2f windowSize;
         Item item;
         int gamestate;
@@ -32,7 +32,7 @@ namespace Pong
         {
             watson = new KIHandler();
             player = new Player(windowSize, new Vector2f(windowSize.X * 0.05f, windowSize.Y * 0.5f));
-            Ki = new Player(windowSize, new Vector2f(windowSize.X * 0.95f, windowSize.Y * 0.5f));
+            playerTwo = new Player(windowSize, new Vector2f(windowSize.X * 0.95f, windowSize.Y * 0.5f));
             score = new Score(3);
             ball = new Ball(windowSize, new Vector2f(4, 4), new Vector2f(windowSize.X/2, windowSize.Y/2), 10);
             gamestate = 1;
@@ -41,7 +41,7 @@ namespace Pong
             touchedLast = null;
         }
 
-        public void updateGame()
+        private void updateInput()
         {
             if (player == null)
             {
@@ -55,17 +55,59 @@ namespace Pong
 
             if (ManageInput.Instance.Down())
             {
-                player.PlayerPosition += new Vector2f(0, player.PlayerSpeed *player.SpeedFactor);
+                player.PlayerPosition += new Vector2f(0, player.PlayerSpeed * player.SpeedFactor);
+            }
+
+            //KI Handler
+            playerTwo.PlayerPosition += watson.moveToDirection(playerTwo.PlayerPosition, ball.Circle.Position, playerTwo.YBoundMin, playerTwo.YBoundMax, (int)(difficulty * playerTwo.SpeedFactor));
+        }
+
+        private void updateInputTwoPlayer()
+        {
+            if (player == null)
+            {
+                init();
+            }
+
+            if (ManageInput.Instance.Up())
+            {
+                player.PlayerPosition += new Vector2f(0, -player.PlayerSpeed * player.SpeedFactor);
+            }
+
+            if (ManageInput.Instance.Down())
+            {
+                player.PlayerPosition += new Vector2f(0, player.PlayerSpeed * player.SpeedFactor);
             }
 
 
-            //KI Handler
-            Ki.PlayerPosition += watson.moveToDirection(Ki.PlayerPosition, ball.Circle.Position, Ki.YBoundMin, Ki.YBoundMax, (int)(difficulty*Ki.SpeedFactor));
+            if (ManageInput.Instance.W())
+            {
+                playerTwo.PlayerPosition += new Vector2f(0, -playerTwo.PlayerSpeed * playerTwo.SpeedFactor);
+            }
+
+            if (ManageInput.Instance.S())
+            {
+                playerTwo.PlayerPosition += new Vector2f(0, playerTwo.PlayerSpeed * playerTwo.SpeedFactor);
+            }
+
+        }
+
+        public void updateGame()
+        {
+
+            if (false)
+            {
+                updateInput();
+            } else
+            {
+                updateInputTwoPlayer();
+
+            }
 
             //Updates
             player.update();
-            Ki.update();
-            ball.updatePosition(player,Ki);
+            playerTwo.update();
+            ball.updatePosition(player,playerTwo);
             
             //Get last touched player
             if(ball.TouchedLast == 0)
@@ -73,7 +115,7 @@ namespace Pong
                 touchedLast = player;
             }else if(ball.TouchedLast == 1)
             {
-                touchedLast = Ki;
+                touchedLast = playerTwo;
             }
             else
             {
@@ -112,7 +154,7 @@ namespace Pong
 
 
             applyToPlayer(player);
-            applyToPlayer(Ki);
+            applyToPlayer(playerTwo);
             applyToBall();
         }
 
@@ -145,7 +187,7 @@ namespace Pong
             gamestate = 2;
             watson = null;
             player = null;
-            Ki = null;
+            playerTwo = null;
             score = null;
             ball = null;
         }
@@ -153,7 +195,7 @@ namespace Pong
         public void Draw(RenderTarget target, RenderStates states)
         {
                 player.Draw(target, states);
-                Ki.Draw(target, states);
+                playerTwo.Draw(target, states);
                 ball.Draw(target, states);
                 score.Draw(target, states);
                 item.Draw(target, states);

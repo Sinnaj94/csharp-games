@@ -51,6 +51,16 @@ namespace Pong
             
         }
 
+        public bool W()
+        {
+            return Keyboard.IsKeyPressed(Keyboard.Key.W);
+        }
+
+        public bool S()
+        {
+            return Keyboard.IsKeyPressed(Keyboard.Key.S);
+        }
+
         public bool Up()
         {
             return Keyboard.IsKeyPressed(Keyboard.Key.Up);        
