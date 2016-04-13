@@ -70,23 +70,23 @@ namespace Pong
                 init();
             }
 
-            if (ManageInput.Instance.Up())
+            if (ManageInput.Instance.W())
             {
                 player.PlayerPosition += new Vector2f(0, -player.PlayerSpeed * player.SpeedFactor);
             }
 
-            if (ManageInput.Instance.Down())
+            if (ManageInput.Instance.S())
             {
                 player.PlayerPosition += new Vector2f(0, player.PlayerSpeed * player.SpeedFactor);
             }
 
 
-            if (ManageInput.Instance.W())
+            if (ManageInput.Instance.Up())
             {
                 playerTwo.PlayerPosition += new Vector2f(0, -playerTwo.PlayerSpeed * playerTwo.SpeedFactor);
             }
 
-            if (ManageInput.Instance.S())
+            if (ManageInput.Instance.Down())
             {
                 playerTwo.PlayerPosition += new Vector2f(0, playerTwo.PlayerSpeed * playerTwo.SpeedFactor);
             }
