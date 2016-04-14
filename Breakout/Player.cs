@@ -16,6 +16,8 @@ namespace Pong
         private RectangleShape shape;
         private float yBoundMin;
         private float yBoundMax;
+        private float xBoundMin;
+        private float xBoundMax;
         private Vector2f windowSize;
         private float playerSpeed;
         private float speedFactor;
@@ -25,9 +27,10 @@ namespace Pong
         private Clock featureTime;
         private float standardSize;
         private String featureText;
+
         public Player(Vector2f windowSize, Vector2f startPosition)
         {
-            playerSize = new Vector2f(10, 200);
+            playerSize = new Vector2f(200, 10);
             playerPosition = startPosition;
             shape = new RectangleShape(playerSize);
             shape.Position = playerPosition;
@@ -56,9 +59,7 @@ namespace Pong
 
         public void update()
         {
-            YBoundMin = playerPosition.Y;                       // upper bounds
-            YBoundMax = playerPosition.Y + playerSize.Y;     // lower bounds
-            shape.Position = playerPosition;
+           // shape.Position = playerPosition;
         }
 
         public void changePlayerSize(float newSize)
@@ -182,6 +183,7 @@ namespace Pong
             return false;
         }
 
+        /*
         public Vector2f PlayerPosition
         {
             get { return playerPosition; }
@@ -202,6 +204,7 @@ namespace Pong
 
             }
         }
+        */
 
         public void removeFeature()
         {
@@ -265,6 +268,45 @@ namespace Pong
             set
             {
                 speedFactor = value;
+            }
+        }
+
+        public float XBoundMin
+        {
+            get
+            {
+                return xBoundMin;
+            }
+
+            set
+            {
+                xBoundMin = value;
+            }
+        }
+
+        public float XBoundMax
+        {
+            get
+            {
+                return xBoundMax;
+            }
+
+            set
+            {
+                xBoundMax = value;
+            }
+        }
+
+        public Vector2f PlayerPosition
+        {
+            get
+            {
+                return playerPosition;
+            }
+
+            set
+            {
+                playerPosition = value;
             }
         }
     }

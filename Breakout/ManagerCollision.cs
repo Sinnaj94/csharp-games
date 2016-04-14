@@ -8,23 +8,23 @@ using SFML.Graphics;
 
 namespace Pong
 {
-    class Collision
+    class ManagerCollision
     {
-        private static Collision instance;
+        private static ManagerCollision instance;
         int precision;
-        public static Collision Instance
+        public static ManagerCollision Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new Collision();
+                    instance = new ManagerCollision();
                 }
                 return instance;
             }
         }
 
-        public Collision()
+        public ManagerCollision()
         {
             precision = 4;
         }

@@ -12,197 +12,128 @@ namespace Pong
 {
     class GameObject : SFML.Graphics.Drawable
     {
-        Score score;
         Ball ball;
         Player player;
-        Player playerTwo;
+        newPlayer asd;
         Vector2f windowSize;
         Item item;
         int gamestate;
         int difficulty;
-        Player touchedLast;
         bool twoPlayerGame;
-        public GameObject(Vector2f renderWindowSize)
 
+        RectangleShape topWall;
+        RectangleShape bottomWall;
+        RectangleShape leftWall;
+        RectangleShape rightWall;
+
+
+        public GameObject(Vector2f renderWindowSize)
         {
             difficulty = 11;
             windowSize = renderWindowSize;
+            initBounds();
+            asd = new newPlayer(new Vector2f(50, 50), new Vector2f(500, 500));
+        }
+
+        private void initBounds()
+        {
+            topWall = new RectangleShape(windowSize);
+            bottomWall = new RectangleShape(windowSize);
+            leftWall = new RectangleShape(windowSize);
+            rightWall = new RectangleShape(windowSize);
+
+            topWall.FillColor = new Color(255, 0, 0, 128);
+            bottomWall.FillColor = new Color(0, 255, 0, 128);
+            leftWall.FillColor = new Color(255, 255, 255, 128);
+            rightWall.FillColor = new Color(0, 0, 0, 255);
+
+            topWall.Position = new Vector2f(0, -windowSize.Y);
+            bottomWall.Position = new Vector2f(0, windowSize.Y);
+            leftWall.Position = new Vector2f(-windowSize.X, 0);
+            rightWall.Position = new Vector2f(windowSize.X, 0);
         }
 
         public void init()
         {
-            player = new Player(windowSize, new Vector2f(windowSize.X * 0.05f, windowSize.Y * 0.5f));
-            playerTwo = new Player(windowSize, new Vector2f(windowSize.X * 0.95f, windowSize.Y * 0.5f));
-            score = new Score(3);
-            ball = new Ball(windowSize, new Vector2f(4, 4), new Vector2f(windowSize.X/2, windowSize.Y/2), 10);
+            player = new Player(windowSize, new Vector2f(windowSize.X * 0.5f, windowSize.Y * 0.95f));
+            ball = new Ball(10);
             item = new Item(windowSize);
-            //touched Last: who touched the ball last.
-            touchedLast = null;
         }
 
         private void updateInput()
         {
             if (player == null)
             {
-                init();
+               // init();
+            }
+
+            if (ManageInput.Instance.Left())
+            {
+                if(!ManagerCollision.Instance.collide(asd.PlayerShape, leftWall))
+                {
+                    asd.PlayerShape.Position += new Vector2f(-10, 0);
+                }
+
+            }
+
+            if (ManageInput.Instance.Right())
+            {
+                if (!ManagerCollision.Instance.collide(asd.PlayerShape, rightWall))
+                {
+                    asd.PlayerShape.Position += new Vector2f(10, 0);
+
+                }
+
             }
 
             if (ManageInput.Instance.Up())
             {
-                player.PlayerPosition += new Vector2f(0, -player.PlayerSpeed * player.SpeedFactor);
+
+                if (!ManagerCollision.Instance.collide(asd.PlayerShape, topWall))
+                {
+                    asd.PlayerShape.Position += new Vector2f(0, -10);
+                }
+                
             }
 
             if (ManageInput.Instance.Down())
             {
-                player.PlayerPosition += new Vector2f(0, player.PlayerSpeed * player.SpeedFactor);
+                if (!ManagerCollision.Instance.collide(asd.PlayerShape, bottomWall))
+                {
+                    asd.PlayerShape.Position += new Vector2f(0, 10);
+                }
+
             }
-
-        }
-
-        private void updateInputTwoPlayer()
-        {
-            if (player == null)
-            {
-                init();
-            }
-
-            if (ManageInput.Instance.W())
-            {
-                player.PlayerPosition += new Vector2f(0, -player.PlayerSpeed * player.SpeedFactor);
-            }
-
-            if (ManageInput.Instance.S())
-            {
-                player.PlayerPosition += new Vector2f(0, player.PlayerSpeed * player.SpeedFactor);
-            }
-
-
-            if (ManageInput.Instance.Up())
-            {
-                playerTwo.PlayerPosition += new Vector2f(0, -playerTwo.PlayerSpeed * playerTwo.SpeedFactor);
-            }
-
-            if (ManageInput.Instance.Down())
-            {
-                playerTwo.PlayerPosition += new Vector2f(0, playerTwo.PlayerSpeed * playerTwo.SpeedFactor);
-            }
-
         }
 
         public void updateGame()
         {
-
-            if (!twoPlayerGame)
-            {
-                gamestate = 1;
-                updateInput();
-            } else
-            {
-                gamestate = 6;
-                updateInputTwoPlayer();
-            }
-
-            //Updates
-            player.update();
-            playerTwo.update();
-            ball.updatePosition(player,playerTwo);
-            
-            //Get last touched player
-            if(ball.TouchedLast == 0)
-            {
-                touchedLast = player;
-            }else if(ball.TouchedLast == 1)
-            {
-                touchedLast = playerTwo;
-            }
-            else
-            {
-                touchedLast = null;
-            }
-
-
-            //Item tests
-            if (item.Active) { 
-                if (Collision.Instance.collide(item.Rectangle, ball.Circle))
-                {
-
-                    int feature = item.FeatureNr;
-                    if(feature <= 4)
-                    {
-                        touchedLast.giveFeature(feature);
-                    }
-                    else
-                    {
-                        //hier müssen die features für den ball gemacht werden.
-                        ball.giveFeature(feature);
-                    }
-                    
-
-                    item = new Item(windowSize);
-                }
-            }
-            else
-            {
-                if (item.timeOver())
-                {
-                    
-                    item.Active = true;
-                }
-            }
-
-
-            applyToPlayer(player);
-            applyToPlayer(playerTwo);
-            applyToBall();
+            gamestate = 1;
+            updateInput();
+           // player.update();
         }
-
-        public void applyToPlayer(Player p)
-        {
-            //Apply to player
-            if (p.hasFeature())
-            {
-                if (p.timesUp())
-                {
-                    p.removeFeature();
-                }
-            }
-        }
-
-        public void applyToBall()
-        {
-            if (ball.hasFeature())
-            {
-                if (ball.timesUp())
-                {
-                    ball.removeFeature();
-                }
-            }
-        }
-
 
         void resetGame()
         {
             gamestate = 2;
             player = null;
-            playerTwo = null;
-            score = null;
             ball = null;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-                player.Draw(target, states);
-                playerTwo.Draw(target, states);
-                ball.Draw(target, states);
-                score.Draw(target, states);
-                item.Draw(target, states);
-                
+               // player.Draw(target, states);
+               // ball.Draw(target, states);
+               // item.Draw(target, states);
+                topWall.Draw(target, states);
 
-            if (score.GameOver(ball.ScoreState))
-            {
-                resetGame();
-            }
-        }
+            asd.Draw(target, states);
+
+                bottomWall.Draw(target, states);
+                leftWall.Draw(target, states);
+                rightWall.Draw(target, states);
+        
+    }
 
         public int Gamestate
         {
