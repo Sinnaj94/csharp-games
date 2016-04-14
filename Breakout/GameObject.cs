@@ -32,7 +32,7 @@ namespace Pong
             difficulty = 11;
             windowSize = renderWindowSize;
             initBounds();
-            asd = new newPlayer(new Vector2f(50, 50), new Vector2f(500, 500));
+            asd = new newPlayer(new Vector2f(50, 50), new Vector2f(0, 0));
         }
 
         private void initBounds()
@@ -88,12 +88,10 @@ namespace Pong
 
             if (ManageInput.Instance.Up())
             {
-
                 if (!ManagerCollision.Instance.collide(asd.PlayerShape, topWall))
                 {
                     asd.PlayerShape.Position += new Vector2f(0, -10);
                 }
-                
             }
 
             if (ManageInput.Instance.Down())
