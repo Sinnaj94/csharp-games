@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E865D0AE-77DD-4F14-A34C-DC64F3A1C60F}</ProjectGuid>
+    <ProjectGuid>{760575F0-CB3E-4091-A4C9-17E674E31329}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pong</RootNamespace>
@@ -69,7 +69,6 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameOver.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="KIHandler.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="ManageSound.cs" />
     <Compile Include="Player.cs" />
@@ -88,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Resources\ARCADECLASSIC.TTF">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
