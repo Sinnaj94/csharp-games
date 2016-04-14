@@ -73,7 +73,7 @@ namespace Pong
                         break;
 
                     case 4:
-                        //Taskbar.Show();
+                        Taskbar.Show();
                         System.Environment.Exit(1);
                         break;
 
