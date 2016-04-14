@@ -26,6 +26,9 @@ namespace Pong
         RectangleShape leftWall;
         RectangleShape rightWall;
 
+        Vector2f direction = new Vector2f(.5f, .5f);
+        float speed = 10;
+
 
         public GameObject(Vector2f renderWindowSize)
         {
@@ -33,6 +36,8 @@ namespace Pong
             windowSize = renderWindowSize;
             initBounds();
             asd = new newPlayer(new Vector2f(50, 50), new Vector2f(0, 0));
+            ball = new Ball(10);
+            ball.Circle.Position = (new Vector2f(100, 100));
         }
 
         private void initBounds()
@@ -62,10 +67,6 @@ namespace Pong
 
         private void updateInput()
         {
-            if (player == null)
-            {
-               // init();
-            }
 
             if (ManageInput.Instance.Left())
             {
@@ -108,20 +109,37 @@ namespace Pong
         {
             gamestate = 1;
             updateInput();
+            updateBall();
            // player.update();
+        }
+
+        void updateBall()
+        {
+
+            if(ManagerCollision.Instance.collide(leftWall, ball.Circle) || ManagerCollision.Instance.collide(rightWall, ball.Circle))
+            {
+                direction.X = -direction.X;
+            }
+
+            if(ManagerCollision.Instance.collide(topWall, ball.Circle) || ManagerCollision.Instance.collide(bottomWall, ball.Circle))
+            {
+                direction.Y = -direction.Y;
+            }
+
+            ball.Circle.Position += direction * speed;
         }
 
         void resetGame()
         {
             gamestate = 2;
             player = null;
-            ball = null;
+          //  ball = null;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
                // player.Draw(target, states);
-               // ball.Draw(target, states);
+                ball.Draw(target, states);
                // item.Draw(target, states);
                 topWall.Draw(target, states);
 
