@@ -29,7 +29,7 @@ namespace Pong
             window.SetView(GameView);
 
             Menu menu = new Menu();
-            GameObject gameObject = new GameObject(new Vector2f(1366, 768));
+            Game gameObject = new Game(new Vector2f(1366, 768));
             GameOver gameOverScreen = new GameOver();
             Settings settings = new Settings(4,1);
             Intro intro = new Intro();
