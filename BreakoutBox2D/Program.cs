@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Window;
 using SFML.Graphics;
-
+using Microsoft.Xna.Framework;
 
 namespace BreakoutBox2D
 {
@@ -24,13 +24,18 @@ namespace BreakoutBox2D
 
             RenderWindow window = initWindow();
             View GameView = window.GetView();
-            Player player = new Player();
-     
+            Player player = new Player(new Vector2(100, 100));
+            Obsticle round = new Obsticle(100);
+            Container cont = new Container();
 
             while (window.IsOpen)
             {
                 window.Clear();
+                /*
                 window.Draw(player);
+                window.Draw(round);
+*/
+                window.Draw(cont);
                 window.Display();
             }
 

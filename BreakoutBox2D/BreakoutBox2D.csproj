@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Container.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Obsticle.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FarseerPhysics.Collision;
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using SFML.System;
@@ -12,7 +11,52 @@ namespace BreakoutBox2D
 {
     abstract class GameObject : Drawable
     {
-        private RectangleShape rect;
+        // Drawable object
+        private Drawable drawable;
+
+        // Constuctors for Circle and Rectangle shapes
+        protected GameObject(Vector2 size)
+        {
+            drawable = new RectangleShape(new Vector2f(size.X, size.Y));
+        }
+
+        protected GameObject(float radius)
+        {
+            drawable = new CircleShape(radius);
+        }
+
+        // Seperate Draw methods
+        private void drawRect()
+        {
+            ((RectangleShape)(drawable)).Position = new Vector2f(Position().X, Position().Y);
+
+            //TODO replace with something clever
+            ((RectangleShape)(drawable)).FillColor = new Color(255, 255, 255, 255);
+        }
+
+        private void drawCircle()
+        {
+            ((CircleShape)(drawable)).Position = new Vector2f(Position().X, Position().Y);
+
+            //TODO replace with something clever
+            ((CircleShape)(drawable)).FillColor = new Color(255, 255, 255, 255);
+        }
+
+
+        // basic update method
+        private void update()
+        {
+            if(drawable is RectangleShape)
+            {
+                drawRect();
+            }
+
+            if(drawable is CircleShape)
+            {
+                drawCircle();
+            }
+        }
+
 
         // Abstract methods
         abstract public Vector2 Position();
@@ -21,10 +65,8 @@ namespace BreakoutBox2D
         // Interface Drawable
         public void Draw(RenderTarget target, RenderStates states)
         {
-            rect = new RectangleShape(new Vector2f(Size().X, Size().Y));
-            rect.Position = new Vector2f(Position().X, Position().Y);
-            rect.FillColor = new Color(255, 255, 255, 255);
-            rect.Draw(target, states);
+            update();
+            drawable.Draw(target, states);
         }
     }
 }
