@@ -14,14 +14,14 @@ namespace Pong
     {
         static RenderWindow initWindow()
         {
-            RenderWindow window = new RenderWindow(VideoMode.DesktopMode, "Pong", Styles.Fullscreen);
+            RenderWindow window = new RenderWindow(VideoMode.DesktopMode, "Breakout", Styles.Fullscreen);
             window.SetFramerateLimit(50);
             return window;
         }
 
         static void Main(string[] args)
         {
-            Taskbar.Hide();
+            //Taskbar.Hide();
             RenderWindow window = initWindow();
 
             View GameView = window.GetView();
@@ -73,7 +73,7 @@ namespace Pong
                         break;
 
                     case 4:
-                        Taskbar.Show();
+                        //Taskbar.Show();
                         System.Environment.Exit(1);
                         break;
 

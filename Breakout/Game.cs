@@ -37,7 +37,7 @@ namespace Pong
             difficulty = 11;
             windowSize = renderWindowSize;
             initBounds();
-            asd = new newPlayer(new Vector2f(50, 50), new Vector2f(0, 0));
+            asd = new newPlayer(new Vector2f(100, 20), new Vector2f(0, windowSize.Y-50));
             ball = new Ball(10);
             ball.Circle.Position = (new Vector2f(100, 100));
             
@@ -90,7 +90,7 @@ namespace Pong
 
             }
 
-            if (ManageInput.Instance.Up())
+           /*if (ManageInput.Instance.Up())
             {
                 if (!ManagerCollision.Instance.collide(asd.PlayerShape, topWall))
                 {
@@ -105,7 +105,7 @@ namespace Pong
                     asd.PlayerShape.Position += new Vector2f(0, 10);
                 }
 
-            }
+            }*/
         }
 
         public void updateGame()
@@ -124,7 +124,7 @@ namespace Pong
                 direction.X = -direction.X;
             }
 
-            if(ManagerCollision.Instance.collide(topWall, ball.Circle) || ManagerCollision.Instance.collide(bottomWall, ball.Circle))
+            if(ManagerCollision.Instance.collide(topWall, ball.Circle) || ManagerCollision.Instance.collide(bottomWall, ball.Circle) || ManagerCollision.Instance.collide(asd.PlayerShape,ball.Circle))
             {
                 direction.Y = -direction.Y;
             }
@@ -144,13 +144,13 @@ namespace Pong
                // player.Draw(target, states);
                 ball.Draw(target, states);
                // item.Draw(target, states);
-                topWall.Draw(target, states);
+                //topWall.Draw(target, states);
 
-            asd.Draw(target, states);
+                asd.Draw(target, states);
 
-                bottomWall.Draw(target, states);
-                leftWall.Draw(target, states);
-                rightWall.Draw(target, states);
+                //bottomWall.Draw(target, states);
+                //leftWall.Draw(target, states);
+                //rightWall.Draw(target, states);
         
     }
 

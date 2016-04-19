@@ -30,9 +30,9 @@ namespace Pong
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            changeOpacity();
+            //changeOpacity();
             ((Drawable)backGroundSprite).Draw(target, states);
-            ((Drawable)backGroundGlow).Draw(target, states);
+            //((Drawable)backGroundGlow).Draw(target, states);
 
         }
     }
