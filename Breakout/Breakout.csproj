@@ -66,8 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ball.cs" />
-    <Compile Include="Box2DTest.cs" />
+    <Compile Include="Collision.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjects\Ball.cs" />
+    <Compile Include="GameObjects\Box.cs" />
+    <Compile Include="GameObjects\Paddle.cs" />
+    <Compile Include="Grid.cs" />
     <Compile Include="ManagerCollision.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Intro.cs" />

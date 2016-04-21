@@ -10,19 +10,43 @@ using FarseerPhysics.Controllers;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
-
+using SFML.System;
 
 namespace Pong
 {
-    class GameObject
+    abstract class GameObject : Drawable
     {
-        public GameObject()
-        {
-            Vector2 size = new Vector2(500, 500);
 
+        Vector2f position;
+        Vector2f size;
+
+        public abstract void Draw(RenderTarget target, RenderStates states);
+        public abstract void update();
+        public Vector2f Position
+        {
+            get
+            {
+                return position;
+            }
+
+            set
+            {
+                position = value;
+            }
         }
-        void Draw() {
-           
+
+        public Vector2f Size
+        {
+            get
+            {
+                return size;
+            }
+
+            set
+            {
+                size = value;
+            }
         }
+
     }
 }
