@@ -65,8 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ball.cs" />
-    <Compile Include="Collision.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjects\Ball.cs" />
     <Compile Include="GameObjects\Box.cs" />

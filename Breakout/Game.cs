@@ -35,9 +35,7 @@ namespace Pong
             difficulty = 11;
             windowSize = renderWindowSize;
             initBounds();
-           // asd = new newPlayer(new Vector2f(100, 20), new Vector2f(0, windowSize.Y-50));
-            ball = new Ball(10);
-            ball.Circle.Position = (new Vector2f(100, 100));
+            ball = new Ball(new Vector2f(700, 600), 10, windowSize);
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
             grid = new Grid();
         }
@@ -60,7 +58,7 @@ namespace Pong
 
         public void init()
         {
-            ball = new Ball(10);
+            ball = new Ball(new Vector2f(700, 600), 10, windowSize);
             item = new Item(windowSize);
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
         }
@@ -69,11 +67,12 @@ namespace Pong
         {
             gamestate = 1;
             Player.update();
-            updateBall();
-            grid.update(ball.Circle);
+            ball.update();
+            ball.Direction = grid.update(ball.Circle, ball.Direction);
+            
         }
 
-        
+        /*
         void updateBall()
         {
 
@@ -89,6 +88,8 @@ namespace Pong
 
             ball.Circle.Position += direction * speed;
         }
+        */
+
 
         void resetGame()
         {

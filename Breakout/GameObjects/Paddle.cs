@@ -35,15 +35,11 @@ namespace Pong.GameObjects
 
         public override void update()
         {
-            System.Diagnostics.Debug.Write("trigger");
-
-
             if (isHuman)
             {
                 // TODO: put that somewhere else!
                 handleInput();
             }
-
             Position += new Vector2f(direction.X * velocity.X, 0);
             PaddleShape.Position = Position;
         }
