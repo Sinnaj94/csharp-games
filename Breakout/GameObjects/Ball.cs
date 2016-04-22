@@ -18,6 +18,9 @@ namespace Pong.GameObjects
         RectangleShape bottomWall;
         RectangleShape leftWall;
         RectangleShape rightWall;
+        Vector2f windowsize;
+
+
 
         private CircleShape circle;
         public Ball(Vector2f position, float radius, Vector2f windowSize)
@@ -27,17 +30,7 @@ namespace Pong.GameObjects
             this.Position = position;
             circle = new CircleShape(radius);
             circle.Position = Position;
-
-            // TODO Move somewhere else
-            topWall = new RectangleShape(windowSize);
-            bottomWall = new RectangleShape(windowSize);
-            leftWall = new RectangleShape(windowSize);
-            rightWall = new RectangleShape(windowSize);
-            topWall.Position = new Vector2f(0, -windowSize.Y);
-            bottomWall.Position = new Vector2f(0, windowSize.Y);
-            leftWall.Position = new Vector2f(-windowSize.X, 0);
-            rightWall.Position = new Vector2f(windowSize.X, 0);
-
+            this.windowsize = windowSize;
         }
 
         public override void Draw(RenderTarget target, RenderStates states)
@@ -47,17 +40,19 @@ namespace Pong.GameObjects
 
         public override void update()
         {
-            if (ManagerCollision.Instance.collide(leftWall, circle) || ManagerCollision.Instance.collide(rightWall, circle))
+
+            if(Position.X < 0 || Position.X >= windowsize.X)
             {
                 direction.X = -direction.X;
             }
 
-            if (ManagerCollision.Instance.collide(topWall, circle) || ManagerCollision.Instance.collide(bottomWall, circle))
+            if (Position.Y < 0 || Position.Y >= windowsize.Y)
             {
                 direction.Y = -direction.Y;
             }
 
-            Circle.Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
+            Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
+            Circle.Position = Position;
         }
 
         public CircleShape Circle
