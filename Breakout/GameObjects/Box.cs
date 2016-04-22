@@ -19,7 +19,9 @@ namespace Pong.GameObjects
             this.Size = size;
             BoxShape = new RectangleShape(Size);
             BoxShape.Position = Position;
-            BoxShape.FillColor = new Color(100, 200, 100, 200);
+            BoxShape.FillColor = new Color(100, 200, 100, 255);
+            BoxShape.OutlineColor = new Color(255, 255, 255, 255);
+            BoxShape.OutlineThickness = 1;
         }
 
         public override void Draw(RenderTarget target, RenderStates states)

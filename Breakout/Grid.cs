@@ -13,14 +13,14 @@ namespace Pong
     {
         Box[,] array2D;
 
-        public Grid()
+        public Grid(Vector2f windowSize)
         {
             array2D = new Box[10, 5];
             for(int i = 0; i < 10; i++)
             {
                 for(int j = 0; j < 5; j++)
                 {
-                    array2D[i, j] = new Box(new Vector2f(136.6f * i + 3.3f, 76.8f * j + 3.4f), new Vector2f(130, 70));
+                    array2D[i, j] = new Box(new Vector2f(windowSize.X / 12 * i + windowSize.X / 12, windowSize.Y / 12 * j + windowSize.Y / 12), new Vector2f(windowSize.X / 12, windowSize.Y / 12));
                 }
             }
         }

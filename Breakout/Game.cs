@@ -35,7 +35,7 @@ namespace Pong
             difficulty = 11;
             windowSize = renderWindowSize;
             initBounds();
-            grid = new Grid();
+            grid = new Grid(windowSize);
             ball = new Ball(new Vector2f(700, 600), 10, windowSize, grid);
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
   
