@@ -57,6 +57,37 @@ namespace Pong
             return false;
         }
 
+        public Vector2f collideWithDirection(RectangleShape a, CircleShape b)
+        {
+            if(collide(a, b))
+            {
+                if (b.Position.Y <= a.Position.Y - (a.Size.Y / 2))
+                {
+                    return new Vector2f(1, -1);
+                }
+                //Hit was from below the brick
+
+                if (b.Position.Y >= a.Position.Y + (a.Size.Y / 2))
+                {
+                    return new Vector2f(1, -1);
+                }
+                //Hit was from above the brick
+
+                if (b.Position.X < a.Position.X)
+                {
+                    return new Vector2f(-1, 1);
+                }
+                //Hit was on left
+
+                if (b.Position.X > a.Position.X)
+                {
+                    return new Vector2f(-1, 1);
+                }
+                //Hit was on right
+            }
+            return new Vector2f(1, 1);
+        }
+
         public float getSide(RectangleShape rect,Char side)
         {
             //left: l, right : r, up : u, down : d
@@ -74,48 +105,6 @@ namespace Pong
                 
 
             return 0;
-        }
-
-        public bool intersects(RectangleShape a, CircleShape b)
-        {
-
-            Vector2f circleDistance = new Vector2f();
-            double cornerDistance_sq;
-            circleDistance.X = Math.Abs(b.Position.X - a.Position.X);
-            circleDistance.Y = Math.Abs(b.Position.Y - a.Position.Y);
-
-            Console.Out.Write("X: " + circleDistance.X + "Y: " + circleDistance.Y + "\n");
-
-            if (circleDistance.X > (a.Size.X / 2 + b.Radius)) { return false; }
-            if (circleDistance.Y > (a.Size.Y / 2 + b.Radius)) { return false; }
-
-            if (circleDistance.X <= (a.Size.X / 2)) { return true; }
-            if (circleDistance.Y <= (a.Size.Y / 2)) { return true; }
-
-            cornerDistance_sq = Math.Pow((circleDistance.X - a.Size.X / 2), 2) + Math.Pow((circleDistance.Y - a.Size.Y / 2), 2);
-
-            return (cornerDistance_sq <= Math.Pow(b.Radius, 2));
-        }
-
-        public Vector2f intersects(RectangleShape a, CircleShape b, Vector2f direction)
-        {
-            Vector2f dir = direction;
-            Vector2f circleDistance = new Vector2f();
-            double cornerDistance_sq;
-            circleDistance.X = Math.Abs(b.Position.X - a.Position.X);
-            circleDistance.Y = Math.Abs(b.Position.Y - a.Position.Y);
-
-            Console.Out.Write("X: " + circleDistance.X + "Y: " + circleDistance.Y + "\n");
-
-            if (circleDistance.X > (a.Size.X / 2 + b.Radius)) { return dir; }
-            if (circleDistance.Y > (a.Size.Y / 2 + b.Radius)) { return dir; }
-
-            if (circleDistance.X <= (a.Size.X / 2)) { return new Vector2f(dir.X * -1, dir.Y); }
-            if (circleDistance.Y <= (a.Size.Y / 2)) { return new Vector2f(dir.X, dir.Y * -1); }
-
-            cornerDistance_sq = Math.Pow((circleDistance.X - a.Size.X / 2), 2) + Math.Pow((circleDistance.Y - a.Size.Y / 2), 2);
-
-            return (dir * -1);
         }
 
         private List<Vector2f> getCollisionPoints(RectangleShape a)

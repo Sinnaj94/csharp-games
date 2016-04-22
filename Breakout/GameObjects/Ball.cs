@@ -12,18 +12,13 @@ namespace Pong.GameObjects
     {
         Vector2f velocity;
         Vector2f direction;
-
-        // TODO Move somewhere else
-        RectangleShape topWall;
-        RectangleShape bottomWall;
-        RectangleShape leftWall;
-        RectangleShape rightWall;
         Vector2f windowsize;
+        Grid grid;
 
 
 
         private CircleShape circle;
-        public Ball(Vector2f position, float radius, Vector2f windowSize)
+        public Ball(Vector2f position, float radius, Vector2f windowSize, Grid grid)
         {
             velocity = new Vector2f(10, 10);
             direction = new Vector2f(-1, -1);
@@ -31,6 +26,7 @@ namespace Pong.GameObjects
             circle = new CircleShape(radius);
             circle.Position = Position;
             this.windowsize = windowSize;
+            this.grid = grid;
         }
 
         public override void Draw(RenderTarget target, RenderStates states)
@@ -51,6 +47,10 @@ namespace Pong.GameObjects
                 direction.Y = -direction.Y;
             }
 
+
+            Vector2f tmp = grid.CollideWithBlock(circle);
+            direction.X = direction.X * tmp.X;
+            direction.Y = direction.Y * tmp.Y;
             Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
             Circle.Position = Position;
         }

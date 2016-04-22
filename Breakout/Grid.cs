@@ -25,7 +25,7 @@ namespace Pong
             }
         }
 
-        public void update(CircleShape shape)
+        public Vector2f CollideWithBlock(CircleShape shape)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -33,35 +33,15 @@ namespace Pong
                 {
                     if (array2D[i, j] != null)
                     {
-                        if(ManagerCollision.Instance.intersects(array2D[i, j].BoxShape, shape))
-                        {
-                            array2D[i, j] = null;
-                        }
-                    }
-                }
-            }
-        }
-
-        public Vector2f update(CircleShape shape, Vector2f direction)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (array2D[i, j] != null)
-                    {
-                        if (ManagerCollision.Instance.intersects(array2D[i, j].BoxShape, shape))
-                        {
-                            Vector2f tmp = ManagerCollision.Instance.intersects(array2D[i, j].BoxShape, shape, direction);
+                        Vector2f tmp = ManagerCollision.Instance.collideWithDirection(array2D[i, j].BoxShape, shape);
+                        if (tmp.X == -1 || tmp.Y == -1){
                             array2D[i, j] = null;
                             return tmp;
-                        }
+                        }                               
                     }
                 }
             }
-
-            return direction;
-
+            return new Vector2f(1,1);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
