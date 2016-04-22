@@ -48,12 +48,29 @@ namespace Pong
             }
 
             //liegt der kreismittelpunkt im rechteck?
-            Vector2f middle = b.Position;
-            if(middle.X >= getSide(a,'l') && middle.X <= getSide(a,'r') && middle.Y >= getSide(a,'u') && middle.Y <= getSide(a,'d'))
+
+            if(
+            //Liegt die Mitte drin?
+            pointInRect(b.Position, a) ||
+            //Liegen die Seiten drin?
+            pointInRect(new Vector2f(b.Position.X-b.Radius,b.Position.Y), a) ||
+            pointInRect(new Vector2f(b.Position.X + b.Radius, b.Position.Y), a) ||
+            pointInRect(new Vector2f(b.Position.X, b.Position.Y-b.Radius), a) ||
+            pointInRect(new Vector2f(b.Position.X - b.Radius, b.Position.Y+b.Radius), a))
             {
                 return true;
             }
 
+
+            return false;
+        }
+
+        private bool pointInRect(Vector2f point, RectangleShape a)
+        {
+            if (point.X >= getSide(a, 'l') && point.X <= getSide(a, 'r') && point.Y >= getSide(a, 'u') && point.Y <= getSide(a, 'd'))
+            {
+                return true;
+            }
             return false;
         }
 
