@@ -36,9 +36,9 @@ namespace Pong
             windowSize = renderWindowSize;
             initBounds();
             grid = new Grid(windowSize);
-            ball = new Ball(new Vector2f(700, 600), 10, windowSize, grid);
+            
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
-  
+            ball = new Ball(new Vector2f(700, 600), 10, windowSize, grid, Player);
         }
 
         private void initBounds()
@@ -59,9 +59,10 @@ namespace Pong
 
         public void init()
         {
-            ball = new Ball(new Vector2f(700, 600), 10, windowSize, grid);
+            
             item = new Item(windowSize);
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
+            ball = new Ball(new Vector2f(700, 600), 10, windowSize, grid,Player);
         }
 
         public void updateGame()

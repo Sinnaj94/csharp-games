@@ -44,6 +44,16 @@ namespace Pong.GameObjects
             PaddleShape.Position = Position;
         }
 
+        public Vector2f collideWithPaddle(CircleShape ball)
+        {
+            Vector2f tmp = ManagerCollision.Instance.collideWithDirection(PaddleShape, ball);
+            if (tmp.X == -1 || tmp.Y == -1)
+            {
+                return tmp;
+            }
+            return new Vector2f(1, 1);
+        }
+
         void handleInput()
         {
             if (ManageInput.Instance.Left()) {

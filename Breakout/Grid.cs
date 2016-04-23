@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using Pong.GameObjects;
+using System.IO;
 
 namespace Pong
 {
@@ -23,6 +24,11 @@ namespace Pong
                     array2D[i, j] = new Box(new Vector2f(windowSize.X / 12 * i + windowSize.X / 12, windowSize.Y / 12 * j + windowSize.Y / 12), new Vector2f(windowSize.X / 12, windowSize.Y / 12));
                 }
             }
+        }
+
+        private void buildMap(String textfile)
+        {
+
         }
 
         public Vector2f CollideWithBlock(CircleShape shape)

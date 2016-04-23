@@ -37,11 +37,14 @@ namespace Pong
         public bool collide(RectangleShape a, CircleShape b)
         {
             List<Vector2f> points = getCollisionPoints(a);
+            //Fixed the Middle to be in the inside of the circle
 
+            CircleShape fM = new CircleShape(b);
+            fM.Position += new Vector2f(b.Radius, b.Radius);
             //liegt eine ecke im kreis?
-            foreach(Vector2f point in points)
+            foreach (Vector2f point in points)
             {
-                if(Math.Pow((point.X - b.Position.X),2) + Math.Pow((point.Y-b.Position.Y),2) <= b.Radius)
+                if(Math.Pow((point.X - fM.Position.X),2) + Math.Pow((point.Y- fM.Position.Y),2) <= b.Radius)
                 {
                     return true;
                 }
@@ -51,12 +54,12 @@ namespace Pong
 
             if(
             //Liegt die Mitte drin?
-            pointInRect(b.Position, a) ||
+            pointInRect(fM.Position, a) ||
             //Liegen die Seiten drin?
-            pointInRect(new Vector2f(b.Position.X-b.Radius,b.Position.Y), a) ||
-            pointInRect(new Vector2f(b.Position.X + b.Radius, b.Position.Y), a) ||
-            pointInRect(new Vector2f(b.Position.X, b.Position.Y-b.Radius), a) ||
-            pointInRect(new Vector2f(b.Position.X - b.Radius, b.Position.Y+b.Radius), a))
+            pointInRect(new Vector2f(fM.Position.X- fM.Radius, fM.Position.Y), a) ||
+            pointInRect(new Vector2f(fM.Position.X + b.Radius, fM.Position.Y), a) ||
+            pointInRect(new Vector2f(fM.Position.X, fM.Position.Y- fM.Radius), a) ||
+            pointInRect(new Vector2f(fM.Position.X - fM.Radius, fM.Position.Y+b.Radius), a))
             {
                 return true;
             }
@@ -126,7 +129,8 @@ namespace Pong
 
         private List<Vector2f> getCollisionPoints(RectangleShape a)
         {
-            List<Vector2f> edges = getEdges(a);
+            return getEdges(a);
+         /*   List<Vector2f> edges = getEdges(a);
             List<Vector2f> re = new List<Vector2f>();
 
             re.AddRange(getIntermediatedPoints(edges[0],edges[1]));
@@ -136,7 +140,7 @@ namespace Pong
 
             re.AddRange(edges);
 
-            return re;
+            return re;*/
         }
 
         private List<Vector2f> getIntermediatedPoints(Vector2f A, Vector2f B)
