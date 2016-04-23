@@ -137,6 +137,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Levels\Level1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\background.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
