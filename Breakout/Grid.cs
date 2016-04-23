@@ -47,7 +47,7 @@ namespace Pong
                             }
                             else
                             {
-                                createBox(i, index);
+                                createBox(i, index,cChar);
                             }
                         }
                         index++;
@@ -61,10 +61,10 @@ namespace Pong
             }
         }
 
-        private void createBox(int i, int j)
+        private void createBox(int i, int j,char type)
         {
             //Die heilige Formel
-            array2D[i, j] = new Box(new Vector2f(windowSize.X / (arraySize.X+2) * i + windowSize.X / (arraySize.X + 2), windowSize.Y*2/3 / (arraySize.Y + 2) * j + windowSize.Y*2/3 / (arraySize.Y+2)), new Vector2f(windowSize.X / (arraySize.X+2), windowSize.Y*2/3 / (arraySize.Y+2)));
+            array2D[i, j] = new Box(new Vector2f(windowSize.X / (arraySize.X+2) * i + windowSize.X / (arraySize.X + 2), windowSize.Y*2/3 / (arraySize.Y + 2) * j + windowSize.Y*2/3 / (arraySize.Y+2)), new Vector2f(windowSize.X / (arraySize.X+2), windowSize.Y*2/3 / (arraySize.Y+2)),type);
 
         }
 
