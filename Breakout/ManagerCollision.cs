@@ -12,6 +12,7 @@ namespace Breakout
     {
         private static ManagerCollision instance;
         int precision;
+        char sideHit;
         public static ManagerCollision Instance
         {
             get
@@ -26,6 +27,7 @@ namespace Breakout
 
         public ManagerCollision()
         {
+            sideHit = '0';
             precision = 4;
         }
 
@@ -46,23 +48,42 @@ namespace Breakout
             {
                 if(Math.Pow((point.X - fM.Position.X),2) + Math.Pow((point.Y- fM.Position.Y),2) <= b.Radius)
                 {
+                    sideHit = 'y';
                     return true;
                 }
             }
 
             //liegt der kreismittelpunkt im rechteck?
-
-            if(
-            //Liegt die Mitte drin?
-            pointInRect(fM.Position, a) ||
-            //Liegen die Seiten drin?
-            pointInRect(new Vector2f(fM.Position.X- fM.Radius, fM.Position.Y), a) ||
-            pointInRect(new Vector2f(fM.Position.X + b.Radius, fM.Position.Y), a) ||
-            pointInRect(new Vector2f(fM.Position.X, fM.Position.Y- fM.Radius), a) ||
-            pointInRect(new Vector2f(fM.Position.X - fM.Radius, fM.Position.Y+b.Radius), a))
+            /*
+            if(pointInRect(fM.Position, a))
             {
+                sideHit = 'a';
+                return true;
+            }*/
+            //left side
+            /*
+            if(pointInRect(new Vector2f(fM.Position.X- fM.Radius, fM.Position.Y), a))
+            {
+                sideHit = 'l';
                 return true;
             }
+            //right side
+            if (pointInRect(new Vector2f(fM.Position.X + b.Radius, fM.Position.Y), a))
+            {
+                sideHit = 'r';
+                return true;
+            }
+            //up side
+            if(pointInRect(new Vector2f(fM.Position.X, fM.Position.Y- fM.Radius), a))
+            {
+                sideHit = 'u';
+                return true;
+            }
+            if(pointInRect(new Vector2f(fM.Position.X - fM.Radius, fM.Position.Y+b.Radius), a))
+            {
+                sideHit = 'd';
+                return true;
+            }*/
 
 
             return false;
@@ -81,29 +102,19 @@ namespace Breakout
         {
             if(collide(a, b))
             {
-                if (b.Position.Y <= a.Position.Y - (a.Size.Y / 2))
+                switch (sideHit)
                 {
-                    return new Vector2f(1, -1);
+                    case 'l':
+                        return new Vector2f(-1, 1);
+                    case 'r':
+                        return new Vector2f(-1, 1);
+                    case 'u':
+                        return new Vector2f(1, -1);
+                    case 'd':
+                        return new Vector2f(1, -1);
+                    case 'y':
+                        return new Vector2f(1, -1);
                 }
-                //Hit was from below the brick
-
-                if (b.Position.Y >= a.Position.Y + (a.Size.Y / 2))
-                {
-                    return new Vector2f(1, -1);
-                }
-                //Hit was from above the brick
-
-                if (b.Position.X < a.Position.X)
-                {
-                    return new Vector2f(-1, 1);
-                }
-                //Hit was on left
-
-                if (b.Position.X > a.Position.X)
-                {
-                    return new Vector2f(-1, 1);
-                }
-                //Hit was on right
             }
             return new Vector2f(1, 1);
         }

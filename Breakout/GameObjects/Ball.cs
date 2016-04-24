@@ -20,7 +20,7 @@ namespace Breakout.GameObjects
         private CircleShape circle;
         public Ball(Vector2f position, float radius, Vector2f windowSize, Grid grid, Paddle paddle)
         {
-            velocity = new Vector2f(5, 5);
+            velocity = new Vector2f(1, 1);
             direction = new Vector2f(-1, -1);
             this.Position = position;
             circle = new CircleShape(radius);
