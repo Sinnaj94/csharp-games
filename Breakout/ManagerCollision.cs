@@ -143,6 +143,55 @@ namespace Breakout
             return re;*/
         }
 
+
+        public Vector2f precisePlayerCollision(float XBoundMin, float XBoundMax, float playerXPosition, Vector2f position, Vector2f deltaXY, float radius, Vector2f direction)
+        {
+
+            Vector2f oldDelta = deltaXY;
+            Vector2f delta = deltaXY;
+            Vector2f deltaAbsolut = delta;
+            Vector2f precisePosition = position;
+            deltaAbsolut.X = Math.Abs(deltaAbsolut.X);
+            deltaAbsolut.Y = Math.Abs(deltaAbsolut.Y);
+            float factor;
+
+            if (deltaAbsolut.X >= deltaAbsolut.Y)
+            {
+                factor = deltaAbsolut.X;
+                delta.Y = delta.Y / deltaAbsolut.X;
+                delta.X = delta.X / deltaAbsolut.X;
+
+            }
+            else
+            {
+                factor = deltaAbsolut.Y;
+                delta.X = delta.X / deltaAbsolut.Y;
+                delta.Y = delta.Y / deltaAbsolut.Y;
+            }
+
+            while ((int)factor >= 0)
+            {
+                precisePosition.X += delta.X;
+                precisePosition.Y += delta.Y;
+
+
+                if (precisePosition.Y <= playerXPosition && precisePosition.Y >= playerXPosition - 10 && precisePosition.X + radius > XBoundMin && precisePosition.X < XBoundMax)
+                {
+                    double relativeIntersectX = ((XBoundMax + XBoundMin) / 2) - precisePosition.X;
+                    double normalizedRelativeIntersectionX = ((relativeIntersectX / ((XBoundMax - XBoundMin) / 2)));
+                    double bounceAngle = normalizedRelativeIntersectionX * ((3 * Math.PI) / 12);
+                    deltaXY.Y =  (float)-Math.Cos(bounceAngle);
+                    deltaXY.X =  (float)-Math.Sin(bounceAngle);
+
+                    Console.Out.Write("\nX: " + deltaXY.Y + "\nY: " + deltaXY.Y);
+
+                    return deltaXY;
+                }
+                factor--;
+            }
+            return direction;
+        }
+
         private List<Vector2f> getIntermediatedPoints(Vector2f A, Vector2f B)
         {
             //direction vector
