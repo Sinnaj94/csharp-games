@@ -13,6 +13,7 @@ namespace Breakout.GameObjects
 
         RectangleShape boxShape;
         int stillToHit;
+        bool isSolid;
         public Box(Vector2f position, Vector2f size, char type)
         {
             this.Position = position;
@@ -22,27 +23,58 @@ namespace Breakout.GameObjects
             BoxShape.FillColor = new Color(100, 200, 100, 255);
             BoxShape.OutlineColor = new Color(255, 255, 255, 255);
             BoxShape.OutlineThickness = 1;
-            buildBox(type);
+            //if its a solid one
+            if(type != 's')
+            {
+                stillToHit = type - '0';
+                isSolid = false;
+            }
+            else
+            {
+                boxShape.FillColor = new Color(0, 0, 0, 255);
+                isSolid = true;
+            }
+            
+            Console.Out.WriteLine(stillToHit);
+            buildBox();
         }
 
-        private void buildBox(char type)
+        private void buildBox()
         {
-            switch (type)
+            if (!isSolid)
             {
-                case '1':
-                    BoxShape.FillColor = new Color(100, 200, 100, 255);
-                    stillToHit = 1;
-                    break;
-                case '2':
-                    BoxShape.FillColor = new Color(200, 100, 100, 255);
-                    stillToHit = 2;
-                    break;
-                case '3':
-                    BoxShape.FillColor = new Color(100, 100, 200, 255);
-                    stillToHit = 3;
-                    break;
+                switch (stillToHit)
+                {
+                    case 1:
+                        BoxShape.FillColor = new Color(100, 200, 100, 255);
+                        break;
+                    case 2:
+                        BoxShape.FillColor = new Color(100, 100, 200, 255);
+                        break;
+                    case 3:
+                        BoxShape.FillColor = new Color(200, 100, 100, 255);
+                        break;
 
+                }
             }
+           
+            
+        }
+
+        public bool destroyBox()
+        {
+            if (!isSolid)
+            {
+                stillToHit--;
+                if (stillToHit <= 0)
+                {
+                    return true;
+                }
+                buildBox();
+                return false;
+            }
+            return false;
+            
         }
 
         public bool substractPoint()

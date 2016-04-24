@@ -20,7 +20,7 @@ namespace Breakout.GameObjects
         private CircleShape circle;
         public Ball(Vector2f position, float radius, Vector2f windowSize, Grid grid, Paddle paddle)
         {
-            velocity = new Vector2f(1, 1);
+            velocity = new Vector2f(5, 5);
             direction = new Vector2f(-1, -1);
             this.Position = position;
             circle = new CircleShape(radius);
@@ -42,7 +42,7 @@ namespace Breakout.GameObjects
 
 
             // collide with paddle
-            direction = ManagerCollision.Instance.precisePlayerCollision(paddle.Position.X, paddle.Position.X + paddle.Size.X, paddle.Position.Y, direction, circle.Position, Radius, direction);
+            direction = ManagerCollision.Instance.precisePlayerCollision(paddle.Position.X, paddle.Position.X + paddle.Size.X, paddle.Position.Y, Position, velocity, Radius, direction);
              
             // collide with walls
             if (Position.X < 0 || Position.X+circle.Radius*2 >= windowsize.X)

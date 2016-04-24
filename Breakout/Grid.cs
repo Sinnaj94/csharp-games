@@ -110,7 +110,11 @@ namespace Breakout
                     {
                         Vector2f tmp = ManagerCollision.Instance.collideWithDirection(array2D[i, j].BoxShape, shape);
                         if (tmp.X == -1 || tmp.Y == -1){
-                            array2D[i, j] = null;
+                            if (array2D[i, j].destroyBox())
+                            {
+                                array2D[i, j] = null;
+                            }
+
                             return tmp;
                         }                               
                     }
