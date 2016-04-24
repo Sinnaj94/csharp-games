@@ -36,7 +36,7 @@ namespace Breakout
             grid = new Grid(windowSize);
             
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
-            ball = new Ball(new Vector2f(100, 100), 5, windowSize, grid, Player);
+            ball = new Ball(new Vector2f(100, 100), 10, windowSize, grid, Player);
         }
 
         private void initBounds()
@@ -55,13 +55,7 @@ namespace Breakout
             rightWall.Position = new Vector2f(windowSize.X, 0);
         }
 
-        public void init()
-        {
-            
-            item = new Item(windowSize);
-            Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
-            ball = new Ball(new Vector2f(700, 600), 10, windowSize, grid,Player);
-        }
+        
 
         public void updateGame()
         {

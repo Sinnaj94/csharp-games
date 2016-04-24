@@ -113,7 +113,7 @@ namespace Breakout
                     case 'd':
                         return new Vector2f(1, -1);
                     case 'y':
-                        return new Vector2f(1, -1);
+                        return new Vector2f(-1, -1);
                 }
             }
             return new Vector2f(1, 1);
