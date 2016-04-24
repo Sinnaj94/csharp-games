@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong
+namespace Breakout
 {
     class Intro : Drawable
     {
@@ -14,7 +14,7 @@ namespace Pong
         Text introText;
         Text introTextBack;
         Text developers;
-        private int screenMid = 683;
+        private int screenMid = 300;
 
         public Intro()
         {

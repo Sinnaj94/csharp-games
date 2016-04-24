@@ -7,7 +7,7 @@ using SFML.System;
 using SFML.Graphics;
 
 
-namespace Pong
+namespace Breakout
 {
     class Ball : Drawable
     {

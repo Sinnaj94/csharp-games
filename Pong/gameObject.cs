@@ -8,7 +8,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Audio;
 
-namespace Pong
+namespace Breakout
 {
     class GameObject : SFML.Graphics.Drawable
     {

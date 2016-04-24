@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong
+namespace Breakout
 {
     class Background : Drawable
     {
@@ -15,7 +15,7 @@ namespace Pong
         Clock c;
         public Background(Vector2f windowSize)
         {
-            backGroundSprite = new Sprite(new Texture(@"Resources/background.jpg"));
+            backGroundSprite = new Sprite(new Texture(@"Resources/background_small.jpg"));
             backGroundGlow = new Sprite(new Texture(@"Resources/backgroundred.jpg"));
             backGroundSprite.Position = new Vector2f( -0.5f * (backGroundSprite.Texture.Size.X - windowSize.X), -0.5f * (backGroundSprite.Texture.Size.Y - windowSize.Y));
             backGroundGlow.Position = backGroundSprite.Position;

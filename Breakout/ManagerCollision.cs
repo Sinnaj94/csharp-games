@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 
-namespace Pong
+namespace Breakout
 {
     class ManagerCollision
     {

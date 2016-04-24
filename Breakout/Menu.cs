@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong
+namespace Breakout
 {
     class Menu : SFML.Graphics.Drawable
     {
         
         List<Button> ButtonList;
         int menuState;
-        int screenMid = 683;
+        int screenMid = 300;
 
         public Menu()
         {

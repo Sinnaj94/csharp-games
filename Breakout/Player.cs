@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
-using Pong.Properties;
+using Breakout.Properties;
 
-namespace Pong
+namespace Breakout
 {
     class Player : Drawable
     {

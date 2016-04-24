@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 
-namespace Pong
+namespace Breakout
 {
     class KIHandler
     {

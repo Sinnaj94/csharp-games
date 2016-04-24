@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Pong
+namespace Breakout
 {
     class GameOver : SFML.Graphics.Drawable
     {
 
         Text gameOver;
         Text continueToMenu;
-        int screenMid = 683;
+        int screenMid = 300;
 
         public GameOver()
         {

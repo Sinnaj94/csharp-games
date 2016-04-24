@@ -7,9 +7,9 @@ using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Audio;
-using Pong.GameObjects;
+using Breakout.GameObjects;
 
-namespace Pong
+namespace Breakout
 {
     class Game : SFML.Graphics.Drawable
     {
@@ -26,8 +26,6 @@ namespace Pong
         RectangleShape leftWall;
         RectangleShape rightWall;
 
-        float speed = 10;
-
         Vector2f direction = new Vector2f(.5f, .5f);
 
         public Game(Vector2f renderWindowSize)
@@ -38,7 +36,7 @@ namespace Pong
             grid = new Grid(windowSize);
             
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
-            ball = new Ball(new Vector2f(700, 600), 10, windowSize, grid, Player);
+            ball = new Ball(new Vector2f(100, 100), 5, windowSize, grid, Player);
         }
 
         private void initBounds()
@@ -72,25 +70,6 @@ namespace Pong
             ball.update();
             
         }
-
-        /*
-        void updateBall()
-        {
-
-            if(ManagerCollision.Instance.collide(leftWall, ball.Circle) || ManagerCollision.Instance.collide(rightWall, ball.Circle))
-            {
-                direction.X = -direction.X;
-            }
-
-            if(ManagerCollision.Instance.collide(topWall, ball.Circle) || ManagerCollision.Instance.collide(bottomWall, ball.Circle))
-            {
-                direction.Y = -direction.Y;
-            }
-
-            ball.Circle.Position += direction * speed;
-        }
-        */
-
 
         void resetGame()
         {

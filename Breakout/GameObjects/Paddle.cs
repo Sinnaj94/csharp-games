@@ -7,7 +7,7 @@ using SFML.Graphics;
 using SFML.System;
 using System.Diagnostics;
 
-namespace Pong.GameObjects
+namespace Breakout.GameObjects
 {
     class Paddle : GameObject
     {

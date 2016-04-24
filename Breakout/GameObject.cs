@@ -12,7 +12,7 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using SFML.System;
 
-namespace Pong
+namespace Breakout
 {
     abstract class GameObject : Drawable
     {

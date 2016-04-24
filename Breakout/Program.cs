@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using Pong.Properties;
+using Breakout.Properties;
 
-namespace Pong
+namespace Breakout
 {
     class Program
     {
@@ -25,15 +25,15 @@ namespace Pong
             RenderWindow window = initWindow();
 
             View GameView = window.GetView();
-            GameView.Center = new Vector2f(960 - 277,540 - 156);
+            GameView.Center = new Vector2f(960 - 660,540 - 156);
             window.SetView(GameView);
 
             Menu menu = new Menu();
-            Game gameObject = new Game(new Vector2f(1366, 768));
+            Game gameObject = new Game(new Vector2f(600, 768));
             GameOver gameOverScreen = new GameOver();
             Settings settings = new Settings(4,1);
             Intro intro = new Intro();
-            Background bg = new Background(new Vector2f(1366, 768));
+            Background bg = new Background(new Vector2f(600, 768));
 
 
 

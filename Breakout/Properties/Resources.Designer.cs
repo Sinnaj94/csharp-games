@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Pong.Properties {
+namespace Breakout.Properties {
     using System;
     
     
