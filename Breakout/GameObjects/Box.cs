@@ -14,6 +14,8 @@ namespace Breakout.GameObjects
         RectangleShape boxShape;
         int stillToHit;
         bool isSolid;
+        bool isItem;
+
         public Box(Vector2f position, Vector2f size, char type)
         {
             this.Position = position;
@@ -24,15 +26,18 @@ namespace Breakout.GameObjects
             BoxShape.OutlineColor = new Color(255, 255, 255, 255);
             BoxShape.OutlineThickness = 1;
             //if its a solid one
-            if(type != 's')
+            if(type != 's'&& type!= 'i')
             {
                 stillToHit = type - '0';
                 isSolid = false;
             }
-            else
+            else if(type == 's')
             {
                 boxShape.FillColor = new Color(0, 0, 0, 255);
                 isSolid = true;
+            }else if(type == 'i')
+            {
+                isItem = true;
             }
             
             Console.Out.WriteLine(stillToHit);
@@ -87,9 +92,25 @@ namespace Breakout.GameObjects
             return false;
         }
 
+        private Color getRandomColor()
+        {
+            Random r = new Random();
+            byte red = (byte)r.Next(0, 255);
+            byte green = (byte)r.Next(0, 255);
+            byte blue = (byte)r.Next(0, 255);
+            return new Color(red, green, blue, 255);
+        }
+
         public override void Draw(RenderTarget target, RenderStates states)
         {
+            if (isItem)
+            {
+                BoxShape.FillColor = getRandomColor();
+            }
+            
             BoxShape.Draw(target, states);
+
+            
         }
 
         public override void update()

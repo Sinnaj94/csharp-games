@@ -82,7 +82,7 @@ namespace Breakout
             Player.Draw(target, states);
             grid.Draw(target, states);
             ball.Draw(target, states);
-            bottomWall.Draw(target, states);
+
         }
 
         public int Gamestate
