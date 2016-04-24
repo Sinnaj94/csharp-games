@@ -15,7 +15,7 @@ namespace Breakout.GameObjects
         Vector2f windowsize;
         Grid grid;
         Paddle paddle;
-
+        float radius;
 
         private CircleShape circle;
         public Ball(Vector2f position, float radius, Vector2f windowSize, Grid grid, Paddle paddle)
@@ -28,6 +28,7 @@ namespace Breakout.GameObjects
             this.windowsize = windowSize;
             this.grid = grid;
             this.paddle = paddle;
+            this.radius = radius;
         }
 
         public override void Draw(RenderTarget target, RenderStates states)
@@ -39,7 +40,12 @@ namespace Breakout.GameObjects
         public override void update()
         {
 
-            if(Position.X < 0 || Position.X+circle.Radius*2 >= windowsize.X)
+
+            // collide with paddle
+            direction = ManagerCollision.Instance.precisePlayerCollision(paddle.Position.X, paddle.Position.X + paddle.Size.X, paddle.Position.Y, direction, circle.Position, Radius, direction);
+             
+            // collide with walls
+            if (Position.X < 0 || Position.X+circle.Radius*2 >= windowsize.X)
             {
                 direction.X = -direction.X;
             }
@@ -49,12 +55,11 @@ namespace Breakout.GameObjects
                 direction.Y = -direction.Y;
             }
 
-
+            // collide with boxes
             Vector2f tmp = grid.CollideWithBlock(circle);
-            Vector2f tmpP = paddle.collideWithPaddle(circle);
-            
-            direction.X = direction.X * tmp.X * tmpP.X;
-            direction.Y = direction.Y * tmp.Y * tmpP.Y;
+
+            direction.X = direction.X * tmp.X;
+            direction.Y = direction.Y * tmp.Y;
             Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
             Circle.Position = Position;
         }
@@ -82,6 +87,32 @@ namespace Breakout.GameObjects
             set
             {
                 direction = value;
+            }
+        }
+
+        public Vector2f Velocity
+        {
+            get
+            {
+                return velocity;
+            }
+
+            set
+            {
+                velocity = value;
+            }
+        }
+
+        public float Radius
+        {
+            get
+            {
+                return radius;
+            }
+
+            set
+            {
+                radius = value;
             }
         }
     }
