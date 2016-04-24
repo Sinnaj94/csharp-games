@@ -61,7 +61,7 @@ namespace Breakout
                 return true;
             }*/
             //left side
-            /*
+            
             if(pointInRect(new Vector2f(fM.Position.X- fM.Radius, fM.Position.Y), a))
             {
                 sideHit = 'l';
@@ -83,7 +83,7 @@ namespace Breakout
             {
                 sideHit = 'd';
                 return true;
-            }*/
+            }
 
 
             return false;
