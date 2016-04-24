@@ -15,12 +15,13 @@ namespace Breakout
         Box[,] array2D;
         Vector2f windowSize;
         Vector2i arraySize;
+        Item item;
         public Grid(Vector2f windowSize)
         {
             array2D = new Box[10, 5];
             this.windowSize = windowSize;
-            
             buildMap(@"Levels/Level1.txt");
+            
         }
 
         private void buildMap(String textfile)
@@ -64,8 +65,10 @@ namespace Breakout
         private void createBox(int i, int j,char type)
         {
             //Die heilige Formel
-            array2D[i, j] = new Box(new Vector2f(windowSize.X / (arraySize.X+2) * i + windowSize.X / (arraySize.X + 2), windowSize.Y*2/6 / (arraySize.Y + 2) * j + windowSize.Y*2/6 / (arraySize.Y+2)), new Vector2f(windowSize.X / (arraySize.X+2), windowSize.Y*2/6 / (arraySize.Y+2)),type);
-
+            array2D[i, j] = new Box(new Vector2f(windowSize.X / (arraySize.X) * i + windowSize.X / (arraySize.X + 2), windowSize.Y*2/6 / (arraySize.Y + 2) * j + windowSize.Y*2/6 / (arraySize.Y+2)), new Vector2f(windowSize.X / (arraySize.X+2), windowSize.Y*2/6 / (arraySize.Y+2)),type);
+            Vector2f pos = new Vector2f(i*windowSize.X/arraySize.X,(j*windowSize.Y/arraySize.Y)*2/3);
+            Vector2f size = new Vector2f(windowSize.X/arraySize.X-1,( windowSize.Y/arraySize.Y)*2/3-1);
+            array2D[i, j] = new Box(pos,size, type);
         }
 
         private Vector2i defineArraySize(String textfile)
@@ -110,6 +113,11 @@ namespace Breakout
                     {
                         Vector2f tmp = ManagerCollision.Instance.collideWithDirection(array2D[i, j].BoxShape, shape);
                         if (tmp.X == -1 || tmp.Y == -1){
+                            if (array2D[i, j].IsItem)
+                            {
+                                Console.Out.WriteLine("War n item");
+                                item = new Item(windowSize, array2D[i, j].Position);
+                            }
                             if (array2D[i, j].destroyBox())
                             {
                                 array2D[i, j] = null;

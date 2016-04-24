@@ -37,7 +37,7 @@ namespace Breakout.GameObjects
                 isSolid = true;
             }else if(type == 'i')
             {
-                isItem = true;
+                IsItem = true;
             }
             
             Console.Out.WriteLine(stillToHit);
@@ -103,7 +103,7 @@ namespace Breakout.GameObjects
 
         public override void Draw(RenderTarget target, RenderStates states)
         {
-            if (isItem)
+            if (IsItem)
             {
                 BoxShape.FillColor = getRandomColor();
             }
@@ -128,6 +128,19 @@ namespace Breakout.GameObjects
             set
             {
                 boxShape = value;
+            }
+        }
+
+        public bool IsItem
+        {
+            get
+            {
+                return isItem;
+            }
+
+            set
+            {
+                isItem = value;
             }
         }
     }

@@ -16,7 +16,7 @@ namespace Breakout
         Ball ball;
         Paddle Player;
         Vector2f windowSize;
-        Item item;
+
         int gamestate;
         int difficulty;
         bool twoPlayerGame;
@@ -76,6 +76,7 @@ namespace Breakout
             Player.Draw(target, states);
             grid.Draw(target, states);
             ball.Draw(target, states);
+            
 
         }
 
