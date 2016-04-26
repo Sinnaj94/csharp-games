@@ -16,12 +16,13 @@ namespace Breakout
         Vector2f windowSize;
         Vector2i arraySize;
         Item item;
-        public Grid(Vector2f windowSize)
+        ScoreBoard board;
+        public Grid(Vector2f windowSize, ScoreBoard scoreBoard)
         {
             array2D = new Box[10, 5];
             this.windowSize = windowSize;
             buildMap(@"Levels/Level1.txt");
-            
+            this.board = scoreBoard;
         }
 
         private void buildMap(String textfile)
@@ -64,7 +65,7 @@ namespace Breakout
 
         private void createBox(int i, int j,char type)
         {
-            //Die heilige Formel
+            //Die heilige Formel // wat? :D
             array2D[i, j] = new Box(new Vector2f(windowSize.X / (arraySize.X) * i + windowSize.X / (arraySize.X + 2), windowSize.Y*2/6 / (arraySize.Y + 2) * j + windowSize.Y*2/6 / (arraySize.Y+2)), new Vector2f(windowSize.X / (arraySize.X+2), windowSize.Y*2/6 / (arraySize.Y+2)),type);
             Vector2f pos = new Vector2f(i*windowSize.X/arraySize.X,(j*windowSize.Y/arraySize.Y)*2/3);
             Vector2f size = new Vector2f(windowSize.X/arraySize.X-1,( windowSize.Y/arraySize.Y)*2/3-1);
@@ -121,6 +122,7 @@ namespace Breakout
                             if (array2D[i, j].destroyBox())
                             {
                                 array2D[i, j] = null;
+                                board.Score++;
                             }
 
                             return tmp;
@@ -133,6 +135,8 @@ namespace Breakout
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            board.Draw(target, states);
+
             for (int i = 0; i < arraySize.X; i++)
             {
                 for (int j = 0; j < arraySize.Y; j++)

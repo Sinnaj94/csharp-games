@@ -16,9 +16,11 @@ namespace Breakout.GameObjects
         Grid grid;
         Paddle paddle;
         float radius;
+        bool isSticky = true;
+        ScoreBoard board;
 
         private CircleShape circle;
-        public Ball(Vector2f position, float radius, Vector2f windowSize, Grid grid, Paddle paddle)
+        public Ball(Vector2f position, float radius, Vector2f windowSize, Grid grid, Paddle paddle, ScoreBoard scoreboard)
         {
             velocity = new Vector2f(5, 5);
             direction = new Vector2f(-1, -1);
@@ -29,6 +31,7 @@ namespace Breakout.GameObjects
             this.grid = grid;
             this.paddle = paddle;
             this.radius = radius;
+            this.board = scoreboard;
         }
 
         public override void Draw(RenderTarget target, RenderStates states)
@@ -37,22 +40,37 @@ namespace Breakout.GameObjects
             
         }
 
-        public override void update()
+        public void isStickyUpdate()
         {
+            Position = new Vector2f((paddle.Position.X + (paddle.Size.X / 2)) - Radius, paddle.Position.Y - 2*Radius);
+            Circle.Position = Position;
+            if (ManageInput.Instance.Space())
+            {
+                IsSticky = false;
+                direction = new Vector2f(0, -1);
+            }
+        }
 
-
+        public void regularUpdate()
+        {
             // collide with paddle
             direction = ManagerCollision.Instance.precisePlayerCollision(paddle.Position.X, paddle.Position.X + paddle.Size.X, paddle.Position.Y, Position, velocity, Radius, direction);
-             
+
             // collide with walls
-            if (Position.X < 0 || Position.X+circle.Radius*2 >= windowsize.X)
+            if (Position.X < 0 || Position.X + circle.Radius * 2 >= windowsize.X)
             {
                 direction.X = -direction.X;
             }
 
-            if (Position.Y < 0 || Position.Y + circle.Radius * 2 >= windowsize.Y)
+            if (Position.Y < 0)
             {
                 direction.Y = -direction.Y;
+            }
+
+            if(Position.Y >= windowsize.Y - 2*Radius)
+            {
+                isSticky = true;
+                board.Lives--;
             }
 
             // collide with boxes
@@ -62,6 +80,18 @@ namespace Breakout.GameObjects
             direction.Y = direction.Y * tmp.Y;
             Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
             Circle.Position = Position;
+        }
+
+        public override void update()
+        {
+            if (isSticky)
+            {
+                isStickyUpdate();
+            }
+            else
+            {
+                regularUpdate();
+            }
         }
 
         public CircleShape Circle
@@ -113,6 +143,19 @@ namespace Breakout.GameObjects
             set
             {
                 radius = value;
+            }
+        }
+
+        public bool IsSticky
+        {
+            get
+            {
+                return isSticky;
+            }
+
+            set
+            {
+                isSticky = value;
             }
         }
     }

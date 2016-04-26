@@ -18,8 +18,8 @@ namespace Breakout
 
         public Intro()
         {
-            introText = new Text("Super Pong", ManageText.Instance.CrackmanFront, 400);
-            introTextBack = new Text("Super Pong", ManageText.Instance.CrackmanFront, 410);
+            introText = new Text("B B B B Breakout", ManageText.Instance.CrackmanFront, 400);
+            introTextBack = new Text("B B B B Breakout", ManageText.Instance.CrackmanFront, 410);
             developers = new Text("Developed by Niklas Hinte and Jannis Jahr - HS Bremen", ManageText.Instance.PixelOperator, 30); 
 
             introText.Color = ManageText.Instance.Yellow;

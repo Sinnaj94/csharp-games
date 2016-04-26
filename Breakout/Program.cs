@@ -55,7 +55,6 @@ namespace Breakout
 
                     case 1:
                         window.Draw(bg);
-                        gameObject.TwoPlayerGame = false;
                         gameObject.updateGame();
                         window.Draw(gameObject);
                         gamestate = gameObject.Gamestate;
@@ -69,7 +68,6 @@ namespace Breakout
                     case 3:
                         window.Draw(settings);
                         gamestate = settings.update();
-                        gameObject.Difficulty = settings.updateDifficulty();
                         break;
 
                     case 4:
@@ -84,7 +82,6 @@ namespace Breakout
 
                     case 6:
                         window.Draw(bg);
-                        gameObject.TwoPlayerGame = true;
                         gameObject.updateGame();
                         window.Draw(gameObject);
                         gamestate = gameObject.Gamestate;

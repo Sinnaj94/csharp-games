@@ -14,6 +14,7 @@ namespace Breakout
 
         private ManageInput() { }
 
+        private bool spacePressed;
         private bool returnPressed;
         private bool upPressed;
         private bool downPressed;
@@ -49,6 +50,21 @@ namespace Breakout
                 return false;
             }
             
+        }
+
+        public bool Space()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space) && !spacePressed)
+            {
+                spacePressed = true;
+                return true;
+            }
+            else
+            {
+                spacePressed = Keyboard.IsKeyPressed(Keyboard.Key.Space);
+                return false;
+            }
+
         }
 
         public bool W()
