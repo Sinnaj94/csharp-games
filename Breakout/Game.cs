@@ -24,6 +24,7 @@ namespace Breakout
 
         public Game(Vector2f renderWindowSize)
         {
+            gamestate = 1;
             windowSize = renderWindowSize;
             board = new ScoreBoard();
             grid = new Grid(windowSize, board);
@@ -33,7 +34,12 @@ namespace Breakout
 
         public void updateGame()
         {
-            gamestate = 1;
+
+            if(board.Lives < 0)
+            {
+                gamestate = 2;
+            }
+
             Player.update();
             ball.update();
         }

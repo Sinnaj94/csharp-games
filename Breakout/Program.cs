@@ -29,7 +29,7 @@ namespace Breakout
             window.SetView(GameView);
 
             Menu menu = new Menu();
-            Game gameObject = new Game(new Vector2f(600, 768));
+            Game game = new Game(new Vector2f(600, 768));
             GameOver gameOverScreen = new GameOver();
             Settings settings = new Settings(4,1);
             Intro intro = new Intro();
@@ -54,13 +54,21 @@ namespace Breakout
                         break;
 
                     case 1:
+                        if (game == null)
+                        {
+                            game = new Game(new Vector2f(600, 768));
+                        }
                         window.Draw(bg);
-                        gameObject.updateGame();
-                        window.Draw(gameObject);
-                        gamestate = gameObject.Gamestate;
+                        game.updateGame();
+                        window.Draw(game);
+                        gamestate = game.Gamestate;
                         break;
 
                     case 2:
+                        if (game != null)
+                        {
+                            game = null;
+                        }
                         window.Draw(gameOverScreen);
                         gamestate = gameOverScreen.updateGameState();
                         break;
@@ -82,9 +90,9 @@ namespace Breakout
 
                     case 6:
                         window.Draw(bg);
-                        gameObject.updateGame();
-                        window.Draw(gameObject);
-                        gamestate = gameObject.Gamestate;
+                        game.updateGame();
+                        window.Draw(game);
+                        gamestate = game.Gamestate;
                         break;
                 }
 
