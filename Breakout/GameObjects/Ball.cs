@@ -16,7 +16,8 @@ namespace Breakout.GameObjects
         Grid grid;
         Paddle paddle;
         float radius;
-
+        Sprite ballSprite;
+        Texture ballTexture;
         private CircleShape circle;
         public Ball(Vector2f position, float radius, Vector2f windowSize, Grid grid, Paddle paddle)
         {
@@ -29,11 +30,18 @@ namespace Breakout.GameObjects
             this.grid = grid;
             this.paddle = paddle;
             this.radius = radius;
+          //  IntRect temp = new IntRect(0,0,(int)radius * 2,(int)radius * 2);
+            ballTexture = new Texture(@"Resources/ball.png");
+            IntRect tmp = new IntRect(0, 0, (int)ballTexture.Size.X, (int)ballTexture.Size.Y);
+            ballSprite = new Sprite(ballTexture, tmp);
+            ballSprite.Scale = new Vector2f(Radius * 2 / ballTexture.Size.X, Radius * 2 / ballTexture.Size.Y);
+            
         }
 
         public override void Draw(RenderTarget target, RenderStates states)
         {
-            ((Drawable)Circle).Draw(target, states);
+            //((Drawable)Circle).Draw(target, states);
+            ballSprite.Draw(target, states);
             
         }
 
@@ -62,6 +70,8 @@ namespace Breakout.GameObjects
             direction.Y = direction.Y * tmp.Y;
             Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
             Circle.Position = Position;
+            ballSprite.Position = Position;
+            
         }
 
         public CircleShape Circle
