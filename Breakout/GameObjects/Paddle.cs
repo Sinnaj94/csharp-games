@@ -52,10 +52,11 @@ namespace Breakout.GameObjects
 
         void handleInput()
         {
-            if (ManageInput.Instance.Left()) {
+            if (ManageInput.Instance.Left() && Position.X > 0)
+            {
                 direction.X = -1;
             } else if
-                (ManageInput.Instance.Right())
+                (ManageInput.Instance.Right() && Position.X < windowSize.X - Size.X)
             {
                 direction.X = 1;
             }

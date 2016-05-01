@@ -29,7 +29,7 @@ namespace Breakout
             RenderWindow window = initWindow();
 
             View GameView = window.GetView();
-            GameView.Center = new Vector2f((float)canvas.canvasWidth / 2, (float)canvas.canvasHight);
+            GameView.Center = new Vector2f((float)canvas.canvasWidth / 2, (float)canvas.canvasHight / 2);
             window.SetView(GameView);
 
             Menu menu = new Menu();
