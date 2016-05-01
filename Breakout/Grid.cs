@@ -20,9 +20,10 @@ namespace Breakout
 
         
 
-        public Grid(Vector2f windowSize, List<Item> itemList)
+      //  public Grid(Vector2f windowSize, List<Item> itemList);
         Item item;
         ScoreBoard board;
+
         public Grid(Vector2f windowSize, ScoreBoard scoreBoard)
         {
             array2D = new Box[10, 5];
@@ -30,7 +31,6 @@ namespace Breakout
             buildMap(@"Levels/Level1.txt");
             this.board = scoreBoard;
             this.itemList = itemList;
-            
         }
 
         private void buildMap(String textfile)
@@ -125,7 +125,7 @@ namespace Breakout
                             if (array2D[i, j].IsItem)
                             {
                                 Item _tempItem = new Item(windowSize, array2D[i, j].Position, array2D[i, j].Size);
-                                ItemList.Add(_tempItem);
+                              //  ItemList.Add(_tempItem);
                             }
                             if (array2D[i, j].destroyBox())
                             {

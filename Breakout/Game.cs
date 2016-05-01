@@ -18,10 +18,6 @@ namespace Breakout
         Vector2f windowSize;
         int gamestate;
         Grid grid;
-        RectangleShape topWall;
-        RectangleShape bottomWall;
-        RectangleShape leftWall;
-        RectangleShape rightWall;
         List<Item> itemList;
         ScoreBoard board;
 
@@ -31,23 +27,21 @@ namespace Breakout
         {
             gamestate = 1;
             windowSize = renderWindowSize;
-            initBounds();
             itemList = new List<Item>();
-            grid = new Grid(windowSize, itemList);
-            
+            grid = new Grid(windowSize, board);
             board = new ScoreBoard();
             grid = new Grid(windowSize, board);
-            Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
+            Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize);
             ball = new Ball(new Vector2f(100, 100), 10, windowSize, grid, Player, board);
         }
 
         public void updateGame()
         {
 
-            if(board.Lives < 0)
+            if (board.Lives < 0)
             {
                 gamestate = 2;
-        }
+            }
 
             Player.update();
             ball.update();
@@ -61,7 +55,7 @@ namespace Breakout
                 }
             }
 
-            if(deleteThis!= null)
+            if (deleteThis != null)
             {
                 itemList.Remove(deleteThis);
             }
@@ -79,11 +73,10 @@ namespace Breakout
             Player.Draw(target, states);
             grid.Draw(target, states);
             ball.Draw(target, states);
-            foreach(Item i in itemList)
+            foreach (Item i in itemList)
             {
-                i.Draw(target,states);
+                i.Draw(target, states);
             }
-
         }
 
         public int Gamestate

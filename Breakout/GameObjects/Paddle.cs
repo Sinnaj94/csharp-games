@@ -16,21 +16,17 @@ namespace Breakout.GameObjects
 
         Vector2f velocity;
         Vector2f direction;
-
-        public Paddle(Vector2f size, Vector2f position)
+        Vector2f windowSize;
+        public Paddle(Vector2f size, Vector2f position, Vector2f windowSize)
         {
             this.Size = size;
             this.Position = position;
+            this.windowSize = windowSize;
             direction = new Vector2f(0, 0);
             velocity = new Vector2f(10, 0);
             PaddleShape = new RectangleShape(Size);
             PaddleShape.Position = Position;
             PaddleShape.FillColor = new Color(255, 255, 255, 255);
-        }
-
-        public override void Draw(RenderTarget target, RenderStates states)
-        {
-            PaddleShape.Draw(target, states);
         }
 
         public override void update()
@@ -67,6 +63,11 @@ namespace Breakout.GameObjects
             {
                 direction.X = 0;
             }
+        }
+
+        public override void Draw(RenderTarget target, RenderStates states)
+        {
+            PaddleShape.Draw(target, states);
         }
 
     }

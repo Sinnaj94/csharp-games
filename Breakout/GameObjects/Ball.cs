@@ -33,19 +33,11 @@ namespace Breakout.GameObjects
             this.grid = grid;
             this.paddle = paddle;
             this.radius = radius;
-          //  IntRect temp = new IntRect(0,0,(int)radius * 2,(int)radius * 2);
             ballTexture = new Texture(@"Resources/ball.png");
             IntRect tmp = new IntRect(0, 0, (int)ballTexture.Size.X, (int)ballTexture.Size.Y);
             ballSprite = new Sprite(ballTexture, tmp);
             ballSprite.Scale = new Vector2f(Radius * 2 / ballTexture.Size.X, Radius * 2 / ballTexture.Size.Y);
             board = scoreboard;
-        }
-
-        public override void Draw(RenderTarget target, RenderStates states)
-        {
-            //((Drawable)Circle).Draw(target, states);
-            ballSprite.Draw(target, states);
-            
         }
 
         public void isStickyUpdate()
@@ -83,12 +75,10 @@ namespace Breakout.GameObjects
 
             // collide with boxes
             Vector2f tmp = grid.CollideWithBlock(circle);
-
             direction.X = direction.X * tmp.X;
             direction.Y = direction.Y * tmp.Y;
             Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
             Circle.Position = Position;
-            ballSprite.Position = Position;
             
         }
 
@@ -102,6 +92,12 @@ namespace Breakout.GameObjects
             {
                 regularUpdate();
             }
+        }
+
+        public override void Draw(RenderTarget target, RenderStates states)
+        {
+            ballSprite.Position = Position;
+            ballSprite.Draw(target, states);
         }
 
         public CircleShape Circle
