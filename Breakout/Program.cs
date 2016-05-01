@@ -14,7 +14,7 @@ namespace Breakout
     {
         static RenderWindow initWindow()
         {
-            RenderWindow window = new RenderWindow(VideoMode.DesktopMode, "Breakout", Styles.Fullscreen);
+            RenderWindow window = new RenderWindow(VideoMode.FullscreenModes[0], "Breakout", Styles.Fullscreen);
             window.SetFramerateLimit(50);
             return window;
         }
@@ -35,7 +35,7 @@ namespace Breakout
             Intro intro = new Intro();
             Background bg = new Background(new Vector2f(600, 768));
 
-
+            
 
             // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit, 5: Intro
 

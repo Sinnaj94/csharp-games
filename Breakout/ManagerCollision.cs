@@ -44,6 +44,7 @@ namespace Breakout
             CircleShape fM = new CircleShape(b);
             fM.Position += new Vector2f(b.Radius, b.Radius);
             //liegt eine ecke im kreis?
+            /*
             foreach (Vector2f point in points)
             {
                 if(Math.Pow((point.X - fM.Position.X),2) + Math.Pow((point.Y- fM.Position.Y),2) <= b.Radius)
@@ -51,7 +52,7 @@ namespace Breakout
                     sideHit = 'y';
                     return true;
                 }
-            }
+            }*/
 
             //liegt der kreismittelpunkt im rechteck?
             /*
