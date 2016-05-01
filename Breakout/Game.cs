@@ -25,6 +25,7 @@ namespace Breakout
         RectangleShape bottomWall;
         RectangleShape leftWall;
         RectangleShape rightWall;
+        List<Item> itemList;
 
         Vector2f direction = new Vector2f(.5f, .5f);
 
@@ -33,7 +34,8 @@ namespace Breakout
             difficulty = 11;
             windowSize = renderWindowSize;
             initBounds();
-            grid = new Grid(windowSize);
+            itemList = new List<Item>();
+            grid = new Grid(windowSize, itemList);
             
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50));
             ball = new Ball(new Vector2f(100, 100), 10, windowSize, grid, Player);
@@ -62,7 +64,10 @@ namespace Breakout
             gamestate = 1;
             Player.update();
             ball.update();
-            
+            foreach (Item i in itemList)
+            {
+                i.update();
+            }
         }
 
         void resetGame()
@@ -76,7 +81,10 @@ namespace Breakout
             Player.Draw(target, states);
             grid.Draw(target, states);
             ball.Draw(target, states);
-            
+            foreach(Item i in itemList)
+            {
+                i.Draw(target,states);
+            }
 
         }
 

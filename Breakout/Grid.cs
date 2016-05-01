@@ -15,12 +15,17 @@ namespace Breakout
         Box[,] array2D;
         Vector2f windowSize;
         Vector2i arraySize;
-        Item item;
-        public Grid(Vector2f windowSize)
+        
+        List<Item> itemList;
+
+        
+
+        public Grid(Vector2f windowSize, List<Item> itemList)
         {
             array2D = new Box[10, 5];
             this.windowSize = windowSize;
             buildMap(@"Levels/Level1.txt");
+            this.itemList = itemList;
             
         }
 
@@ -115,8 +120,8 @@ namespace Breakout
                         if (tmp.X == -1 || tmp.Y == -1){
                             if (array2D[i, j].IsItem)
                             {
-                                Console.Out.WriteLine("War n item");
-                                item = new Item(windowSize, array2D[i, j].Position);
+                                Item _tempItem = new Item(windowSize, array2D[i, j].Position, array2D[i, j].Size);
+                                ItemList.Add(_tempItem);
                             }
                             if (array2D[i, j].destroyBox())
                             {
@@ -142,6 +147,19 @@ namespace Breakout
                         array2D[i, j].Draw(target, states);
                     }
                 }
+            }
+        }
+
+        internal List<Item> ItemList
+        {
+            get
+            {
+                return itemList;
+            }
+
+            set
+            {
+                itemList = value;
             }
         }
     }
