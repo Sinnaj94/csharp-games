@@ -64,10 +64,21 @@ namespace Breakout
             gamestate = 1;
             Player.update();
             ball.update();
+            Item deleteThis = null;
             foreach (Item i in itemList)
             {
                 i.update();
+                if (i.outOfRange())
+                {
+                    deleteThis = i;
+                }
             }
+
+            if(deleteThis!= null)
+            {
+                itemList.Remove(deleteThis);
+            }
+
         }
 
         void resetGame()

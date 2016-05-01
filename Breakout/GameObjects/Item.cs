@@ -10,26 +10,34 @@ namespace Breakout
 {
     class Item : GameObject
     {
-        float size;
+
 
         bool active;
         RectangleShape rectangle;
         float speed;
         Random r;
         int featureNr;
-
-
+        Sprite itemSprite;
+        Texture itemTexture;
+        Vector2f windowSize;
+        Vector2f size;
         public Item(Vector2f window, Vector2f boxPosition, Vector2f boxSize)
         {
             //Initiate the RandomClass
             r = new Random();
             Active = true;
-            size = 40;
+            size = new Vector2f(32, 75.5f);
             speed = getRandomSpeed();
-            rectangle = new RectangleShape(new Vector2f(size, size));
-            rectangle.Position = boxPosition + boxSize/2 - new Vector2f(size/2,size/2);
+            rectangle = new RectangleShape(size);
+            rectangle.Position = boxPosition + boxSize/2 - size/2;
             FeatureNr = getRandomFeatureNr();
             rectangle.FillColor = getColor(featureNr);
+
+            itemTexture = new Texture(@"Resources/item1.png");
+            IntRect tmp = new IntRect(0, 0, (int)itemTexture.Size.X, (int)itemTexture.Size.Y);
+            itemSprite = new Sprite(itemTexture, tmp);
+            itemSprite.Scale = new Vector2f(size.X / itemTexture.Size.X, size.Y / itemTexture.Size.Y);
+            this.windowSize = window;
         }
 
         private float getRandomSpeed()
@@ -43,18 +51,19 @@ namespace Breakout
 
         private Color getColor(int nr)
         {
+            /*
             switch (nr)
             {
                 case 1:
-                    return Color.Green;
+                    return Color.Blue;
                 case 2:
                     return Color.Green;
                 case 3:
                     return Color.Red;
                 case 4:
                     return Color.Red;
-            }
-            return Color.Black;
+            }*/
+            return Color.Blue;
         }
 
         private int getRandomFeatureNr()
@@ -69,15 +78,26 @@ namespace Breakout
         {
             if (active)
             {
-
-                ((Drawable)Rectangle).Draw(target, states);
+                itemSprite.Draw(target, states);
             }
         }
 
         public override void update()
         {
             Rectangle.Position += new Vector2f(0,speed);
+            itemSprite.Position = rectangle.Position;
+
         }
+
+        public bool outOfRange()
+        {
+            if (Rectangle.Position.Y + size.Y >= windowSize.Y)
+            {
+                return true;
+            }
+            return false;
+        }
+        
 
         public RectangleShape Rectangle
         {
