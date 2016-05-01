@@ -8,111 +8,96 @@ using SFML.Graphics;
 
 namespace Breakout
 {
-    class Item : Drawable
+    class Item : GameObject
     {
-        Vector2f position;
-        float size;
-        float sizeChange;
+
+
         bool active;
         RectangleShape rectangle;
-        Clock clock;
-        float secondsToAppear;
+        float speed;
         Random r;
         int featureNr;
-
-
-        public Item(Vector2f window, Vector2f position)
+        Sprite itemSprite;
+        Texture itemTexture;
+        Vector2f windowSize;
+        Vector2f size;
+        public Item(Vector2f window, Vector2f boxPosition, Vector2f boxSize)
         {
+            //Initiate the RandomClass
             r = new Random();
-            Active = false;
-            Vector2u windowSize = new Vector2u((uint)window.X, (uint)window.Y);
-            size = 40;
-            this.position = position;
-            rectangle = new RectangleShape(new Vector2f(size, size));
-            rectangle.Position = position;
-            rectangle.FillColor = Color.White;
-            //At least every minute, fastest is 8 seconds
-            secondsToAppear = getRandomSeconds(8, 30);
-            //Starts the clock.
-            clock = new Clock();
+            Active = true;
+            size = new Vector2f(32, 75.5f);
+            speed = getRandomSpeed();
+            rectangle = new RectangleShape(size);
+            rectangle.Position = boxPosition + boxSize/2 - size/2;
             FeatureNr = getRandomFeatureNr();
             rectangle.FillColor = getColor(featureNr);
+
+            itemTexture = new Texture(@"Resources/item1.png");
+            IntRect tmp = new IntRect(0, 0, (int)itemTexture.Size.X, (int)itemTexture.Size.Y);
+            itemSprite = new Sprite(itemTexture, tmp);
+            itemSprite.Scale = new Vector2f(size.X / itemTexture.Size.X, size.Y / itemTexture.Size.Y);
+            this.windowSize = window;
         }
 
-        public Color getColor(int nr)
+        private float getRandomSpeed()
         {
+            float ret = r.Next(2, 5);
+            ret += (float)r.NextDouble();
+            return ret;
+        }
+
+
+
+        private Color getColor(int nr)
+        {
+            /*
             switch (nr)
             {
                 case 1:
-                    return Color.Green;
+                    return Color.Blue;
                 case 2:
                     return Color.Green;
                 case 3:
                     return Color.Red;
                 case 4:
                     return Color.Red;
-                case 5:
-                    return Color.Magenta;
-                case 6:
-                    return Color.Magenta;
-                case 7:
-                    return Color.Cyan;
-                case 8:
-                    return Color.Cyan;
-            }
-            return Color.Black;
+            }*/
+            return Color.Blue;
         }
 
         private int getRandomFeatureNr()
         {
-            //Racket: 1-4
-            //Good Features:
-            //Feature 1: Bigger Racket 
-            //Feature 2: Faster Racket
-            //Bad Features:
-            //Feature 3: Smaller Racket
-            //Feature 4: Slower Racket
-
-            //Ball: 5-8:
-            //Neither good nor bad:
-            //Feature 5: Bigger Ball
-            //Feature 6: Smaller Ball
-            //Feature 7: Slower Ball
-            //Feature 8: Faster Ball
-            return r.Next(1, 8);
+            //4 Items im Moment
+            return r.Next(1, 4);
         }
-        private float getRandomSeconds(int min, int max)
+        
+
+       
+        public override void Draw(RenderTarget target, RenderStates states)
         {
-            return r.Next(min, max);
+            if (active)
+            {
+                itemSprite.Draw(target, states);
+            }
         }
 
-        //Start time to appear
-        public bool timeOver()
+        public override void update()
         {
-            Time elapsed = clock.ElapsedTime;
+            Rectangle.Position += new Vector2f(0,speed);
+            itemSprite.Position = rectangle.Position;
 
-            if(elapsed.AsSeconds() >= secondsToAppear)
+        }
+
+        public bool outOfRange()
+        {
+            if (Rectangle.Position.Y + size.Y >= windowSize.Y)
             {
                 return true;
             }
             return false;
         }
-
-        public void update()
-        {
-
-        }
-
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            if (active)
-            {
-                
-                ((Drawable)Rectangle).Draw(target, states);
-            }
-            
-
-        }
+        
 
         public RectangleShape Rectangle
         {
