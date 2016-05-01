@@ -28,9 +28,9 @@ namespace Breakout
             gamestate = 1;
             windowSize = renderWindowSize;
             itemList = new List<Item>();
-            grid = new Grid(windowSize, board);
+            
             board = new ScoreBoard();
-            grid = new Grid(windowSize, board);
+            grid = new Grid(windowSize, board, itemList);
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize);
             ball = new Ball(new Vector2f(100, 100), 10, windowSize, grid, Player, board);
         }
