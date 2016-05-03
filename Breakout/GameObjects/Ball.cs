@@ -77,6 +77,10 @@ namespace Breakout.GameObjects
             Vector2f tmp = grid.CollideWithBlock(circle);
             direction.X = direction.X * tmp.X;
             direction.Y = direction.Y * tmp.Y;
+            if(tmp.X != 1 || tmp.Y != 1)
+            {
+                grid.AllBlocksGone();
+            }
             Position += new Vector2f(direction.X * velocity.X, direction.Y * velocity.Y);
             Circle.Position = Position;
             

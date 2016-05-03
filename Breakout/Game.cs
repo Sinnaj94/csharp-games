@@ -45,6 +45,10 @@ namespace Breakout
 
             Player.update();
             ball.update();
+            if (grid.AllGone)
+            {
+                Console.Out.WriteLine("You won the game.");
+            }
             Item deleteThis = null;
             foreach (Item i in itemList)
             {

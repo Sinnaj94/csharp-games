@@ -29,12 +29,12 @@ namespace Breakout.GameObjects
             if(type != 's'&& type!= 'i')
             {
                 stillToHit = type - '0';
-                isSolid = false;
+                IsSolid = false;
             }
             else if(type == 's')
             {
                 boxShape.FillColor = new Color(0, 0, 0, 255);
-                isSolid = true;
+                IsSolid = true;
             }else if(type == 'i')
             {
                 IsItem = true;
@@ -46,7 +46,7 @@ namespace Breakout.GameObjects
 
         private void buildBox()
         {
-            if (!isSolid)
+            if (!IsSolid)
             {
                 switch (stillToHit)
                 {
@@ -68,7 +68,7 @@ namespace Breakout.GameObjects
 
         public bool destroyBox()
         {
-            if (!isSolid)
+            if (!IsSolid)
             {
                 stillToHit--;
                 if (stillToHit <= 0)
@@ -141,6 +141,19 @@ namespace Breakout.GameObjects
             set
             {
                 isItem = value;
+            }
+        }
+
+        public bool IsSolid
+        {
+            get
+            {
+                return isSolid;
+            }
+
+            set
+            {
+                isSolid = value;
             }
         }
     }

@@ -15,7 +15,7 @@ namespace Breakout
         Box[,] array2D;
         Vector2f windowSize;
         Vector2i arraySize;
-        
+        bool allGone;
         List<Item> itemList;
 
         
@@ -29,6 +29,7 @@ namespace Breakout
             this.windowSize = windowSize;
             buildMap(@"Levels/Level1.txt");
             this.board = scoreBoard;
+            AllGone = false;
         }
         public Grid(Vector2f windowSize, ScoreBoard scoreBoard, List<Item> itemList)
         {
@@ -118,6 +119,23 @@ namespace Breakout
             }
         }
 
+        public bool AllBlocksGone()
+        {
+            foreach(Box a in array2D)
+            {
+                if (a != null)
+                {
+                    if(!a.IsItem && !a.IsSolid)
+                    {
+                        AllGone = false;
+                        return false;
+                    }
+                }
+            }
+            AllGone = true;
+            return true;
+        }
+
         public Vector2f CollideWithBlock(CircleShape shape)
         {
             for (int i = 0; i < arraySize.X; i++)
@@ -173,6 +191,19 @@ namespace Breakout
             set
             {
                 itemList = value;
+            }
+        }
+
+        public bool AllGone
+        {
+            get
+            {
+                return allGone;
+            }
+
+            set
+            {
+                allGone = value;
             }
         }
     }
