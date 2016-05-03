@@ -19,6 +19,7 @@ namespace Breakout
         int gamestate;
         Grid grid;
         List<Item> itemList;
+        List<Feature> featureList;
         ScoreBoard board;
 
         Vector2f direction = new Vector2f(.5f, .5f);
@@ -27,7 +28,7 @@ namespace Breakout
             gamestate = 1;
             windowSize = renderWindowSize;
             itemList = new List<Item>();
-            
+            featureList = new List<Feature>();
             board = new ScoreBoard();
             grid = new Grid(windowSize, board, itemList);
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize,itemList);
@@ -53,9 +54,15 @@ namespace Breakout
             foreach (Item i in itemList)
             {
                 i.update();
-                if (i.outOfRange()|| ManagerCollision.Instance.collide(Player.PaddleShape, i.Rectangle))
+                if (i.outOfRange())
                 {
                     toRemove.Add(i);
+                }
+                if (ManagerCollision.Instance.collide(Player.PaddleShape, i.Rectangle))
+                {
+                    toRemove.Add(i);
+                    Feature f = new Feature(0,Player);
+                    featureList.Add(f);
                 }
                 
             }

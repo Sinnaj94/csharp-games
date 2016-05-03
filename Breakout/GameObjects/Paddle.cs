@@ -18,7 +18,7 @@ namespace Breakout.GameObjects
         Vector2f direction;
         Vector2f windowSize;
         List<Item> itemList;
-
+        
         public RectangleShape PaddleShape
         {
             get
@@ -43,6 +43,14 @@ namespace Breakout.GameObjects
             PaddleShape.Position = Position;
             PaddleShape.FillColor = new Color(255, 255, 255, 255);
             this.itemList = itemList;
+        }
+
+        
+        public void setSize(float x)
+        {
+            Vector2f newSize = new Vector2f(x, PaddleShape.Y);
+            PaddleShape.Size = newSize;
+            Size = newSize;
         }
 
         public override void update()
@@ -82,6 +90,12 @@ namespace Breakout.GameObjects
                 direction.X = 0;
             }
         }
+
+        
+
+        
+
+        
 
         public override void Draw(RenderTarget target, RenderStates states)
         {

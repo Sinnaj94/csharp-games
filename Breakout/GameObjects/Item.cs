@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 
-namespace Breakout
+namespace Breakout.GameObjects
 {
     class Item : GameObject
     {
 
-
+        Feature f;
         bool active;
         RectangleShape rectangle;
         float speed;
@@ -21,6 +21,7 @@ namespace Breakout
         Texture itemTexture;
         Vector2f windowSize;
         Vector2f size;
+
         public Item(Vector2f window, Vector2f boxPosition, Vector2f boxSize)
         {
             //Initiate the RandomClass
@@ -32,7 +33,7 @@ namespace Breakout
             rectangle.Position = boxPosition + boxSize/2 - size/2;
             FeatureNr = getRandomFeatureNr();
             rectangle.FillColor = getColor(featureNr);
-
+            
             itemTexture = new Texture(@"Resources/item1.png");
             IntRect tmp = new IntRect(0, 0, (int)itemTexture.Size.X, (int)itemTexture.Size.Y);
             itemSprite = new Sprite(itemTexture, tmp);
@@ -44,7 +45,7 @@ namespace Breakout
         {
             float ret = r.Next(2, 5);
             ret += (float)r.NextDouble();
-            return .5f;
+            return ret;
         }
 
 
@@ -79,7 +80,6 @@ namespace Breakout
             if (active)
             {
                 itemSprite.Draw(target, states);
-                Rectangle.Draw(target, states);
             }
         }
 

@@ -68,6 +68,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjects\Ball.cs" />
     <Compile Include="GameObjects\Box.cs" />
+    <Compile Include="GameObjects\Feature.cs" />
     <Compile Include="GameObjects\Paddle.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="ManagerCollision.cs" />
