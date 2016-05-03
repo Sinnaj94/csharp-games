@@ -22,7 +22,6 @@ namespace Breakout
         ScoreBoard board;
 
         Vector2f direction = new Vector2f(.5f, .5f);
-
         public Game(Vector2f renderWindowSize)
         {
             gamestate = 1;
@@ -31,7 +30,7 @@ namespace Breakout
             
             board = new ScoreBoard();
             grid = new Grid(windowSize, board, itemList);
-            Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize);
+            Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize,itemList);
             ball = new Ball(new Vector2f(100, 100), 10, windowSize, grid, Player, board);
         }
 
@@ -47,21 +46,22 @@ namespace Breakout
             ball.update();
             if (grid.AllGone)
             {
-                Console.Out.WriteLine("You won the game.");
+                //TODO: Game Ende implementieren
             }
-            Item deleteThis = null;
+
+            List<Item> toRemove = new List<Item>();
             foreach (Item i in itemList)
             {
                 i.update();
-                if (i.outOfRange())
+                if (i.outOfRange()|| ManagerCollision.Instance.collide(Player.PaddleShape, i.Rectangle))
                 {
-                    deleteThis = i;
+                    toRemove.Add(i);
                 }
+                
             }
-
-            if (deleteThis != null)
+            foreach(Item i in toRemove)
             {
-                itemList.Remove(deleteThis);
+                itemList.Remove(i);
             }
 
         }
@@ -82,7 +82,7 @@ namespace Breakout
                 i.Draw(target, states);
             }
         }
-
+        
         public int Gamestate
         {
             get

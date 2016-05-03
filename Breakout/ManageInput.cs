@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 using SFML.Window;
 
+
 namespace Breakout
 {
     class ManageInput
     {
         private static ManageInput instance;
 
-        private ManageInput() { }
+        private ManageInput() {
+            
+        }
 
         private bool spacePressed;
         private bool returnPressed;
@@ -20,6 +23,7 @@ namespace Breakout
         private bool downPressed;
         private bool leftPressed;
         private bool rightPressed;
+        
 
         public static ManageInput Instance
         {

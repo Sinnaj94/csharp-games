@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
-using Breakout.Properties;
+
 
 
 // implementing text button without mouse interaction for now

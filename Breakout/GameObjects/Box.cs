@@ -40,7 +40,7 @@ namespace Breakout.GameObjects
                 IsItem = true;
             }
             
-            Console.Out.WriteLine(stillToHit);
+
             buildBox();
         }
 

@@ -40,11 +40,10 @@ namespace Breakout
         {
             List<Vector2f> points = getCollisionPoints(a);
             //Fixed the Middle to be in the inside of the circle
-
             CircleShape fM = new CircleShape(b);
             fM.Position += new Vector2f(b.Radius, b.Radius);
-            //liegt eine ecke im kreis?
-            /*
+            
+            //1 Liegt eine Ecke im Kreis?
             foreach (Vector2f point in points)
             {
                 if(Math.Pow((point.X - fM.Position.X),2) + Math.Pow((point.Y- fM.Position.Y),2) <= b.Radius)
@@ -52,34 +51,29 @@ namespace Breakout
                     sideHit = 'y';
                     return true;
                 }
-            }*/
+            }
 
-            //liegt der kreismittelpunkt im rechteck?
-            /*
-            if(pointInRect(fM.Position, a))
-            {
-                sideHit = 'a';
-                return true;
-            }*/
-            //left side
             
+            //2 Pruefen, ob eine Seite des Kreises im Rechteck liegt.
+            //Links:
             if(pointInRect(new Vector2f(fM.Position.X- fM.Radius, fM.Position.Y), a))
             {
                 sideHit = 'l';
                 return true;
             }
-            //right side
+            //Rechts:
             if (pointInRect(new Vector2f(fM.Position.X + b.Radius, fM.Position.Y), a))
             {
                 sideHit = 'r';
                 return true;
             }
-            //up side
+            //Oben:
             if(pointInRect(new Vector2f(fM.Position.X, fM.Position.Y- fM.Radius), a))
             {
                 sideHit = 'u';
                 return true;
             }
+            //Unten:
             if(pointInRect(new Vector2f(fM.Position.X - fM.Radius, fM.Position.Y+b.Radius), a))
             {
                 sideHit = 'd';
@@ -195,7 +189,6 @@ namespace Breakout
                     deltaXY.Y =  (float)-Math.Cos(bounceAngle);
                     deltaXY.X =  (float)-Math.Sin(bounceAngle);
 
-                    Console.Out.Write("\nX: " + deltaXY.Y + "\nY: " + deltaXY.Y);
 
                     return deltaXY;
                 }

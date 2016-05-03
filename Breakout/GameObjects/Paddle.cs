@@ -12,12 +12,27 @@ namespace Breakout.GameObjects
     class Paddle : GameObject
     {
         bool isHuman = true;
-        RectangleShape PaddleShape;
+        RectangleShape paddleShape;
 
         Vector2f velocity;
         Vector2f direction;
         Vector2f windowSize;
-        public Paddle(Vector2f size, Vector2f position, Vector2f windowSize)
+        List<Item> itemList;
+
+        public RectangleShape PaddleShape
+        {
+            get
+            {
+                return paddleShape;
+            }
+
+            set
+            {
+                paddleShape = value;
+            }
+        }
+
+        public Paddle(Vector2f size, Vector2f position, Vector2f windowSize,List<Item> itemList)
         {
             this.Size = size;
             this.Position = position;
@@ -27,6 +42,7 @@ namespace Breakout.GameObjects
             PaddleShape = new RectangleShape(Size);
             PaddleShape.Position = Position;
             PaddleShape.FillColor = new Color(255, 255, 255, 255);
+            this.itemList = itemList;
         }
 
         public override void update()
@@ -38,6 +54,7 @@ namespace Breakout.GameObjects
             }
             Position += new Vector2f(direction.X * velocity.X, 0);
             PaddleShape.Position = Position;
+
         }
 
         public Vector2f collideWithPaddle(CircleShape ball)

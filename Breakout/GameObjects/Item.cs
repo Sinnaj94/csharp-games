@@ -44,7 +44,7 @@ namespace Breakout
         {
             float ret = r.Next(2, 5);
             ret += (float)r.NextDouble();
-            return ret;
+            return .5f;
         }
 
 
@@ -79,6 +79,7 @@ namespace Breakout
             if (active)
             {
                 itemSprite.Draw(target, states);
+                Rectangle.Draw(target, states);
             }
         }
 
