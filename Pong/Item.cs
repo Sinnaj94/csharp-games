@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Graphics;
 
-namespace Breakout
+namespace Breakout.GameObjects
+
 {
     class Item : Drawable
     {
@@ -18,7 +19,7 @@ namespace Breakout
         Clock clock;
         float secondsToAppear;
         Random r;
-        int featureNr;
+        
 
 
         public Item(Vector2f window)
@@ -36,8 +37,8 @@ namespace Breakout
             secondsToAppear = getRandomSeconds(8, 30);
             //Starts the clock.
             clock = new Clock();
-            FeatureNr = getRandomFeatureNr();
-            rectangle.FillColor = getColor(featureNr);
+            
+
         }
 
         public Color getColor(int nr)
@@ -145,17 +146,6 @@ namespace Breakout
             }
         }
 
-        public int FeatureNr
-        {
-            get
-            {
-                return featureNr;
-            }
-
-            set
-            {
-                featureNr = value;
-            }
-        }
+       
     }
 }

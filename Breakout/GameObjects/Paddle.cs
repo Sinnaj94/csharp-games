@@ -48,10 +48,16 @@ namespace Breakout.GameObjects
         
         public void setSize(float x)
         {
-            Vector2f newSize = new Vector2f(x, PaddleShape.Y);
+            Vector2f oldSize = PaddleShape.Size;
+            Vector2f newSize = new Vector2f(x, PaddleShape.Size.Y);
             PaddleShape.Size = newSize;
             Size = newSize;
+            Vector2f delta = new Vector2f((newSize.X-oldSize.X)/2 , 0);
+            PaddleShape.Position -= delta;
+            Position -= delta;
         }
+
+        
 
         public override void update()
         {

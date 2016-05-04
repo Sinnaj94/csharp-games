@@ -7,33 +7,70 @@ using SFML.System;
 using SFML.Graphics;
 namespace Breakout.GameObjects
 {
-    class Feature
+    class Feature : GameObject
     {
         Paddle paddle;
         RectangleShape rectangle;
         Clock featureTime;
         int featureNumber;
         Random r;
+        bool animationDone;
+        int steps;
+        int currentStep;
+        Text featureTimeText;
+        public int FeatureNumber
+        {
+            get
+            {
+                return featureNumber;
+            }
+
+            set
+            {
+                featureNumber = value;
+            }
+        }
+
         public Feature(int featureNumber, Paddle p)
         {
             featureTime = new Clock();
             r = new Random();
-            this.featureNumber = featureNumber;
+            this.FeatureNumber = featureNumber;
             this.paddle = p;
             rectangle = new RectangleShape(p.PaddleShape);
+            animationDone = false;
+            steps = 10;
+            currentStep = 0;
         }
 
-        private void getRandomFeatureNumber()
+        public Feature(Paddle p)
         {
-            r.Next(0, 3);
+            featureTime = new Clock();
+            r = new Random();
+            this.FeatureNumber = getRandomFeatureNumber();
+            this.paddle = p;
+            rectangle = new RectangleShape(p.PaddleShape);
+            animationDone = false;
+            steps = 10;
+            currentStep = 0;
+        }
+
+        public void resetClock()
+        {
+            featureTime = new Clock();
+        }
+
+        private int getRandomFeatureNumber()
+        {
+            return r.Next(0, 3);
         }
 
         public void giveFeature()
         {
-            switch (featureNumber)
+            switch (FeatureNumber)
             {
                 case 0:
-                    paddle.setSize(rectangle.Size.X * 1.5f);
+                    smoothSizeChange(.5f);
                     break;
                 case 1:
                     break;
@@ -43,12 +80,34 @@ namespace Breakout.GameObjects
             }
         }
 
+        //new Size -> percent
+        private void smoothSizeChange(float percent)
+        {
+            float newValue = rectangle.Size.X + (rectangle.Size.X * currentStep / steps)*percent;
+            paddle.setSize(newValue);
+            if(currentStep < 10)
+            {
+                currentStep++;
+            }  
+        }
+
+        private void revertSmoothSizeChange(float percent)
+        {
+            float newValue = rectangle.Size.X + (rectangle.Size.X * currentStep / steps) * percent;
+            paddle.setSize(newValue);
+            if (currentStep > 0)
+            {
+            
+                currentStep--;
+            }
+        }
+
         public void takeFeature()
         {
-            switch (featureNumber)
+            switch (FeatureNumber)
             {
                 case 0:
-                    paddle.setSize(rectangle.Size.X);
+                    revertSmoothSizeChange(.5f);
                     break;
                 case 1:
                     break;
@@ -67,6 +126,16 @@ namespace Breakout.GameObjects
                 return true;
             }
             return false;
+        }
+
+        public override void Draw(RenderTarget target, RenderStates states)
+        {
+
+        }
+
+        public override void update()
+        {
+
         }
     }
 }

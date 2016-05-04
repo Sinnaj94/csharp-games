@@ -30,9 +30,11 @@ namespace Breakout
             itemList = new List<Item>();
             featureList = new List<Feature>();
             board = new ScoreBoard();
-            grid = new Grid(windowSize, board, itemList);
+            
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize,itemList);
+            grid = new Grid(windowSize, board, itemList, Player);
             ball = new Ball(new Vector2f(100, 100), 10, windowSize, grid, Player, board);
+            
         }
 
         public void updateGame()
@@ -50,6 +52,7 @@ namespace Breakout
                 //TODO: Game Ende implementieren
             }
 
+            //Items hinzufuegen
             List<Item> toRemove = new List<Item>();
             foreach (Item i in itemList)
             {
@@ -61,14 +64,38 @@ namespace Breakout
                 if (ManagerCollision.Instance.collide(Player.PaddleShape, i.Rectangle))
                 {
                     toRemove.Add(i);
-                    Feature f = new Feature(0,Player);
-                    featureList.Add(f);
+                    Feature f = i.Feature;
+                    bool sameFeature = false;
+                    foreach(Feature has in featureList)
+                    {
+                        if (has.FeatureNumber == f.FeatureNumber) sameFeature = true;
+                    }
+                    if (sameFeature)
+                    {
+                        f.resetClock();
+                    }else
+                    {
+                        featureList.Add(f);
+                    }
                 }
                 
             }
             foreach(Item i in toRemove)
             {
                 itemList.Remove(i);
+            }
+            List<Feature> toRemoveFeature = new List<Feature>();
+            foreach(Feature f in featureList)
+            {
+                
+                if (!f.timesUp())
+                {
+                    f.giveFeature();
+                }
+                else
+                {
+                    f.takeFeature();
+                }
             }
 
         }

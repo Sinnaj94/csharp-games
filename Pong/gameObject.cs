@@ -8,7 +8,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Audio;
 
-namespace Breakout
+namespace Breakout.GameObjects
 {
     class GameObject : SFML.Graphics.Drawable
     {
@@ -130,7 +130,7 @@ namespace Breakout
                 if (Collision.Instance.collide(item.Rectangle, ball.Circle))
                 {
 
-                    int feature = item.FeatureNr;
+                    int feature = 0;
                     if(feature <= 4)
                     {
                         touchedLast.giveFeature(feature);

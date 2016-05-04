@@ -21,8 +21,9 @@ namespace Breakout.GameObjects
         Texture itemTexture;
         Vector2f windowSize;
         Vector2f size;
-
-        public Item(Vector2f window, Vector2f boxPosition, Vector2f boxSize)
+        Feature feature;
+        Paddle paddle;
+        public Item(Vector2f window, Vector2f boxPosition, Vector2f boxSize, Paddle paddle)
         {
             //Initiate the RandomClass
             r = new Random();
@@ -39,7 +40,11 @@ namespace Breakout.GameObjects
             itemSprite = new Sprite(itemTexture, tmp);
             itemSprite.Scale = new Vector2f(size.X / itemTexture.Size.X, size.Y / itemTexture.Size.Y);
             this.windowSize = window;
+            this.paddle = paddle;
+            Feature = new Feature(0,paddle);
         }
+
+        
 
         private float getRandomSpeed()
         {
@@ -136,6 +141,19 @@ namespace Breakout.GameObjects
             set
             {
                 featureNr = value;
+            }
+        }
+
+        internal Feature Feature
+        {
+            get
+            {
+                return feature;
+            }
+
+            set
+            {
+                feature = value;
             }
         }
     }

@@ -7,6 +7,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using Breakout.Properties;
+using Breakout.GameObjects;
 
 namespace Breakout
 {
