@@ -6,29 +6,92 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-
+using System.Windows.Forms;
 
 namespace Breakout
 {
     class Program
     {
-
+        
         enum canvas {canvasWidth = 600, canvasHight = 768}
         enum settigs { easy = 0, medium = 1, hard = 2, Sound0 = 0, Sound25 = 1, Sound50 = 2, Sound75 = 3, Sound100 = 4}
-
-        static RenderWindow initWindow()
+        StartScreen a;
+        int theIndex;
+        bool fullScreen;
+        public Program()
         {
-            RenderWindow window = new RenderWindow(VideoMode.FullscreenModes[0], "Breakout", Styles.Fullscreen);
+            theIndex = 0;
+            fullScreen = false;
+        }
+
+        private RenderWindow initWindow()
+        {
+            RenderWindow window;
+            if (fullScreen)
+            {
+                window = new RenderWindow(VideoMode.FullscreenModes[theIndex], "Breakout", Styles.Fullscreen);
+            }
+            else
+            {
+                window = new RenderWindow(VideoMode.DesktopMode, "Breakout");
+            }
+            
             window.SetFramerateLimit(50);
+            
             return window;
         }
 
         static void Main(string[] args)
         {
+            Program a = new Program();
+            a.disposeTheSettings();
+            
+            
             //Taskbar.Hide();
+            //startGame();
+            
+            
+        }
+
+        public void disposeTheSettings()
+        {
+            a = new StartScreen();
+            a.button1.Click += startTheGame;
+            for(int i = 0; i<VideoMode.FullscreenModes.Length; i++)
+            {
+                a.comboBox1.Items.Add(VideoMode.FullscreenModes[i].Width + " x " + VideoMode.FullscreenModes[i].Height);
+            }
+            a.comboBox1.SelectedIndexChanged += refreshIndex;
+            a.checkBox1.CheckedChanged += refreshFullscreen;
+            a.ShowDialog();
+        }
+
+
+        private void refreshFullscreen(object sender, EventArgs e)
+        {
+            CheckBox a = (CheckBox)sender;
+            fullScreen = a.Checked;
+        }
+
+        private void refreshIndex(object sender, EventArgs e)
+        {
+            
+            ComboBox a = (ComboBox)sender;
+            Console.Out.WriteLine(a.SelectedIndex);
+            theIndex = a.SelectedIndex;
+
+        }
+
+        private void startTheGame(object sender, EventArgs e)
+        {
+            startGame();
+        }
+
+        private void startGame()
+        {
             RenderWindow window = initWindow();
 
-            View GameView = window.GetView();
+            SFML.Graphics.View GameView = window.GetView();
             GameView.Center = new Vector2f((float)canvas.canvasWidth / 2, (float)canvas.canvasHight / 2);
             window.SetView(GameView);
 
@@ -39,7 +102,8 @@ namespace Breakout
             Intro intro = new Intro();
             Background bg = new Background(new Vector2f((float)canvas.canvasWidth, (float)canvas.canvasHight));
 
-            
+
+
 
             // gamestates 0: menu, 1: game, 2: gameover, 3: settings, 4: exit, 5: Intro
 
@@ -100,8 +164,8 @@ namespace Breakout
                     System.Environment.Exit(0);
                 }
 
+
             }
-            
         }
     }
 }

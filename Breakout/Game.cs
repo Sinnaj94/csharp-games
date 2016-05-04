@@ -33,7 +33,7 @@ namespace Breakout
             
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize,itemList);
             grid = new Grid(windowSize, board, itemList, Player);
-            ball = new Ball(new Vector2f(100, 100), 10, windowSize, grid, Player, board);
+            ball = new Ball(new Vector2f(Player.PaddleShape.Position.X, Player.PaddleShape.Position.Y-15), 10, windowSize, grid, Player, board);
             
         }
 
@@ -95,7 +95,15 @@ namespace Breakout
                 else
                 {
                     f.takeFeature();
+                    if (f.Finished)
+                    {
+                        toRemoveFeature.Add(f);
+                    }
                 }
+            }
+            foreach(Feature f in toRemoveFeature)
+            {
+                featureList.Remove(f);
             }
 
         }

@@ -14,7 +14,7 @@ namespace Breakout.GameObjects
         Clock featureTime;
         int featureNumber;
         Random r;
-        bool animationDone;
+        bool finished;
         int steps;
         int currentStep;
         Text featureTimeText;
@@ -31,6 +31,19 @@ namespace Breakout.GameObjects
             }
         }
 
+        public bool Finished
+        {
+            get
+            {
+                return finished;
+            }
+
+            set
+            {
+                finished = value;
+            }
+        }
+
         public Feature(int featureNumber, Paddle p)
         {
             featureTime = new Clock();
@@ -38,7 +51,7 @@ namespace Breakout.GameObjects
             this.FeatureNumber = featureNumber;
             this.paddle = p;
             rectangle = new RectangleShape(p.PaddleShape);
-            animationDone = false;
+            Finished = false;
             steps = 10;
             currentStep = 0;
         }
@@ -50,7 +63,7 @@ namespace Breakout.GameObjects
             this.FeatureNumber = getRandomFeatureNumber();
             this.paddle = p;
             rectangle = new RectangleShape(p.PaddleShape);
-            animationDone = false;
+            Finished = false;
             steps = 10;
             currentStep = 0;
         }
@@ -83,7 +96,7 @@ namespace Breakout.GameObjects
         //new Size -> percent
         private void smoothSizeChange(float percent)
         {
-            float newValue = rectangle.Size.X + (rectangle.Size.X * currentStep / steps)*percent;
+            float newValue = paddle.StandardSizeX + (paddle.StandardSizeX * currentStep / steps)*percent;
             paddle.setSize(newValue);
             if(currentStep < 10)
             {
@@ -93,12 +106,16 @@ namespace Breakout.GameObjects
 
         private void revertSmoothSizeChange(float percent)
         {
-            float newValue = rectangle.Size.X + (rectangle.Size.X * currentStep / steps) * percent;
+            float newValue = paddle.StandardSizeX + (paddle.StandardSizeX * currentStep / steps) * percent;
             paddle.setSize(newValue);
             if (currentStep > 0)
             {
             
                 currentStep--;
+            }
+            if(currentStep == 0)
+            {
+                Finished = true;
             }
         }
 

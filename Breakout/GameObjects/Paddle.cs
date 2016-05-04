@@ -18,6 +18,7 @@ namespace Breakout.GameObjects
         Vector2f direction;
         Vector2f windowSize;
         List<Item> itemList;
+        float standardSizeX;
         
         public RectangleShape PaddleShape
         {
@@ -32,6 +33,19 @@ namespace Breakout.GameObjects
             }
         }
 
+        public float StandardSizeX
+        {
+            get
+            {
+                return standardSizeX;
+            }
+
+            set
+            {
+                standardSizeX = value;
+            }
+        }
+
         public Paddle(Vector2f size, Vector2f position, Vector2f windowSize,List<Item> itemList)
         {
             this.Size = size;
@@ -43,6 +57,7 @@ namespace Breakout.GameObjects
             PaddleShape.Position = Position;
             PaddleShape.FillColor = new Color(255, 255, 255, 255);
             this.itemList = itemList;
+            StandardSizeX = size.X;
         }
 
         

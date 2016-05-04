@@ -14,7 +14,14 @@ namespace Breakout
         private static ManageInput instance;
 
         private ManageInput() {
-            
+            if (Joystick.IsConnected(0))
+            {
+                Console.Out.WriteLine("Its working");
+            }
+            else
+            {
+                Console.Out.WriteLine("Its noooooot");
+            }
         }
 
         private bool spacePressed;
