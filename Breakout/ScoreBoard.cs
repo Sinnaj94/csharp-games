@@ -14,20 +14,19 @@ namespace Breakout
         private int lives;
         private Text scoreText;
         private Text livesText;
-        Sprite healthbar;
-
+        Sprite status;
 
         public ScoreBoard()
         {
             score = 0;
-            lives = 2;
-            scoreText = new Text("0", ManageText.Instance.ArcadeClassic, 100);
-            scoreText.Color = new Color(0,0,0,255);
-            scoreText.Position = new Vector2f(610, 200);
+            lives = 3;
+            scoreText = new Text("0", ManageText.Instance.ArcadeClassic, 33);
+            scoreText.Color = new Color(255,255,255,255);
+            scoreText.Position = new Vector2f(410, 735);
             scoreText.DisplayedString = score.ToString();
-
-            healthbar = new Sprite(new Texture(@"Resources/health.png"), new IntRect(0,400,30,200));
-            healthbar.Position = new Vector2f(610, 400);
+            status = new Sprite(new Texture(@"Resources/status.png"), new IntRect(0, 0, 400, 33));
+            status.Color = new Color(255, 255, 255, 200);
+            status.Position = new Vector2f(100, 736);
             livesText = new Text("0", ManageText.Instance.ArcadeClassic, 100);
             livesText.Color = new Color(128, 0, 0, 255);
             livesText.Position = new Vector2f(610, 400);
@@ -38,8 +37,7 @@ namespace Breakout
         public void Draw(RenderTarget target, RenderStates states)
         {
             scoreText.Draw(target, states);
-            //livesText.Draw(target, states);
-            healthbar.Draw(target, states);
+            status.Draw(target, states);
         }
 
         public int Lives
@@ -52,10 +50,9 @@ namespace Breakout
             set
             {
                 lives = value;
-                IntRect tmp = healthbar.TextureRect;
-                tmp.Top = lives * 200;
-                healthbar.TextureRect = tmp;
-                // TODO call gameover
+                IntRect tmpStatus = status.TextureRect;
+                tmpStatus.Width = 200 + 38 * lives;
+                status.TextureRect = tmpStatus;
             }
         }
 

@@ -94,6 +94,12 @@ namespace Breakout
                 }
 
                 window.Display();
+
+                if (ManageInput.Instance.Escape())
+                {
+                    System.Environment.Exit(0);
+                }
+
             }
             
         }
