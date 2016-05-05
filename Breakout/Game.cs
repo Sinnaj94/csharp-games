@@ -31,7 +31,7 @@ namespace Breakout
             featureList = new List<Feature>();
             board = new ScoreBoard();
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize,itemList);
-            grid = new Grid(windowSize, board, itemList, Player, 5);
+            grid = new Grid(windowSize, board, itemList, Player, 1);
             ball = new Ball(new Vector2f(Player.PaddleShape.Position.X, Player.PaddleShape.Position.Y-15), 10, windowSize, grid, Player, board);
         }
 

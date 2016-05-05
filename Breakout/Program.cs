@@ -24,7 +24,7 @@ namespace Breakout
             fullScreen = false;
         }
 
-        private RenderWindow initWindow()
+        private RenderWindow InitWindow()
         {
             RenderWindow window;
             if (fullScreen)
@@ -35,45 +35,38 @@ namespace Breakout
             {
                 window = new RenderWindow(VideoMode.DesktopMode, "Breakout");
             }
-            
-            window.SetFramerateLimit(50);
-            
+            window.SetVerticalSyncEnabled(true);
+            window.SetFramerateLimit(61);
             return window;
         }
 
         static void Main(string[] args)
         {
             Program a = new Program();
-            a.disposeTheSettings();
-            
-            
-            //Taskbar.Hide();
-            //startGame();
-            
-            
+            a.DisposeTheSettings();
         }
 
-        public void disposeTheSettings()
+        public void DisposeTheSettings()
         {
             a = new StartScreen();
-            a.button1.Click += startTheGame;
+            a.button1.Click += StartTheGame;
             for(int i = 0; i<VideoMode.FullscreenModes.Length; i++)
             {
                 a.comboBox1.Items.Add(VideoMode.FullscreenModes[i].Width + " x " + VideoMode.FullscreenModes[i].Height);
             }
-            a.comboBox1.SelectedIndexChanged += refreshIndex;
-            a.checkBox1.CheckedChanged += refreshFullscreen;
+            a.comboBox1.SelectedIndexChanged += RefreshIndex;
+            a.checkBox1.CheckedChanged += RefreshFullscreen;
             a.ShowDialog();
         }
 
 
-        private void refreshFullscreen(object sender, EventArgs e)
+        private void RefreshFullscreen(object sender, EventArgs e)
         {
             CheckBox a = (CheckBox)sender;
             fullScreen = a.Checked;
         }
 
-        private void refreshIndex(object sender, EventArgs e)
+        private void RefreshIndex(object sender, EventArgs e)
         {
             
             ComboBox a = (ComboBox)sender;
@@ -82,14 +75,14 @@ namespace Breakout
 
         }
 
-        private void startTheGame(object sender, EventArgs e)
+        private void StartTheGame(object sender, EventArgs e)
         {
-            startGame();
+            StartGame();
         }
 
-        private void startGame()
+        private void StartGame()
         {
-            RenderWindow window = initWindow();
+            RenderWindow window = InitWindow();
 
             SFML.Graphics.View GameView = window.GetView();
             GameView.Center = new Vector2f((float)canvas.canvasWidth / 2, (float)canvas.canvasHight / 2);
