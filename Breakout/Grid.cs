@@ -18,27 +18,35 @@ namespace Breakout
         bool allGone;
         List<Item> itemList;
         Paddle paddle;
-        
+        int level;
 
       //  public Grid(Vector2f windowSize, List<Item> itemList);
         ScoreBoard board;
 
-        public Grid(Vector2f windowSize, ScoreBoard scoreBoard)
+        public Grid(Vector2f windowSize, ScoreBoard scoreBoard, int startLevel)
         {
+            level = startLevel;
             array2D = new Box[10, 5];
             this.windowSize = windowSize;
-            buildMap(@"Levels/Level1.txt");
+            buildMap(@"Levels/Level"+level+".txt");
             this.board = scoreBoard;
             AllGone = false;
         }
-        public Grid(Vector2f windowSize, ScoreBoard scoreBoard, List<Item> itemList, Paddle paddle)
+        public Grid(Vector2f windowSize, ScoreBoard scoreBoard, List<Item> itemList, Paddle paddle, int startLevel)
         {
+            level = startLevel;
             array2D = new Box[10, 5];
             this.windowSize = windowSize;
-            buildMap(@"Levels/Level1.txt");
+            buildMap(@"Levels/Level" + level + ".txt");
             this.board = scoreBoard;
             this.itemList = itemList;
             this.paddle = paddle;
+        }
+
+        public void initNewLevel()
+        {
+            level++;
+            buildMap(@"Levels/Level" + level + ".txt");
         }
 
         private void buildMap(String textfile)
@@ -63,9 +71,9 @@ namespace Breakout
                             {
                                 array2D[i, index] = null;
                             }
-                            else
+                             else
                             {
-                                createBox(i, index,cChar);
+                                createBox(i, index, cChar);
                             }
                         }
                         index++;
@@ -146,7 +154,8 @@ namespace Breakout
                     if (array2D[i, j] != null)
                     {
                         Vector2f tmp = ManagerCollision.Instance.collideWithDirection(array2D[i, j].BoxShape, shape);
-                        if (tmp.X == -1 || tmp.Y == -1){
+                        if (tmp.X == -1 || tmp.Y == -1)
+                        {
                             if (array2D[i, j].IsItem)
                             {
                                 Item _tempItem = new Item(windowSize, array2D[i, j].Position, array2D[i, j].Size,paddle);
@@ -205,6 +214,19 @@ namespace Breakout
             set
             {
                 allGone = value;
+            }
+        }
+
+        public int Level
+        {
+            get
+            {
+                return level;
+            }
+
+            set
+            {
+                level = value;
             }
         }
     }

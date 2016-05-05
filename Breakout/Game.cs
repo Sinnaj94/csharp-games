@@ -30,11 +30,9 @@ namespace Breakout
             itemList = new List<Item>();
             featureList = new List<Feature>();
             board = new ScoreBoard();
-            
             Player = new Paddle(new Vector2f(100, 20), new Vector2f(0, windowSize.Y - 50), windowSize,itemList);
-            grid = new Grid(windowSize, board, itemList, Player);
+            grid = new Grid(windowSize, board, itemList, Player, 5);
             ball = new Ball(new Vector2f(Player.PaddleShape.Position.X, Player.PaddleShape.Position.Y-15), 10, windowSize, grid, Player, board);
-            
         }
 
         public void updateGame()
@@ -47,9 +45,17 @@ namespace Breakout
 
             Player.update();
             ball.update();
+
             if (grid.AllGone)
             {
-                //TODO: Game Ende implementieren
+                //TODO: find a way to count every level in levels, now max level is hardcoded
+                if ( grid.Level <= 7)
+                {
+                    grid.initNewLevel();
+                } else
+                {
+                    Gamestate = 2;
+                }
             }
 
             //Items hinzufuegen
