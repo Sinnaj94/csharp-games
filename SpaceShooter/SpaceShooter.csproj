@@ -67,9 +67,10 @@
   <ItemGroup>
     <Compile Include="Enemy.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameObjectFactory.cs" />
+    <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="IMovable.cs" />
     <Compile Include="IRenderable.cs" />
+    <Compile Include="Manager\InputManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
