@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class Player
+    interface Command
     {
-        private void Jump()
+        void execute(Player p);
+    }
+    class ShootCommand : Command
+    {
+        public void execute(Player p)
         {
             throw new NotImplementedException();
         }
     }
+    
 }
