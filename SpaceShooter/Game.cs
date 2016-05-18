@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using SpaceShooter.Factories;
 using SpaceShooter.GameObjects;
 
+
+
 namespace SpaceShooter
 {
     class Game
@@ -23,8 +25,10 @@ namespace SpaceShooter
         {
             RenderWindow window = InitWindow();
 
-            Ship s = ShipFactory.CreateShip("Falcon");
-            Console.Out.Write("" + s.name + " " + s.maxHP + " " + s.maxSpeed);
+            // Shipfactory test
+            ShipFactory.CreateShip("Battlestar");
+            ShipFactory.CreateShip("Thunderbolt");
+            ShipFactory.CreateShip("asd");
             while (window.IsOpen)
             {
                 // Start game with gamestate ...

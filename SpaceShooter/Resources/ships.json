@@ -1,5 +1,25 @@
 {
+  Falcon: {
 		"name": "Falcon",
 		"maxHP": 1,
 		"maxSpeed": 1
+  },
+
+  Battlestar: {
+		"name": "Battlestar",
+		"maxHP": 2,
+		"maxSpeed": 2
+  },
+
+    Destroyer: {
+		"name": "Battlestar",
+		"maxHP": 10,
+		"maxSpeed": 1
+  },
+
+    Thunderbolt: {
+		"name": "Battlestar",
+		"maxHP": 1,
+		"maxSpeed": 10
+  }
 }

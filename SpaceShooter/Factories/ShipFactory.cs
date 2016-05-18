@@ -16,8 +16,15 @@ namespace SpaceShooter.Factories
         // Builds a Ship Object from JSON Data, returns null if the Ship doesn't exist 
         public static Ship CreateShip(String name)
         {
-            Ship s = JsonConvert.DeserializeObject<Ship>(File.ReadAllText(@"Resources\ships.json"));
-            return s;
+            Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
+
+            if (values.ContainsKey(name))
+            {
+                Console.WriteLine(name + " created with " + values[name].maxHP + "hp" + " and " + values[name].maxSpeed + " maximum Speed");
+                return values[name];
+            }
+            Console.WriteLine("Ship with key " + name + " doesn't exist.");
+            return null;
         }
     }
 }
