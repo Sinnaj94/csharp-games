@@ -1,25 +1,22 @@
 {
-  Falcon: {
+  "Falcon": {
 		"name": "Falcon",
 		"maxHP": 1,
-		"maxSpeed": 1
+		"maxSpeed": 1,
+		"SpriteBounds": [3,57,3,190]
   },
 
-  Battlestar: {
+  "Battlestar": {
 		"name": "Battlestar",
 		"maxHP": 2,
-		"maxSpeed": 2
+		"maxSpeed": 2,
+		"SpriteBounds": [62,177,3,121]
   },
 
-    Destroyer: {
-		"name": "Battlestar",
+    "Destroyer": {
+		"name": "Destroyer",
 		"maxHP": 10,
-		"maxSpeed": 1
-  },
-
-    Thunderbolt: {
-		"name": "Battlestar",
-		"maxHP": 1,
-		"maxSpeed": 10
+		"maxSpeed": 1,
+		"SpriteBounds": [182, 265, 3, 121]
   }
 }

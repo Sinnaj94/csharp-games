@@ -8,9 +8,5 @@ namespace SpaceShooter
 {
     class Player
     {
-        private void Jump()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

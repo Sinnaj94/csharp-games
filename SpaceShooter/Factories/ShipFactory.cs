@@ -14,14 +14,18 @@ namespace SpaceShooter.Factories
     static class ShipFactory
     {
         // Builds a Ship Object from JSON Data, returns null if the Ship doesn't exist 
-        public static Ship CreateShip(String name)
+        public static Ship CreateShip(String name, double x, double y)
         {
             Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
 
             if (values.ContainsKey(name))
             {
                 Console.WriteLine(name + " created with " + values[name].maxHP + "hp" + " and " + values[name].maxSpeed + " maximum Speed");
-                return values[name];
+                Ship s = values[name];
+                s.x = x;
+                s.y = y;
+                s.initSprite();
+                return s;
             }
             Console.WriteLine("Ship with key " + name + " doesn't exist.");
             return null;

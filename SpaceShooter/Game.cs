@@ -25,14 +25,19 @@ namespace SpaceShooter
         {
             RenderWindow window = InitWindow();
 
-            // Shipfactory test
-            ShipFactory.CreateShip("Battlestar");
-            ShipFactory.CreateShip("Thunderbolt");
-            ShipFactory.CreateShip("asd");
+
+           ShipFactory.CreateShip("Battlestar", 200, 200);
+
+            EnemyShipContainer c = new EnemyShipContainer();
+            c.AddShip(ShipFactory.CreateShip("Falcon", 100, 100));
+            c.AddShip(ShipFactory.CreateShip("Destroyer", 200, 250));
+
+
             while (window.IsOpen)
             {
-                // Start game with gamestate ...
-            
+                window.Clear();
+                window.Draw(c);
+                window.Display();
             }
 
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFML.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,6 @@ namespace SpaceShooter
         public double dy { get; set; }
         public double drot { get; set; }
         public double rotation { get; set; }
+        public int[] SpriteBounds { get; set; }
     }
 }

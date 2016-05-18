@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    interface IRenderable
+    interface IRenderable : SFML.Graphics.Drawable
     {
-        void Draw();
+
     }
 }
