@@ -24,11 +24,9 @@ namespace SpaceShooter
         static void Main(string[] args)
         {
             RenderWindow window = InitWindow();
-
-
-           ShipFactory.CreateShip("Battlestar", 200, 200);
-
+            BackgroundManager bg = new BackgroundManager();
             EnemyShipContainer c = new EnemyShipContainer();
+
             c.AddShip(ShipFactory.CreateShip("Falcon", 100, 100));
             c.AddShip(ShipFactory.CreateShip("Destroyer", 200, 250));
 
@@ -36,6 +34,7 @@ namespace SpaceShooter
             while (window.IsOpen)
             {
                 window.Clear();
+                window.Draw(bg);
                 window.Draw(c);
                 window.Display();
             }
