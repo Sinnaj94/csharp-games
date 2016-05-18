@@ -8,6 +8,12 @@ namespace SpaceShooter.GameObjects
 {
     class Ship : GameObject, IRenderable, IMovable
     {
+
+        public Ship()
+        {
+
+        }
+
         public Ship(String name, int maxHP, double maxSpeed)
         {
             this.name = name;

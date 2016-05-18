@@ -1,12 +1,5 @@
-[
-    {
-        "name": "Falcon",
-        "maxHP": 1,
-        "maxSpeed": 1
-    },
-    {
-        "name": "Battlestar",
-        "maxHP": 2,
-        "maxSpeed": 1
-    }
-]
+{
+		"name": "Falcon",
+		"maxHP": 1,
+		"maxSpeed": 1
+}
