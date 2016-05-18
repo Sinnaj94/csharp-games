@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class IMovable
+    interface IMovable
     {
+
     }
 }

@@ -8,6 +8,6 @@ namespace SpaceShooter
 {
     interface IRenderable
     {
-        void draw();
+        void Draw();
     }
 }
