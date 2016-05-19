@@ -16,11 +16,25 @@ namespace SpaceShooter
 
         public EnemyShipContainer()
         {
-            container = new List<Ship>();
+            Container = new List<Ship>();
         }
+
+        internal List<Ship> Container
+        {
+            get
+            {
+                return container;
+            }
+
+            set
+            {
+                container = value;
+            }
+        }
+
         public void AddShip(Ship enemyShip)
         {
-            container.Add(enemyShip);
+            Container.Add(enemyShip);
         }
 
         public void DeleteShip(Ship enemyShip)
@@ -30,7 +44,7 @@ namespace SpaceShooter
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            foreach (Ship s in container)
+            foreach (Ship s in Container)
             {
                 s.Draw(target, states);
             }
@@ -38,7 +52,7 @@ namespace SpaceShooter
 
         public void Update()
         {
-            foreach(Ship s in container){
+            foreach(Ship s in Container){
                 s.Update();
             }
         }

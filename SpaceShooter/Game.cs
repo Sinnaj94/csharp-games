@@ -31,14 +31,22 @@ namespace SpaceShooter
             c.AddShip(ShipFactory.CreateShip("Destroyer", 200, 250));
             c.AddShip(ShipFactory.CreateShip("Destroyer", 500, 500));
 
+            InputHandler input = new InputHandler();
             while (window.IsOpen)
             {
                 window.Clear();
+                Command current = input.HandleInput();
+                if (current != null)
+                {
+                    current.execute(c.Container[0]);
+                }
                 window.Draw(bg);
                 window.Draw(c);
                 window.Display();
             }
 
         }
+
+
     }
 }

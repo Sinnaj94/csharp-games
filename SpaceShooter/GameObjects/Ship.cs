@@ -20,7 +20,7 @@ namespace SpaceShooter.GameObjects
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            shipSprite.Position = new SFML.System.Vector2f((float)x, (float)y);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
