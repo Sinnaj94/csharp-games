@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SpaceShooter.GameObjects;
 namespace SpaceShooter
 {
     interface Command
     {
-        void execute(Player p);
+        void execute(Ship p);
     }
 
     class ShootCommand : Command
     {
-        public void execute(Player p)
+        public void execute(Ship p)
         {
             throw new NotImplementedException();
         }
@@ -21,33 +21,33 @@ namespace SpaceShooter
 
     class LeftCommand : Command
     {
-        public void execute(Player p)
+        public void execute(Ship p)
         {
-            throw new NotImplementedException();
+            p.move(-p.maxSpeed, 0);
         }
     }
 
     class UpCommand : Command
     {
-        public void execute(Player p)
+        public void execute(Ship p)
         {
-            throw new NotImplementedException();
+            p.move(0,-p.maxSpeed);
         }
     }
 
     class RightCommand : Command
     {
-        public void execute(Player p)
+        public void execute(Ship p)
         {
-            throw new NotImplementedException();
+            p.move(p.maxSpeed, 0);
         }
     }
 
     class DownCommand : Command
     {
-        public void execute(Player p)
+        public void execute(Ship p)
         {
-            throw new NotImplementedException();
+            p.move(0,p.maxSpeed);
         }
     }
 }

@@ -22,5 +22,11 @@ namespace SpaceShooter
         public double drot { get; set; }
         public double rotation { get; set; }
         public int[] SpriteBounds { get; set; }
+        public void move(double dx, double dy)
+        {
+            x += dx;
+            y += dy;
+            Update();
+        }
     }
 }
