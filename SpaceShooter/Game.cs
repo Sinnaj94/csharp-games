@@ -29,7 +29,7 @@ namespace SpaceShooter
 
             c.AddShip(ShipFactory.CreateShip("Falcon", 100, 100));
             c.AddShip(ShipFactory.CreateShip("Destroyer", 200, 250));
-
+            c.AddShip(ShipFactory.CreateShip("Destroyer", 500, 500));
 
             while (window.IsOpen)
             {
