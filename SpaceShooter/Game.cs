@@ -49,12 +49,10 @@ namespace SpaceShooter
                 //1. Check the Commands
                 currentCommands = input.HandleInput();
                 foreach(Command com in currentCommands)
-                Command current = input.HandleInput();
-
-                if (current != null)
                 {
                     com.Execute(player);
                 }
+
                 currentCommands.Clear();
 
                 //2. Updates
