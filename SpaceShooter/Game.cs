@@ -35,11 +35,15 @@ namespace SpaceShooter
             while (window.IsOpen)
             {
                 window.Clear();
-                Command current = input.HandleInput();
-                if (current != null)
+                //TODO: Command Pattern ordentlicher schreiben (nicht hier direkt)
+                List<Command> currentCommands = input.HandleInput();
+                foreach(Command com in currentCommands)
                 {
-                    current.execute(c.Container[0]);
+                    com.Execute(c.Container[0]);
                 }
+                c.Update();
+
+                currentCommands.Clear();
                 window.Draw(bg);
                 window.Draw(c);
                 window.Display();
