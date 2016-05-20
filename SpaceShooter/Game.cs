@@ -26,28 +26,40 @@ namespace SpaceShooter
             RenderWindow window = InitWindow();
             BackgroundManager bg = new BackgroundManager();
             EnemyShipContainer c = new EnemyShipContainer();
+            Ship player;
 
             c.AddShip(ShipFactory.CreateShip("Falcon", 100, 100));
             c.AddShip(ShipFactory.CreateShip("Destroyer", 200, 250));
-            c.AddShip(ShipFactory.CreateShip("Destroyer", 500, 500));
+            c.AddShip(ShipFactory.CreateShip("Destroyer", 500, 250));
+
+            player = ShipFactory.CreateShip("Battlestar",200,200);
 
             InputHandler input = new InputHandler();
+            List<Command> currentCommands;
             while (window.IsOpen)
             {
                 window.Clear();
                 //TODO: Command Pattern ordentlicher schreiben (nicht hier direkt)
-                List<Command> currentCommands = input.HandleInput();
+                //1. Check the Commands
+                currentCommands = input.HandleInput();
                 foreach(Command com in currentCommands)
                 {
-                    com.Execute(c.Container[0]);
+                    com.Execute(player);
                 }
-                c.Update();
-
                 currentCommands.Clear();
+
+                //2. Updates
+                c.Update();
+                player.Update();
+                
+
+                //3. Draw
                 window.Draw(bg);
                 window.Draw(c);
+                window.Draw(player);
                 window.Display();
             }
+
 
         }
 

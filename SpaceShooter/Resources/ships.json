@@ -9,14 +9,14 @@
   "Battlestar": {
 		"name": "Battlestar",
 		"maxHP": 2,
-		"maxSpeed": 2,
-		"SpriteBounds": [62,177,3,121]
+		"maxSpeed": 10,
+		"SpriteBounds": [62,114,3,121]
   },
 
     "Destroyer": {
 		"name": "Destroyer",
 		"maxHP": 10,
 		"maxSpeed": 1,
-		"SpriteBounds": [182, 265, 3, 121]
+		"SpriteBounds": [182, 89, 3, 121]
   }
 }

@@ -23,7 +23,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(-p.maxSpeed, 0);
+            p.Move(-1, 0);
         }
     }
 
@@ -31,7 +31,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(0,-p.maxSpeed);
+            p.Move(0,-1);
         }
     }
 
@@ -39,7 +39,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(p.maxSpeed, 0);
+            p.Move(1, 0);
         }
     }
 
@@ -47,7 +47,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(0,p.maxSpeed);
+            p.Move(0,1);
         }
     }
 }
