@@ -22,11 +22,15 @@ namespace SpaceShooter
         public double drot { get; set; }
         public double rotation { get; set; }
         public int[] SpriteBounds { get; set; }
-        public void move(double dx, double dy)
+        /// <summary>
+        /// Moves the Object at given speed DX. Multiplies with maxSpeed
+        /// </summary>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        public void Move(double dx, double dy)
         {
-            x += dx;
-            y += dy;
-            Update();
+            x += dx*maxSpeed;
+            y += dy*maxSpeed;
         }
     }
 }

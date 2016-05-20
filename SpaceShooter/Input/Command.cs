@@ -8,12 +8,12 @@ namespace SpaceShooter
 {
     interface Command
     {
-        void execute(Ship p);
+        void Execute(Ship p);
     }
 
     class ShootCommand : Command
     {
-        public void execute(Ship p)
+        public void Execute(Ship p)
         {
             throw new NotImplementedException();
         }
@@ -21,33 +21,33 @@ namespace SpaceShooter
 
     class LeftCommand : Command
     {
-        public void execute(Ship p)
+        public void Execute(Ship p)
         {
-            p.move(-p.maxSpeed, 0);
+            p.Move(-1, 0);
         }
     }
 
     class UpCommand : Command
     {
-        public void execute(Ship p)
+        public void Execute(Ship p)
         {
-            p.move(0,-p.maxSpeed);
+            p.Move(0,-1);
         }
     }
 
     class RightCommand : Command
     {
-        public void execute(Ship p)
+        public void Execute(Ship p)
         {
-            p.move(p.maxSpeed, 0);
+            p.Move(1, 0);
         }
     }
 
     class DownCommand : Command
     {
-        public void execute(Ship p)
+        public void Execute(Ship p)
         {
-            p.move(0,p.maxSpeed);
+            p.Move(0,1);
         }
     }
 }
