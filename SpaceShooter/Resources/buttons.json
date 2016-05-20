@@ -1,0 +1,25 @@
+{
+  "Start": {
+		"name": "Start Game",
+		"x": 0.5,
+		"y": 0.2
+  },
+
+  "Settings": {
+    "name": "Settings",
+    "x": 0.5,
+    "y": 0.4
+  },
+
+  "Credits": {
+		"name": "View Credits",
+		"x": 0.5,
+		"y": 0.6
+  },
+
+  "Exit": {
+		"name": "Exit Game",
+		"x": 0.5,
+		"y": 0.8
+  }
+}

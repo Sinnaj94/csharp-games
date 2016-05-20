@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SpaceShooter.GameObjects;
 namespace SpaceShooter
 {
+    //TODO: Controller einbinden!
     interface Command
     {
         void Execute(Ship p);
