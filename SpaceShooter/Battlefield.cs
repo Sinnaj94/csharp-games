@@ -47,10 +47,17 @@ namespace SpaceShooter
 
         public void Update()
         {    
-            currentCommands = input.HandleInput();
+            currentCommands = input.HandleInputKeyboard();
             foreach (Command com in currentCommands)
             {
                 com.Execute(player);
+            }
+            currentCommands.Clear();
+
+            currentCommands = input.HandleInputJoystick();
+            foreach(Command com in currentCommands)
+            {
+                com.ExecuteJoystick(player);
             }
             currentCommands.Clear();
 

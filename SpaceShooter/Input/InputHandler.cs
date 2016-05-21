@@ -9,7 +9,9 @@ namespace SpaceShooter
 {
     class InputHandler
     {
+
         //Shooting command
+        uint nrShoot;
         Keyboard.Key _buttonShoot;
         Command buttonShoot;
         //Left command
@@ -27,12 +29,14 @@ namespace SpaceShooter
 
         //Finally, a list to store the commands
         List<Command> requestedCommands;
-        Ship p;
 
+
+        bool joystickConnected;
         public InputHandler()
         {
             _buttonShoot = Keyboard.Key.Space;
             buttonShoot = new ShootCommand();
+            nrShoot = 11;
             _buttonLeft = Keyboard.Key.Left;
             buttonLeft = new LeftCommand();
             _buttonRight = Keyboard.Key.Right;
@@ -42,14 +46,57 @@ namespace SpaceShooter
             _buttonDown = Keyboard.Key.Down;
             buttonDown = new DownCommand();
             RequestedCommands = new List<Command>();
+            
+            ConfigureJoystick(0);
+
+        }
+
+        private void ConfigureJoystick(uint nr)
+        {
+            Joystick.Update();
+            if (Joystick.IsConnected(nr))
+            {
+                Console.Out.Write("Joystick " + nr + " is inserted and being used.");
+                joystickConnected = true;
+            }
+            else
+            {
+                Console.Out.Write("Joystick is not inserted. Using Keyboard instead.");
+                joystickConnected = true;
+            }
+            
+        }
+
+
+        private bool JoystickMovedInDirection(Joystick.Axis axis,int factor)
+        {
+            Joystick.Update();
+            if(factor < 1)
+            {
+                if (Joystick.GetAxisPosition(0, axis) < 0.01*factor)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (Joystick.GetAxisPosition(0, axis) > 0.01*factor)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
         }
 
         /// <summary>
         /// Checks if any of the implemented keys are pressed.
         /// </summary>
         /// <returns>Returns a CommandList of the Requested Commands</returns>
-        public List<Command> HandleInput()
+        public List<Command> HandleInputKeyboard()
         {
+            //JoystickTesting();
+            
             if (Keyboard.IsKeyPressed(_buttonShoot))
             {
                 AddCommandToList(buttonShoot);
@@ -71,6 +118,57 @@ namespace SpaceShooter
                 AddCommandToList(buttonDown);
             }
             return RequestedCommands;
+        }
+
+        float getStrength(Joystick.Axis axis)
+        {
+            return Joystick.GetAxisPosition(0, axis);
+        }
+
+        //TODO: Im Moment noch sehr unsauber!!
+        public List<Command> HandleInputJoystick()
+        {
+            if (joystickConnected)
+            {
+                for(uint i = 0; i < 32; i++)
+                {
+                    if (Joystick.IsButtonPressed(0,i))
+                    {
+                        Console.Out.WriteLine("Pressed " + i);
+                    }
+                    
+
+                }
+                
+                if (Joystick.IsButtonPressed(0, nrShoot))
+                {
+                    setStrengthAndAdd(buttonShoot, 0);
+                }
+                if (JoystickMovedInDirection(Joystick.Axis.X, -1))
+                {
+                    setStrengthAndAdd(buttonLeft, getStrength(Joystick.Axis.X));
+
+                }
+                if (JoystickMovedInDirection(Joystick.Axis.X, 1))
+                {
+                    setStrengthAndAdd(buttonRight, getStrength(Joystick.Axis.X));
+                }
+                if (JoystickMovedInDirection(Joystick.Axis.Y, -1))
+                {
+                    setStrengthAndAdd(buttonUp, getStrength(Joystick.Axis.Y));
+                }
+                if (JoystickMovedInDirection(Joystick.Axis.Y, 1))
+                {
+                    setStrengthAndAdd(buttonDown, getStrength(Joystick.Axis.Y));
+                }   
+            }
+            return RequestedCommands;
+        }
+
+        private void setStrengthAndAdd(Command c, float strength)
+        {
+            c.Strength = Math.Abs(strength/100);
+            AddCommandToList(c);
         }
 
         /// <summary>

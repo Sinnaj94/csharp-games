@@ -48,7 +48,7 @@ namespace SpaceShooter
                 window.Clear();
                 //TODO: Command Pattern ordentlicher schreiben (nicht hier direkt)
                 //1. Check the Commands
-                currentCommands = input.HandleInput();
+                currentCommands = input.HandleInputKeyboard();
                 /*
                 foreach(Command com in currentCommands)
                 {
