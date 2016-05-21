@@ -30,7 +30,7 @@ namespace SpaceShooter.Factories
                 s.body = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(s.SpriteBounds[1] - s.SpriteBounds[0]), ConvertUnits.ToSimUnits(s.SpriteBounds[3] - s.SpriteBounds[2]), 10f);
                 s.body.Position = new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToSimUnits(x), ConvertUnits.ToSimUnits(y));
                 s.body.BodyType = BodyType.Dynamic;
-                
+                s.init();
                 return s;
             }
             Console.WriteLine("Ship with key " + name + " doesn't exist.");

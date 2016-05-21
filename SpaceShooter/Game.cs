@@ -64,7 +64,7 @@ namespace SpaceShooter
 
                 //3. Draw
 
-                battle.update();
+                battle.Update();
                 window.Draw(bg);
                 window.Draw(battle);
                 window.Display();

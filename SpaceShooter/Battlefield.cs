@@ -21,10 +21,13 @@ namespace SpaceShooter
         private InputHandler input;
         private List<Command> currentCommands;
         private Ship player;
+        private Vector2 globalBounds;
 
         public Battlefield()
         {
-            world = new World(new Microsoft.Xna.Framework.Vector2(0, 0));
+            globalBounds = new Vector2(ConvertUnits.ToSimUnits(1920) , ConvertUnits.ToSimUnits(1080));
+            world = new World(new Vector2(0, 0));
+            InitGlobalBounds();
             input = new InputHandler();
             currentCommands = new List<Command>(10);
             player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
@@ -33,7 +36,14 @@ namespace SpaceShooter
             c.AddShip(ShipFactory.CreateShip("Battlestar", 100, 300, world));
         }
 
-        public void update()
+        public void InitGlobalBounds()
+        {
+            BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(-1920 + 960), ConvertUnits.ToSimUnits(540));
+            BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(1920 + 960), ConvertUnits.ToSimUnits(540));
+            BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(960), ConvertUnits.ToSimUnits(1080 + 540));
+        }
+
+        public void Update()
         {    
             currentCommands = input.HandleInput();
             foreach (Command com in currentCommands)

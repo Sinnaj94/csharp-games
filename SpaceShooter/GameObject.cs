@@ -33,7 +33,8 @@ namespace SpaceShooter
         /// <param name="dy"></param>
         public void Move(double dx, double dy)
         {
-            body.ApplyForce(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
+         //   body.ApplyForce(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
+            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
            // body.ApplyTorque(500);
            // x += dx*maxSpeed;
           //  y += dy*maxSpeed;

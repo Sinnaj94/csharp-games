@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SpaceShooter.GameObjects;
 using SFML.Graphics;
+using FarseerPhysics.Collision;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Contacts;
 
 namespace SpaceShooter
 
@@ -39,7 +42,7 @@ namespace SpaceShooter
 
         public void DeleteShip(Ship enemyShip)
         {
-            // To be implemented
+            enemyShip = null;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -50,13 +53,32 @@ namespace SpaceShooter
             }
         }
 
-        public void Update()
+        public void _Update()
         {
             foreach(Ship s in Container){
                 s.Update();
+                if (s.col)
+                {
+                    container.Remove(s);
+                }
             }
         }
 
+        public void Update()
+        {
+            for(int i = container.Count - 1; i >= 0; i--)
+            {
+                container[i].Update();
+                if (container[i].col)
+                {
+                    container.RemoveAt(i);
+                }
+            }
+               
+          
+            
+        }
 
     }
 }
+
