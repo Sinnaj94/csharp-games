@@ -130,15 +130,7 @@ namespace SpaceShooter
         {
             if (joystickConnected)
             {
-                for(uint i = 0; i < 32; i++)
-                {
-                    if (Joystick.IsButtonPressed(0,i))
-                    {
-                        Console.Out.WriteLine("Pressed " + i);
-                    }
-                    
-
-                }
+                
                 
                 if (Joystick.IsButtonPressed(0, nrShoot))
                 {
