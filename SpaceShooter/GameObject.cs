@@ -12,6 +12,7 @@ namespace SpaceShooter
     abstract class GameObject
     {
         // FARSSER physics body for col. detection
+        public World world;
         public Body body;
         public abstract void Update();
         public String name { get; set; }
@@ -26,6 +27,7 @@ namespace SpaceShooter
         public double drot { get; set; }
         public double rotation { get; set; }
         public int[] SpriteBounds { get; set; }
+        
         /// <summary>
         /// Moves the Object at given speed DX. Multiplies with maxSpeed
         /// </summary>

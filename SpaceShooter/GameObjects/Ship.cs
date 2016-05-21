@@ -7,6 +7,7 @@ using SFML.Graphics;
 using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
+using SpaceShooter.Factories;
 
 namespace SpaceShooter.GameObjects
 {
@@ -16,10 +17,12 @@ namespace SpaceShooter.GameObjects
 
         private Sprite shipSprite;
         public bool col;
+        private BulletContainer bullets;
 
         public void init()
         {
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
+            bullets = new BulletContainer();
         }
         
         public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -33,15 +36,22 @@ namespace SpaceShooter.GameObjects
             shipSprite = new Sprite(new Texture(@"Resources\Ships.png"), new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]));
         }
 
+        public void Shoot()
+        {
+            bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 0, this.world, body));
+        }
+
         public override void Update()
         {
             // Sprite to Pos in Display coords
             shipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
+            bullets.Update();
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            shipSprite.Draw(target, states); 
+            shipSprite.Draw(target, states);
+            bullets.Draw(target, states);
         }
     }
 }

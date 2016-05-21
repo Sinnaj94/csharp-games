@@ -18,6 +18,7 @@ namespace SpaceShooter
     {
         private World world;
         private EnemyShipContainer c;
+        private BulletContainer bc;
         private InputHandler input;
         private List<Command> currentCommands;
         private Ship player;
@@ -38,6 +39,7 @@ namespace SpaceShooter
 
         public void InitGlobalBounds()
         {
+            // FIND A MORE CLEVER WAY
             BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(-1920 + 960), ConvertUnits.ToSimUnits(540));
             BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(1920 + 960), ConvertUnits.ToSimUnits(540));
             BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(960), ConvertUnits.ToSimUnits(1080 + 540));

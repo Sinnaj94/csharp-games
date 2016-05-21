@@ -18,7 +18,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            throw new NotImplementedException();
+            p.Shoot();
         }
     }
 

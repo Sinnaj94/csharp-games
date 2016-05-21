@@ -74,9 +74,6 @@ namespace SpaceShooter
                     container.RemoveAt(i);
                 }
             }
-               
-          
-            
         }
 
     }

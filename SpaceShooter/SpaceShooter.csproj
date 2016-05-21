@@ -71,6 +71,9 @@
   <ItemGroup>
     <Compile Include="BackgroundManager.cs" />
     <Compile Include="Battlefield.cs" />
+    <Compile Include="BulletContainer.cs" />
+    <Compile Include="Factories\BulletFactory.cs" />
+    <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Input\Command.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyShipContainer.cs" />
