@@ -29,8 +29,6 @@ namespace SpaceShooter
         List<Command> requestedCommands;
         Ship p;
 
-        
-
         public InputHandler()
         {
             _buttonShoot = Keyboard.Key.Space;

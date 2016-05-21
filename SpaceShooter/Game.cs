@@ -29,15 +29,16 @@ namespace SpaceShooter
         {
             SFML.Graphics.RenderWindow window = InitWindow();
             BackgroundManager bg = new BackgroundManager();
-            EnemyShipContainer c = new EnemyShipContainer();
-            Ship player;
+           // EnemyShipContainer c = new EnemyShipContainer();
+            //Ship player;
 
-            c.AddShip(ShipFactory.CreateShip("Falcon", 100, 100));
+            /*
+            c.AddShip(ShipFactory.CreateShip("Falcon", 100, 100, world);
             c.AddShip(ShipFactory.CreateShip("Destroyer", 200, 250));
             c.AddShip(ShipFactory.CreateShip("Destroyer", 500, 250));
 
             player = ShipFactory.CreateShip("Battlestar",200,200);
-
+            */
             Battlefield battle = new Battlefield();
 
             InputHandler input = new InputHandler();
@@ -48,6 +49,7 @@ namespace SpaceShooter
                 //TODO: Command Pattern ordentlicher schreiben (nicht hier direkt)
                 //1. Check the Commands
                 currentCommands = input.HandleInput();
+                /*
                 foreach(Command com in currentCommands)
                 {
                     com.Execute(player);
@@ -58,16 +60,12 @@ namespace SpaceShooter
                 //2. Updates
                 c.Update();
                 player.Update();
-                
+                */
 
                 //3. Draw
 
                 battle.update();
-
-
                 window.Draw(bg);
-                window.Draw(c);
-                window.Draw(player);
                 window.Draw(battle);
                 window.Display();
             }

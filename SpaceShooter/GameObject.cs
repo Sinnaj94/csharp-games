@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
 
 namespace SpaceShooter
 {
     abstract class GameObject
     {
+        // FARSSER physics body for col. detection
+        public Body body;
         public abstract void Update();
         public String name { get; set; }
         public int HP { get; set; }
@@ -29,8 +33,10 @@ namespace SpaceShooter
         /// <param name="dy"></param>
         public void Move(double dx, double dy)
         {
-            x += dx*maxSpeed;
-            y += dy*maxSpeed;
+            body.ApplyForce(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
+           // body.ApplyTorque(500);
+           // x += dx*maxSpeed;
+          //  y += dy*maxSpeed;
         }
     }
 }

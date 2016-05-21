@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SpaceShooter.GameObjects;
+using FarseerPhysics;
+
 namespace SpaceShooter
 {
     //TODO: Controller einbinden!
@@ -24,7 +26,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(-1, 0);
+            p.Move(ConvertUnits.ToSimUnits(-1), 0);
         }
     }
 
@@ -32,7 +34,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(0,-1);
+            p.Move(0, ConvertUnits.ToSimUnits(-1));
         }
     }
 
@@ -40,7 +42,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(1, 0);
+            p.Move(ConvertUnits.ToSimUnits(1), 0);
         }
     }
 
@@ -48,7 +50,7 @@ namespace SpaceShooter
     {
         public void Execute(Ship p)
         {
-            p.Move(0,1);
+            p.Move(0, ConvertUnits.ToSimUnits(1));
         }
     }
 }

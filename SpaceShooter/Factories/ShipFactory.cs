@@ -8,13 +8,16 @@ using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Schema;
 using System.Data;
+using FarseerPhysics;
+using FarseerPhysics.Factories;
+using FarseerPhysics.Dynamics;
 
 namespace SpaceShooter.Factories
 {
     static class ShipFactory
     {
         // Builds a Ship Object from JSON Data, returns null if the Ship doesn't exist 
-        public static Ship CreateShip(String name, double x, double y)
+        public static Ship CreateShip(String name, double x, double y, World world)
         {
             Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
 
@@ -22,9 +25,12 @@ namespace SpaceShooter.Factories
             {
                 Console.WriteLine(name + " created with " + values[name].maxHP + "hp" + " and " + values[name].maxSpeed + " maximum Speed");
                 Ship s = values[name];
-                s.x = x;
-                s.y = y;
                 s.initSprite();
+                // Creates Coll. Box with sprite bounds
+                s.body = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(s.SpriteBounds[1] - s.SpriteBounds[0]), ConvertUnits.ToSimUnits(s.SpriteBounds[3] - s.SpriteBounds[2]), 10f);
+                s.body.Position = new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToSimUnits(x), ConvertUnits.ToSimUnits(y));
+                s.body.BodyType = BodyType.Dynamic;
+                
                 return s;
             }
             Console.WriteLine("Ship with key " + name + " doesn't exist.");
@@ -32,3 +38,4 @@ namespace SpaceShooter.Factories
         }
     }
 }
+
