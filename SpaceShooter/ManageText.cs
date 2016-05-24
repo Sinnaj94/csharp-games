@@ -18,7 +18,7 @@ namespace SpaceShooter
 
         private ManageText()
         {
-            NormalFont = new Font(@"Resources/Starhol.ttf");
+            NormalFont = new Font(@"Resources/Starjhol.ttf");
             SelectedFont = new Font(@"Resources/Starjedi.ttf");
         }
 

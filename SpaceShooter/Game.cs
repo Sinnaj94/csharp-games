@@ -30,6 +30,7 @@ namespace SpaceShooter
         {
             SFML.Graphics.RenderWindow window = InitWindow();
             BackgroundManager bg = new BackgroundManager();
+
            // EnemyShipContainer c = new EnemyShipContainer();
             //Ship player;
 
@@ -42,34 +43,28 @@ namespace SpaceShooter
             */
             Battlefield battle = new Battlefield();
             Menu menu = new Menu();
-            InputHandler input = new InputHandler();
-            List<Command> currentCommands;
+
             while (window.IsOpen)
             {
                 window.Clear();
-                //TODO: Command Pattern ordentlicher schreiben (nicht hier direkt)
-                //1. Check the Commands
-                currentCommands = input.HandleInputKeyboard();
-                /*
-                foreach(Command com in currentCommands)
+
+                if (menu.Active)
                 {
-                    com.Execute(player);
+                    menu.Update();
+                }
+                else
+                {
+                    battle.Update();
                 }
 
-                currentCommands.Clear();
 
-                //2. Updates
-                c.Update();
-                player.Update();
-                */
-
-                //3. Draw
-
-                battle.Update();
-                
                 window.Draw(bg);
                 window.Draw(battle);
-                window.Draw(menu);
+                if (menu.Active)
+                {
+                    window.Draw(menu);
+
+                }
                 window.Display();
             }
 

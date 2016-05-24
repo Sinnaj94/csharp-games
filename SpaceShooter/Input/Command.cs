@@ -16,7 +16,11 @@ namespace SpaceShooter
         void ExecuteJoystick(Ship p);
         float Strength { get; set; }
     }
-    
+
+    interface MenuCommand
+    {
+        void Execute(Menu m);
+    }
 
     class ShootCommand : Command
     {
@@ -151,4 +155,30 @@ namespace SpaceShooter
             p.Move(0, ConvertUnits.ToSimUnits(1* Strength));
         }
     }
+
+    class MenuDownCommand : MenuCommand
+    {
+        public void Execute(Menu m)
+        {
+            m.navigateDown();
+        }
+    }
+
+    class MenuUpCommand : MenuCommand
+    {
+        public void Execute(Menu m)
+        {
+            m.navigateUp();
+        }
+    }
+
+    class MenuSelectCommand : MenuCommand
+    {
+        public void Execute(Menu m)
+        {
+            m.selectCurrent();
+        }
+    }
+
+
 }

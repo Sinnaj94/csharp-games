@@ -11,29 +11,59 @@ namespace SpaceShooter.GameObjects
     {
         String text;
         bool selected;
-        double x;
-        double y;
+       
         uint characterSize;
         Text textObject;
+        Text textSelectedObject;
+
+        
+
         //TODO : Fenstergroesse automatisch erkennen
         public Button(String text, double x, double y)
         {
+            Selected = false;
             characterSize = 100;
             this.text = text;
-            this.x = x*1920;
-            this.y = y*1080;
+            x = x*1920;
+            y = y*1080;
             textObject = new Text(text, ManageText.Instance.NormalFont,characterSize);
+            
             textObject.Position = new Vector2f((float)x, (float)y);
             Console.Out.WriteLine("Button " + text + " at x=" + x + " and y=" + y + " created.");
+            textSelectedObject = new Text(textObject);
+            textSelectedObject.Font = ManageText.Instance.SelectedFont;
         }
+
+
         public void Draw(RenderTarget target, RenderStates states)
         {
-            textObject.Draw(target, states);
+            if (Selected)
+            {
+                textSelectedObject.Draw(target, states);
+            }
+            else
+            {
+                textObject.Draw(target, states);
+
+            }
         }
 
         public override void Update()
         {
             throw new NotImplementedException();
+        }
+
+        public bool Selected
+        {
+            get
+            {
+                return selected;
+            }
+
+            set
+            {
+                selected = value;
+            }
         }
     }
 }
