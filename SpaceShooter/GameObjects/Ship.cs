@@ -21,7 +21,8 @@ namespace SpaceShooter.GameObjects
         private float recoil;
         public void init()
         {
-            recoil = 1f;
+            recoil = 10f;
+            
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
         }
@@ -40,8 +41,9 @@ namespace SpaceShooter.GameObjects
         public void Shoot()
         {
             bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 0, this.world, body));
-            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(0f, recoil), body.WorldCenter);
+            body.ApplyForce(new Microsoft.Xna.Framework.Vector2(0f, recoil), body.WorldCenter);
         }
+
 
         public override void Update()
         {

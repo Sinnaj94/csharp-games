@@ -19,7 +19,8 @@ namespace SpaceShooter
     {
         static SFML.Graphics.RenderWindow InitWindow()
         {
-            SFML.Graphics.RenderWindow window = new SFML.Graphics.RenderWindow(VideoMode.DesktopMode, "Space Shooter", Styles.Fullscreen);
+            SFML.Graphics.RenderWindow window = new SFML.Graphics.RenderWindow(VideoMode.FullscreenModes[0], "Space Shooter", Styles.Fullscreen);
+            window.SetVerticalSyncEnabled(true);
             window.SetFramerateLimit(61);
             return window;
         }
@@ -40,7 +41,7 @@ namespace SpaceShooter
             player = ShipFactory.CreateShip("Battlestar",200,200);
             */
             Battlefield battle = new Battlefield();
-
+            Menu menu = new Menu();
             InputHandler input = new InputHandler();
             List<Command> currentCommands;
             while (window.IsOpen)
@@ -65,8 +66,10 @@ namespace SpaceShooter
                 //3. Draw
 
                 battle.Update();
+                
                 window.Draw(bg);
                 window.Draw(battle);
+                window.Draw(menu);
                 window.Display();
             }
 

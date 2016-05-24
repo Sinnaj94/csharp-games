@@ -59,8 +59,8 @@ namespace SpaceShooter
             {
                 com.ExecuteJoystick(player);
             }
+            player.Rotate(100);
             currentCommands.Clear();
-
             c.Update();
             player.Update();
             world.Step(.016666f);

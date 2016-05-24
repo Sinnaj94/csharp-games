@@ -40,7 +40,6 @@ namespace SpaceShooter.GameObjects
         {
             tmp.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits((float)body.Position.X), ConvertUnits.ToDisplayUnits((float)body.Position.Y));
             tmp.Draw(target, states);
-            Console.WriteLine("joooo");
         }
     }
 }

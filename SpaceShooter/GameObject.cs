@@ -27,19 +27,25 @@ namespace SpaceShooter
         public double drot { get; set; }
         public double rotation { get; set; }
         public int[] SpriteBounds { get; set; }
-        
+
         /// <summary>
         /// Moves the Object at given speed DX. Multiplies with maxSpeed
         /// </summary>
         /// <param name="dx"></param>
         /// <param name="dy"></param>
-        public void Move(double dx, double dy)
+        public void Move(float dx, float dy)
         {
-         //   body.ApplyForce(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
-            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
-           // body.ApplyTorque(500);
-           // x += dx*maxSpeed;
-          //  y += dy*maxSpeed;
+            //   body.ApplyForce(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
+            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(50 * (float)dx, 50 * (float)dy), body.WorldCenter);
+            //body.ApplyTorque(500);
+            // x += dx*maxSpeed;
+            //  y += dy*maxSpeed;
+        }
+
+        public void Rotate(float newRotation)
+        {
+            //Todo: Implementieren
+            body.ApplyAngularImpulse(newRotation);
         }
     }
 }
