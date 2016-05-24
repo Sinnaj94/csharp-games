@@ -16,10 +16,12 @@ namespace SpaceShooter
     class EnemyShipContainer : SFML.Graphics.Drawable
     {
         private List<Ship> container;
+        private Body player;
 
-        public EnemyShipContainer()
+        public EnemyShipContainer(Body player)
         {
             Container = new List<Ship>();
+            this.player = player;
         }
 
         internal List<Ship> Container
@@ -56,6 +58,7 @@ namespace SpaceShooter
         public void _Update()
         {
             foreach(Ship s in Container){
+                
                 s.Update();
                 if (s.col)
                 {
@@ -69,6 +72,7 @@ namespace SpaceShooter
             for(int i = container.Count - 1; i >= 0; i--)
             {
                 container[i].Update();
+                container[i].RotateTo(player);
                 if (container[i].col)
                 {
                     container.RemoveAt(i);

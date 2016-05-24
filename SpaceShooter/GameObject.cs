@@ -35,12 +35,9 @@ namespace SpaceShooter
         /// <param name="dy"></param>
         public void Move(float dx, float dy)
         {
-            //   body.ApplyForce(new Microsoft.Xna.Framework.Vector2(100 * (float)dx, 100 * (float)dy), body.WorldCenter);
             body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(50 * (float)dx, 50 * (float)dy), body.WorldCenter);
-            //body.ApplyTorque(500);
-            // x += dx*maxSpeed;
-            //  y += dy*maxSpeed;
         }
+
 
         public void Rotate(float newRotation)
         {

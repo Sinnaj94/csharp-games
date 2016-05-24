@@ -32,7 +32,7 @@ namespace SpaceShooter
             input = new InputHandler();
             currentCommands = new List<Command>(10);
             player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
-            c = new EnemyShipContainer();
+            c = new EnemyShipContainer(player.body);
             c.AddShip(ShipFactory.CreateShip("Falcon", 100, 0, world));
             c.AddShip(ShipFactory.CreateShip("Battlestar", 100, 300, world));
         }
@@ -59,7 +59,7 @@ namespace SpaceShooter
             {
                 com.ExecuteJoystick(player);
             }
-            player.Rotate(100);
+          //  player.body.Rotation += ConvertUnits.ToSimUnits(1);
             currentCommands.Clear();
             c.Update();
             player.Update();

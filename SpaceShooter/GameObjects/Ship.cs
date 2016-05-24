@@ -8,6 +8,7 @@ using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using SpaceShooter.Factories;
+using Microsoft.Xna.Framework;
 
 namespace SpaceShooter.GameObjects
 {
@@ -36,6 +37,7 @@ namespace SpaceShooter.GameObjects
         public void initSprite()
         {
             shipSprite = new Sprite(new Texture(@"Resources\Ships.png"), new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]));
+            shipSprite.Origin = new SFML.System.Vector2f(shipSprite.GetGlobalBounds().Width / 2, shipSprite.GetGlobalBounds().Height / 2);
         }
 
         public void Shoot()
@@ -44,11 +46,34 @@ namespace SpaceShooter.GameObjects
             body.ApplyForce(new Microsoft.Xna.Framework.Vector2(0f, recoil), body.WorldCenter);
         }
 
+        public void RotateTo(Body target)
+        {
+             double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.Y);
+            //double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.X);
+            Console.WriteLine("" + body.Rotation);
+            //body.Rotation = (float)targetrotation;
+           
+
+
+            
+            if (this.body.Rotation % 180 < targetrotation)
+            {
+                this.body.Rotation += ConvertUnits.ToSimUnits(1);
+            }
+
+            if (this.body.Rotation % 180 > targetrotation)
+            {
+                this.body.Rotation -= ConvertUnits.ToSimUnits(1);
+            }
+           
+        }
 
         public override void Update()
         {
-            // Sprite to Pos in Display coords
+            Console.WriteLine("Sprite: " + shipSprite.Rotation);
+            Console.WriteLine("body: " + ConvertUnits.ToDisplayUnits(body.Rotation));
             shipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
+            shipSprite.Rotation = ConvertUnits.ToDisplayUnits(body.Rotation);
             bullets.Update();
         }
 

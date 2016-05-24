@@ -31,16 +31,6 @@ namespace SpaceShooter
             SFML.Graphics.RenderWindow window = InitWindow();
             BackgroundManager bg = new BackgroundManager();
 
-           // EnemyShipContainer c = new EnemyShipContainer();
-            //Ship player;
-
-            /*
-            c.AddShip(ShipFactory.CreateShip("Falcon", 100, 100, world);
-            c.AddShip(ShipFactory.CreateShip("Destroyer", 200, 250));
-            c.AddShip(ShipFactory.CreateShip("Destroyer", 500, 250));
-
-            player = ShipFactory.CreateShip("Battlestar",200,200);
-            */
             Battlefield battle = new Battlefield();
             Menu menu = new Menu();
 
