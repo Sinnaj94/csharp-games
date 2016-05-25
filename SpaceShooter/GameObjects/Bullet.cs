@@ -19,6 +19,7 @@ namespace SpaceShooter.GameObjects
         CircleShape tmp;
         Body parent;
 
+
         public Bullet(Body parent)
         {
             this.parent = parent;
@@ -26,7 +27,7 @@ namespace SpaceShooter.GameObjects
 
         public void BulletForce()
         {
-            body.ApplyForce(new Vector2(ConvertUnits.ToSimUnits(0), ConvertUnits.ToSimUnits(-400)), body.WorldCenter);
+            body.ApplyForce(new Vector2(ConvertUnits.ToSimUnits(dx*speed), ConvertUnits.ToSimUnits(dy*speed)), body.WorldCenter);
             tmp = new CircleShape(ConvertUnits.ToDisplayUnits(bulletRadius));
             tmp.FillColor = new Color(255, 255, 0, 255);
             body.IgnoreCollisionWith(parent);

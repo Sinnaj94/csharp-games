@@ -13,7 +13,7 @@ namespace SpaceShooter.Factories
 {
     static class BulletFactory
     {
-        public static Bullet CreateBullet(double x, double y, double angle, World world, Body parent)
+        public static Bullet CreateBullet(double x, double y, double angle, World world, Body parent,double _dx, double _dy)
         {
             Bullet b = new Bullet(parent);
             b.bulletRadius = ConvertUnits.ToSimUnits(5);
@@ -22,6 +22,9 @@ namespace SpaceShooter.Factories
             b.body.Position = new Vector2((float)x, (float)y);
             b.body.BodyType = BodyType.Dynamic;
             b.body.IsBullet = true;
+            b.dx = _dx;
+            b.dy = _dy;
+            b.speed = 400;
             b.BulletForce();
             return b;
         }

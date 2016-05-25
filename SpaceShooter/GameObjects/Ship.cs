@@ -42,15 +42,17 @@ namespace SpaceShooter.GameObjects
 
         public void Shoot()
         {
-            bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 0, this.world, body));
-            body.ApplyForce(new Microsoft.Xna.Framework.Vector2(0f, recoil), body.WorldCenter);
+            double _dx = Math.Sin(ConvertUnits.ToDisplayUnits(this.body.Rotation)*Math.PI/180);
+            double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation)*Math.PI/180);
+
+            bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 0, this.world, body,_dx,_dy));
+            body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
         }
 
         public void RotateTo(Body target)
         {
              double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.Y);
             //double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.X);
-            Console.WriteLine("" + body.Rotation);
             //body.Rotation = (float)targetrotation;
            
 
@@ -68,10 +70,15 @@ namespace SpaceShooter.GameObjects
            
         }
 
+        public void Rotate()
+        {
+            this.body.Rotation += ConvertUnits.ToSimUnits(1);
+            Console.Out.WriteLine(ConvertUnits.ToDisplayUnits(this.body.Rotation));
+        }
+
         public override void Update()
         {
-            Console.WriteLine("Sprite: " + shipSprite.Rotation);
-            Console.WriteLine("body: " + ConvertUnits.ToDisplayUnits(body.Rotation));
+
             shipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
             shipSprite.Rotation = ConvertUnits.ToDisplayUnits(body.Rotation);
             bullets.Update();
