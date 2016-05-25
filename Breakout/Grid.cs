@@ -83,7 +83,7 @@ namespace Breakout
             }
             catch(Exception e)
             {
-                Console.WriteLine("Was not able to read the file.");
+                Console.WriteLine("Was not able to read the file. (" + e.Message + ")");
             }
         }
 

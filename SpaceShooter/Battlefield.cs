@@ -57,7 +57,7 @@ namespace SpaceShooter
             currentCommands = input.HandleInputJoystick();
             foreach(Command com in currentCommands)
             {
-                com.ExecuteJoystick(player);
+                com.Execute(player);
             }
           //  player.body.Rotation += ConvertUnits.ToSimUnits(1);
             currentCommands.Clear();

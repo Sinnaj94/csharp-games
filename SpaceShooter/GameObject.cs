@@ -39,10 +39,9 @@ namespace SpaceShooter
         }
 
 
-        public void Rotate(float newRotation)
+        public void Rotate(double newRotation)
         {
-            //Todo: Implementieren
-            body.ApplyAngularImpulse(newRotation);
+            this.body.Rotation = ConvertUnits.ToSimUnits(newRotation);
         }
     }
 }

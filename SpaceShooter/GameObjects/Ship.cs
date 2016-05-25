@@ -70,11 +70,7 @@ namespace SpaceShooter.GameObjects
            
         }
 
-        public void Rotate()
-        {
-            this.body.Rotation += ConvertUnits.ToSimUnits(1);
-            Console.Out.WriteLine(ConvertUnits.ToDisplayUnits(this.body.Rotation));
-        }
+       
 
         public override void Update()
         {

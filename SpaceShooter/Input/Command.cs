@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SpaceShooter.GameObjects;
 using FarseerPhysics;
+using SFML.System;
 
 namespace SpaceShooter
 {
@@ -13,8 +14,14 @@ namespace SpaceShooter
     {
         void Execute(Ship p);
         //For Joystick
-        void ExecuteJoystick(Ship p);
-        float Strength { get; set; }
+
+        Vector2f Strength { get; set; }
+    }
+
+    interface CommandStrength
+    {
+        float X { get; set; }
+        float Y { get; set; }
     }
 
     interface MenuCommand
@@ -24,16 +31,16 @@ namespace SpaceShooter
 
     class ShootCommand : Command
     {
-        public float Strength
+        public Vector2f Strength
         {
             get
             {
-                return 0;
+                return new Vector2f(0,0);
             }
 
             set
             {
-                
+
             }
         }
 
@@ -42,16 +49,13 @@ namespace SpaceShooter
             p.Shoot();
         }
 
-        public void ExecuteJoystick(Ship p)
-        {
-            p.Shoot();
-        }
+
     }
 
-    class LeftCommand : Command
+    class MoveCommand : Command
     {
-        float strength = 10;
-        public float Strength
+        Vector2f strength;
+        public Vector2f Strength
         {
             get
             {
@@ -66,19 +70,16 @@ namespace SpaceShooter
 
         public void Execute(Ship p)
         {
-            p.Move(ConvertUnits.ToSimUnits(-1), 0);
+            p.Move(ConvertUnits.ToSimUnits(Strength.X), ConvertUnits.ToSimUnits(Strength.Y));
         }
 
-        public void ExecuteJoystick(Ship p)
-        {
-            p.Move(ConvertUnits.ToSimUnits(-1*Strength), 0);
-        }
+
     }
 
-    class UpCommand : Command
+    class TurnCommand : Command
     {
-        float strength;
-        public float Strength
+        private Vector2f strength;
+        public Vector2f Strength
         {
             get
             {
@@ -93,67 +94,22 @@ namespace SpaceShooter
 
         public void Execute(Ship p)
         {
-            p.Move(0, ConvertUnits.ToSimUnits(-1));
-        }
+            Vector2f nullWinkel = new Vector2f(1, 0);
+            double sqrtS = Math.Sqrt(Math.Pow(strength.X,2) + Math.Pow(strength.Y,2));
+            double sqrtN = Math.Sqrt(Math.Pow(nullWinkel.X,2) + Math.Pow(nullWinkel.Y,2));
+            double skalar = strength.X * nullWinkel.X + strength.Y * nullWinkel.Y;
+            double angle = skalar / (sqrtS * sqrtN);
 
-        public void ExecuteJoystick(Ship p)
-        {
-            p.Move(0, ConvertUnits.ToSimUnits(-1* Strength));
-        }
-    }
-
-    class RightCommand : Command
-    {
-        float strength;
-        public float Strength
-        {
-            get
+            angle *= 90;
+            if(strength.Y > 0)
             {
-                return strength;
+                angle -= 180;
+                angle *= -1;
             }
-
-            set
-            {
-                strength = value;
-            }
+            p.Rotate(angle);
         }
 
-        public void Execute(Ship p)
-        {
-            p.Move(ConvertUnits.ToSimUnits(1), 0);
-        }
 
-        public void ExecuteJoystick(Ship p)
-        {
-            p.Move(ConvertUnits.ToSimUnits(1), 0);
-        }
-    }
-
-    class DownCommand : Command
-    {
-        float strength;
-        public float Strength
-        {
-            get
-            {
-                return strength;
-            }
-
-            set
-            {
-                strength = value;
-            }
-        }
-
-        public void Execute(Ship p)
-        {
-            p.Move(0, ConvertUnits.ToSimUnits(1));
-        }
-
-        public void ExecuteJoystick(Ship p)
-        {
-            p.Move(0, ConvertUnits.ToSimUnits(1* Strength));
-        }
     }
 
     class MenuDownCommand : MenuCommand
@@ -179,6 +135,8 @@ namespace SpaceShooter
             m.selectCurrent();
         }
     }
+
+
 
 
 }
