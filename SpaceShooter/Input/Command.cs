@@ -31,22 +31,31 @@ namespace SpaceShooter
 
     class ShootCommand : Command
     {
+        private Vector2f strength;
         public Vector2f Strength
         {
             get
             {
-                return new Vector2f(0,0);
+                return strength;
             }
 
             set
             {
-
+                strength = value;
             }
         }
 
         public void Execute(Ship p)
         {
-            p.Shoot();
+            if(strength.X <= 1)
+            {
+                p.Shoot();
+
+            }
+            else
+            {
+                p.ShootBig();
+            }
         }
 
 
@@ -94,6 +103,10 @@ namespace SpaceShooter
 
         public void Execute(Ship p)
         {
+            //For mouse:
+            /*Vector2f temp = new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
+            strength = strength - temp;
+            Console.Out.WriteLine("X:" + strength.X + " Y: " + strength.Y);*/
             Vector2f nullWinkel = new Vector2f(1, 0);
             double sqrtS = Math.Sqrt(Math.Pow(strength.X,2) + Math.Pow(strength.Y,2));
             double sqrtN = Math.Sqrt(Math.Pow(nullWinkel.X,2) + Math.Pow(nullWinkel.Y,2));

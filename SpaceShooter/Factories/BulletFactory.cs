@@ -13,11 +13,11 @@ namespace SpaceShooter.Factories
 {
     static class BulletFactory
     {
-        public static Bullet CreateBullet(double x, double y, double angle, World world, Body parent,double _dx, double _dy)
+        public static Bullet CreateBullet(double x, double y,double radius, World world, Body parent,double _dx, double _dy)
         {
             Bullet b = new Bullet(parent);
-            b.bulletRadius = ConvertUnits.ToSimUnits(5);
-            b.angle = ConvertUnits.ToSimUnits(angle);
+            b.bulletRadius = ConvertUnits.ToSimUnits(radius);
+
             b.body = BodyFactory.CreateCircle(world, b.bulletRadius, 1);
             b.body.Position = new Vector2((float)x, (float)y);
             b.body.BodyType = BodyType.Dynamic;

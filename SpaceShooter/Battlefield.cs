@@ -35,6 +35,7 @@ namespace SpaceShooter
             c = new EnemyShipContainer(player.body);
             c.AddShip(ShipFactory.CreateShip("Falcon", 100, 0, world));
             c.AddShip(ShipFactory.CreateShip("Battlestar", 100, 300, world));
+            input.P = player;
         }
 
         public void InitGlobalBounds()
@@ -47,18 +48,14 @@ namespace SpaceShooter
 
         public void Update()
         {    
-            currentCommands = input.HandleInputKeyboard();
+            currentCommands = input.HandlePlayerInput();
             foreach (Command com in currentCommands)
             {
                 com.Execute(player);
             }
             currentCommands.Clear();
 
-            currentCommands = input.HandleInputJoystick();
-            foreach(Command com in currentCommands)
-            {
-                com.Execute(player);
-            }
+            
           //  player.body.Rotation += ConvertUnits.ToSimUnits(1);
             currentCommands.Clear();
             c.Update();

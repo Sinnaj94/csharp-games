@@ -29,7 +29,7 @@ namespace SpaceShooter.GameObjects
         {
             body.ApplyForce(new Vector2(ConvertUnits.ToSimUnits(dx*speed), ConvertUnits.ToSimUnits(dy*speed)), body.WorldCenter);
             tmp = new CircleShape(ConvertUnits.ToDisplayUnits(bulletRadius));
-            tmp.FillColor = new Color(255, 255, 0, 255);
+            tmp.FillColor = new Color(255, 255, 255, 255);
             body.IgnoreCollisionWith(parent);
         }
 

@@ -6,14 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
+using FarseerPhysics;
 namespace SpaceShooter
 {
     class InputHandler
     {
+        Vector2i mousePosition;
+
         //Commands for the game
         //Shooting command
         uint nrShoot;
         uint nrSelect;
+        uint nrBigShoot;
         Keyboard.Key _buttonSelect;
         Keyboard.Key _buttonShoot;
         //Left command
@@ -24,6 +28,9 @@ namespace SpaceShooter
         Keyboard.Key _buttonUp;
         //Down Command
         Keyboard.Key _buttonDown;
+        Keyboard.Key _buttonBigShoot;
+        Mouse.Button _mouseShoot;
+        Mouse.Button _mouseBigShoot;
 
 
         Command buttonShoot;
@@ -36,6 +43,8 @@ namespace SpaceShooter
         MenuCommand menuUpCommand;
         MenuCommand menuDownCommand;
         MenuCommand menuSelectCommand;
+
+        Ship p;
         //Finally, a list to store the commands
         List<Command> requestedCommands;
         List<MenuCommand> requestedMenuCommands;
@@ -44,14 +53,19 @@ namespace SpaceShooter
         {
             _buttonShoot = Keyboard.Key.Space;
             buttonShoot = new ShootCommand();
-            nrShoot = 11;
-            _buttonLeft = Keyboard.Key.Left;
-            _buttonRight = Keyboard.Key.Right;
-            _buttonUp = Keyboard.Key.Up;
-            _buttonDown = Keyboard.Key.Down;
-
-            nrSelect = 14;
+            _buttonLeft = Keyboard.Key.A;
+            _buttonRight = Keyboard.Key.D;
+            _buttonUp = Keyboard.Key.W;
+            _buttonDown = Keyboard.Key.S;
+            _buttonBigShoot = Keyboard.Key.LAlt;
             _buttonSelect = Keyboard.Key.Return;
+            _mouseShoot = Mouse.Button.Left;
+            _mouseBigShoot = Mouse.Button.Right;
+
+
+            nrShoot = 11;
+            nrSelect = 14;
+            nrBigShoot = 10;
 
             turnCommand = new TurnCommand();
             moveCommandArray = new Command[4];
@@ -68,7 +82,10 @@ namespace SpaceShooter
             RequestedMenuCommands = new List<MenuCommand>();
             ConfigureJoystick(0);
 
+            mousePosition = Mouse.GetPosition();
         }
+
+        
 
         private void ConfigureJoystick(uint nr)
         {
@@ -128,6 +145,17 @@ namespace SpaceShooter
             
         }
 
+        private bool MousePositionChanged()
+        {
+            Vector2i currentPos = Mouse.GetPosition();
+            if(currentPos.X!=mousePosition.X ||currentPos.Y != mousePosition.Y)
+            {
+                mousePosition = currentPos;
+                return true;
+            }
+            return false;
+        }
+        
         /// <summary>
         /// Checks if any of the implemented keys are pressed.
         /// </summary>
@@ -135,8 +163,14 @@ namespace SpaceShooter
         public List<Command> HandleInputKeyboard()
         {
 
-            if (Keyboard.IsKeyPressed(_buttonShoot))
+            if (Keyboard.IsKeyPressed(_buttonShoot) || Mouse.IsButtonPressed(_mouseShoot))
             {
+                buttonShoot.Strength = new Vector2f(1, 1);
+                AddCommandToList(buttonShoot);
+            }
+            if (Keyboard.IsKeyPressed(_buttonBigShoot) || Mouse.IsButtonPressed(_mouseBigShoot))
+            {
+                buttonShoot.Strength = new Vector2f(2, 2);
                 AddCommandToList(buttonShoot);
             }
             if (Keyboard.IsKeyPressed(_buttonLeft))
@@ -159,6 +193,13 @@ namespace SpaceShooter
             {
                 moveCommandArray[3].Strength = new Vector2f(moveCommandArray[3].Strength.X, 1);
                 AddCommandToList(moveCommandArray[3]);
+            }
+            if (MousePositionChanged())
+            {
+
+                turnCommand.Strength = new Vector2f(mousePosition.X-ConvertUnits.ToDisplayUnits(p.body.Position.X),mousePosition.Y- ConvertUnits.ToDisplayUnits(p.body.Position.Y));
+                //JoystickTesting();
+                AddCommandToList(turnCommand);
             }
             return RequestedCommands;
         }
@@ -193,10 +234,15 @@ namespace SpaceShooter
 
             if (Joystick.IsButtonPressed(0, nrShoot))
             {
+                buttonShoot.Strength = new Vector2f(1, 1);
                 AddCommandToList(buttonShoot);
             }
-
-            if (JoystickMoved(Joystick.Axis.X))
+            if (Joystick.IsButtonPressed(0, nrBigShoot))
+            {
+                buttonShoot.Strength = new Vector2f(2, 2);
+                AddCommandToList(buttonShoot);
+            }
+                if (JoystickMoved(Joystick.Axis.X))
             {
                 moveCommandArray[0].Strength = new Vector2f(getStrength(Joystick.Axis.X), 0);
                 AddCommandToList(moveCommandArray[0]);
@@ -210,7 +256,7 @@ namespace SpaceShooter
             if (JoystickMoved(Joystick.Axis.R) || JoystickMoved(Joystick.Axis.Z))
             {
                 turnCommand.Strength = new Vector2f(getStrength(Joystick.Axis.Z), getStrength(Joystick.Axis.R));
-                JoystickTesting();
+                //JoystickTesting();
                 AddCommandToList(turnCommand);
             }
 
@@ -287,6 +333,19 @@ namespace SpaceShooter
             set
             {
                 requestedMenuCommands = value;
+            }
+        }
+
+        internal Ship P
+        {
+            get
+            {
+                return p;
+            }
+
+            set
+            {
+                p = value;
             }
         }
     }

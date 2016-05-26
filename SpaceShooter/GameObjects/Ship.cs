@@ -9,7 +9,7 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using SpaceShooter.Factories;
 using Microsoft.Xna.Framework;
-
+using SFML.System;
 namespace SpaceShooter.GameObjects
 {
     
@@ -19,11 +19,21 @@ namespace SpaceShooter.GameObjects
         private Sprite shipSprite;
         public bool col;
         private BulletContainer bullets;
-        private float recoil;
+        Clock c;
+        double fireRateMS;
+        double fireRateBigMS;
+        float recoil;
+        double bulletSpeed;
+        double bulletSpeedBig;
+
         public void init()
         {
-            recoil = 10f;
-            
+            recoil = 10;
+            fireRateMS = 100;
+            fireRateBigMS = 500;
+            bulletSpeed = 3;
+            bulletSpeedBig = 3;
+            c = new Clock();
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
         }
@@ -42,11 +52,26 @@ namespace SpaceShooter.GameObjects
 
         public void Shoot()
         {
-            double _dx = Math.Sin(ConvertUnits.ToDisplayUnits(this.body.Rotation)*Math.PI/180);
-            double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation)*Math.PI/180);
+            if(c.ElapsedTime.AsMilliseconds() >= fireRateMS)
+            {
+                double _dx = Math.Sin(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
+                double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
+                bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 5, this.world, body, _dx*bulletSpeed, _dy* bulletSpeed));
+                body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
+                c = new Clock();
+            }
+        }
 
-            bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 0, this.world, body,_dx,_dy));
-            body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
+        public void ShootBig()
+        {
+            if (c.ElapsedTime.AsMilliseconds() >= fireRateBigMS)
+            {
+                double _dx = Math.Sin(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
+                double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
+                bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 10, this.world, body, _dx * bulletSpeedBig, _dy * bulletSpeedBig));
+                body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
+                c = new Clock();
+            }
         }
 
         public void RotateTo(Body target)
