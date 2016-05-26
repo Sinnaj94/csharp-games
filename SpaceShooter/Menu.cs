@@ -22,6 +22,9 @@ namespace SpaceShooter
         List<MenuCommand> currentCommands;
         int milliseconds;
         bool active;
+        RectangleShape background;
+        Texture backgroundImage;
+        Sprite backgroundSprite;
 
         public bool Active
         {
@@ -50,6 +53,10 @@ namespace SpaceShooter
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\buttons.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
             Console.WriteLine(dataTable.Rows.Count);
+            background = new RectangleShape(new Vector2f(1920,1080));
+            background.FillColor = new Color(0, 0, 0, 255);
+            backgroundImage = new Texture(@"Resources/mainscreen.png");
+            backgroundSprite = new Sprite(backgroundImage);
             buttonList = new List<Button>();
             foreach (DataRow row in dataTable.Rows)
             {
@@ -76,6 +83,8 @@ namespace SpaceShooter
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            background.Draw(target,states);
+            backgroundSprite.Draw(target, states);
             foreach (Button b in buttonList)
             {
                 b.Draw(target, states);

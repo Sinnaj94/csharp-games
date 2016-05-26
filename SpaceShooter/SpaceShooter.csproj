@@ -84,6 +84,7 @@
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="IMovable.cs" />
     <Compile Include="Input\InputHandler.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="IRenderable.cs" />
     <Compile Include="ManageText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\mainscreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Mr_Pug.png" />

@@ -1,27 +1,27 @@
 {
     "Main_Menu": [
         {
-            "name": "Start Game",
-            "x": 0.5,
-            "y": 0.2
+            "name": "start / continue",
+            "x": 0.1,
+            "y": 0.3
         },
 
         {
-            "name": "Settings",
-            "x": 0.5,
+            "name": "settings",
+            "x": 0.2,
             "y": 0.4
         },
 
         {
-            "name": "View Credits",
-            "x": 0.5,
-            "y": 0.6
+            "name": "view credits",
+            "x": 0.3,
+            "y": 0.5
         },
 
         {
-            "name": "Exit Game",
-            "x": 0.5,
-            "y": 0.8
+            "name": "exit",
+            "x": 0.4,
+            "y": 0.6
         }
     ]
 }

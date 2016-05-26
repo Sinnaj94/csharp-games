@@ -7,12 +7,14 @@ using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using SFML.Graphics;
+using SFML.Window;
 using Microsoft.Xna.Framework;
 using SpaceShooter.Factories;
 using SpaceShooter.GameObjects;
-
+using SFML.System;
 namespace SpaceShooter
 {
+    
     // "Level" shall be loaded from file in the future
     class Battlefield : SFML.Graphics.Drawable
     {
@@ -29,6 +31,7 @@ namespace SpaceShooter
             globalBounds = new Vector2(ConvertUnits.ToSimUnits(1920) , ConvertUnits.ToSimUnits(1080));
             world = new World(new Vector2(0, 0));
             InitGlobalBounds();
+            
             input = new InputHandler();
             currentCommands = new List<Command>(10);
             player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
