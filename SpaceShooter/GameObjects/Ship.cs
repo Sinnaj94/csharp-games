@@ -25,6 +25,9 @@ namespace SpaceShooter.GameObjects
         float recoil;
         double bulletSpeed;
         double bulletSpeedBig;
+        SFML.Graphics.IntRect DebugRect;
+        SFML.Graphics.RectangleShape DebugShape;
+        SFML.Graphics.CircleShape DebugFrontShape;
 
         public void init()
         {
@@ -48,6 +51,39 @@ namespace SpaceShooter.GameObjects
         {
             shipSprite = new Sprite(new Texture(@"Resources\Ships.png"), new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]));
             shipSprite.Origin = new SFML.System.Vector2f(shipSprite.GetGlobalBounds().Width / 2, shipSprite.GetGlobalBounds().Height / 2);
+
+            DebugRect = new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]);
+            DebugShape = new SFML.Graphics.RectangleShape(new SFML.System.Vector2f(DebugRect.Width, DebugRect.Height));
+            DebugShape.OutlineColor = new Color(255, 255, 255);
+            DebugShape.FillColor = new Color(0, 0, 0, 0);
+            DebugShape.OutlineThickness = 1;
+            DebugShape.Origin = shipSprite.Origin;
+
+            DebugFrontShape = new SFML.Graphics.CircleShape(10,3);
+            DebugFrontShape.FillColor = new Color(255, 0, 0);
+
+        }
+
+        public void debugDraw(RenderTarget target, RenderStates states)
+        {
+
+            DebugRect = new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]);
+            DebugShape = new SFML.Graphics.RectangleShape(new SFML.System.Vector2f(DebugRect.Width, DebugRect.Height));
+            DebugShape.OutlineColor = new Color(255, 255, 255);
+            DebugShape.FillColor = new Color(0, 0, 0, 0);
+            DebugShape.OutlineThickness = 1;
+            DebugShape.Origin = shipSprite.Origin;
+
+            DebugFrontShape = new SFML.Graphics.CircleShape(10, 3);
+            DebugFrontShape.FillColor = new Color(255, 0, 0);
+
+            DebugShape.Position = shipSprite.Position;
+            DebugShape.Rotation = shipSprite.Rotation;
+            DebugShape.Draw(target, states);
+
+            DebugFrontShape.Position = shipSprite.Position;
+            DebugFrontShape.Rotation = shipSprite.Rotation;
+            DebugFrontShape.Draw(target, states);
         }
 
         public void Shoot()
@@ -75,27 +111,13 @@ namespace SpaceShooter.GameObjects
         }
 
         public void RotateTo(Body target)
-        {
-             double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.Y);
-            //double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.X);
-            //body.Rotation = (float)targetrotation;
-           
-
-
-            
-            if (this.body.Rotation % 180 < targetrotation)
-            {
-                this.body.Rotation += ConvertUnits.ToSimUnits(1);
-            }
-
-            if (this.body.Rotation % 180 > targetrotation)
-            {
-                this.body.Rotation -= ConvertUnits.ToSimUnits(1);
-            }
-           
+        { 
+            body.LinearVelocity = new Vector2(target.Position.X - body.Position.X, target.Position.Y - body.Position.Y);
+            body.LinearVelocity.Normalize();
+            body.LinearVelocity *= .1f;
+            float angle = (float)(Math.Atan2(target.WorldCenter.X - body.WorldCenter.X, target.WorldCenter.Y - body.WorldCenter.Y) * (-180 / Math.PI));
+            body.Rotation = ConvertUnits.ToSimUnits(angle - 180);
         }
-
-       
 
         public override void Update()
         {
@@ -109,6 +131,8 @@ namespace SpaceShooter.GameObjects
         {
             shipSprite.Draw(target, states);
             bullets.Draw(target, states);
+            debugDraw(target, states);
+
         }
     }
 }
