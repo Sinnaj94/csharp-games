@@ -30,7 +30,7 @@ namespace SpaceShooter.GameObjects
         SFML.Graphics.IntRect DebugRect;
         SFML.Graphics.RectangleShape DebugShape;
         SFML.Graphics.CircleShape DebugFrontShape;
-
+        Vector2f cursorPosition;
         public float Life
         {
             get
@@ -41,6 +41,19 @@ namespace SpaceShooter.GameObjects
             set
             {
                 life = value;
+            }
+        }
+
+        public Vector2f CursorPosition
+        {
+            get
+            {
+                return cursorPosition;
+            }
+
+            set
+            {
+                cursorPosition = value;
             }
         }
 
