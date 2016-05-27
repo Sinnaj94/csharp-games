@@ -51,7 +51,7 @@ namespace SpaceShooter.GameObjects
             fireRateBigMS = 500;
             bulletSpeed = 3;
             bulletSpeedBig = 3;
-            Life = 1;
+            Life = 2;
             c = new Clock();
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();

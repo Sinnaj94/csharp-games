@@ -75,9 +75,15 @@ namespace SpaceShooter
                 container[i].RotateTo(player);
                 if (container[i].col)
                 {
-                    
                     container[i].DeltaLife(-.1f);
+                    container[i].col = false;
                 }
+
+                if (container[i].Life <= 0)
+                {
+                    container.RemoveAt(i);
+                }
+
             }
         }
 

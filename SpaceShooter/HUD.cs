@@ -15,12 +15,14 @@ namespace SpaceShooter
         RectangleShape lifeForeground;
         Vector2f lifeSize;
         Vector2f lifeLeft;
+        float lifeScale;
         Ship s;
         public DrawShipAttributes(Ship s)
         {
             this.s = s;
             lifeSize = new Vector2f(100, 10);
-            lifeLeft = new Vector2f(100*s.Life, 10);
+            lifeScale = 100 / s.Life;
+            lifeLeft = new Vector2f(lifeScale * s.Life, 10);
 
             lifeBackground = new RectangleShape(lifeSize);
             lifeBackground.FillColor = Color.White;
@@ -36,7 +38,7 @@ namespace SpaceShooter
 
         private void updateLifeLeft()
         {
-            lifeForeground.Scale = new Vector2f(lifeForeground.Scale.X * s.Life, lifeForeground.Scale.Y);
+            lifeForeground.Size = new Vector2f(lifeScale * s.Life, lifeForeground.Size.Y);
         }
 
         public void Update()
