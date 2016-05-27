@@ -25,7 +25,7 @@ namespace SpaceShooter
         private List<Command> currentCommands;
         private Ship player;
         private Vector2 globalBounds;
-
+        HUD playerHud;
         public Battlefield()
         {
             globalBounds = new Vector2(ConvertUnits.ToSimUnits(1920) , ConvertUnits.ToSimUnits(1080));
@@ -36,9 +36,10 @@ namespace SpaceShooter
             currentCommands = new List<Command>(10);
             player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
             c = new EnemyShipContainer(player.body);
-            c.AddShip(ShipFactory.CreateShip("Falcon", 100, 0, world));
+            //c.AddShip(ShipFactory.CreateShip("Falcon", 100, 0, world));
             c.AddShip(ShipFactory.CreateShip("Battlestar", 100, 300, world));
             input.P = player;
+            playerHud = new HUD(player);
         }
 
         public void InitGlobalBounds()
@@ -71,6 +72,7 @@ namespace SpaceShooter
         {
             player.Draw(target, states);
             c.Draw(target, states);
+            playerHud.Draw(target, states);
         }
     }
 }

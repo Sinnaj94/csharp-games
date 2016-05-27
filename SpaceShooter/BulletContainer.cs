@@ -53,7 +53,8 @@ namespace SpaceShooter
             for (int i = container.Count - 1; i >= 0; i--)
             {
                 container[i].Update();
-                if (container[i].timeToLive >= container[i].timeToLiveMax)
+                
+                if (container[i].timeToLive >= container[i].timeToLiveMax || container[i].Col)
                 {
                     container.RemoveAt(i);
                 }
