@@ -25,6 +25,21 @@ namespace SpaceShooter.GameObjects
         float recoil;
         double bulletSpeed;
         double bulletSpeedBig;
+        float life;
+        DrawShipAttributes hud;
+
+        public float Life
+        {
+            get
+            {
+                return life;
+            }
+
+            set
+            {
+                life = value;
+            }
+        }
 
         public void init()
         {
@@ -33,9 +48,11 @@ namespace SpaceShooter.GameObjects
             fireRateBigMS = 500;
             bulletSpeed = 3;
             bulletSpeedBig = 3;
+            Life = 1;
             c = new Clock();
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
+            hud = new DrawShipAttributes(this);
         }
         
         public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -58,7 +75,9 @@ namespace SpaceShooter.GameObjects
                 double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
                 bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 5, this.world, body, _dx*bulletSpeed, _dy* bulletSpeed));
                 body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
+                ManageSound.Instance.shoot();
                 c = new Clock();
+
             }
         }
 
@@ -70,28 +89,18 @@ namespace SpaceShooter.GameObjects
                 double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
                 bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 10, this.world, body, _dx * bulletSpeedBig, _dy * bulletSpeedBig));
                 body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
+                ManageSound.Instance.shoot1();
+
                 c = new Clock();
             }
         }
 
         public void RotateTo(Body target)
         {
-             double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.Y);
+            double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.Y);
             //double targetrotation = Math.Atan2(target.Position.Y - this.body.Position.Y, target.Position.X - this.body.Position.X);
-            //body.Rotation = (float)targetrotation;
-           
-
-
+            body.Rotation = (float)targetrotation;
             
-            if (this.body.Rotation % 180 < targetrotation)
-            {
-                this.body.Rotation += ConvertUnits.ToSimUnits(1);
-            }
-
-            if (this.body.Rotation % 180 > targetrotation)
-            {
-                this.body.Rotation -= ConvertUnits.ToSimUnits(1);
-            }
            
         }
 
@@ -103,12 +112,22 @@ namespace SpaceShooter.GameObjects
             shipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
             shipSprite.Rotation = ConvertUnits.ToDisplayUnits(body.Rotation);
             bullets.Update();
+            hud.Update();
+        }
+
+        public void DeltaLife(float delta)
+        {
+            life += delta;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+
             shipSprite.Draw(target, states);
             bullets.Draw(target, states);
+
+            //Lifebar zeichnen
+            hud.Draw(target,states);
         }
     }
 }

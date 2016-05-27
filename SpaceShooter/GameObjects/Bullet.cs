@@ -7,6 +7,7 @@ using SFML.Graphics;
 using FarseerPhysics;
 using Microsoft.Xna.Framework;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Contacts;
 
 namespace SpaceShooter.GameObjects
 {
@@ -18,7 +19,20 @@ namespace SpaceShooter.GameObjects
         public int timeToLiveMax = 100;
         CircleShape tmp;
         Body parent;
+        bool col;
 
+        public bool Col
+        {
+            get
+            {
+                return col;
+            }
+
+            set
+            {
+                col = value;
+            }
+        }
 
         public Bullet(Body parent)
         {
@@ -31,6 +45,12 @@ namespace SpaceShooter.GameObjects
             tmp = new CircleShape(ConvertUnits.ToDisplayUnits(bulletRadius));
             tmp.FillColor = new Color(255, 255, 255, 255);
             body.IgnoreCollisionWith(parent);
+            body.OnCollision += new OnCollisionEventHandler(Bullet_OnCollision);
+        }
+        public bool Bullet_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            Col = true;
+            return true;
         }
 
         public override void Update()

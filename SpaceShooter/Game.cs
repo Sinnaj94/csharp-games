@@ -32,8 +32,7 @@ namespace SpaceShooter
             BackgroundManager bg = new BackgroundManager();
 
             Battlefield battle = new Battlefield();
-            Menu menu = new Menu();
-
+            Menu menu = new Menu(); 
             while (window.IsOpen)
             {
                 window.Clear();

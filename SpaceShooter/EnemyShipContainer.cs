@@ -75,7 +75,8 @@ namespace SpaceShooter
                 container[i].RotateTo(player);
                 if (container[i].col)
                 {
-                    container.RemoveAt(i);
+                    
+                    container[i].DeltaLife(-.1f);
                 }
             }
         }

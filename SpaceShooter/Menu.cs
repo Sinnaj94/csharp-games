@@ -53,7 +53,7 @@ namespace SpaceShooter
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\buttons.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
             Console.WriteLine(dataTable.Rows.Count);
-            background = new RectangleShape(new Vector2f(1920,1080));
+            background = new RectangleShape(new Vector2f(1920, 1080));
             background.FillColor = new Color(0, 0, 0, 255);
             backgroundImage = new Texture(@"Resources/mainscreen.png");
             backgroundSprite = new Sprite(backgroundImage);
@@ -83,7 +83,7 @@ namespace SpaceShooter
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            background.Draw(target,states);
+            background.Draw(target, states);
             backgroundSprite.Draw(target, states);
             foreach (Button b in buttonList)
             {
@@ -116,6 +116,7 @@ namespace SpaceShooter
                     selected--;
                 }
                 buttonList[selected].Selected = true;
+                ManageSound.Instance.select();
                 c = new Clock();
             }
 
@@ -135,6 +136,8 @@ namespace SpaceShooter
                     selected++;
                 }
                 buttonList[selected].Selected = true;
+                ManageSound.Instance.select();
+
                 c = new Clock();
             }
 
@@ -142,10 +145,16 @@ namespace SpaceShooter
 
         public void selectCurrent()
         {
-            if(selected == 0)
+            if (c.ElapsedTime.AsMilliseconds() >= milliseconds)
             {
-                Active = false;
+                if (selected == 0)
+                {
+                    Active = false;
+                }
+                ManageSound.Instance.enter();
+                c = new Clock();
             }
+
         }
 
 

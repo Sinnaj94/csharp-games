@@ -107,12 +107,9 @@ namespace SpaceShooter
             /*Vector2f temp = new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
             strength = strength - temp;
             Console.Out.WriteLine("X:" + strength.X + " Y: " + strength.Y);*/
-            Vector2f nullWinkel = new Vector2f(1, 0);
-            double sqrtS = Math.Sqrt(Math.Pow(strength.X,2) + Math.Pow(strength.Y,2));
-            double sqrtN = Math.Sqrt(Math.Pow(nullWinkel.X,2) + Math.Pow(nullWinkel.Y,2));
-            double skalar = strength.X * nullWinkel.X + strength.Y * nullWinkel.Y;
-            double angle = skalar / (sqrtS * sqrtN);
 
+            double lengthStrength = Math.Sqrt(Math.Pow(strength.X,2) + Math.Pow(strength.Y,2));
+            double angle = strength.X / lengthStrength;
             angle *= 90;
             if(strength.Y > 0)
             {
