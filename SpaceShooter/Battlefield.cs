@@ -25,6 +25,10 @@ namespace SpaceShooter
         private List<Command> currentCommands;
         private Ship player;
         private Vector2 globalBounds;
+        private SFML.System.Clock timer;
+        private Time time;
+        private Time deltaTime;
+
         HUD playerHud;
         public Battlefield()
         {
@@ -37,17 +41,17 @@ namespace SpaceShooter
             player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
             c = new EnemyShipContainer(player.body);
             //c.AddShip(ShipFactory.CreateShip("Falcon", 100, 0, world));
-            c.AddShip(ShipFactory.CreateShip("Battlestar", 100, 300, world));
+           // c.AddShip(ShipFactory.CreateShip("Battlestar", 100, 300, world));
             input.P = player;
             playerHud = new HUD(player);
+            timer = new SFML.System.Clock();
+            deltaTime = SFML.System.Time.FromSeconds(3);
         }
 
         public void InitGlobalBounds()
         {
             // FIND A MORE CLEVER WAY
-            BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(-1920 + 960), ConvertUnits.ToSimUnits(540));
-            BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(1920 + 960), ConvertUnits.ToSimUnits(540));
-            BodyFactory.CreateRectangle(world, globalBounds.X, globalBounds.Y, 100).Position = new Vector2(ConvertUnits.ToSimUnits(960), ConvertUnits.ToSimUnits(1080 + 540));
+
         }
 
         public void Update()
@@ -59,8 +63,16 @@ namespace SpaceShooter
             }
             currentCommands.Clear();
 
-            
-          //  player.body.Rotation += ConvertUnits.ToSimUnits(1);
+
+        //    time += timer.ElapsedTime;
+
+            if(timer.ElapsedTime > deltaTime)
+            {
+                c.AddShip(ShipFactory.CreateShip("Battlestar", 1920, 300, world));
+                time = new Time();
+                timer.Restart();
+            }
+
             currentCommands.Clear();
             c.Update();
             player.Update();

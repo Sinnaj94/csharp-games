@@ -159,7 +159,6 @@ namespace SpaceShooter.GameObjects
 
             shipSprite.Draw(target, states);
             bullets.Draw(target, states);
-
             //Lifebar zeichnen
             hud.Draw(target,states);
             debugDraw(target, states);

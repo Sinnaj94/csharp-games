@@ -81,6 +81,7 @@ namespace SpaceShooter
 
                 if (container[i].Life <= 0)
                 {
+                    container[i].body.Dispose();
                     container.RemoveAt(i);
                 }
 
