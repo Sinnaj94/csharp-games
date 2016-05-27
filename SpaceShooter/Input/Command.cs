@@ -103,20 +103,8 @@ namespace SpaceShooter
 
         public void Execute(Ship p)
         {
-            //For mouse:
-            /*Vector2f temp = new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
-            strength = strength - temp;
-            Console.Out.WriteLine("X:" + strength.X + " Y: " + strength.Y);*/
-
-            double lengthStrength = Math.Sqrt(Math.Pow(strength.X,2) + Math.Pow(strength.Y,2));
-            double angle = strength.X / lengthStrength;
-            angle *= 90;
-            if(strength.Y > 0)
-            {
-                angle -= 180;
-                angle *= -1;
-            }
-            p.Rotate(angle);
+            float angle = (float)(Math.Atan2(strength.X - p.body.WorldCenter.X, strength.Y - p.body.WorldCenter.Y) * (-180 / Math.PI));
+            p.body.Rotation = ConvertUnits.ToSimUnits(angle - 180);
         }
 
 
