@@ -63,6 +63,8 @@ namespace SpaceShooter
         Font font;
         Texture hudTexture;
         Sprite hudSprite;
+        Texture crossTexture;
+        Sprite crossSprite;
         public HUD(Ship ship)
         {
             font = ManageText.Instance.SelectedFont;
@@ -76,11 +78,20 @@ namespace SpaceShooter
             hudTexture = new Texture(@"Resources/hud.png");
             hudSprite = new Sprite(hudTexture);
             hudSprite.TextureRect = new IntRect(0, 0, 1920, 1080);
+            crossTexture = new Texture(@"Resources/cross.png");
+            crossSprite = new Sprite(crossTexture);
+            hudSprite.TextureRect = new IntRect(0, 0, 100, 100);
+
+        }
+
+        public void updateCross(Vector2f newPosition)
+        {
+            crossSprite.Position = newPosition-new Vector2f(50,50);
         }
 
         public void Update()
         {
-            
+            updateCross(ship.CursorPosition);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -88,6 +99,7 @@ namespace SpaceShooter
             healthText.Draw(target, states);
             shipText.Draw(target, states);
             //hudSprite.Draw(target, states);
+            crossSprite.Draw(target, states);
         }
     }
 }

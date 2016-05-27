@@ -29,6 +29,8 @@ namespace SpaceShooter
         void Execute(Menu m);
     }
 
+
+
     class ShootCommand : Command
     {
         private Vector2f strength;
@@ -105,6 +107,7 @@ namespace SpaceShooter
         {
             float angle = (float)(Math.Atan2(strength.X - p.body.WorldCenter.X, strength.Y - p.body.WorldCenter.Y) * (-180 / Math.PI));
             p.body.Rotation = ConvertUnits.ToSimUnits(angle - 180);
+            p.CursorPosition = strength+ new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
         }
 
 

@@ -76,6 +76,7 @@ namespace SpaceShooter
             currentCommands.Clear();
             c.Update();
             player.Update();
+            playerHud.Update();
             world.Step(.016666f);
         }
 
