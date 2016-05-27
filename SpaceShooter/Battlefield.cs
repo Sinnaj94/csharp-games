@@ -46,6 +46,7 @@ namespace SpaceShooter
             playerHud = new HUD(player);
             timer = new SFML.System.Clock();
             deltaTime = SFML.System.Time.FromSeconds(3);
+            
         }
 
         public void InitGlobalBounds()
@@ -68,7 +69,7 @@ namespace SpaceShooter
 
             if(timer.ElapsedTime > deltaTime)
             {
-                c.AddShip(ShipFactory.CreateShip("Battlestar", 1920, 300, world));
+                c.AddShip(ShipFactory.CreateRandomShip(world));
                 time = new Time();
                 timer.Restart();
             }

@@ -51,7 +51,7 @@ namespace SpaceShooter.GameObjects
             fireRateBigMS = 500;
             bulletSpeed = 3;
             bulletSpeedBig = 3;
-            Life = 2;
+            Life = maxHP;
             c = new Clock();
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
@@ -68,17 +68,6 @@ namespace SpaceShooter.GameObjects
         {
             shipSprite = new Sprite(new Texture(@"Resources\Ships.png"), new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]));
             shipSprite.Origin = new SFML.System.Vector2f(shipSprite.GetGlobalBounds().Width / 2, shipSprite.GetGlobalBounds().Height / 2);
-
-            DebugRect = new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]);
-            DebugShape = new SFML.Graphics.RectangleShape(new SFML.System.Vector2f(DebugRect.Width, DebugRect.Height));
-            DebugShape.OutlineColor = new Color(255, 255, 255);
-            DebugShape.FillColor = new Color(0, 0, 0, 0);
-            DebugShape.OutlineThickness = 1;
-            DebugShape.Origin = shipSprite.Origin;
-
-            DebugFrontShape = new SFML.Graphics.CircleShape(10,3);
-            DebugFrontShape.FillColor = new Color(255, 0, 0);
-
         }
 
         public void debugDraw(RenderTarget target, RenderStates states)

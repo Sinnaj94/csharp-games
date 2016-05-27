@@ -16,6 +16,18 @@ namespace SpaceShooter.Factories
 {
     static class ShipFactory
     {
+
+        public static Ship CreateRandomShip(World world)
+        {
+            Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
+            List<String> sarray = values.Keys.ToList<String>();
+
+
+            //Console.WriteLine(sarray[0].ToString());
+            return CreateShip(sarray[new Random().Next(sarray.Count - 1)].ToString(), 2000, new Random().NextDouble() * 1080, world);
+            //return null;
+        }
+
         // Builds a Ship Object from JSON Data, returns null if the Ship doesn't exist 
         public static Ship CreateShip(String name, double x, double y, World world)
         {
