@@ -25,6 +25,7 @@ namespace SpaceShooter
 
 
             };
+            
         }
 
         public static ManageSound Instance
@@ -34,6 +35,7 @@ namespace SpaceShooter
                 if (instance == null)
                 {
                     instance = new ManageSound();
+                    instance.setVolume(0);
                 }
                 return instance;
             }

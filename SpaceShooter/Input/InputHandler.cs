@@ -37,6 +37,7 @@ namespace SpaceShooter
         Command[] moveCommandArray;
         //Other commands
         Command turnCommand;
+        Command turnCommandJoystick;
 
         //Commands for the Menu
         //Up Command
@@ -77,7 +78,7 @@ namespace SpaceShooter
             menuUpCommand = new MenuUpCommand();
             menuDownCommand = new MenuDownCommand();
             menuSelectCommand = new MenuSelectCommand();
-
+            turnCommandJoystick = new TurnCommandJoystick();
             RequestedCommands = new List<Command>();
             RequestedMenuCommands = new List<MenuCommand>();
             ConfigureJoystick(0);
@@ -197,7 +198,7 @@ namespace SpaceShooter
             if (MousePositionChanged())
             {
 
-                turnCommand.Strength = new Vector2f(mousePosition.X-ConvertUnits.ToDisplayUnits(p.body.Position.X),mousePosition.Y- ConvertUnits.ToDisplayUnits(p.body.Position.Y));
+                turnCommand.Strength = new Vector2f(mousePosition.X,mousePosition.Y);
                 //JoystickTesting();
                 AddCommandToList(turnCommand);
             }
@@ -255,9 +256,9 @@ namespace SpaceShooter
             }
             if (JoystickMoved(Joystick.Axis.R) || JoystickMoved(Joystick.Axis.Z))
             {
-                turnCommand.Strength = new Vector2f(getStrength(Joystick.Axis.Z), getStrength(Joystick.Axis.R));
+                turnCommandJoystick.Strength = new Vector2f(getStrength(Joystick.Axis.Z)*300, getStrength(Joystick.Axis.R)*300);
                 //JoystickTesting();
-                AddCommandToList(turnCommand);
+                AddCommandToList(turnCommandJoystick);
             }
 
             return RequestedCommands;
