@@ -2,7 +2,7 @@
     "Main_Menu": [
         {
             "name": "start / continue",
-            "x": 0.1,
+            "x": 0.2,
             "y": 0.3
         },
 
@@ -14,13 +14,13 @@
 
         {
             "name": "view credits",
-            "x": 0.3,
+            "x": 0.2,
             "y": 0.5
         },
 
         {
             "name": "exit",
-            "x": 0.4,
+            "x": 0.2,
             "y": 0.6
         }
     ]

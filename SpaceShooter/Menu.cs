@@ -25,7 +25,9 @@ namespace SpaceShooter
         RectangleShape background;
         Texture backgroundImage;
         Sprite backgroundSprite;
-
+        Texture backgroundImageG;
+        Sprite backgroundSpriteG;
+        Clock glow;
         public bool Active
         {
             get
@@ -44,6 +46,7 @@ namespace SpaceShooter
         /// </summary>
         public Menu()
         {
+            glow = new Clock();
             active = true;
             milliseconds = 200;
             c = new Clock();
@@ -56,7 +59,10 @@ namespace SpaceShooter
             background = new RectangleShape(new Vector2f(1920, 1080));
             background.FillColor = new Color(0, 0, 0, 255);
             backgroundImage = new Texture(@"Resources/mainscreen.png");
+            backgroundImageG = new Texture(@"Resources/mainscreenglow.png");
+
             backgroundSprite = new Sprite(backgroundImage);
+            backgroundSpriteG = new Sprite(backgroundImageG);
             buttonList = new List<Button>();
             foreach (DataRow row in dataTable.Rows)
             {
@@ -83,8 +89,9 @@ namespace SpaceShooter
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            background.Draw(target, states);
+            //background.Draw(target, states);
             backgroundSprite.Draw(target, states);
+            backgroundSpriteG.Draw(target, states);
             foreach (Button b in buttonList)
             {
                 b.Draw(target, states);
@@ -99,6 +106,7 @@ namespace SpaceShooter
                 com.Execute(this);
             }
             currentCommands.Clear();
+            backgroundSpriteG.Color = new Color(255, 255, 255, (byte)(Math.Abs(Math.Sin(glow.ElapsedTime.AsSeconds())*255)));
 
         }
 
