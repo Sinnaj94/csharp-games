@@ -56,6 +56,7 @@ namespace SpaceShooter
                 
                 if (container[i].timeToLive >= container[i].timeToLiveMax || container[i].Col)
                 {
+                    container[i].body.Dispose();
                     container.RemoveAt(i);
                 }
             }

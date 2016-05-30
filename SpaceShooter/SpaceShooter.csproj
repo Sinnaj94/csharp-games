@@ -72,7 +72,7 @@
     <Compile Include="BackgroundManager.cs" />
     <Compile Include="Battlefield.cs" />
     <Compile Include="BulletContainer.cs" />
-    <Compile Include="DebugDraw.cs" />
+    <Compile Include="DebugPhysics.cs" />
     <Compile Include="Factories\BulletFactory.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Input\Command.cs" />

@@ -31,7 +31,7 @@ namespace SpaceShooter
             SFML.Graphics.RenderWindow window = InitWindow();
             BackgroundManager bg = new BackgroundManager();
 
-            Battlefield battle = new Battlefield();
+            Battlefield battle = new Battlefield(window);
             Menu menu = new Menu(); 
             while (window.IsOpen)
             {

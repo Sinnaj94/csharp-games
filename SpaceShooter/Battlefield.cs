@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using Microsoft.Xna.Framework;
 using SpaceShooter.Factories;
 using SpaceShooter.GameObjects;
 using SFML.System;
+
 namespace SpaceShooter
 {
     
@@ -28,10 +30,13 @@ namespace SpaceShooter
         private SFML.System.Clock timer;
         private Time time;
         private Time deltaTime;
+        private DebugPhysics debug;
+        private RenderWindow window;
 
         HUD playerHud;
-        public Battlefield()
+        public Battlefield(RenderWindow window)
         {
+            this.window = window;
             globalBounds = new Vector2(ConvertUnits.ToSimUnits(1920) , ConvertUnits.ToSimUnits(1080));
             world = new World(new Vector2(0, 0));
             InitGlobalBounds();
@@ -40,13 +45,12 @@ namespace SpaceShooter
             currentCommands = new List<Command>(10);
             player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
             c = new EnemyShipContainer(player.body);
-            //c.AddShip(ShipFactory.CreateShip("Falcon", 100, 0, world));
-           // c.AddShip(ShipFactory.CreateShip("Battlestar", 100, 300, world));
             input.P = player;
             playerHud = new HUD(player);
             timer = new SFML.System.Clock();
             deltaTime = SFML.System.Time.FromSeconds(3);
-            
+            // player.body.
+            debug = new DebugPhysics(world, window);
         }
 
         public void InitGlobalBounds()
@@ -87,6 +91,7 @@ namespace SpaceShooter
             player.Draw(target, states);
             c.Draw(target, states);
             playerHud.Draw(target, states);
+            debug.DrawDebugData();
         }
     }
 }

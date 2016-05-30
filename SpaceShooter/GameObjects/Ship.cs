@@ -27,9 +27,8 @@ namespace SpaceShooter.GameObjects
         double bulletSpeedBig;
         float life;
         DrawShipAttributes hud;
-        SFML.Graphics.IntRect DebugRect;
-        SFML.Graphics.RectangleShape DebugShape;
-        SFML.Graphics.CircleShape DebugFrontShape;
+
+
         Vector2f cursorPosition;
         public float Life
         {
@@ -83,6 +82,11 @@ namespace SpaceShooter.GameObjects
             shipSprite.Origin = new SFML.System.Vector2f(shipSprite.GetGlobalBounds().Width / 2, shipSprite.GetGlobalBounds().Height / 2);
         }
 
+        /*
+        SFML.Graphics.IntRect DebugRect;
+        SFML.Graphics.RectangleShape DebugShape;
+        SFML.Graphics.CircleShape DebugFrontShape;
+
         public void debugDraw(RenderTarget target, RenderStates states)
         {
 
@@ -104,7 +108,7 @@ namespace SpaceShooter.GameObjects
             DebugFrontShape.Rotation = shipSprite.Rotation;
             DebugFrontShape.Draw(target, states);
         }
-
+        */
         public void Shoot()
         {
             if(c.ElapsedTime.AsMilliseconds() >= fireRateMS)
@@ -163,8 +167,6 @@ namespace SpaceShooter.GameObjects
             bullets.Draw(target, states);
             //Lifebar zeichnen
             hud.Draw(target,states);
-            debugDraw(target, states);
-
         }
     }
 }
