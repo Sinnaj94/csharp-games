@@ -10,7 +10,7 @@
 		"name": "Battlestar",
 		"maxHP": 2,
 		"maxSpeed": 10,
-		"SpriteBounds": [62,114,3,121]
+		"SpriteBounds": [63,176,3,121]
   },
 
     "Destroyer": {

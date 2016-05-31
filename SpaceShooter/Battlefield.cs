@@ -51,6 +51,13 @@ namespace SpaceShooter
             deltaTime = SFML.System.Time.FromSeconds(3);
             // player.body.
             debug = new DebugPhysics(world, window);
+
+            //
+            Body Spline = new Body(world, new Vector2(ConvertUnits.ToSimUnits(400), ConvertUnits.ToSimUnits(400)));
+            Spline.BodyType = BodyType.Static;
+            Fixture edge = FixtureFactory.AttachEdge(new Vector2(ConvertUnits.ToSimUnits(400), ConvertUnits.ToSimUnits(400)), new Vector2(ConvertUnits.ToSimUnits(800), ConvertUnits.ToSimUnits(400)), Spline);
+            
+            //
         }
 
         public void InitGlobalBounds()
@@ -88,10 +95,13 @@ namespace SpaceShooter
 
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
+            debug.DrawDebugData();
             player.Draw(target, states);
             c.Draw(target, states);
             playerHud.Draw(target, states);
+
             //debug.DrawDebugData();
+
         }
     }
 }

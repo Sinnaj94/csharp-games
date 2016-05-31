@@ -40,6 +40,7 @@ namespace SpaceShooter.Factories
                 Ship s = values[name];
                 s.initSprite();
                 s.world = world;
+                Console.WriteLine("Xmin: " + s.SpriteBounds[0] + "XMax: " + s.SpriteBounds[1] + "YMin: " + s.SpriteBounds[2] + "YMax: " + s.SpriteBounds[3]);
                 // Creates Coll. Box with sprite bounds
                 s.body = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(s.SpriteBounds[1] - s.SpriteBounds[0]), ConvertUnits.ToSimUnits(s.SpriteBounds[3] - s.SpriteBounds[2]), 10f);
                 s.body.Position = new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToSimUnits(x), ConvertUnits.ToSimUnits(y));
