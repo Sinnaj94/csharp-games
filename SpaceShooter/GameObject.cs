@@ -43,7 +43,7 @@ namespace SpaceShooter
         public void Rotate(double newRotation)
         {
             //this.body.Rotation = ConvertUnits.ToSimUnits(newRotation);
-            this.body.Rotation = MathHelper.ToRadians((float)newRotation);
+            this.body.Rotation = (float)newRotation;
             this.body.AngularVelocity = 0;
         }
     }

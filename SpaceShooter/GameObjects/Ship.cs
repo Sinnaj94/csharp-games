@@ -113,8 +113,8 @@ namespace SpaceShooter.GameObjects
         {
             if(c.ElapsedTime.AsMilliseconds() >= fireRateMS)
             {
-                double _dx = -Math.Sin(MathHelper.ToDegrees(this.body.Rotation) * Math.PI / 180);
-                double _dy = Math.Cos(MathHelper.ToDegrees(this.body.Rotation) * Math.PI / 180);
+                double _dx = -Math.Sin((this.body.Rotation));
+                double _dy = Math.Cos((this.body.Rotation));
                 bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 5, this.world, body, _dx*bulletSpeed, _dy* bulletSpeed));
                 body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
                 ManageSound.Instance.shoot();
@@ -127,8 +127,8 @@ namespace SpaceShooter.GameObjects
         {
             if (c.ElapsedTime.AsMilliseconds() >= fireRateBigMS)
             {
-                double _dx = Math.Sin(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
-                double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
+                double _dx = -Math.Sin((this.body.Rotation));
+                double _dy = Math.Cos((this.body.Rotation));
                 bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 10, this.world, body, _dx * bulletSpeedBig, _dy * bulletSpeedBig));
                 body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
                 ManageSound.Instance.shoot1();
@@ -142,8 +142,8 @@ namespace SpaceShooter.GameObjects
             body.LinearVelocity = new Vector2(target.Position.X - body.Position.X, target.Position.Y - body.Position.Y);
             body.LinearVelocity.Normalize();
             body.LinearVelocity *= .1f;
-            float angle = (float)(Math.Atan2(target.WorldCenter.X - body.WorldCenter.X, target.WorldCenter.Y - body.WorldCenter.Y) * (-180 / Math.PI));
-            body.Rotation = MathHelper.ToRadians(angle);
+            float angle = (float)(Math.Atan2(target.WorldCenter.X - body.WorldCenter.X, target.WorldCenter.Y - body.WorldCenter.Y) * -1);
+            body.Rotation = angle;
             
         }
 
