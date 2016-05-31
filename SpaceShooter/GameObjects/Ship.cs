@@ -113,8 +113,8 @@ namespace SpaceShooter.GameObjects
         {
             if(c.ElapsedTime.AsMilliseconds() >= fireRateMS)
             {
-                double _dx = Math.Sin(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
-                double _dy = -Math.Cos(ConvertUnits.ToDisplayUnits(this.body.Rotation) * Math.PI / 180);
+                double _dx = -Math.Sin(MathHelper.ToDegrees(this.body.Rotation) * Math.PI / 180);
+                double _dy = Math.Cos(MathHelper.ToDegrees(this.body.Rotation) * Math.PI / 180);
                 bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 5, this.world, body, _dx*bulletSpeed, _dy* bulletSpeed));
                 body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
                 ManageSound.Instance.shoot();
