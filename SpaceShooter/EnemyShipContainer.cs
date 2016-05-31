@@ -8,7 +8,7 @@ using SFML.Graphics;
 using FarseerPhysics.Collision;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
-
+using SFML.System;
 namespace SpaceShooter
 
     // Class to handle enemy Ships (Spawn, Despawn, Damage, Collision, etc.)
@@ -17,11 +17,12 @@ namespace SpaceShooter
     {
         private List<Ship> container;
         private Body player;
-
+        private Clock c;
         public EnemyShipContainer(Body player)
         {
             Container = new List<Ship>();
             this.player = player;
+            c = new Clock();
         }
 
         internal List<Ship> Container
@@ -39,7 +40,9 @@ namespace SpaceShooter
 
         public void AddShip(Ship enemyShip)
         {
+            enemyShip.initShootRandomClock();
             Container.Add(enemyShip);
+
         }
 
         public void DeleteShip(Ship enemyShip)
@@ -58,7 +61,6 @@ namespace SpaceShooter
         public void _Update()
         {
             foreach(Ship s in Container){
-                
                 s.Update();
                 if (s.col)
                 {
@@ -73,6 +75,7 @@ namespace SpaceShooter
             {
                 container[i].Update();
                 container[i].RotateTo(player);
+                container[i].shootRandomly();
                 if (container[i].col)
                 {
                     container[i].DeltaLife(-.1f);

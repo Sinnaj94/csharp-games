@@ -91,7 +91,7 @@ namespace SpaceShooter
             player.Draw(target, states);
             c.Draw(target, states);
             playerHud.Draw(target, states);
-            debug.DrawDebugData();
+            //debug.DrawDebugData();
         }
     }
 }

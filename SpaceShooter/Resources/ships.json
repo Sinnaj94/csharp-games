@@ -17,6 +17,6 @@
 		"name": "Destroyer",
 		"maxHP": 10,
 		"maxSpeed": 1,
-		"SpriteBounds": [89, 182, 3, 121]
+		"SpriteBounds": [182, 266, 3, 121]
   }
 }

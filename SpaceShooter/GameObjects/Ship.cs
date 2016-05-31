@@ -27,9 +27,10 @@ namespace SpaceShooter.GameObjects
         double bulletSpeedBig;
         float life;
         DrawShipAttributes hud;
-
-
+        Clock shootRandomClock;
+        int currentRandomMilliseconds;
         Vector2f cursorPosition;
+        Random r;
         public float Life
         {
             get
@@ -58,6 +59,7 @@ namespace SpaceShooter.GameObjects
 
         public void init()
         {
+            r = new Random();
             recoil = 10;
             fireRateMS = 100;
             fireRateBigMS = 500;
@@ -68,6 +70,21 @@ namespace SpaceShooter.GameObjects
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
             hud = new DrawShipAttributes(this);
+        }
+
+        public void initShootRandomClock()
+        {
+            currentRandomMilliseconds = r.Next(500, 2000);
+            shootRandomClock = new Clock();
+        }
+
+        public void shootRandomly()
+        {
+            if(shootRandomClock.ElapsedTime.AsMilliseconds() >= currentRandomMilliseconds)
+            {
+                ShootBig();
+                initShootRandomClock();
+            }
         }
         
         public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
