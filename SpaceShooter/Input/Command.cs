@@ -108,7 +108,7 @@ namespace SpaceShooter
             Vector2f dif = new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X) , ConvertUnits.ToDisplayUnits(p.body.Position.Y));
             strength -= dif;
             float angle = (float)(Math.Atan2(strength.X - p.body.WorldCenter.X, strength.Y - p.body.WorldCenter.Y) * (-180 / Math.PI));
-            p.Rotate(angle - 180);
+            p.Rotate(angle);
             p.CursorPosition = strength+ new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
         }
 

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FarseerPhysics;
 using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework;
 
 namespace SpaceShooter
 {
@@ -41,7 +42,8 @@ namespace SpaceShooter
 
         public void Rotate(double newRotation)
         {
-            this.body.Rotation = ConvertUnits.ToSimUnits(newRotation);
+            //this.body.Rotation = ConvertUnits.ToSimUnits(newRotation);
+            this.body.Rotation = MathHelper.ToRadians((float)newRotation);
             this.body.AngularVelocity = 0;
         }
     }

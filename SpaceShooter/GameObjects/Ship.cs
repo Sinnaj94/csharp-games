@@ -143,14 +143,14 @@ namespace SpaceShooter.GameObjects
             body.LinearVelocity.Normalize();
             body.LinearVelocity *= .1f;
             float angle = (float)(Math.Atan2(target.WorldCenter.X - body.WorldCenter.X, target.WorldCenter.Y - body.WorldCenter.Y) * (-180 / Math.PI));
-            body.Rotation = ConvertUnits.ToSimUnits(angle - 180);
+            body.Rotation = MathHelper.ToRadians(angle);
+            
         }
 
         public override void Update()
         {
-
             shipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
-            shipSprite.Rotation = ConvertUnits.ToDisplayUnits(body.Rotation);
+            shipSprite.Rotation = MathHelper.ToDegrees(body.Rotation + (float)Math.PI);
             bullets.Update();
             hud.Update();
         }

@@ -11,6 +11,7 @@ using System.Data;
 using FarseerPhysics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework;
 
 namespace SpaceShooter.Factories
 {
@@ -24,7 +25,7 @@ namespace SpaceShooter.Factories
 
 
             //Console.WriteLine(sarray[0].ToString());
-            return CreateShip(sarray[new Random().Next(sarray.Count - 1)].ToString(), 2000, new Random().NextDouble() * 1080, world);
+            return CreateShip(sarray[new Random().Next(sarray.Count)].ToString(), 2000, new Random().NextDouble() * 1080, world);
             //return null;
         }
 
@@ -43,6 +44,7 @@ namespace SpaceShooter.Factories
                 s.body = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(s.SpriteBounds[1] - s.SpriteBounds[0]), ConvertUnits.ToSimUnits(s.SpriteBounds[3] - s.SpriteBounds[2]), 10f);
                 s.body.Position = new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToSimUnits(x), ConvertUnits.ToSimUnits(y));
                 s.body.BodyType = BodyType.Dynamic;
+                s.body.Rotation = 0;
                 s.init();
                 return s;
             }
