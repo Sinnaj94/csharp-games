@@ -30,7 +30,7 @@ namespace SpaceShooter
         {
             SFML.Graphics.RenderWindow window = InitWindow();
             BackgroundManager bg = new BackgroundManager();
-
+            Dialog d = new Dialog("1");
             Battlefield battle = new Battlefield(window);
             Menu menu = new Menu(); 
             while (window.IsOpen)
@@ -54,6 +54,7 @@ namespace SpaceShooter
                     window.Draw(menu);
 
                 }
+                window.Draw(d);
                 window.Display();
             }
 

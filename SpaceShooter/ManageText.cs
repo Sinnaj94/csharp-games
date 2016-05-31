@@ -15,11 +15,12 @@ namespace SpaceShooter
 
         private Font selectedFont;
         private Font normalFont;
-
+        private Font textFont;
         private ManageText()
         {
             NormalFont = new Font(@"Resources/Starjhol.ttf");
             SelectedFont = new Font(@"Resources/Starjedi.ttf");
+            TextFont = new Font(@"Resources/computer_pixel.ttf");
         }
 
         public static ManageText Instance
@@ -57,6 +58,19 @@ namespace SpaceShooter
             set
             {
                 normalFont = value;
+            }
+        }
+
+        public Font TextFont
+        {
+            get
+            {
+                return textFont;
+            }
+
+            set
+            {
+                textFont = value;
             }
         }
     }
