@@ -19,10 +19,11 @@ namespace SpaceShooter
         List<DialogElement> dialogList;
 
         InputHandler input;
-        List<MenuCommand> currentCommands;
+        List<DialogCommand> currentCommands;
         int milliseconds;
         bool active;
 
+        int currentDialog;
         public bool Active
         {
             get
@@ -45,7 +46,7 @@ namespace SpaceShooter
             milliseconds = 200;
             c = new Clock();
             input = new InputHandler();
-            currentCommands = new List<MenuCommand>(10);
+            currentCommands = new List<DialogCommand>(10);
             this.dataSetName = dataSetName;
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\dialogs.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
@@ -66,10 +67,7 @@ namespace SpaceShooter
                         DialogElement temp = new DialogElement(currentSpeaker,currentText);
                         dialogList.Add(temp);
                     }
-                    else
-                    {
 
-                    }
                     
                 }
                 catch (InvalidCastException e)
@@ -85,15 +83,21 @@ namespace SpaceShooter
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            dialogList[0].Draw(target, states);
+            dialogList[currentDialog].Draw(target, states);
             
         }
 
         public void Update()
         {
-            currentCommands = input.HandleInputMenu();
-            
+            currentCommands = input.HandleInputDialog();
+            foreach (DialogCommand com in currentCommands)
+            {
+                com.Execute(this);
+            }
+            currentCommands.Clear();
+            dialogList[currentDialog].Update();
         }
+
 
         
 
@@ -101,8 +105,22 @@ namespace SpaceShooter
         {
             if (c.ElapsedTime.AsMilliseconds() >= milliseconds)
             {
+                if (dialogList[currentDialog].textDone())
+                {
+                    if (currentDialog + 1 < dialogList.Count)
+                    {
+                        currentDialog++;
+                    }
+                    else
+                    {
+                        Active = false;
+                    }
+                }
+                else
+                {
+                    dialogList[currentDialog].showAllText();
+                }
                 
-                ManageSound.Instance.enter();
                 c = new Clock();
             }
 

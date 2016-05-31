@@ -45,10 +45,13 @@ namespace SpaceShooter
         MenuCommand menuDownCommand;
         MenuCommand menuSelectCommand;
 
+        DialogCommand dialogEnterCommand;
+
         Ship p;
         //Finally, a list to store the commands
         List<Command> requestedCommands;
         List<MenuCommand> requestedMenuCommands;
+        List<DialogCommand> requestedDialogCommands;
         bool joystickConnected;
         public InputHandler()
         {
@@ -79,8 +82,12 @@ namespace SpaceShooter
             menuDownCommand = new MenuDownCommand();
             menuSelectCommand = new MenuSelectCommand();
             turnCommandJoystick = new TurnCommandJoystick();
+
+            dialogEnterCommand = new DialogEnterCommand();
+
             RequestedCommands = new List<Command>();
             RequestedMenuCommands = new List<MenuCommand>();
+            RequestedDialogCommands = new List<DialogCommand>();
             ConfigureJoystick(0);
 
             mousePosition = Mouse.GetPosition();
@@ -223,6 +230,16 @@ namespace SpaceShooter
             return RequestedMenuCommands;
         }
 
+        public List<DialogCommand> HandleInputDialog()
+        {
+            if (Joystick.IsButtonPressed(0, nrSelect) || Keyboard.IsKeyPressed(_buttonSelect))
+            {
+                AddCommandToList(dialogEnterCommand);
+            }
+
+            return RequestedDialogCommands;
+        }
+
         float getStrength(Joystick.Axis axis)
         {
             Joystick.Update();
@@ -297,6 +314,13 @@ namespace SpaceShooter
             }
         }
 
+        private void AddCommandToList(DialogCommand c)
+        {
+            if (!RequestedDialogCommands.Contains(c))
+            {
+                RequestedDialogCommands.Add(c);
+            }
+        }
 
         internal List<Command> RequestedCommands
         {
@@ -347,6 +371,19 @@ namespace SpaceShooter
             set
             {
                 p = value;
+            }
+        }
+
+        internal List<DialogCommand> RequestedDialogCommands
+        {
+            get
+            {
+                return requestedDialogCommands;
+            }
+
+            set
+            {
+                requestedDialogCommands = value;
             }
         }
     }

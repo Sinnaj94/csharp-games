@@ -134,6 +134,9 @@
     <Content Include="Resources\hud.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\instructor.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\mainscreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -143,7 +146,9 @@
     <Content Include="Resources\Mr_Pug.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Mr_Trump.png" />
+    <Content Include="Resources\Mr_Trump.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\select.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

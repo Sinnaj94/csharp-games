@@ -36,12 +36,16 @@ namespace SpaceShooter
             while (window.IsOpen)
             {
                 window.Clear();
+                if (d.Active && !menu.Active)
+                {
+                    d.Update();
 
+                }
                 if (menu.Active)
                 {
                     menu.Update();
                 }
-                else
+                if(!menu.Active &&!d.Active)
                 {
                     battle.Update();
                 }
@@ -49,12 +53,16 @@ namespace SpaceShooter
 
                 window.Draw(bg);
                 window.Draw(battle);
+                if (d.Active)
+                {
+                    window.Draw(d);
+
+                }
                 if (menu.Active)
                 {
                     window.Draw(menu);
-
                 }
-                window.Draw(d);
+                
                 window.Display();
             }
 

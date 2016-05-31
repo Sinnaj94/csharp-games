@@ -29,6 +29,11 @@ namespace SpaceShooter
         void Execute(Menu m);
     }
 
+    interface DialogCommand
+    {
+        void Execute(Dialog d);
+    }
+
 
 
     class ShootCommand : Command
@@ -163,6 +168,14 @@ namespace SpaceShooter
         public void Execute(Menu m)
         {
             m.selectCurrent();
+        }
+    }
+
+    class DialogEnterCommand : DialogCommand
+    {
+        public void Execute(Dialog d)
+        {
+            d.selectCurrent();
         }
     }
 

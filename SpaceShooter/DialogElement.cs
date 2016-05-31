@@ -40,6 +40,8 @@ namespace SpaceShooter
             textSpeed = 100;
         }
 
+        
+
         public void Update()
         {
             if (counter < savedText.Length)
@@ -58,11 +60,22 @@ namespace SpaceShooter
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            Update();
+
             background.Draw(target, states);
             edge.Draw(target, states);
             speakerSprite.Draw(target, states);
             shownText.Draw(target, states);
+        }
+
+        public void showAllText()
+        {
+            shownText.DisplayedString = savedText;
+            counter = savedText.Length;
+        }
+
+        public bool textDone()
+        {
+            return (counter >= savedText.Length);
         }
     }
 }
