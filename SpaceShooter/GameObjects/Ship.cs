@@ -78,8 +78,13 @@ namespace SpaceShooter.GameObjects
         
         public void initSprite()
         {
-            shipSprite = new Sprite(new Texture(@"Resources\Ships.png"), new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]));
-            shipSprite.Origin = new SFML.System.Vector2f(shipSprite.GetGlobalBounds().Width / 2, shipSprite.GetGlobalBounds().Height / 2);
+            shipSprite = new Sprite(new Texture(@"Resources\Ships.png", new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1] - SpriteBounds[0], SpriteBounds[3] - SpriteBounds[2])));
+
+             //  shipSprite.Origin = new SFML.System.Vector2f(shipSprite.GetGlobalBounds().Width / 2, shipSprite.GetGlobalBounds().Height / 2);
+              shipSprite.Origin = new SFML.System.Vector2f((shipSprite.GetGlobalBounds().Left + shipSprite.GetGlobalBounds().Width) / 2,
+                                                              (shipSprite.GetGlobalBounds().Top + shipSprite.GetGlobalBounds().Height) / 2);
+
+            Console.WriteLine("width: " + shipSprite.GetGlobalBounds().Width);
         }
 
         /*
