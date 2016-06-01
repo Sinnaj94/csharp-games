@@ -9,7 +9,7 @@ using SpaceShooter.Factories;
 
 namespace SpaceShooter.Menuscreens
 {
-    class pickShip : SFML.Graphics.Drawable
+    class PauseScreen : SFML.Graphics.Drawable
     {
         SFML.Graphics.RectangleShape bgRect;
         private Ship player;
@@ -33,7 +33,7 @@ namespace SpaceShooter.Menuscreens
             }
         }
 
-        public pickShip(Ship player)
+        public PauseScreen(Ship player)
         {
             this.player = player;
             InitBg();

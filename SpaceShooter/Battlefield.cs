@@ -36,14 +36,16 @@ namespace SpaceShooter
         private RenderWindow window;
         private HUD playerHud;
         private bool pause = false;
-        private pickShip pauseScreen;
+        private PauseScreen pauseScreen;
 
         public void upgradePlayer(Battlefield b)
         {
             float tempX = ConvertUnits.ToDisplayUnits(player.body.Position.X);
             float tempY = ConvertUnits.ToDisplayUnits(player.body.Position.Y);
-            player.body.Dispose();
-            b.player = ShipFactory.CreateShip("Destroyer", tempX, tempY, world);
+            float tempRotation = player.body.Rotation;
+            player.body.Dispose();       
+            b.player = ShipFactory.UpgradeShip(b.player.name, tempX, tempY, world);
+            b.player.body.Rotation = tempRotation;
             input.P = player;
             playerHud = new HUD(player);
             player.body.CollisionCategories = Category.Cat6;
@@ -63,11 +65,11 @@ namespace SpaceShooter
             timer = new SFML.System.Clock();
             deltaTime = SFML.System.Time.FromSeconds(3);
             debug = new DebugPhysics(world, window);
-            pauseScreen = new pickShip(player);
+            pauseScreen = new PauseScreen(player);
         }
         public void initPlayer()
         {
-            player = ShipFactory.CreateShip("Battlestar", window.Size.X / 4, window.Size.Y / 2, world);
+            player = ShipFactory.CreateShip("Falcon", window.Size.X / 4, window.Size.Y / 2, world);
             input.P = player;
             playerHud = new HUD(player);
             player.body.CollisionCategories = Category.Cat6;
