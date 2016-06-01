@@ -88,6 +88,7 @@
     <Compile Include="Input\InputHandler.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="IRenderable.cs" />
+    <Compile Include="ManageMenu.cs" />
     <Compile Include="ManageSound.cs" />
     <Compile Include="ManageText.cs" />
     <Compile Include="Dialog.cs" />

@@ -32,7 +32,7 @@ namespace SpaceShooter
             BackgroundManager bg = new BackgroundManager();
             Dialog d = new Dialog("1");
             Battlefield battle = new Battlefield(window);
-            Menu menu = new Menu(); 
+            ManageMenu menu = new ManageMenu(); 
             while (window.IsOpen)
             {
                 window.Clear();

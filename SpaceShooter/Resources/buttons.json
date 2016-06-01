@@ -29,5 +29,43 @@
             "x": 0.2,
             "y": 0.7
         }
+    ],
+
+    "Settings": [
+        {
+            "name": "volume",
+            "x": 0.2,
+            "y": 0.3
+        },
+
+        {
+            "name": "back",
+            "x": 0.2,
+            "y": 0.4
+        },
+    ],
+
+    "Credits": [
+        {
+            "name": "niklas hinte",
+            "x": 0.2,
+            "y": 0.3
+        },
+
+        {
+            "name": "jannis jahr",
+            "x": 0.2,
+            "y": 0.4
+        },
+        {
+            "name": "hs bremen",
+            "x": 0.2,
+            "y": 0.5
+        },
+        {
+            "name": "back",
+            "x": 0.2,
+            "y": 0.6
+        }
     ]
 }

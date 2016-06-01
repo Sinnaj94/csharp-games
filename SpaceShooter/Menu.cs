@@ -11,33 +11,52 @@ using SFML.Graphics;
 using SFML.System;
 namespace SpaceShooter
 {
+
     class Menu : IRenderable
     {
         //Clock is for timed events
-        Clock c;
+
         String dataSetName;
         List<Button> buttonList;
         int selected;
-        InputHandler input;
-        List<MenuCommand> currentCommands;
-        int milliseconds;
-        bool active;
-        RectangleShape background;
-        Texture backgroundImage;
-        Sprite backgroundSprite;
-        Texture backgroundImageG;
-        Sprite backgroundSpriteG;
-        Clock glow;
-        public bool Active
+        ManageMenu manager;
+
+        internal ManageMenu Manager
         {
             get
             {
-                return active;
+                return manager;
             }
 
             set
             {
-                active = value;
+                manager = value;
+            }
+        }
+
+        public int Selected
+        {
+            get
+            {
+                return selected;
+            }
+
+            set
+            {
+                selected = value;
+            }
+        }
+
+        internal List<Button> ButtonList
+        {
+            get
+            {
+                return buttonList;
+            }
+
+            set
+            {
+                buttonList = value;
             }
         }
 
@@ -46,31 +65,29 @@ namespace SpaceShooter
         /// </summary>
         public Menu()
         {
-            glow = new Clock();
-            active = true;
-            milliseconds = 200;
-            c = new Clock();
-            input = new InputHandler();
-            currentCommands = new List<MenuCommand>(10);
-            dataSetName = "Main_Menu";
+
+
+
+
+        }
+
+        /// <summary>
+        /// Function to initialize the Menu.
+        /// </summary>
+        /// <param name="name"></param>
+        public void Init(String name)
+        {
+            dataSetName = name;
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\buttons.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
-            Console.WriteLine(dataTable.Rows.Count);
-            background = new RectangleShape(new Vector2f(1920, 1080));
-            background.FillColor = new Color(0, 0, 0, 255);
-            backgroundImage = new Texture(@"Resources/mainscreen.png");
-            backgroundImageG = new Texture(@"Resources/mainscreenglow.png");
-
-            backgroundSprite = new Sprite(backgroundImage);
-            backgroundSpriteG = new Sprite(backgroundImageG);
-            buttonList = new List<Button>();
+            ButtonList = new List<Button>();
             foreach (DataRow row in dataTable.Rows)
             {
                 Console.WriteLine(row["name"]);
                 try
                 {
                     Button tempButton = new Button((String)row["name"], (double)row["x"], (double)row["y"]);
-                    buttonList.Add(tempButton);
+                    ButtonList.Add(tempButton);
                 }
                 catch (InvalidCastException e)
                 {
@@ -78,93 +95,126 @@ namespace SpaceShooter
                 }
 
             }
-            selected = 0;
-            buttonList[selected].Selected = true;
+            Selected = 0;
+            ButtonList[Selected].Selected = true;
         }
 
-        public Menu(String dataSet)
-        {
-
-        }
-
-        public void Draw(RenderTarget target, RenderStates states)
+        public virtual void Draw(RenderTarget target, RenderStates states)
         {
             //background.Draw(target, states);
-            backgroundSprite.Draw(target, states);
-            backgroundSpriteG.Draw(target, states);
-            foreach (Button b in buttonList)
+
+            foreach (Button b in ButtonList)
             {
                 b.Draw(target, states);
             }
         }
 
-        public void Update()
-        {
-            currentCommands = input.HandleInputMenu();
-            foreach (MenuCommand com in currentCommands)
-            {
-                com.Execute(this);
-            }
-            currentCommands.Clear();
-            backgroundSpriteG.Color = new Color(255, 255, 255, (byte)(Math.Abs(Math.Sin(glow.ElapsedTime.AsSeconds())*255)));
-
-        }
+        
 
         public void navigateUp()
         {
-            if (c.ElapsedTime.AsMilliseconds() >= milliseconds)
+            ButtonList[Selected].Selected = false;
+            if (Selected - 1 < 0)
             {
-                buttonList[selected].Selected = false;
-                if (selected - 1 < 0)
-                {
-                    selected = buttonList.Count - 1;
-                }
-                else
-                {
-                    selected--;
-                }
-                buttonList[selected].Selected = true;
-                ManageSound.Instance.select();
-                c = new Clock();
+                Selected = ButtonList.Count - 1;
             }
-
+            else
+            {
+                Selected--;
+            }
+            ButtonList[Selected].Selected = true;
+            ManageSound.Instance.select();
         }
 
         public void navigateDown()
         {
-            if (c.ElapsedTime.AsMilliseconds() >= milliseconds)
+            ButtonList[Selected].Selected = false;
+            if (Selected + 1 >= ButtonList.Count)
             {
-                buttonList[selected].Selected = false;
-                if (selected + 1 >= buttonList.Count)
-                {
-                    selected = 0;
-                }
-                else
-                {
-                    selected++;
-                }
-                buttonList[selected].Selected = true;
-                ManageSound.Instance.select();
-
-                c = new Clock();
+                Selected = 0;
             }
-
+            else
+            {
+                Selected++;
+            }
+            ButtonList[Selected].Selected = true;
+            ManageSound.Instance.select();
         }
 
-        public void selectCurrent()
+        public virtual void selectCurrent()
         {
-            if (c.ElapsedTime.AsMilliseconds() >= milliseconds)
+            ManageSound.Instance.enter();
+        }
+    }
+
+    class MainMenu : Menu
+    {
+        public MainMenu(ManageMenu m)
+        {
+            Manager = m;
+            Init("Main_Menu");
+        }
+        public override void selectCurrent()
+        {
+            switch (Selected)
             {
-                if (selected == 0)
-                {
-                    Active = false;
-                }
-                ManageSound.Instance.enter();
-                c = new Clock();
+                case 0:
+                    Manager.Active = false;
+                    break;
+                case 1:
+                    //TODO
+                    break;
+                case 2:
+                    Manager.Menu = new SettingsMenu(Manager);
+                    break;
+                case 3:
+                    Manager.Menu = new CreditsMenu(Manager);
+                    break;
             }
 
         }
+    }
 
+    class SettingsMenu : Menu
+    {
+        public SettingsMenu(ManageMenu m)
+        {
+            Manager = m;
+            Init("Settings");
+        }
 
+        public override void selectCurrent()
+        {
+            switch (Selected)
+            {
+                case 0:
+                    
+                    break;
+                case 1:
+                    Manager.Menu = new MainMenu(Manager);
+                    break;
+            }
+
+        }
+    }
+
+    class CreditsMenu : Menu
+    {
+        public CreditsMenu(ManageMenu m)
+        {
+            Manager = m;
+            Init("Credits");
+        }
+
+        public override void selectCurrent()
+        {
+            switch (Selected)
+            {
+                case 3:
+                    Manager.Menu = new MainMenu(Manager);
+                    break;
+            }
+
+        }
     }
 }
