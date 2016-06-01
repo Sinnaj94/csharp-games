@@ -17,11 +17,11 @@ namespace SpaceShooter.Factories
         {
             Bullet b = new Bullet(parent);
             b.bulletRadius = ConvertUnits.ToSimUnits(radius);
-
             b.body = BodyFactory.CreateCircle(world, b.bulletRadius, 1);
             b.body.Position = new Vector2((float)x, (float)y);
             b.body.BodyType = BodyType.Dynamic;
             b.body.IsBullet = true;
+            b.body.CollisionCategories = Category.Cat3;
             b.dx = _dx;
             b.dy = _dy;
             b.speed = 400;

@@ -20,8 +20,6 @@ namespace SpaceShooter.GameObjects
         public bool col;
         private BulletContainer bullets;
         Clock c;
-        double fireRateMS;
-        double fireRateBigMS;
         float recoil;
         double bulletSpeed;
         double bulletSpeedBig;
@@ -74,8 +72,6 @@ namespace SpaceShooter.GameObjects
         {
             r = new Random();
             recoil = 10;
-            fireRateMS = 100;
-            fireRateBigMS = 500;
             bulletSpeed = 3;
             bulletSpeedBig = 3;
             Life = maxHP;
@@ -83,6 +79,7 @@ namespace SpaceShooter.GameObjects
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
             hud = new DrawShipAttributes(this);
+            Console.WriteLine("bullets: " + fireRateBigMS);
         }
 
         public void initShootRandomClock()
@@ -103,6 +100,10 @@ namespace SpaceShooter.GameObjects
         public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             col = true;
+            if(fixtureB.CollisionCategories == Category.Cat3)
+            {
+                life--;
+            }
             return true;
         }
         

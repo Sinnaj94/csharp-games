@@ -29,6 +29,8 @@ namespace SpaceShooter
         public double drot { get; set; }
         public double rotation { get; set; }
         public int[] SpriteBounds { get; set; }
+        public double fireRateMS { get; set; }
+        public double fireRateBigMS { get; set; }
 
         /// <summary>
         /// Moves the Object at given speed DX. Multiplies with maxSpeed

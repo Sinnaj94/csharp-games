@@ -83,6 +83,11 @@ namespace SpaceShooter
         }
         public void Update()
         {
+            if(player.Life < 0)
+            {
+                Pause = true;
+            }
+
             if (!Pause)
             {
                 HandlePlayerCommands();

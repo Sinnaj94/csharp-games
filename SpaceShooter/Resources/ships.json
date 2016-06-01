@@ -4,7 +4,9 @@
 		"maxHP": 1,
 		"maxSpeed": 1,
 		"SpriteBounds": [3,57,3,190],
-		"price": 1000
+		"price": 1000,
+		"fireRateMS" : 300,
+		"fireRateBigMS" : 1000
   },
 
   "Battlestar": {
@@ -12,7 +14,9 @@
 		"maxHP": 2,
 		"maxSpeed": 10,
 		"SpriteBounds": [63,176,3,121],
-		"price": 2000
+		"price": 2000,
+		"fireRateMS" : 250,
+		"fireRateBigMS" : 900
   },
 
     "Destroyer": {
@@ -20,6 +24,8 @@
 		"maxHP": 10,
 		"maxSpeed": 1,
 		"SpriteBounds": [182, 266, 3, 121],
-		"price": 4000
+		"price": 4000,
+		"fireRateMS" : 200,
+		"fireRateBigMS" : 850
   }
 }
