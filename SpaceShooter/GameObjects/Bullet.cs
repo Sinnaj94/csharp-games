@@ -59,7 +59,7 @@ namespace SpaceShooter.GameObjects
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
-            tmp.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits((float)body.Position.X), ConvertUnits.ToDisplayUnits((float)body.Position.Y));
+            tmp.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits((float)body.Position.X)-tmp.Radius, ConvertUnits.ToDisplayUnits((float)body.Position.Y) - tmp.Radius);
             tmp.Draw(target, states);
         }
     }
