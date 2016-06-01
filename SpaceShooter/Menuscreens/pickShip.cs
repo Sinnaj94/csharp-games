@@ -18,6 +18,20 @@ namespace SpaceShooter.Menuscreens
         Text UpgradeCostText;
         Text HelpText;
         uint characterSize = 20;
+        private bool isPaused = false;
+
+        public bool IsPaused
+        {
+            get
+            {
+                return isPaused;
+            }
+
+            set
+            {
+                isPaused = value;
+            }
+        }
 
         public pickShip(Ship player)
         {

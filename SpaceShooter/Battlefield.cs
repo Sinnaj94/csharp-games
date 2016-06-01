@@ -25,6 +25,7 @@ namespace SpaceShooter
         private EnemyShipContainer c;
         private InputHandler input;
         private List<Command> currentCommands;
+        private List<PauseCommand> currentPauseCommands;
         private Ship player;
         private Vector2 globalBounds;
         private SFML.System.Clock timer;
@@ -39,11 +40,11 @@ namespace SpaceShooter
         public Battlefield(RenderWindow window)
         {
             this.window = window;
-            globalBounds = new Vector2(ConvertUnits.ToSimUnits(window.Size.X) , ConvertUnits.ToSimUnits(window.Size.Y));
             world = new World(new Vector2(0, 0));
             InitGlobalBounds();            
             input = new InputHandler();
             currentCommands = new List<Command>(10);
+            currentPauseCommands = new List<PauseCommand>(10);
             initPlayer();
             c = new EnemyShipContainer(player.body);     
             timer = new SFML.System.Clock();
@@ -53,20 +54,18 @@ namespace SpaceShooter
         }
         public void initPlayer()
         {
-            player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
+            player = ShipFactory.CreateShip("Battlestar", window.Size.X / 4, window.Size.Y / 2, world);
             input.P = player;
             playerHud = new HUD(player);
             player.body.CollisionCategories = Category.Cat6;
         }
         public void InitGlobalBounds()
         {
+            globalBounds = new Vector2(ConvertUnits.ToSimUnits(window.Size.X), ConvertUnits.ToSimUnits(window.Size.Y));
             Body globalBoundsCollision = BodyFactory.CreateBody(world);
             FixtureFactory.AttachEdge(new Vector2(0, 0), new Vector2(0, globalBounds.Y), globalBoundsCollision);
-
             FixtureFactory.AttachEdge(new Vector2(0, globalBounds.Y), new Vector2(globalBounds.X, globalBounds.Y), globalBoundsCollision);
-
             FixtureFactory.AttachEdge(new Vector2(globalBounds.X, globalBounds.Y), new Vector2(globalBounds.X, 0), globalBoundsCollision);
-
             FixtureFactory.AttachEdge(new Vector2(globalBounds.X, 0), new Vector2(0, 0), globalBoundsCollision);
             globalBoundsCollision.CollidesWith = Category.Cat6;
         }
@@ -80,6 +79,7 @@ namespace SpaceShooter
             currentCommands.Clear();
 
         }
+
         public void SpawnEnemy()
         {
             if (timer.ElapsedTime > deltaTime)
@@ -91,27 +91,33 @@ namespace SpaceShooter
         }
         public void Update()
         {
-            if(player.Life < 0)
-            {
-                Pause = true;
-            }
+            HandlePauseCommands();
 
-            if (!Pause)
+            if (!pauseScreen.IsPaused)
             {
                 HandlePlayerCommands();
                 SpawnEnemy();
                 c.Update();
                 player.Update();
                 playerHud.Update();
-                
+                world.Step(.01639344262f);
             } else {
-               
+                pauseScreen.Update();
             }
-            world.Step(.01639344262f);
+
+        }
+        public void HandlePauseCommands()
+        {
+            currentPauseCommands = input.HandleInputPause();
+            foreach (PauseCommand com in currentPauseCommands)
+            {
+                com.Execute(pauseScreen);
+            }
+            currentPauseCommands.Clear();
         }
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
-            if (!Pause)
+            if (!pauseScreen.IsPaused)
             {
                 debug.DrawDebugData();
                 player.Draw(target, states);

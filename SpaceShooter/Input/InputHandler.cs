@@ -29,6 +29,9 @@ namespace SpaceShooter
         //Down Command
         Keyboard.Key _buttonDown;
         Keyboard.Key _buttonBigShoot;
+        Keyboard.Key _P;
+        Keyboard.Key _ESC;
+        Keyboard.Key _R;
         Mouse.Button _mouseShoot;
         Mouse.Button _mouseBigShoot;
 
@@ -45,6 +48,10 @@ namespace SpaceShooter
         MenuCommand menuDownCommand;
         MenuCommand menuSelectCommand;
 
+        // Commands for pause screen
+        PauseCommand PausePressedCommand;
+        PauseCommand ResumePressedCommand;
+
         DialogCommand dialogEnterCommand;
 
         Ship p;
@@ -52,6 +59,7 @@ namespace SpaceShooter
         List<Command> requestedCommands;
         List<MenuCommand> requestedMenuCommands;
         List<DialogCommand> requestedDialogCommands;
+        List<PauseCommand> requestedPauseCommands;
         bool joystickConnected;
         public InputHandler()
         {
@@ -65,7 +73,8 @@ namespace SpaceShooter
             _buttonSelect = Keyboard.Key.Return;
             _mouseShoot = Mouse.Button.Left;
             _mouseBigShoot = Mouse.Button.Right;
-
+            _P = Keyboard.Key.P;
+            _R = Keyboard.Key.R;
 
             nrShoot = 11;
             nrSelect = 14;
@@ -83,11 +92,15 @@ namespace SpaceShooter
             menuSelectCommand = new MenuSelectCommand();
             turnCommandJoystick = new TurnCommandJoystick();
 
+            PausePressedCommand = new PausePressedCommand();
+            ResumePressedCommand = new ResumePressedCommand();
+
             dialogEnterCommand = new DialogEnterCommand();
 
             RequestedCommands = new List<Command>();
             RequestedMenuCommands = new List<MenuCommand>();
             RequestedDialogCommands = new List<DialogCommand>();
+            requestedPauseCommands = new List<PauseCommand>();
             ConfigureJoystick(0);
 
             mousePosition = Mouse.GetPosition();
@@ -240,6 +253,21 @@ namespace SpaceShooter
             return RequestedDialogCommands;
         }
 
+        public List<PauseCommand> HandleInputPause()
+        {
+            if (Keyboard.IsKeyPressed(_P))
+            {
+                AddCommandToList(PausePressedCommand);
+            }
+
+            if (Keyboard.IsKeyPressed(_R))
+            {
+                AddCommandToList(ResumePressedCommand);
+            }
+
+            return RequestedPauseCommands;
+        }
+
         float getStrength(Joystick.Axis axis)
         {
             Joystick.Update();
@@ -299,6 +327,14 @@ namespace SpaceShooter
             if (!RequestedCommands.Contains(c))
             {
                 RequestedCommands.Add(c);
+            }
+        }
+
+        private void AddCommandToList(PauseCommand c)
+        {
+            if (!RequestedPauseCommands.Contains(c))
+            {
+                RequestedPauseCommands.Add(c);
             }
         }
 
@@ -384,6 +420,19 @@ namespace SpaceShooter
             set
             {
                 requestedDialogCommands = value;
+            }
+        }
+
+        internal List<PauseCommand> RequestedPauseCommands
+        {
+            get
+            {
+                return requestedPauseCommands;
+            }
+
+            set
+            {
+                requestedPauseCommands = value;
             }
         }
     }

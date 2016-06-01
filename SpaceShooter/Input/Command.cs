@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SpaceShooter.GameObjects;
 using FarseerPhysics;
 using SFML.System;
+using SpaceShooter.Menuscreens;
 
 namespace SpaceShooter
 {
@@ -34,7 +35,10 @@ namespace SpaceShooter
         void Execute(Dialog d);
     }
 
-
+    interface PauseCommand
+    {
+        void Execute(pickShip screen);
+    }
 
     class ShootCommand : Command
     {
@@ -179,7 +183,20 @@ namespace SpaceShooter
         }
     }
 
+    class PausePressedCommand : PauseCommand
+    {
+        public void Execute(pickShip screen)
+        {
+            screen.IsPaused = true;
+        }
+    }
 
-
+    class ResumePressedCommand : PauseCommand
+    {
+        public void Execute(pickShip screen)
+        {
+            screen.IsPaused = false;
+        }
+    }
 
 }
