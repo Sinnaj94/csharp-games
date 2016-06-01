@@ -39,7 +39,7 @@ namespace SpaceShooter
         public Battlefield(RenderWindow window)
         {
             this.window = window;
-            globalBounds = new Vector2(ConvertUnits.ToSimUnits(1920) , ConvertUnits.ToSimUnits(1080));
+            globalBounds = new Vector2(ConvertUnits.ToSimUnits(window.Size.X) , ConvertUnits.ToSimUnits(window.Size.Y));
             world = new World(new Vector2(0, 0));
             InitGlobalBounds();            
             input = new InputHandler();
@@ -56,11 +56,19 @@ namespace SpaceShooter
             player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
             input.P = player;
             playerHud = new HUD(player);
+            player.body.CollisionCategories = Category.Cat6;
         }
         public void InitGlobalBounds()
         {
-            // FIND A MORE CLEVER WAY
-  
+            Body globalBoundsCollision = BodyFactory.CreateBody(world);
+            FixtureFactory.AttachEdge(new Vector2(0, 0), new Vector2(0, globalBounds.Y), globalBoundsCollision);
+
+            FixtureFactory.AttachEdge(new Vector2(0, globalBounds.Y), new Vector2(globalBounds.X, globalBounds.Y), globalBoundsCollision);
+
+            FixtureFactory.AttachEdge(new Vector2(globalBounds.X, globalBounds.Y), new Vector2(globalBounds.X, 0), globalBoundsCollision);
+
+            FixtureFactory.AttachEdge(new Vector2(globalBounds.X, 0), new Vector2(0, 0), globalBoundsCollision);
+            globalBoundsCollision.CollidesWith = Category.Cat6;
         }
         public void HandlePlayerCommands()
         {

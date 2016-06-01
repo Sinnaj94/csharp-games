@@ -29,6 +29,9 @@ namespace SpaceShooter.GameObjects
         int currentRandomMilliseconds;
         Vector2f cursorPosition;
         Random r;
+        public double fireRateMS { get; set; }
+        public double fireRateBigMS { get; set; }
+
         public float Life
         {
             get
