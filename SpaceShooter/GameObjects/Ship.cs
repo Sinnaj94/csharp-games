@@ -57,6 +57,19 @@ namespace SpaceShooter.GameObjects
             }
         }
 
+        public Sprite ShipSprite
+        {
+            get
+            {
+                return shipSprite;
+            }
+
+            set
+            {
+                shipSprite = value;
+            }
+        }
+
         public void init()
         {
             r = new Random();
@@ -95,42 +108,12 @@ namespace SpaceShooter.GameObjects
         
         public void initSprite()
         {
-            shipSprite = new Sprite(new Texture(@"Resources\Ships.png", new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1] - SpriteBounds[0], SpriteBounds[3] - SpriteBounds[2])));
-
-             //  shipSprite.Origin = new SFML.System.Vector2f(shipSprite.GetGlobalBounds().Width / 2, shipSprite.GetGlobalBounds().Height / 2);
-              shipSprite.Origin = new SFML.System.Vector2f((shipSprite.GetGlobalBounds().Left + shipSprite.GetGlobalBounds().Width) / 2,
-                                                              (shipSprite.GetGlobalBounds().Top + shipSprite.GetGlobalBounds().Height) / 2);
-
-            Console.WriteLine("width: " + shipSprite.GetGlobalBounds().Width);
+            ShipSprite = new Sprite(new Texture(@"Resources\Ships.png", new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1] - SpriteBounds[0], SpriteBounds[3] - SpriteBounds[2])));
+            ShipSprite.Origin = new SFML.System.Vector2f((ShipSprite.GetGlobalBounds().Left + ShipSprite.GetGlobalBounds().Width) / 2,
+                                                              (ShipSprite.GetGlobalBounds().Top + ShipSprite.GetGlobalBounds().Height) / 2);
+            Console.WriteLine("width: " + ShipSprite.GetGlobalBounds().Width);
         }
 
-        /*
-        SFML.Graphics.IntRect DebugRect;
-        SFML.Graphics.RectangleShape DebugShape;
-        SFML.Graphics.CircleShape DebugFrontShape;
-
-        public void debugDraw(RenderTarget target, RenderStates states)
-        {
-
-            DebugRect = new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1], SpriteBounds[3]);
-            DebugShape = new SFML.Graphics.RectangleShape(new SFML.System.Vector2f(DebugRect.Width, DebugRect.Height));
-            DebugShape.OutlineColor = new Color(255, 255, 255);
-            DebugShape.FillColor = new Color(0, 0, 0, 0);
-            DebugShape.OutlineThickness = 1;
-            DebugShape.Origin = shipSprite.Origin;
-
-            DebugFrontShape = new SFML.Graphics.CircleShape(10, 3);
-            DebugFrontShape.FillColor = new Color(255, 0, 0);
-
-            DebugShape.Position = shipSprite.Position;
-            DebugShape.Rotation = shipSprite.Rotation;
-            DebugShape.Draw(target, states);
-
-            DebugFrontShape.Position = shipSprite.Position;
-            DebugFrontShape.Rotation = shipSprite.Rotation;
-            DebugFrontShape.Draw(target, states);
-        }
-        */
         public void Shoot()
         {
             if(c.ElapsedTime.AsMilliseconds() >= fireRateMS)
@@ -166,13 +149,12 @@ namespace SpaceShooter.GameObjects
             body.LinearVelocity *= .1f;
             float angle = (float)(Math.Atan2(target.WorldCenter.X - body.WorldCenter.X, target.WorldCenter.Y - body.WorldCenter.Y) * -1);
             body.Rotation = angle;
-            
         }
 
         public override void Update()
         {
-            shipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
-            shipSprite.Rotation = MathHelper.ToDegrees(body.Rotation + (float)Math.PI);
+            ShipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
+            ShipSprite.Rotation = MathHelper.ToDegrees(body.Rotation + (float)Math.PI);
             bullets.Update();
             hud.Update();
         }
@@ -184,8 +166,7 @@ namespace SpaceShooter.GameObjects
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-
-            shipSprite.Draw(target, states);
+            ShipSprite.Draw(target, states);
             bullets.Draw(target, states);
             //Lifebar zeichnen
             hud.Draw(target,states);

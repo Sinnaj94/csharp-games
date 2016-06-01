@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 using SpaceShooter.Factories;
 using SpaceShooter.GameObjects;
 using SFML.System;
+using SpaceShooter.Menuscreens;
 
 namespace SpaceShooter
 {
@@ -22,7 +23,6 @@ namespace SpaceShooter
     {
         private World world;
         private EnemyShipContainer c;
-        private BulletContainer bc;
         private InputHandler input;
         private List<Command> currentCommands;
         private Ship player;
@@ -32,42 +32,38 @@ namespace SpaceShooter
         private Time deltaTime;
         private DebugPhysics debug;
         private RenderWindow window;
+        private HUD playerHud;
+        private bool pause = false;
+        private pickShip pauseScreen;
 
-        HUD playerHud;
         public Battlefield(RenderWindow window)
         {
             this.window = window;
             globalBounds = new Vector2(ConvertUnits.ToSimUnits(1920) , ConvertUnits.ToSimUnits(1080));
             world = new World(new Vector2(0, 0));
-            InitGlobalBounds();
-            
+            InitGlobalBounds();            
             input = new InputHandler();
             currentCommands = new List<Command>(10);
-            player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
-            c = new EnemyShipContainer(player.body);
-            input.P = player;
-            playerHud = new HUD(player);
+            initPlayer();
+            c = new EnemyShipContainer(player.body);     
             timer = new SFML.System.Clock();
             deltaTime = SFML.System.Time.FromSeconds(3);
-            // player.body.
             debug = new DebugPhysics(world, window);
-
-            //
-            Body Spline = new Body(world, new Vector2(ConvertUnits.ToSimUnits(400), ConvertUnits.ToSimUnits(400)));
-            Spline.BodyType = BodyType.Static;
-            Fixture edge = FixtureFactory.AttachEdge(new Vector2(ConvertUnits.ToSimUnits(400), ConvertUnits.ToSimUnits(400)), new Vector2(ConvertUnits.ToSimUnits(800), ConvertUnits.ToSimUnits(400)), Spline);
-            
-            //
+            pauseScreen = new pickShip(player);
         }
-
+        public void initPlayer()
+        {
+            player = ShipFactory.CreateShip("Battlestar", 200, 200, world);
+            input.P = player;
+            playerHud = new HUD(player);
+        }
         public void InitGlobalBounds()
         {
             // FIND A MORE CLEVER WAY
-
+  
         }
-
-        public void Update()
-        {    
+        public void HandlePlayerCommands()
+        {
             currentCommands = input.HandlePlayerInput();
             foreach (Command com in currentCommands)
             {
@@ -75,33 +71,59 @@ namespace SpaceShooter
             }
             currentCommands.Clear();
 
-
-        //    time += timer.ElapsedTime;
-
-            if(timer.ElapsedTime > deltaTime)
+        }
+        public void SpawnEnemy()
+        {
+            if (timer.ElapsedTime > deltaTime)
             {
                 c.AddShip(ShipFactory.CreateRandomShip(world));
                 time = new Time();
                 timer.Restart();
             }
-
-            currentCommands.Clear();
-            c.Update();
-            player.Update();
-            playerHud.Update();
-            world.Step(.016666f);
         }
-
-
+        public void Update()
+        {
+            if (!Pause)
+            {
+                HandlePlayerCommands();
+                SpawnEnemy();
+                c.Update();
+                player.Update();
+                playerHud.Update();
+                
+            } else {
+               
+            }
+            world.Step(.01639344262f);
+        }
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
-            debug.DrawDebugData();
-            player.Draw(target, states);
-            c.Draw(target, states);
-            playerHud.Draw(target, states);
+            if (!Pause)
+            {
+                debug.DrawDebugData();
+                player.Draw(target, states);
+                c.Draw(target, states);
+                playerHud.Draw(target, states);
+            } else
+            {
+                pauseScreen.Draw(target, states);
+            }
 
+            
             //debug.DrawDebugData();
 
+        }
+        public bool Pause
+        {
+            get
+            {
+                return pause;
+            }
+
+            set
+            {
+                pause = value;
+            }
         }
     }
 }

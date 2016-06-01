@@ -17,6 +17,19 @@ namespace SpaceShooter.Factories
 {
     static class ShipFactory
     {
+        public static int GetShipUpgradePrice(String name)
+        {
+            Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
+            if (values.ContainsKey(name))
+            {
+                Ship s = values[name];
+                Console.WriteLine("Ship upgrade costs: " + s.price);
+                return s.price;
+            }
+            Console.WriteLine("Ship with key " + name + " doesn't exist.");
+            return 0;
+        }
+
 
         public static Ship CreateRandomShip(World world)
         {
@@ -24,6 +37,16 @@ namespace SpaceShooter.Factories
             List<String> sarray = values.Keys.ToList<String>();
 
 
+            //Console.WriteLine(sarray[0].ToString());
+            return CreateShip(sarray[new Random().Next(sarray.Count)].ToString(), 2000, new Random().NextDouble() * 1080, world);
+            //return null;
+        }
+
+        public static Ship UpgradeShip(World world)
+        {
+            Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
+            List<String> sarray = values.Keys.ToList<String>();
+           // sarray.FindIndex("asd");
             //Console.WriteLine(sarray[0].ToString());
             return CreateShip(sarray[new Random().Next(sarray.Count)].ToString(), 2000, new Random().NextDouble() * 1080, world);
             //return null;

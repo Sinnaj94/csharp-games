@@ -19,6 +19,7 @@ namespace SpaceShooter
         public String name { get; set; }
         public int HP { get; set; }
         public int maxHP { get; set; }
+        public int price { get; set; }
         public double speed { get; set; }
         public double maxSpeed { get; set; }
         public double x { get; set; }
