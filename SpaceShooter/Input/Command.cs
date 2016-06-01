@@ -37,7 +37,7 @@ namespace SpaceShooter
 
     interface PauseCommand
     {
-        void Execute(pickShip screen);
+        void Execute(PauseScreen screen);
     }
     interface GameCommand
     {
@@ -189,7 +189,7 @@ namespace SpaceShooter
 
     class PausePressedCommand : PauseCommand
     {
-        public void Execute(pickShip screen)
+        public void Execute(PauseScreen screen)
         {
             screen.IsPaused = true;
         }
@@ -197,7 +197,7 @@ namespace SpaceShooter
 
     class ResumePressedCommand : PauseCommand
     {
-        public void Execute(pickShip screen)
+        public void Execute(PauseScreen screen)
         {
             screen.IsPaused = false;
         }

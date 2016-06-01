@@ -41,15 +41,13 @@ namespace SpaceShooter.Factories
             //return null;
         }
 
-        public static Ship UpgradeShip(World world)
+        public static Ship UpgradeShip(String name, double x, double y, World world)
         {
             Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
             List<String> sarray = values.Keys.ToList<String>();
-          //  sarray.FindIndex();
-           // sarray.FindIndex("asd");
-            //Console.WriteLine(sarray[0].ToString());
-            return CreateShip(sarray[new Random().Next(sarray.Count)].ToString(), 2000, new Random().NextDouble() * 1080, world);
-            //return null;
+            Predicate<String> stringFinder = (String s) => { return s == name; };
+            int tmp = sarray.FindIndex(stringFinder);
+            return CreateShip(sarray[tmp + 1].ToString(), x, y, world);
         }
 
         // Builds a Ship Object from JSON Data, returns null if the Ship doesn't exist 
@@ -77,4 +75,3 @@ namespace SpaceShooter.Factories
         }
     }
 }
-
