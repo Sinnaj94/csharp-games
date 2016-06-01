@@ -65,5 +65,13 @@ namespace SpaceShooter.GameObjects
                 selected = value;
             }
         }
+
+        public void changeText(String newText)
+        {
+            text = newText;
+            textObject.DisplayedString = newText;
+            textSelectedObject.DisplayedString = newText;
+
+        }
     }
 }

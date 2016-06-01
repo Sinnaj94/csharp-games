@@ -65,12 +65,14 @@ namespace SpaceShooter
         Sprite hudSprite;
         Texture crossTexture;
         Sprite crossSprite;
+        String healthTextText;
         public HUD(Ship ship)
         {
             font = ManageText.Instance.SelectedFont;
             this.ship = ship;
             shipText = new Text("player 1", font);
-            healthText = new Text("100/100 HP", font);
+            healthTextText ="HP:"+ ship.Life;
+            healthText = new Text(healthTextText, font);
             healthText.Position = new Vector2f(0, 40);
             healthText.Color = Color.Green;
             shipText.Color = Color.White;
@@ -87,6 +89,8 @@ namespace SpaceShooter
         public void updateCross(Vector2f newPosition)
         {
             crossSprite.Position = newPosition-new Vector2f(50,50);
+
+            healthText.DisplayedString = ship.Life*100 + "/" + ship.maxHP*100 + "HP";
         }
 
         public void Update()

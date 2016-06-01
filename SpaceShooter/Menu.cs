@@ -177,10 +177,15 @@ namespace SpaceShooter
 
     class SettingsMenu : Menu
     {
+        int volume = 100;
+        String volumeText;
         public SettingsMenu(ManageMenu m)
         {
             Manager = m;
-            Init("Settings");
+            Init("settings");
+            volumeText = "volume: " + volume;
+            Button temp = ButtonList[0];
+            temp.changeText(volumeText);
         }
 
         public override void selectCurrent()

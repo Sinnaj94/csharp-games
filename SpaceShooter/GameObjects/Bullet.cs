@@ -16,7 +16,7 @@ namespace SpaceShooter.GameObjects
         public double angle;
         public float bulletRadius;
         public int timeToLive = 0;
-        public int timeToLiveMax = 100;
+        public int timeToLiveMax = 1000;
         CircleShape tmp;
         Body parent;
         bool col;
