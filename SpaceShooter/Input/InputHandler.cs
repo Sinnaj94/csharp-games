@@ -34,7 +34,7 @@ namespace SpaceShooter
         Keyboard.Key _R;
         Mouse.Button _mouseShoot;
         Mouse.Button _mouseBigShoot;
-
+        Keyboard.Key _ArrowUp;
 
         Command buttonShoot;
         Command[] moveCommandArray;
@@ -52,6 +52,8 @@ namespace SpaceShooter
         PauseCommand PausePressedCommand;
         PauseCommand ResumePressedCommand;
 
+        GameCommand UpgradePressedCommand;
+
         DialogCommand dialogEnterCommand;
 
         Ship p;
@@ -60,6 +62,7 @@ namespace SpaceShooter
         List<MenuCommand> requestedMenuCommands;
         List<DialogCommand> requestedDialogCommands;
         List<PauseCommand> requestedPauseCommands;
+        List<GameCommand> requestedGameCommands;
         bool joystickConnected;
         public InputHandler()
         {
@@ -75,7 +78,8 @@ namespace SpaceShooter
             _mouseBigShoot = Mouse.Button.Right;
             _P = Keyboard.Key.P;
             _R = Keyboard.Key.R;
-
+            _ArrowUp = Keyboard.Key.Up;
+             
             nrShoot = 11;
             nrSelect = 14;
             nrBigShoot = 10;
@@ -95,12 +99,15 @@ namespace SpaceShooter
             PausePressedCommand = new PausePressedCommand();
             ResumePressedCommand = new ResumePressedCommand();
 
+            UpgradePressedCommand = new UpgradePressedCommand();
+
             dialogEnterCommand = new DialogEnterCommand();
 
             RequestedCommands = new List<Command>();
             RequestedMenuCommands = new List<MenuCommand>();
             RequestedDialogCommands = new List<DialogCommand>();
             requestedPauseCommands = new List<PauseCommand>();
+            RequestedGameCommands = new List<GameCommand>();
             ConfigureJoystick(0);
 
             mousePosition = Mouse.GetPosition();
@@ -268,6 +275,16 @@ namespace SpaceShooter
             return RequestedPauseCommands;
         }
 
+        public List<GameCommand> HandleInputGame()
+        {
+            if (Keyboard.IsKeyPressed(_ArrowUp))
+            {
+                AddCommandToList(UpgradePressedCommand);
+            }
+
+            return RequestedGameCommands;
+        }
+
         float getStrength(Joystick.Axis axis)
         {
             Joystick.Update();
@@ -358,6 +375,14 @@ namespace SpaceShooter
             }
         }
 
+        private void AddCommandToList(GameCommand c)
+        {
+            if (!RequestedGameCommands.Contains(c))
+            {
+                RequestedGameCommands.Add(c);
+            }
+        }
+
         internal List<Command> RequestedCommands
         {
             get
@@ -433,6 +458,19 @@ namespace SpaceShooter
             set
             {
                 requestedPauseCommands = value;
+            }
+        }
+
+        internal List<GameCommand> RequestedGameCommands
+        {
+            get
+            {
+                return requestedGameCommands;
+            }
+
+            set
+            {
+                requestedGameCommands = value;
             }
         }
     }

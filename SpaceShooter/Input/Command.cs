@@ -39,6 +39,10 @@ namespace SpaceShooter
     {
         void Execute(pickShip screen);
     }
+    interface GameCommand
+    {
+        void Execute(Battlefield b);
+    }
 
     class ShootCommand : Command
     {
@@ -196,6 +200,14 @@ namespace SpaceShooter
         public void Execute(pickShip screen)
         {
             screen.IsPaused = false;
+        }
+    }
+
+    class UpgradePressedCommand : GameCommand
+    {
+        public void Execute(Battlefield b)
+        {
+            b.upgradePlayer(b);
         }
     }
 

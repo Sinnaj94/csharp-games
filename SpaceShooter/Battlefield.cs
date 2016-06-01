@@ -26,6 +26,7 @@ namespace SpaceShooter
         private InputHandler input;
         private List<Command> currentCommands;
         private List<PauseCommand> currentPauseCommands;
+        private List<GameCommand> currentGameCommands;
         private Ship player;
         private Vector2 globalBounds;
         private SFML.System.Clock timer;
@@ -37,6 +38,17 @@ namespace SpaceShooter
         private bool pause = false;
         private pickShip pauseScreen;
 
+        public void upgradePlayer(Battlefield b)
+        {
+            float tempX = ConvertUnits.ToDisplayUnits(player.body.Position.X);
+            float tempY = ConvertUnits.ToDisplayUnits(player.body.Position.Y);
+            player.body.Dispose();
+            b.player = ShipFactory.CreateShip("Destroyer", tempX, tempY, world);
+            input.P = player;
+            playerHud = new HUD(player);
+            player.body.CollisionCategories = Category.Cat6;
+        }
+
         public Battlefield(RenderWindow window)
         {
             this.window = window;
@@ -44,6 +56,7 @@ namespace SpaceShooter
             InitGlobalBounds();            
             input = new InputHandler();
             currentCommands = new List<Command>(10);
+            currentGameCommands = new List<GameCommand>(10);
             currentPauseCommands = new List<PauseCommand>(10);
             initPlayer();
             c = new EnemyShipContainer(player.body);     
@@ -79,7 +92,16 @@ namespace SpaceShooter
             currentCommands.Clear();
 
         }
+        public void HandleGameCommands()
+        {
+            currentGameCommands = input.HandleInputGame();
+            foreach (GameCommand com in currentGameCommands)
+            {
+                com.Execute(this);
+            }
+            currentGameCommands.Clear();
 
+        }
         public void SpawnEnemy()
         {
             if (timer.ElapsedTime > deltaTime)
@@ -92,6 +114,7 @@ namespace SpaceShooter
         public void Update()
         {
             HandlePauseCommands();
+            HandleGameCommands();
 
             if (!pauseScreen.IsPaused)
             {
