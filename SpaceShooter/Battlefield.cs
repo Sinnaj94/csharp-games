@@ -51,7 +51,7 @@ namespace SpaceShooter
             initPlayer();
             c = new EnemyShipContainer(this);
             timer = new SFML.System.Clock();
-            deltaTime = SFML.System.Time.FromSeconds(3);
+            deltaTime = SFML.System.Time.FromSeconds(10);
             debug = new DebugPhysics(world, window);
             pauseScreen = new PauseScreen();
         }
@@ -150,7 +150,7 @@ namespace SpaceShooter
         }
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
-            debug.DrawDebugData();
+            //debug.DrawDebugData();
             Player.Draw(target, states);
             c.Draw(target, states);
 

@@ -114,6 +114,7 @@ namespace SpaceShooter
             healthText.Draw(target, states);
             shipText.Draw(target, states);
             //hudSprite.Draw(target, states);
+
             crossSprite.Draw(target, states);
         }
     }

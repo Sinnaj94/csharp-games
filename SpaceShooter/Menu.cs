@@ -177,6 +177,7 @@ namespace SpaceShooter
 
     class SettingsMenu : Menu
     {
+        //TODO read out of file
         int volume = 100;
         String volumeText;
         public SettingsMenu(ManageMenu m)

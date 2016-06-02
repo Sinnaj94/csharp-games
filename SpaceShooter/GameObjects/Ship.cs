@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 using SFML.System;
 namespace SpaceShooter.GameObjects
 {
-    
+
     class Ship : GameObject, IRenderable, IMovable
     {
 
@@ -30,7 +30,7 @@ namespace SpaceShooter.GameObjects
         Vector2f cursorPosition;
         Random r;
         private List<GameObject> explosions;
-
+        Shield s;
         public double fireRateMS { get; set; }
         public double fireRateBigMS { get; set; }
         public float Life
@@ -69,6 +69,20 @@ namespace SpaceShooter.GameObjects
                 shipSprite = value;
             }
         }
+
+        internal Shield S
+        {
+            get
+            {
+                return s;
+            }
+
+            set
+            {
+                s = value;
+            }
+        }
+
         public void init()
         {
             r = new Random();
@@ -82,8 +96,10 @@ namespace SpaceShooter.GameObjects
             bullets = new BulletContainer();
             hud = new DrawShipAttributes(this);
             explosions = new List<GameObject>();
-        Console.WriteLine("bullets: " + fireRateBigMS);
+            Console.WriteLine("bullets: " + fireRateBigMS);
+            S = new Shield(this);
         }
+        
         public void initShootRandomClock()
         {
             currentRandomMilliseconds = r.Next(500, 2000);
@@ -91,12 +107,12 @@ namespace SpaceShooter.GameObjects
         }
         public void shootRandomly()
         {
-            if(shootRandomClock.ElapsedTime.AsMilliseconds() >= currentRandomMilliseconds)
+            if (shootRandomClock.ElapsedTime.AsMilliseconds() >= currentRandomMilliseconds)
             {
                 ShootBig();
                 initShootRandomClock();
             }
-        }    
+        }
         public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
 
@@ -106,12 +122,12 @@ namespace SpaceShooter.GameObjects
             explosions.Add(new Explosion(contactPoints[0]));
 
             col = true;
-            if(fixtureB.CollisionCategories == Category.Cat3)
+            if (fixtureB.CollisionCategories == Category.Cat3)
             {
-                life--;
+                DeltaLife(-.5f);
             }
             return true;
-        }      
+        }
         public void initSprite()
         {
             ShipSprite = new Sprite(new Texture(@"Resources\Ships.png", new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1] - SpriteBounds[0], SpriteBounds[3] - SpriteBounds[2])));
@@ -121,11 +137,11 @@ namespace SpaceShooter.GameObjects
         }
         public void Shoot()
         {
-            if(c.ElapsedTime.AsMilliseconds() >= fireRateMS)
+            if (c.ElapsedTime.AsMilliseconds() >= fireRateMS)
             {
                 double _dx = -Math.Sin((this.body.Rotation));
                 double _dy = Math.Cos((this.body.Rotation));
-                bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 5, this.world, body, _dx*bulletSpeed, _dy* bulletSpeed));
+                bullets.AddBullet(BulletFactory.CreateBullet(body.Position.X, body.Position.Y, 5, this.world, body, _dx * bulletSpeed, _dy * bulletSpeed));
                 body.ApplyForce(new Vector2(0f, recoil), body.WorldCenter);
                 ManageSound.Instance.shoot();
                 c = new Clock();
@@ -146,7 +162,7 @@ namespace SpaceShooter.GameObjects
             }
         }
         public void MoveAndRotateTo(Ship target)
-        { 
+        {
             body.LinearVelocity = new Vector2((float)target.x - body.Position.X, (float)target.y - body.Position.Y);
             body.LinearVelocity.Normalize();
             body.LinearVelocity *= (float)maxSpeed;
@@ -161,24 +177,33 @@ namespace SpaceShooter.GameObjects
             ShipSprite.Rotation = MathHelper.ToDegrees(body.Rotation + (float)Math.PI);
             bullets.Update();
             hud.Update();
+            S.Update();
         }
         public void DeltaLife(float delta)
         {
-            life += delta;
+            if(!S.Active)
+            {
+                life += delta;
+
+            }
+            S.changeShield(delta);
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
             ShipSprite.Draw(target, states);
             bullets.Draw(target, states);
             //Lifebar zeichnen
-            hud.Draw(target,states);
-            if(explosions != null)
+            hud.Draw(target, states);
+            if (explosions != null)
             {
-                foreach(Explosion exp in explosions)
+                foreach (Explosion exp in explosions)
                 {
                     exp.Draw(target, states);
                 }
             }
+            S.Draw(target,states);
         }
     }
+
+
 }

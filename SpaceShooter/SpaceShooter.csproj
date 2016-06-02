@@ -77,6 +77,7 @@
     <Compile Include="Factories\BulletFactory.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
+    <Compile Include="GameObjects\Shield.cs" />
     <Compile Include="Input\Command.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Container\EnemyShipContainer.cs" />
