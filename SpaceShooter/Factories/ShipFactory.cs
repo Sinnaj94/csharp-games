@@ -35,7 +35,6 @@ namespace SpaceShooter.Factories
             Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
             List<String> sarray = values.Keys.ToList<String>();
 
-
             //Console.WriteLine(sarray[0].ToString());
             return CreateShip(sarray[new Random().Next(sarray.Count)].ToString(), 2000, new Random().NextDouble() * 1080, world);
             //return null;

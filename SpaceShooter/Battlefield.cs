@@ -37,7 +37,7 @@ namespace SpaceShooter
         private HUD playerHud;
         private bool pause = false;
         private PauseScreen pauseScreen;
-        private int score = 10000;
+        private int score;
 
         public Battlefield(RenderWindow window)
         {
@@ -150,7 +150,7 @@ namespace SpaceShooter
         }
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
-            //debug.DrawDebugData();
+            debug.DrawDebugData();
             Player.Draw(target, states);
             c.Draw(target, states);
 
