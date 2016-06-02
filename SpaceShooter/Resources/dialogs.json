@@ -2,18 +2,29 @@
     "1": [
         {
             "speaker": "Resources/Mr_Pug.png",
-
-            "text": "MAYDAY, MAYDAY! Commander P. Ug speaking!\nDoes any- *zrkkk* -one hear *zrrk* me?\nPLEASE *zrrrkkk* \n- Signal Lost -"
+            "plane": "Resources/destroyedxwing.png",
+            "scene": "Resources/explosion.jpg",
+            "text": "MAYDAY, MAYDAY! Commander P. Ug speaking!\nDoes any- *zrkkk* -one hear *zrrk* me?\nPLEASE *zrrrkkk* HELP *zrrk*"
         },
         {
             "speaker": "Resources/Mr_Trump.png",
+            "plane": "Resources/twing.png",
+            "scene": "Resources/space.jpg",
 
-            "text": "HAHAHAHAHA!! YOU WILL NEVER GET ME!\nI am the Trumpinator!\nI will destroy you like a little ant!\nHere, have a little taste of my army!!!"
+            "text": "HAHAHA! YOU THINK YOU CAN STOP ME!\nI'm the Trumpinator!\nI will destroy you like a mexican god!\nHere, have a little taste of my army!"
+        },
+        {
+            "speaker": "Resources/Mr_Pug.png",
+            "plane": "Resources/destroyedxwing.png",
+            "scene": "Resources/explosion.jpg",
+            "text": "WE MUST *zrrrrrrk* ELIMINATE THAT *zrrrrrkrkrkrkr* SCUM!!!\n*ZRRRRRRK*\nDO YOUR BEST SOLDIER\n-Signal Lost-"
         },
         {
             "speaker": "Resources/instructor.png",
+            "plane": "Resources/instructor.png",
+            "scene": "Resources/space.jpg",
 
-            "text": "Go destroy every ship that crosses your path!\nPress P if you need a pppause and Arrow Up to buy a new Ship if you got the money!"
+            "text": "Go destroy every ship that crosses your path!\nPress P if you need a pause and Arrow Up to buy a new Ship if you got the money!"
         }
     ]
 }

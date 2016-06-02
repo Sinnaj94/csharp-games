@@ -10,23 +10,29 @@ namespace SpaceShooter
     class DialogElement : IRenderable
     {
         Clock c;
-        Texture speaker;
         Sprite speakerSprite;
         String text;
         RectangleShape background;
+
+        Sprite backgroundSprite;
+        Sprite backgroundBackground;
         Text shownText;
         RectangleShape edge;
         String savedText;
         int counter;
         int textSpeed;
+        Clock timed;
         //TODO: Auslagern
-        public DialogElement(String imgSource,String text)
+        public DialogElement(String imgSource,String text,String planeSource, String bgSource)
         {
             this.text = text;
-            speaker = new Texture(imgSource);
-            speakerSprite = new Sprite(speaker);
+
+            speakerSprite = new Sprite(new Texture(imgSource));
             speakerSprite.Scale = new Vector2f(0.4f, .4f);
             speakerSprite.Position = new Vector2f(1920 * .1f, 1080 * .7f);
+
+            backgroundSprite = new Sprite(new Texture(planeSource));
+            backgroundBackground = new Sprite(new Texture(bgSource));
             background = new RectangleShape(new Vector2f(1920, 1080));
             background.FillColor = new Color(0, 0, 0, 100);
             savedText = text;
@@ -38,12 +44,14 @@ namespace SpaceShooter
             edge.Position = new Vector2f(0, speakerSprite.Position.Y);
             edge.FillColor = new Color(0, 0, 0, 100);
             textSpeed = 100;
+            timed = new Clock();
         }
 
         
 
         public void Update()
         {
+            backgroundSprite.Position = new Vector2f(backgroundSprite.Position.X, backgroundSprite.Position.X + (float)Math.Sin(timed.ElapsedTime.AsSeconds()) * 50);
             if (counter < savedText.Length)
             {
                 if (c.ElapsedTime.AsMilliseconds() >= textSpeed)
@@ -60,9 +68,12 @@ namespace SpaceShooter
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-
             background.Draw(target, states);
+            backgroundBackground.Draw(target, states);
+
+            backgroundSprite.Draw(target, states);
             edge.Draw(target, states);
+
             speakerSprite.Draw(target, states);
             shownText.Draw(target, states);
         }

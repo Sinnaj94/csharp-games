@@ -170,6 +170,12 @@ namespace SpaceShooter
                 case 3:
                     Manager.Menu = new CreditsMenu(Manager);
                     break;
+                case 4:
+                    Manager.Menu = new HelpMenu(Manager);
+                    break;
+                case 5:
+                    System.Environment.Exit(0);
+                    break;
             }
 
         }
@@ -221,6 +227,28 @@ namespace SpaceShooter
                     break;
             }
 
+        }
+    }
+    
+    class HelpMenu : Menu
+    {
+        Sprite helpSprite;
+        public HelpMenu(ManageMenu m)
+        {
+            Manager = m;
+            helpSprite = new Sprite(new Texture(@"Resources/help.png"));
+            Init("Help");
+        }
+
+        public override void Draw(RenderTarget target, RenderStates states)
+        {
+            base.Draw(target, states);
+            helpSprite.Draw(target,states);
+        }
+
+        public override void selectCurrent()
+        {
+            Manager.Menu = new MainMenu(Manager);
         }
     }
 }

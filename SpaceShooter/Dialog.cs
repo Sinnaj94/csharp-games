@@ -61,10 +61,11 @@ namespace SpaceShooter
                     //buttonList.Add(tempButton);
                     String currentSpeaker = (String)row["speaker"];
                     String currentText = (String)row["text"];
-
+                    String currentPlane = (String)row["plane"];
+                    String currentScene = (String)row["scene"];
                     if (currentSpeaker != "none")
                     {
-                        DialogElement temp = new DialogElement(currentSpeaker,currentText);
+                        DialogElement temp = new DialogElement(currentSpeaker,currentText,currentPlane,currentScene);
                         dialogList.Add(temp);
                     }
 
