@@ -69,8 +69,7 @@ namespace SpaceShooter
 
         public void showAllText()
         {
-            shownText.DisplayedString = savedText;
-            counter = savedText.Length;
+            textSpeed = 10;
         }
 
         public bool textDone()
