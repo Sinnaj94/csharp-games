@@ -137,11 +137,6 @@ namespace SpaceShooter
             } else {
                 pauseScreen.Update(player);
             }
-            if(player.Life <= 0)
-            {
-                destroyBattlefield(this);
-            }
-
         }
         public void HandlePauseCommands()
         {
@@ -200,10 +195,6 @@ namespace SpaceShooter
             {
                 player = value;
             }
-        }
-        public void destroyBattlefield(Battlefield b)
-        {
-            b = null;
         }
     }
 }

@@ -53,7 +53,7 @@ namespace SpaceShooter
 
                 window.Draw(bg);
 
-                if (battle != null)
+                if (battle.Player.Life > 0)
                 {
                     window.Draw(battle);
                 } else
