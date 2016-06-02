@@ -29,7 +29,7 @@ namespace SpaceShooter.GameObjects
             textObject = new Text(text, ManageText.Instance.NormalFont,characterSize);
             
             textObject.Position = new Vector2f((float)x, (float)y);
-            Console.Out.WriteLine("Button " + text + " at x=" + x + " and y=" + y + " created.");
+
             textSelectedObject = new Text(textObject);
             textSelectedObject.Font = ManageText.Instance.SelectedFont;
         }

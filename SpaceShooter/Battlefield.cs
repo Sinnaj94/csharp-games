@@ -149,7 +149,8 @@ namespace SpaceShooter
         }
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
-            debug.DrawDebugData();
+            //Debugging:
+            //debug.DrawDebugData();
             Player.Draw(target, states);
             c.Draw(target, states);
 

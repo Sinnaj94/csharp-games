@@ -96,7 +96,7 @@ namespace SpaceShooter.GameObjects
             bullets = new BulletContainer();
             hud = new DrawShipAttributes(this);
             explosions = new List<GameObject>();
-            Console.WriteLine("bullets: " + fireRateBigMS);
+
             S = new Shield(this);
         }
         
@@ -134,7 +134,7 @@ namespace SpaceShooter.GameObjects
             ShipSprite.TextureRect = new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1] - SpriteBounds[0], SpriteBounds[3] - SpriteBounds[2]);
             ShipSprite.Origin = new SFML.System.Vector2f((ShipSprite.GetGlobalBounds().Left + ShipSprite.GetGlobalBounds().Width) / 2,
                                                               (ShipSprite.GetGlobalBounds().Top + ShipSprite.GetGlobalBounds().Height) / 2);
-            Console.WriteLine("width: " + ShipSprite.GetGlobalBounds().Width);
+
         }
         public void Shoot()
         {

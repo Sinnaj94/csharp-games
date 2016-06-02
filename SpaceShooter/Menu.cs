@@ -83,7 +83,7 @@ namespace SpaceShooter
             ButtonList = new List<Button>();
             foreach (DataRow row in dataTable.Rows)
             {
-                Console.WriteLine(row["name"]);
+
                 try
                 {
                     Button tempButton = new Button((String)row["name"], (double)row["x"], (double)row["y"]);

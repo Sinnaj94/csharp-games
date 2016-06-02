@@ -63,7 +63,7 @@ namespace SpaceShooter.GameObjects
 
         private void Recover()
         {
-            Console.WriteLine(recoverClock.ElapsedTime.AsMilliseconds());
+
 
             if (recoverClock.ElapsedTime.AsMilliseconds() >= timeToRecover)
             {

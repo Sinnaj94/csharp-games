@@ -146,7 +146,7 @@ namespace SpaceShooter
         public void Execute(Ship p)
         {
             
-            Console.Out.WriteLine(strength);
+
             float angle = (float)(Math.Atan2(strength.X - p.body.WorldCenter.X, strength.Y - p.body.WorldCenter.Y) * -1);
             p.Rotate(angle);
             p.CursorPosition = strength + new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
