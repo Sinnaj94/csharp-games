@@ -21,11 +21,73 @@
 
     "Destroyer": {
 		"name": "Destroyer",
-		"maxHP": 10,
+		"maxHP": 4,
 		"maxSpeed": 30,
 		"SpriteBounds": [182, 266, 3, 121],
 		"price": 4000,
 		"fireRateMS" : 200,
 		"fireRateBigMS" : 850
+  },
+
+  "Crusher": {
+		"name": "Crusher",
+		"maxHP": 8,
+		"maxSpeed": 40,
+		"SpriteBounds": [268, 323, 0, 174],
+		"price": 4000,
+		"fireRateMS" : 180,
+		"fireRateBigMS" : 800
+  },
+
+    "Deadbringer": {
+		"name": "Deadbringer",
+		"maxHP": 12,
+		"maxSpeed": 40,
+		"SpriteBounds": [327, 421, 0, 95],
+		"price": 4000,
+		"fireRateMS" : 180,
+		"fireRateBigMS" : 800
+  },
+
+      "Ice": {
+		"name": "Ice",
+		"maxHP": 12,
+		"maxSpeed": 60,
+		"SpriteBounds": [424, 479, 0, 74],
+		"price": 4000,
+		"fireRateMS" : 150,
+		"fireRateBigMS" : 1500
+  },
+
+      "Uber": {
+		"name": "Uber",
+		"maxHP": 14,
+		"maxSpeed": 50,
+		"SpriteBounds": [481, 460, 0, 75],
+		"price": 4000,
+		"fireRateMS" : 200,
+		"fireRateBigMS" : 500
+  },
+
+        "Starlight": {
+		"name": "Starlight",
+		"maxHP": 12,
+		"maxSpeed": 50,
+		"SpriteBounds": [560, 633, 0, 81],
+		"price": 4000,
+		"fireRateMS" : 100,
+		"fireRateBigMS" : 1000
+  },
+
+        "Rebel": {
+		"name": "Rebel",
+		"maxHP": 16,
+		"maxSpeed": 60,
+		"SpriteBounds": [638, 711, 0, 85],
+		"price": 4000,
+		"fireRateMS" : 100,
+		"fireRateBigMS" : 400
   }
+
+
 }

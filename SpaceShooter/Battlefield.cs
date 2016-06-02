@@ -37,7 +37,7 @@ namespace SpaceShooter
         private HUD playerHud;
         private bool pause = false;
         private PauseScreen pauseScreen;
-        private int score;
+        private int score = 10000;
 
         public Battlefield(RenderWindow window)
         {

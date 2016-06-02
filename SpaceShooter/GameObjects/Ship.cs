@@ -190,6 +190,7 @@ namespace SpaceShooter.GameObjects
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
+            S.Draw(target, states);
             ShipSprite.Draw(target, states);
             bullets.Draw(target, states);
             //Lifebar zeichnen
@@ -201,7 +202,7 @@ namespace SpaceShooter.GameObjects
                     exp.Draw(target, states);
                 }
             }
-            S.Draw(target,states);
+            
         }
     }
 
