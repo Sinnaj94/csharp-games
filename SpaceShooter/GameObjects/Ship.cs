@@ -137,17 +137,19 @@ namespace SpaceShooter.GameObjects
                 c = new Clock();
             }
         }
-        public void MoveAndRotateTo(Body target)
+        public void MoveAndRotateTo(Ship target)
         { 
-            body.LinearVelocity = new Vector2(target.Position.X - body.Position.X, target.Position.Y - body.Position.Y);
+            body.LinearVelocity = new Vector2((float)target.x - body.Position.X, (float)target.y - body.Position.Y);
             body.LinearVelocity.Normalize();
             body.LinearVelocity *= (float)maxSpeed;
-            float angle = (float)(Math.Atan2(target.WorldCenter.X - body.WorldCenter.X, target.WorldCenter.Y - body.WorldCenter.Y) * -1);
+            float angle = (float)(Math.Atan2(target.x - body.WorldCenter.X, target.y - body.WorldCenter.Y) * -1);
             body.Rotation = angle;
         }
         public override void Update()
         {
-            ShipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
+            x = body.Position.X;
+            y = body.Position.Y;
+            ShipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits((float)x), ConvertUnits.ToDisplayUnits((float)y));
             ShipSprite.Rotation = MathHelper.ToDegrees(body.Rotation + (float)Math.PI);
             bullets.Update();
             hud.Update();

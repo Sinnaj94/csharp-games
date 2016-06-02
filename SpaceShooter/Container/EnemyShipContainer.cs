@@ -19,12 +19,23 @@ namespace SpaceShooter
         private Body player;
         private Clock c;
         private int score;
-
+        private Ship _player;
         public EnemyShipContainer(Body player)
         {
             Container = new List<Ship>();
             this.player = player;
             c = new Clock();
+        }
+        public EnemyShipContainer(Ship _player)
+        {
+            Container = new List<Ship>();
+            this._player = _player;
+            c = new Clock();
+        }
+
+        public void updatePlayerBody(Ship _player)
+        {
+            this._player = _player;
         }
         internal List<Ship> Container
         {
@@ -56,7 +67,7 @@ namespace SpaceShooter
             for(int i = container.Count - 1; i >= 0; i--)
             {
                 container[i].Update();
-                container[i].MoveAndRotateTo(player);
+                container[i].MoveAndRotateTo(_player);
                 container[i].shootRandomly();
 
                 if (container[i].col)

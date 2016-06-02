@@ -37,7 +37,7 @@ namespace SpaceShooter
         /// <param name="dy"></param>
         public void Move(float dx, float dy)
         {
-            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(50 * (float)dx, 50 * (float)dy), body.WorldCenter);
+            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
         }
 
 

@@ -207,7 +207,7 @@ namespace SpaceShooter
     {
         public void Execute(Battlefield b)
         {
-            b.upgradePlayer(b);
+            b.UpgradePlayer(b);
         }
     }
 

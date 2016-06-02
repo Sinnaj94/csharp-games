@@ -38,17 +38,19 @@ namespace SpaceShooter
         private bool pause = false;
         private PauseScreen pauseScreen;
 
-        public void upgradePlayer(Battlefield b)
+        public void UpgradePlayer(Battlefield b)
         {
             float tempX = ConvertUnits.ToDisplayUnits(player.body.Position.X);
             float tempY = ConvertUnits.ToDisplayUnits(player.body.Position.Y);
             float tempRotation = player.body.Rotation;
-            player.body.Dispose();       
+            player.body.Dispose();
             b.player = ShipFactory.UpgradeShip(b.player.name, tempX, tempY, world);
             b.player.body.Rotation = tempRotation;
+            b.player.body.BodyId = 1;
             input.P = player;
             playerHud = new HUD(player);
             player.body.CollisionCategories = Category.Cat6;
+            c.updatePlayerBody(player);
         }
 
         public Battlefield(RenderWindow window)
@@ -61,7 +63,7 @@ namespace SpaceShooter
             currentGameCommands = new List<GameCommand>(10);
             currentPauseCommands = new List<PauseCommand>(10);
             initPlayer();
-            c = new EnemyShipContainer(player.body);     
+            c = new EnemyShipContainer(player);     
             timer = new SFML.System.Clock();
             deltaTime = SFML.System.Time.FromSeconds(3);
             debug = new DebugPhysics(world, window);
