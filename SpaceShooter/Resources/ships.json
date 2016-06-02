@@ -63,7 +63,7 @@
 		"name": "Uber",
 		"maxHP": 14,
 		"maxSpeed": 50,
-		"SpriteBounds": [481, 460, 0, 75],
+		"SpriteBounds": [481, 560, 0, 75],
 		"price": 4000,
 		"fireRateMS" : 200,
 		"fireRateBigMS" : 500

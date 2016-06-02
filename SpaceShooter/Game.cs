@@ -24,8 +24,6 @@ namespace SpaceShooter
             window.SetFramerateLimit(61);
             return window;
         }
-
-
         static void Main(string[] args)
         {
             SFML.Graphics.RenderWindow window = InitWindow();

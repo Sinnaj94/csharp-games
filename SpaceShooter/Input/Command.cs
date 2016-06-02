@@ -203,6 +203,14 @@ namespace SpaceShooter
         }
     }
 
+    class ESCPressedCommand : GameCommand
+    {
+        public void Execute(Battlefield b)
+        {
+            b.Player.Life = -1;
+        }
+    }
+
     class UpgradePressedCommand : GameCommand
     {
         public void Execute(Battlefield b)

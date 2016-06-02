@@ -31,7 +31,6 @@ namespace Breakout
         private bool leftPressed;
         private bool rightPressed;
         
-
         public static ManageInput Instance
         {
             get

@@ -51,6 +51,7 @@ namespace SpaceShooter
         // Commands for pause screen
         PauseCommand PausePressedCommand;
         PauseCommand ResumePressedCommand;
+        GameCommand ESCPressedCommand;
 
         GameCommand UpgradePressedCommand;
 
@@ -79,7 +80,8 @@ namespace SpaceShooter
             _P = Keyboard.Key.P;
             _R = Keyboard.Key.R;
             _ArrowUp = Keyboard.Key.Up;
-             
+            _ESC = Keyboard.Key.Escape;
+
             nrShoot = 11;
             nrSelect = 14;
             nrBigShoot = 10;
@@ -100,7 +102,7 @@ namespace SpaceShooter
             ResumePressedCommand = new ResumePressedCommand();
 
             UpgradePressedCommand = new UpgradePressedCommand();
-
+            ESCPressedCommand = new ESCPressedCommand();
             dialogEnterCommand = new DialogEnterCommand();
 
             RequestedCommands = new List<Command>();
@@ -280,6 +282,11 @@ namespace SpaceShooter
             if (Keyboard.IsKeyPressed(_ArrowUp))
             {
                 AddCommandToList(UpgradePressedCommand);
+            }
+
+            if (Keyboard.IsKeyPressed(_ESC))
+            {
+                AddCommandToList(ESCPressedCommand);
             }
 
             return RequestedGameCommands;

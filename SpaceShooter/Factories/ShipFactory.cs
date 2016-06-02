@@ -17,6 +17,7 @@ namespace SpaceShooter.Factories
 {
     static class ShipFactory
     {
+        static SFML.Graphics.Texture shiptexture = new SFML.Graphics.Texture(@"Resources\Ships.png");
         public static int GetShipUpgradePrice(String name)
         {
             Dictionary<string, Ship> values = JsonConvert.DeserializeObject<Dictionary<string, Ship>>(File.ReadAllText(@"Resources\ships.json"));
@@ -58,7 +59,7 @@ namespace SpaceShooter.Factories
             {
                 Console.WriteLine(name + " created with " + values[name].maxHP + "hp" + " and " + values[name].maxSpeed + " maximum Speed");
                 Ship s = values[name];
-                s.initSprite();
+                s.initSprite(shiptexture);
                 s.world = world;
                 Console.WriteLine("Xmin: " + s.SpriteBounds[0] + "XMax: " + s.SpriteBounds[1] + "YMin: " + s.SpriteBounds[2] + "YMax: " + s.SpriteBounds[3]);
                 // Creates Coll. Box with sprite bounds
