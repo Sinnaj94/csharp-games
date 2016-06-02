@@ -52,11 +52,19 @@ namespace SpaceShooter
 
 
                 window.Draw(bg);
-                window.Draw(battle);
-                if (d.Active)
+
+                if (battle != null)
+                {
+                    window.Draw(battle);
+                } else
+                {
+                    battle = new Battlefield(window);
+                    menu.Active = true;
+                   // d = new Dialog("1");
+                }
+                    if (d.Active)
                 {
                     window.Draw(d);
-
                 }
                 if (menu.Active)
                 {

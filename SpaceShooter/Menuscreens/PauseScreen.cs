@@ -50,7 +50,7 @@ namespace SpaceShooter.Menuscreens
 
         public void initText()
         {
-            HelpText = new Text("Enter to upgrade, ESC to leave", ManageText.Instance.SelectedFont, characterSize);
+            HelpText = new Text("Arrow Up to upgrade, ESC to leave, R to resume", ManageText.Instance.SelectedFont, characterSize);
             HelpText.Origin = new SFML.System.Vector2f(HelpText.GetLocalBounds().Width / 2, HelpText.GetLocalBounds().Height / 2);
             HelpText.Position = new SFML.System.Vector2f(bgRect.Position.X, bgRect.Position.Y - bgRect.Size.Y / 3);
         }
