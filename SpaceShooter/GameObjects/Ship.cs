@@ -29,6 +29,7 @@ namespace SpaceShooter.GameObjects
         int currentRandomMilliseconds;
         Vector2f cursorPosition;
         Random r;
+        private List<GameObject> explosions;
 
         public double fireRateMS { get; set; }
         public double fireRateBigMS { get; set; }
@@ -80,7 +81,8 @@ namespace SpaceShooter.GameObjects
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
             hud = new DrawShipAttributes(this);
-            Console.WriteLine("bullets: " + fireRateBigMS);
+            explosions = new List<GameObject>();
+        Console.WriteLine("bullets: " + fireRateBigMS);
         }
         public void initShootRandomClock()
         {
@@ -97,6 +99,12 @@ namespace SpaceShooter.GameObjects
         }    
         public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+
+            Vector2 contactNormal;
+            FarseerPhysics.Common.FixedArray2<Vector2> contactPoints;
+            contact.GetWorldManifold(out contactNormal, out contactPoints);
+            explosions.Add(new Explosion(contactPoints[0]));
+
             col = true;
             if(fixtureB.CollisionCategories == Category.Cat3)
             {
@@ -164,6 +172,13 @@ namespace SpaceShooter.GameObjects
             bullets.Draw(target, states);
             //Lifebar zeichnen
             hud.Draw(target,states);
+            if(explosions != null)
+            {
+                foreach(Explosion exp in explosions)
+                {
+                    exp.Draw(target, states);
+                }
+            }
         }
     }
 }

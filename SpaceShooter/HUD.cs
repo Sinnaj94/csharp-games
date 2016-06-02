@@ -23,7 +23,6 @@ namespace SpaceShooter
             lifeSize = new Vector2f(100, 10);
             lifeScale = 100 / s.Life;
             lifeLeft = new Vector2f(lifeScale * s.Life, 10);
-
             lifeBackground = new RectangleShape(lifeSize);
             lifeBackground.FillColor = Color.White;
             lifeForeground = new RectangleShape(lifeLeft);
@@ -60,12 +59,16 @@ namespace SpaceShooter
         Ship ship;
         Text shipText;
         Text healthText;
+        Text scoreText;
         Font font;
         Texture hudTexture;
         Sprite hudSprite;
         Texture crossTexture;
         Sprite crossSprite;
         String healthTextText;
+        String scoreTextText;
+        int score;
+
         public HUD(Ship ship)
         {
             font = ManageText.Instance.SelectedFont;
@@ -75,6 +78,12 @@ namespace SpaceShooter
             healthText = new Text(healthTextText, font);
             healthText.Position = new Vector2f(0, 40);
             healthText.Color = Color.Green;
+
+            scoreTextText = "Credits: " + score;
+            scoreText = new Text(scoreTextText, font);
+            scoreText.Position = new Vector2f(0, 80);
+            scoreText.Color = Color.Green;
+
             shipText.Color = Color.White;
             shipText.Position = new Vector2f(0, 0);
             hudTexture = new Texture(@"Resources/hud.png");
@@ -93,13 +102,15 @@ namespace SpaceShooter
             healthText.DisplayedString = ship.Life*100 + "/" + ship.maxHP*100 + "HP";
         }
 
-        public void Update()
+        public void Update(int score)
         {
+            scoreText.DisplayedString = "Credits: " + score.ToString();
             updateCross(ship.CursorPosition);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            scoreText.Draw(target, states);
             healthText.Draw(target, states);
             shipText.Draw(target, states);
             //hudSprite.Draw(target, states);

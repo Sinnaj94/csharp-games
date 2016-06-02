@@ -18,21 +18,16 @@ namespace SpaceShooter
         private List<Ship> container;
         private Body player;
         private Clock c;
-        private int score;
         private Ship _player;
-        public EnemyShipContainer(Body player)
-        {
-            Container = new List<Ship>();
-            this.player = player;
-            c = new Clock();
-        }
-        public EnemyShipContainer(Ship _player)
-        {
-            Container = new List<Ship>();
-            this._player = _player;
-            c = new Clock();
-        }
+        Battlefield b;
 
+        public EnemyShipContainer(Battlefield b)
+        {
+            Container = new List<Ship>();
+            this.b = b;
+            this._player = b.Player;
+            c = new Clock();
+        }
         public void updatePlayerBody(Ship _player)
         {
             this._player = _player;
@@ -72,7 +67,7 @@ namespace SpaceShooter
 
                 if (container[i].col)
                 {
-                    score += 50;
+                    b.Score += 50;
                     container[i].col = false;
                 }
 

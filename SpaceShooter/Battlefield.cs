@@ -37,44 +37,50 @@ namespace SpaceShooter
         private HUD playerHud;
         private bool pause = false;
         private PauseScreen pauseScreen;
-
-        public void UpgradePlayer(Battlefield b)
-        {
-            float tempX = ConvertUnits.ToDisplayUnits(player.body.Position.X);
-            float tempY = ConvertUnits.ToDisplayUnits(player.body.Position.Y);
-            float tempRotation = player.body.Rotation;
-            player.body.Dispose();
-            b.player = ShipFactory.UpgradeShip(b.player.name, tempX, tempY, world);
-            b.player.body.Rotation = tempRotation;
-            b.player.body.BodyId = 1;
-            input.P = player;
-            playerHud = new HUD(player);
-            player.body.CollisionCategories = Category.Cat6;
-            c.updatePlayerBody(player);
-        }
+        private int score;
 
         public Battlefield(RenderWindow window)
         {
             this.window = window;
             world = new World(new Vector2(0, 0));
-            InitGlobalBounds();            
+            InitGlobalBounds();
             input = new InputHandler();
             currentCommands = new List<Command>(10);
             currentGameCommands = new List<GameCommand>(10);
             currentPauseCommands = new List<PauseCommand>(10);
             initPlayer();
-            c = new EnemyShipContainer(player);     
+            c = new EnemyShipContainer(this);
             timer = new SFML.System.Clock();
             deltaTime = SFML.System.Time.FromSeconds(3);
             debug = new DebugPhysics(world, window);
-            pauseScreen = new PauseScreen(player);
+            pauseScreen = new PauseScreen();
+        }
+        public void UpgradePlayer(Battlefield b)
+        {
+            if(Score >= player.price && player.price != 0)
+            {
+                Score -= player.price;
+                float tempX = ConvertUnits.ToDisplayUnits(Player.body.Position.X);
+                float tempY = ConvertUnits.ToDisplayUnits(Player.body.Position.Y);
+                float tempRotation = Player.body.Rotation;
+                Player.body.Dispose();
+                b.Player = ShipFactory.UpgradeShip(b.Player.name, tempX, tempY, world);
+                b.Player.body.Rotation = tempRotation;
+                b.Player.body.BodyId = 1;
+                input.P = Player;
+                playerHud = new HUD(Player);
+                Player.body.CollisionCategories = Category.Cat6;
+                c.updatePlayerBody(Player);
+                pause = false;           
+            }
+
         }
         public void initPlayer()
         {
-            player = ShipFactory.CreateShip("Falcon", window.Size.X / 4, window.Size.Y / 2, world);
-            input.P = player;
-            playerHud = new HUD(player);
-            player.body.CollisionCategories = Category.Cat6;
+            Player = ShipFactory.CreateShip("Falcon", window.Size.X / 4, window.Size.Y / 2, world);
+            input.P = Player;
+            playerHud = new HUD(Player);
+            Player.body.CollisionCategories = Category.Cat6;
         }
         public void InitGlobalBounds()
         {
@@ -91,7 +97,7 @@ namespace SpaceShooter
             currentCommands = input.HandlePlayerInput();
             foreach (Command com in currentCommands)
             {
-                com.Execute(player);
+                com.Execute(Player);
             }
             currentCommands.Clear();
 
@@ -125,11 +131,11 @@ namespace SpaceShooter
                 HandlePlayerCommands();
                 SpawnEnemy();
                 c.Update();
-                player.Update();
-                playerHud.Update();
+                Player.Update();
+                playerHud.Update(score);
                 world.Step(.01639344262f);
             } else {
-                pauseScreen.Update();
+                pauseScreen.Update(player);
             }
 
         }
@@ -144,20 +150,16 @@ namespace SpaceShooter
         }
         void Drawable.Draw(RenderTarget target, RenderStates states)
         {
-            if (!pauseScreen.IsPaused)
-            {
-                debug.DrawDebugData();
-                player.Draw(target, states);
-                c.Draw(target, states);
-                playerHud.Draw(target, states);
-            } else
+            debug.DrawDebugData();
+            Player.Draw(target, states);
+            c.Draw(target, states);
+
+            if (pauseScreen.IsPaused)
             {
                 pauseScreen.Draw(target, states);
             }
-
             
-            //debug.DrawDebugData();
-
+            playerHud.Draw(target, states);
         }
         public bool Pause
         {
@@ -169,6 +171,30 @@ namespace SpaceShooter
             set
             {
                 pause = value;
+            }
+        }
+        public int Score
+        {
+            get
+            {
+                return score;
+            }
+
+            set
+            {
+                score = value;
+            }
+        }
+        internal Ship Player
+        {
+            get
+            {
+                return player;
+            }
+
+            set
+            {
+                player = value;
             }
         }
     }

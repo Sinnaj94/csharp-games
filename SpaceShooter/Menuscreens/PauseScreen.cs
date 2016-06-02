@@ -33,12 +33,10 @@ namespace SpaceShooter.Menuscreens
             }
         }
 
-        public PauseScreen(Ship player)
+        public PauseScreen()
         {
-            this.player = player;
             InitBg();
             InitShip();
-            upgradeCost = ShipFactory.GetShipUpgradePrice(player.name);
             initText();
         }
 
@@ -55,21 +53,18 @@ namespace SpaceShooter.Menuscreens
             HelpText = new Text("Enter to upgrade, ESC to leave", ManageText.Instance.SelectedFont, characterSize);
             HelpText.Origin = new SFML.System.Vector2f(HelpText.GetLocalBounds().Width / 2, HelpText.GetLocalBounds().Height / 2);
             HelpText.Position = new SFML.System.Vector2f(bgRect.Position.X, bgRect.Position.Y - bgRect.Size.Y / 3);
-            
-            UpgradeCostText = new Text("upgrade Cost: " + upgradeCost + " Credits", ManageText.Instance.SelectedFont, characterSize);
-            UpgradeCostText.Origin = new SFML.System.Vector2f(UpgradeCostText.GetLocalBounds().Width / 2, UpgradeCostText.GetLocalBounds().Height / 2);
-            UpgradeCostText.Position = new SFML.System.Vector2f(bgRect.Position.X, bgRect.Position.Y + bgRect.Size.Y / 3);
         }
 
         public void InitShip()
         {
-            ShipSpriteCopy = player.ShipSprite;
-            ShipSpriteCopy.Position = bgRect.Position;
+
         }
 
-        public void Update()
+        public void Update(Ship s)
         {
-
+            UpgradeCostText = new Text("upgrade Cost: " + s.price + " Credits", ManageText.Instance.SelectedFont, characterSize);
+            UpgradeCostText.Origin = new SFML.System.Vector2f(UpgradeCostText.GetLocalBounds().Width / 2, UpgradeCostText.GetLocalBounds().Height / 2);
+            UpgradeCostText.Position = new SFML.System.Vector2f(bgRect.Position.X, bgRect.Position.Y + bgRect.Size.Y / 3);
         }
 
         public void UpgradeShip()
@@ -80,7 +75,6 @@ namespace SpaceShooter.Menuscreens
         public void Draw(RenderTarget target, RenderStates states)
         {
             bgRect.Draw(target, states);
-            ShipSpriteCopy.Draw(target, states);
             UpgradeCostText.Draw(target, states);
             HelpText.Draw(target, states);
         }
