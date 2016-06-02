@@ -85,7 +85,7 @@ namespace SpaceShooter
                 if (c.ElapsedTime.AsMilliseconds() >= milliseconds)
                 {
                     com.Execute(Menu);
-                    c = new Clock();
+                    c.Restart();
                 }
             }
             currentCommands.Clear();

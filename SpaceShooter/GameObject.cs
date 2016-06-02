@@ -30,7 +30,6 @@ namespace SpaceShooter
         public double rotation { get; set; }
         public int[] SpriteBounds { get; set; }
 
-
         /// <summary>
         /// Moves the Object at given speed DX. Multiplies with maxSpeed
         /// </summary>

@@ -29,9 +29,9 @@ namespace SpaceShooter.GameObjects
         int currentRandomMilliseconds;
         Vector2f cursorPosition;
         Random r;
+
         public double fireRateMS { get; set; }
         public double fireRateBigMS { get; set; }
-
         public float Life
         {
             get
@@ -44,7 +44,6 @@ namespace SpaceShooter.GameObjects
                 life = value;
             }
         }
-
         public Vector2f CursorPosition
         {
             get
@@ -57,7 +56,6 @@ namespace SpaceShooter.GameObjects
                 cursorPosition = value;
             }
         }
-
         public Sprite ShipSprite
         {
             get
@@ -70,7 +68,6 @@ namespace SpaceShooter.GameObjects
                 shipSprite = value;
             }
         }
-
         public void init()
         {
             r = new Random();
@@ -78,19 +75,18 @@ namespace SpaceShooter.GameObjects
             bulletSpeed = 3;
             bulletSpeedBig = 3;
             Life = maxHP;
+            maxSpeed = ConvertUnits.ToSimUnits((float)maxSpeed);
             c = new Clock();
             body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
             bullets = new BulletContainer();
             hud = new DrawShipAttributes(this);
             Console.WriteLine("bullets: " + fireRateBigMS);
         }
-
         public void initShootRandomClock()
         {
             currentRandomMilliseconds = r.Next(500, 2000);
             shootRandomClock = new Clock();
         }
-
         public void shootRandomly()
         {
             if(shootRandomClock.ElapsedTime.AsMilliseconds() >= currentRandomMilliseconds)
@@ -98,8 +94,7 @@ namespace SpaceShooter.GameObjects
                 ShootBig();
                 initShootRandomClock();
             }
-        }
-        
+        }    
         public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             col = true;
@@ -108,8 +103,7 @@ namespace SpaceShooter.GameObjects
                 life--;
             }
             return true;
-        }
-        
+        }      
         public void initSprite()
         {
             ShipSprite = new Sprite(new Texture(@"Resources\Ships.png", new IntRect(SpriteBounds[0], SpriteBounds[2], SpriteBounds[1] - SpriteBounds[0], SpriteBounds[3] - SpriteBounds[2])));
@@ -117,7 +111,6 @@ namespace SpaceShooter.GameObjects
                                                               (ShipSprite.GetGlobalBounds().Top + ShipSprite.GetGlobalBounds().Height) / 2);
             Console.WriteLine("width: " + ShipSprite.GetGlobalBounds().Width);
         }
-
         public void Shoot()
         {
             if(c.ElapsedTime.AsMilliseconds() >= fireRateMS)
@@ -131,7 +124,6 @@ namespace SpaceShooter.GameObjects
 
             }
         }
-
         public void ShootBig()
         {
             if (c.ElapsedTime.AsMilliseconds() >= fireRateBigMS)
@@ -145,16 +137,14 @@ namespace SpaceShooter.GameObjects
                 c = new Clock();
             }
         }
-
-        public void RotateTo(Body target)
+        public void MoveAndRotateTo(Body target)
         { 
             body.LinearVelocity = new Vector2(target.Position.X - body.Position.X, target.Position.Y - body.Position.Y);
             body.LinearVelocity.Normalize();
-            body.LinearVelocity *= .1f;
+            body.LinearVelocity *= (float)maxSpeed;
             float angle = (float)(Math.Atan2(target.WorldCenter.X - body.WorldCenter.X, target.WorldCenter.Y - body.WorldCenter.Y) * -1);
             body.Rotation = angle;
         }
-
         public override void Update()
         {
             ShipSprite.Position = new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y));
@@ -162,12 +152,10 @@ namespace SpaceShooter.GameObjects
             bullets.Update();
             hud.Update();
         }
-
         public void DeltaLife(float delta)
         {
             life += delta;
         }
-
         public void Draw(RenderTarget target, RenderStates states)
         {
             ShipSprite.Draw(target, states);

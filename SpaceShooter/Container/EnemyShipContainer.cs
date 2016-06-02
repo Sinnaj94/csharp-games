@@ -11,20 +11,21 @@ using FarseerPhysics.Dynamics.Contacts;
 using SFML.System;
 namespace SpaceShooter
 
-    // Class to handle enemy Ships (Spawn, Despawn, Damage, Collision, etc.)
+    // Class to handle enemy Ships (Spawn, Despawn, Damage, Collision, Movement, Rotation, etc.)
 {
     class EnemyShipContainer : SFML.Graphics.Drawable
     {
         private List<Ship> container;
         private Body player;
         private Clock c;
+        private int score;
+
         public EnemyShipContainer(Body player)
         {
             Container = new List<Ship>();
             this.player = player;
             c = new Clock();
         }
-
         internal List<Ship> Container
         {
             get
@@ -37,19 +38,12 @@ namespace SpaceShooter
                 container = value;
             }
         }
-
         public void AddShip(Ship enemyShip)
         {
             enemyShip.initShootRandomClock();
             Container.Add(enemyShip);
 
         }
-
-        public void DeleteShip(Ship enemyShip)
-        {
-            enemyShip = null;
-        }
-
         public void Draw(RenderTarget target, RenderStates states)
         {
             foreach (Ship s in Container)
@@ -57,28 +51,17 @@ namespace SpaceShooter
                 s.Draw(target, states);
             }
         }
-
-        public void _Update()
-        {
-            foreach(Ship s in Container){
-                s.Update();
-                if (s.col)
-                {
-                    container.Remove(s);
-                }
-            }
-        }
-
         public void Update()
         {
             for(int i = container.Count - 1; i >= 0; i--)
             {
                 container[i].Update();
-                container[i].RotateTo(player);
+                container[i].MoveAndRotateTo(player);
                 container[i].shootRandomly();
+
                 if (container[i].col)
                 {
-                    container[i].DeltaLife(-.1f);
+                    score += 50;
                     container[i].col = false;
                 }
 
@@ -90,7 +73,6 @@ namespace SpaceShooter
 
             }
         }
-
     }
 }
 

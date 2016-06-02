@@ -2,7 +2,7 @@
   "Falcon": {
 		"name": "Falcon",
 		"maxHP": 1,
-		"maxSpeed": 1,
+		"maxSpeed": 10,
 		"SpriteBounds": [3,57,3,190],
 		"price": 1000,
 		"fireRateMS" : 300,
@@ -12,7 +12,7 @@
   "Battlestar": {
 		"name": "Battlestar",
 		"maxHP": 2,
-		"maxSpeed": 10,
+		"maxSpeed": 20,
 		"SpriteBounds": [63,176,3,121],
 		"price": 2000,
 		"fireRateMS" : 250,
@@ -22,7 +22,7 @@
     "Destroyer": {
 		"name": "Destroyer",
 		"maxHP": 10,
-		"maxSpeed": 1,
+		"maxSpeed": 30,
 		"SpriteBounds": [182, 266, 3, 121],
 		"price": 4000,
 		"fireRateMS" : 200,
