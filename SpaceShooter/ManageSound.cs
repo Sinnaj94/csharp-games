@@ -11,9 +11,9 @@ namespace SpaceShooter
     {
 
         private static ManageSound instance;
-
+        
         List<Sound> sounds;
-
+        Music backgroundMusic;
         private ManageSound()
         {
             sounds = new List<Sound>
@@ -22,10 +22,24 @@ namespace SpaceShooter
                 new Sound(new SoundBuffer(@"Resources\shoot1.wav")),
                 new Sound(new SoundBuffer(@"Resources\select.wav")),
                 new Sound(new SoundBuffer(@"Resources\enter.wav")),
+                new Sound(new SoundBuffer(@"Resources/textelement.wav")),
 
-
-            };
+        };
+            backgroundMusic = new Music(@"Resources/song.ogg");
+            backgroundMusic.Volume = 50;
+            backgroundMusic.Loop = true;
             
+        }
+
+        public void StartPlayingMusic()
+        {
+            backgroundMusic.Play();
+
+        }
+
+        public void StopMusic()
+        {
+            backgroundMusic.Stop();
         }
 
         public static ManageSound Instance
@@ -46,6 +60,7 @@ namespace SpaceShooter
             {
                 s.Volume = volume;
             }
+            backgroundMusic.Volume = volume / 2;
         }
 
         public void shoot()
@@ -66,6 +81,11 @@ namespace SpaceShooter
         public void enter()
         {
             sounds[3].Play();
+        }
+
+        public void textelement()
+        {
+            sounds[4].Play();
         }
 
     }

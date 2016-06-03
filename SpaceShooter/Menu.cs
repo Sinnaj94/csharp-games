@@ -161,6 +161,7 @@ namespace SpaceShooter
             {
                 case 0:
                     Manager.Active = false;
+                    ManageSound.Instance.StartPlayingMusic();
                     break;
                 case 1:
                     //TODO

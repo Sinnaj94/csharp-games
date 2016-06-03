@@ -207,6 +207,7 @@ namespace SpaceShooter
     {
         public void Execute(Battlefield b)
         {
+            ManageSound.Instance.StopMusic();
             b.Player.Life = -1;
         }
     }

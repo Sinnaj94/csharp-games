@@ -59,6 +59,7 @@ namespace SpaceShooter
                     char a = savedText[counter];
                     counter++;
                     shownText.DisplayedString += a;
+                    ManageSound.Instance.textelement();
                     c = new Clock();
                }
 
