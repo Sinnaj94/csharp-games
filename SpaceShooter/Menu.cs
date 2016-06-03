@@ -156,6 +156,7 @@ namespace SpaceShooter
         }
         public override void selectCurrent()
         {
+            base.selectCurrent();
             switch (Selected)
             {
                 case 0:
@@ -197,10 +198,22 @@ namespace SpaceShooter
 
         public override void selectCurrent()
         {
+            base.selectCurrent();
+
             switch (Selected)
             {
                 case 0:
-                    
+                    if(volume + 25 > 100)
+                    {
+                        volume = 0;
+                    }else
+                    {
+                        volume += 25;
+                    }
+                    volumeText = "volume: " + volume;
+                    Button temp = ButtonList[0];
+                    temp.changeText(volumeText);
+                    ManageSound.Instance.setVolume(volume);
                     break;
                 case 1:
                     Manager.Menu = new MainMenu(Manager);
@@ -220,6 +233,8 @@ namespace SpaceShooter
 
         public override void selectCurrent()
         {
+            base.selectCurrent();
+
             switch (Selected)
             {
                 case 3:
@@ -248,6 +263,8 @@ namespace SpaceShooter
 
         public override void selectCurrent()
         {
+            base.selectCurrent();
+
             Manager.Menu = new MainMenu(Manager);
         }
     }
