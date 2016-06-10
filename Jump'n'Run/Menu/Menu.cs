@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using SFML.Graphics;
 using SFML.System;
+
 namespace JumpAndRun
 {
 
@@ -18,20 +19,9 @@ namespace JumpAndRun
         String dataSetName;
         List<Button> buttonList;
         int selected;
-        ManageMenu manager;
+        //ManageMenu manager;
 
-        internal ManageMenu Manager
-        {
-            get
-            {
-                return manager;
-            }
 
-            set
-            {
-                manager = value;
-            }
-        }
 
         public int Selected
         {
@@ -77,7 +67,7 @@ namespace JumpAndRun
         public void Init(String name)
         {
             dataSetName = name;
-            DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\buttons.json"));
+            DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources/buttons.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
             ButtonList = new List<Button>();
             foreach (DataRow row in dataTable.Rows)
@@ -108,7 +98,7 @@ namespace JumpAndRun
             }
         }
 
-        
+
 
         public void navigateUp()
         {
@@ -122,7 +112,7 @@ namespace JumpAndRun
                 Selected--;
             }
             ButtonList[Selected].Selected = true;
-            ManageSound.Instance.select();
+            //ManageSound.Instance.select();
         }
 
         public void navigateDown()
@@ -137,20 +127,19 @@ namespace JumpAndRun
                 Selected++;
             }
             ButtonList[Selected].Selected = true;
-            ManageSound.Instance.select();
+            //ManageSound.Instance.select();
         }
 
         public virtual void selectCurrent()
         {
-            ManageSound.Instance.enter();
+            //ManageSound.Instance.enter();
         }
     }
 
     class MainMenu : Menu
     {
-        public MainMenu(ManageMenu m)
+        public MainMenu()
         {
-            Manager = m;
             Init("Main_Menu");
         }
         public override void selectCurrent()
@@ -159,20 +148,20 @@ namespace JumpAndRun
             switch (Selected)
             {
                 case 0:
-                    Manager.Active = false;
-                    ManageSound.Instance.StartPlayingMusic();
+                    //Manager.Active = false;
+                    //ManageSound.Instance.StartPlayingMusic();
                     break;
                 case 1:
                     //TODO
                     break;
                 case 2:
-                    Manager.Menu = new SettingsMenu(Manager);
+                    //Manager.Menu = new SettingsMenu(Manager);
                     break;
                 case 3:
-                    Manager.Menu = new CreditsMenu(Manager);
+                    //Manager.Menu = new CreditsMenu(Manager);
                     break;
                 case 4:
-                    Manager.Menu = new HelpMenu(Manager);
+                    //Manager.Menu = new HelpMenu(Manager);
                     break;
                 case 5:
                     System.Environment.Exit(0);
@@ -182,90 +171,4 @@ namespace JumpAndRun
         }
     }
 
-    class SettingsMenu : Menu
-    {
-        //TODO read out of file
-        int volume = 100;
-        String volumeText;
-        public SettingsMenu(ManageMenu m)
-        {
-            Manager = m;
-            Init("settings");
-            volumeText = "volume: " + volume;
-            Button temp = ButtonList[0];
-            temp.changeText(volumeText);
-        }
-
-        public override void selectCurrent()
-        {
-            base.selectCurrent();
-
-            switch (Selected)
-            {
-                case 0:
-                    if(volume + 25 > 100)
-                    {
-                        volume = 0;
-                    }else
-                    {
-                        volume += 25;
-                    }
-                    volumeText = "volume: " + volume;
-                    Button temp = ButtonList[0];
-                    temp.changeText(volumeText);
-                    ManageSound.Instance.setVolume(volume);
-                    break;
-                case 1:
-                    Manager.Menu = new MainMenu(Manager);
-                    break;
-            }
-
-        }
-    }
-
-    class CreditsMenu : Menu
-    {
-        public CreditsMenu(ManageMenu m)
-        {
-            Manager = m;
-            Init("Credits");
-        }
-
-        public override void selectCurrent()
-        {
-            base.selectCurrent();
-
-            switch (Selected)
-            {
-                case 3:
-                    Manager.Menu = new MainMenu(Manager);
-                    break;
-            }
-
-        }
-    }
-    
-    class HelpMenu : Menu
-    {
-        Sprite helpSprite;
-        public HelpMenu(ManageMenu m)
-        {
-            Manager = m;
-            helpSprite = new Sprite(new Texture(@"Resources/help.png"));
-            Init("Help");
-        }
-
-        public override void Draw(RenderTarget target, RenderStates states)
-        {
-            base.Draw(target, states);
-            helpSprite.Draw(target,states);
-        }
-
-        public override void selectCurrent()
-        {
-            base.selectCurrent();
-
-            Manager.Menu = new MainMenu(Manager);
-        }
-    }
 }

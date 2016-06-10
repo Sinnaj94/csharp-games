@@ -18,9 +18,9 @@ namespace JumpAndRun
         private Font textFont;
         private ManageText()
         {
-            NormalFont = new Font(@"Resources/Starjhol.ttf");
-            SelectedFont = new Font(@"Resources/Starjedi.ttf");
-            TextFont = new Font(@"Resources/computer_pixel.ttf");
+            NormalFont = new Font(@"Resources/fonts/Starjhol.ttf");
+            SelectedFont = new Font(@"Resources/fonts/Starjedi.ttf");
+            TextFont = new Font(@"Resources/fonts/computer_pixel.ttf");
         }
 
         public static ManageText Instance
