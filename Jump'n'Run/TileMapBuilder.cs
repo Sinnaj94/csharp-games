@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceShooter
+namespace JumpAndRun
 {
     class TileMapBuilder
     {
@@ -12,7 +12,6 @@ namespace SpaceShooter
         {
             TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\Tield_Datei.tmx");
             var myTileset = test.Tilesets["tileset"];
-
         }
     }
 }

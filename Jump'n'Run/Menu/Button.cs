@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+
 namespace JumpAndRun
 {
     class Button : SFML.Graphics.Drawable

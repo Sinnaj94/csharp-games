@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using FarseerPhysics;
 using Microsoft.Xna.Framework;
 
-namespace SpaceShooter
+namespace JumpAndRun
 {
     public static class Vector2fExtensions
     {

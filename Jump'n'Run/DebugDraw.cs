@@ -16,7 +16,7 @@ using FarseerPhysics;
 using Transform = FarseerPhysics.Common.Transform;
 using CircleShape = FarseerPhysics.Collision.Shapes.CircleShape;
 using Microsoft.Xna.Framework;
-using SpaceShooter;
+
 
 
 // SOURCE: http://pastebin.com/L8jsKq9n
