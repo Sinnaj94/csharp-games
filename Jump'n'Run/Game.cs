@@ -32,7 +32,8 @@ namespace JumpAndRun
             {
                 window.Clear();
                 world.Update();
-             //   window.Draw();
+                window.Draw(world);
+                window.Display();
             }
         }
     }
