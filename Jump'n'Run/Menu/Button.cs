@@ -16,7 +16,8 @@ namespace JumpAndRun
         uint characterSize;
         Text textObject;
         Text textSelectedObject;
-
+        float x;
+        float y;
         
 
         //TODO : Fenstergroesse automatisch erkennen
@@ -25,11 +26,11 @@ namespace JumpAndRun
             Selected = false;
             characterSize = 100;
             this.text = text;
-            x = x*1920;
-            y = y*1080;
+
             textObject = new Text(text, ManageText.Instance.NormalFont,characterSize);
-            
-            textObject.Position = new Vector2f((float)x, (float)y);
+            this.x = (float)x;
+            this.y = (float)y;
+            textObject.Position = new Vector2f(0,0);
 
             textSelectedObject = new Text(textObject);
             textSelectedObject.Font = ManageText.Instance.SelectedFont;
@@ -38,7 +39,10 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            
+            Vector2f screenSize = target.GetView().Size;
+            textSelectedObject.Position = new Vector2f(screenSize.X*x, screenSize.Y*y);
+            textObject.Position = new Vector2f(screenSize.X * x, screenSize.Y * y);
+
             if (Selected)
             {
                 textSelectedObject.Draw(target, states);
