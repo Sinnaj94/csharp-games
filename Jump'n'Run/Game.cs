@@ -26,6 +26,13 @@ namespace JumpAndRun
         static void Main(string[] args)
         {
             SFML.Graphics.RenderWindow window = InitWindow();
+
+            while (window.IsOpen)
+            {
+                window.Clear();
+
+                window.Draw();
+            }
         }
     }
 }
