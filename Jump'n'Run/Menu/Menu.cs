@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using SFML.Graphics;
 using SFML.System;
+
 namespace JumpAndRun
 {
 
