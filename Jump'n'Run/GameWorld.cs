@@ -28,7 +28,7 @@ namespace JumpAndRun
             body2.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(200));
             body2.BodyType = BodyType.Dynamic;
 
-            TileMapBuilder tmb = new TileMapBuilder();
+            TileMapBuilder tmb = new TileMapBuilder(world);
 
             debug = new DebugDraw(world, window);
         }
