@@ -37,6 +37,7 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            
             if (Selected)
             {
                 textSelectedObject.Draw(target, states);
@@ -48,7 +49,7 @@ namespace JumpAndRun
             }
         }
 
-        public override void Update()
+        public void Update()
         {
             throw new NotImplementedException();
         }

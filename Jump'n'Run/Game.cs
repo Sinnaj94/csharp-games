@@ -28,11 +28,15 @@ namespace JumpAndRun
         {
             SFML.Graphics.RenderWindow window = InitWindow();
             GameWorld world = new GameWorld(window);
+            MainMenu menu = new MainMenu();
             while (window.IsOpen)
             {
                 window.Clear();
                 world.Update();
-             //   window.Draw();
+
+                window.Draw(menu);
+                window.Draw(world);
+                window.Display();
             }
         }
     }
