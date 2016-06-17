@@ -365,9 +365,8 @@ namespace JumpAndRun
 
         internal void DrawDebugData()
         {
-        
-
-            if ((Flags & DebugViewFlags.Shape) == DebugViewFlags.Shape)
+            
+                if ((Flags & DebugViewFlags.Shape) == DebugViewFlags.Shape)
             {
                 foreach (Body b in World.BodyList)
                 {
@@ -497,6 +496,15 @@ namespace JumpAndRun
             m_Window.Draw(m_LinesArray);
             m_TrianglesArray.Clear();
             m_LinesArray.Clear();
+
+            // Draw sprites for tilemap
+            foreach (Body b in World.BodyList)
+            {
+                if(b.UserData != null){
+                    m_Window.Draw((Sprite)b.UserData);
+                }
+            }
+
         }
     }
 }

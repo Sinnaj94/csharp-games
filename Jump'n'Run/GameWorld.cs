@@ -15,27 +15,27 @@ namespace JumpAndRun
     {
         private World world;
         DebugDraw debug;
-        private Body body2;
+        private Body player;
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 1));
-            Body body1 = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(300), ConvertUnits.ToSimUnits(300), 10);
-            body1.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(600));
-            body1.BodyType = BodyType.Static;
-            body1.Restitution = .5f;
-
-            body2 = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10);
-            body2.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(200));
-            body2.BodyType = BodyType.Dynamic;
-
+            player = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10);
+            player.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
+            player.BodyType = BodyType.Dynamic;
+            player.LinearVelocity = new Vector2(1, 0);
             TileMapBuilder tmb = new TileMapBuilder(world);
-
             debug = new DebugDraw(world, window);
+        }
+
+        public View setCameraToPlayer(RenderTarget target)
+        {
+            SFML.System.Vector2f defaultSize = target.DefaultView.Size;
+            return new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.Position.X), ConvertUnits.ToDisplayUnits(player.Position.Y)), defaultSize);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-          //  Console.Write("" + body2.Friction);
+            target.SetView(setCameraToPlayer(target));
             debug.DrawDebugData();
         }
 
