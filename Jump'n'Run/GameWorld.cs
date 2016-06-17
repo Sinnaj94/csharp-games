@@ -37,6 +37,7 @@ namespace JumpAndRun
         {
             target.SetView(setCameraToPlayer(target));
             debug.DrawDebugData();
+            debug.DrawWorldTiles();
         }
 
         public void Update()

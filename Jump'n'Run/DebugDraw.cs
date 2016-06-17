@@ -363,6 +363,18 @@ namespace JumpAndRun
             }
         }
 
+        internal void DrawWorldTiles()
+        {
+            // Draw sprites for tilemap
+            foreach (Body b in World.BodyList)
+            {
+                if (b.UserData != null)
+                {
+                    m_Window.Draw((Sprite)b.UserData);
+                }
+            }
+        }
+
         internal void DrawDebugData()
         {
             
@@ -496,14 +508,6 @@ namespace JumpAndRun
             m_Window.Draw(m_LinesArray);
             m_TrianglesArray.Clear();
             m_LinesArray.Clear();
-
-            // Draw sprites for tilemap
-            foreach (Body b in World.BodyList)
-            {
-                if(b.UserData != null){
-                    m_Window.Draw((Sprite)b.UserData);
-                }
-            }
 
         }
     }
