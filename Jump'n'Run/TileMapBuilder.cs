@@ -30,18 +30,14 @@ namespace JumpAndRun
                         bodyToAdd.BodyType = BodyType.Static;
                         bodySprite.Position = new SFML.System.Vector2f(t.X * 32 - 16, t.Y * 32 - 16);
                         bodyToAdd.UserData = bodySprite;
-
+                        
                         if (l.Name != "collidable")
                         {
                             bodyToAdd.Enabled = false;
                         } 
-        
                     }
                 }
-            }
-
-
-            
+            }      
         }
     }
 }
