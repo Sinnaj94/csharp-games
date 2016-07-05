@@ -13,12 +13,14 @@ namespace JumpAndRun
         Body body;
         Vector2 jumpForce;
         float movingSpeed;
+        float maxSpeed;
         public Player(Body body)
         {
             this.Body = body;
             //TODO: Outsourcing of Forces 
             this.jumpForce = new Vector2(0, -100);
-            this.movingSpeed = .02f;
+            this.movingSpeed = 1f;
+            this.maxSpeed = 1;
             Body.FixedRotation = true;
         }
 
@@ -35,24 +37,34 @@ namespace JumpAndRun
             }
         }
 
+        /// <summary>
+        /// Makes the Player Jump
+        /// </summary>
         public void Jump()
         {
             //TODO: If touches Ground
             if (GetSpeed().Y == 0)
             {
                 Body.ApplyForce(jumpForce);
-                Output.Instance.print("Player started a Jump");
+                //Output.Instance.print("Player jumps");
             }
 
 
         }
 
+        /// <summary>
+        /// Returns the Current speed of the Player
+        /// </summary>
+        /// <returns>Current Speed of the Player</returns>
         private Vector2 GetSpeed()
         {
             return Body.GetLinearVelocityFromLocalPoint(Body.Position);
         }
 
-        //Moves the player. Speed (Abs) must be between 0 and 1 (for controller input)
+        /// <summary>
+        /// Moves the player in a direction.
+        /// </summary>
+        /// <param name="speed">Direction with additional speed vector</param>
         public void move(float speed)
         {
             //Set speed to 1, if it is too big
@@ -61,11 +73,21 @@ namespace JumpAndRun
                 speed /= speed;
             }
 
-            Body.ApplyLinearImpulse(new Vector2(movingSpeed * speed, 0));
-            Output.Instance.print("Player walks (" + speed + ")");
+            if (speed < 0)
+            {
+                if (GetSpeed().X > -maxSpeed)
+                {
+                    Body.ApplyForce(new Vector2(movingSpeed * speed, 0));
+                }
+            }
+            else if (speed > 0)
+            {
+                if (GetSpeed().X < maxSpeed)
+                {
+                    Body.ApplyForce(new Vector2(movingSpeed * speed, 0));
 
-
-            //TODO: Implement
+                }
+            }
         }
     }
 }

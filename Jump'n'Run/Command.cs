@@ -58,7 +58,7 @@ namespace JumpAndRun
         }
     }
 
-    class GoRightCommand : Command
+    class GoCommand : Command
     {
         CommandAttributes ca;
         public CommandAttributes Ca
@@ -80,26 +80,5 @@ namespace JumpAndRun
         }
     }
 
-    class GoLeftCommand : Command
-    {
-        CommandAttributes ca;
-        public CommandAttributes Ca
-        {
-            get
-            {
-                return ca;
-            }
-
-            set
-            {
-                ca = value;
-            }
-        }
-
-        public void Execute(Player p)
-        {
-            p.move(-ca.Strength);
-        }
-    }
 
 }
