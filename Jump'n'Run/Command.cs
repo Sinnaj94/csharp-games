@@ -16,7 +16,7 @@ namespace JumpAndRun
     {
         public void execute(Player p)
         {
-            throw new NotImplementedException();
+            p.Jump();
         }
     }
 
