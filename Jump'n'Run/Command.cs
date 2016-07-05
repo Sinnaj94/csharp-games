@@ -3,18 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SFML.System;
 namespace JumpAndRun
 {
+    class CommandAttributes
+    {
+        float strength;
+        public CommandAttributes(float strength)
+        {
+            this.strength = strength;
+        }
+        public float Strength
+        {
+            get
+            {
+                return strength;
+            }
+
+            set
+            {
+                strength = value;
+            }
+        }
+    }
+
+
     interface Command
     {
-        void execute(Player p);
+        //Commandattributes
+        CommandAttributes Ca { get; set; }
+        void Execute(Player p);
     }
 
     //Command patterns:
     class JumpCommand : Command
     {
-        public void execute(Player p)
+        CommandAttributes ca;
+        public CommandAttributes Ca
+        {
+            get
+            {
+                return ca;
+            }
+
+            set
+            {
+                ca = value;
+            }
+        }
+
+        public void Execute(Player p)
         {
             p.Jump();
         }
@@ -22,17 +60,45 @@ namespace JumpAndRun
 
     class GoRightCommand : Command
     {
-        public void execute(Player p)
+        CommandAttributes ca;
+        public CommandAttributes Ca
         {
-            throw new NotImplementedException();
+            get
+            {
+                return ca;
+            }
+
+            set
+            {
+                ca = value;
+            }
+        }
+
+        public void Execute(Player p)
+        {
+            p.move(ca.Strength);
         }
     }
 
     class GoLeftCommand : Command
     {
-        public void execute(Player p)
+        CommandAttributes ca;
+        public CommandAttributes Ca
         {
-            throw new NotImplementedException();
+            get
+            {
+                return ca;
+            }
+
+            set
+            {
+                ca = value;
+            }
+        }
+
+        public void Execute(Player p)
+        {
+            p.move(-ca.Strength);
         }
     }
 

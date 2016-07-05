@@ -15,22 +15,25 @@ namespace JumpAndRun
     {
         private World world;
         DebugDraw debug;
-        private Body player;
+        private Player player;
+        InputHandler input;
+        List<Command> currentCommands;
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 1));
-            player = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10);
-            player.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
-            player.BodyType = BodyType.Dynamic;
-            player.LinearVelocity = new Vector2(1, 0);
+            player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10));
+            player.Body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
+            player.Body.BodyType = BodyType.Dynamic;
+            player.Body.LinearVelocity = new Vector2(0, 0);
             TileMapBuilder tmb = new TileMapBuilder(world);
             debug = new DebugDraw(world, window);
+            input = new InputHandler();
         }
 
         public View setCameraToPlayer(RenderTarget target)
         {
             SFML.System.Vector2f defaultSize = target.DefaultView.Size;
-            return new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.Position.X), ConvertUnits.ToDisplayUnits(player.Position.Y)), defaultSize);
+            return new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.Body.Position.X), ConvertUnits.ToDisplayUnits(player.Body.Position.Y)), defaultSize);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -40,8 +43,19 @@ namespace JumpAndRun
             debug.DrawWorldTiles();
         }
 
+        private void HandleInputCommands()
+        {
+            currentCommands = input.HandleInput();
+            foreach(Command c in currentCommands)
+            {
+                c.Execute(player);
+            }
+            input.ResetInput();
+        }
+
         public void Update()
         {
+            HandleInputCommands();
             world.Step(.01639344262f);
         }
     }

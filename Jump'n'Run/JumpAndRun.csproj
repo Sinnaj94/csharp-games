@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
+    <Compile Include="InputHandler.cs" />
     <Compile Include="Manager\ManageText.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="DebugDraw.cs" />
