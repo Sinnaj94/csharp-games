@@ -51,7 +51,7 @@ namespace JumpAndRun
             SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\tileset.png");
             TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\Tield_Datei.tmx");
             var myTileset = test.Tilesets["tileset"];
-           
+           /*
             foreach (TiledSharp.TmxLayer l in test.Layers)
             {
                 foreach (TiledSharp.TmxLayerTile t in l.Tiles)
@@ -68,6 +68,7 @@ namespace JumpAndRun
                     }
                 }
             }
+            */
         }
     }
 }
