@@ -1,0 +1,19 @@
+﻿{
+    "animations": [
+        {
+            "name": "walkright",
+            "startColumn": 0,
+            "columnSize": 5
+        },
+        {
+            "name": "walkleft",
+            "startcolumn": 5,
+            "columnSize": 5
+        },
+        {
+            "name": "idle",
+            "startColumn": 11,
+            "columnSize": 5
+        }
+    ]
+}
