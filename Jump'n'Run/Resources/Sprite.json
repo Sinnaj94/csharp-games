@@ -1,0 +1,23 @@
+﻿{
+  "player": {
+    "rows": 6,
+    "columns" : 21,
+    "animations" : [
+        {
+          "name" : "walkright",
+          "startcolumn": 0,
+          "columnsize": 5
+        },
+        {
+            "name": "walkleft",
+            "startcolumn": 5,
+            "columnsize": 5
+        },
+        {
+          "name" : "idle",
+          "startcolumn": 11,
+          "columnsize": 2
+        }
+      ]
+  }
+}
