@@ -80,7 +80,7 @@
     <Compile Include="Output.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpriteBuilder.cs" />
+    <Compile Include="JsonTools.cs" />
     <Compile Include="TileMapBuilder.cs" />
     <Compile Include="Vector2fExtensions.cs" />
   </ItemGroup>
@@ -100,6 +100,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\animations.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\physicsattributes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Tield_Datei.tmx">

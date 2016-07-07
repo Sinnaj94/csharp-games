@@ -63,9 +63,52 @@ namespace JumpAndRun
                 returnedAnimation = value;
             }
         }
-
-
     }
+
+    class PhysicsBuilder
+    {
+        String dataSetName;
+        PhysicsSettings _physicsReturn;
+
+        public PhysicsBuilder(String databaseName)
+        {
+            Init(databaseName);
+        }
+
+        internal PhysicsSettings PhysicsReturn
+        {
+            get
+            {
+                return _physicsReturn;
+            }
+
+            set
+            {
+                _physicsReturn = value;
+            }
+        }
+
+        public void Init(String databaseName)
+        {
+            dataSetName = databaseName;
+
+            //DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\Sprite.json"));
+            String json = File.ReadAllText(databaseName);
+            PhysicsReturn = JsonConvert.DeserializeObject<PhysicsSettings>(json);
+
+
+        }
+    }
+
+    class PhysicsSettings
+    {
+        public int mass { get; set; }
+        public int acceleration { get; set; }
+        public int maxSpeed { get; set; }
+        public int jumpStrength { get; set; }
+        public int friction { get; set; }
+    }
+
     class Animation
     {
         public Animation(string name, int startColumn, int columnSize)

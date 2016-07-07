@@ -19,9 +19,13 @@ namespace JumpAndRun
         {
             this.Body = body;
             //TODO: Outsourcing of Forces 
-            this.jumpForce = new Vector2(0, -100);
-            this.movingSpeed = 1f;
-            this.maxSpeed = 1;
+            PhysicsBuilder p = new PhysicsBuilder(@"Resources\physicsattributes.json");
+            PhysicsSettings _tempP = p.PhysicsReturn;
+            this.jumpForce = new Vector2(0, -_tempP.jumpStrength);
+            this.movingSpeed = _tempP.acceleration;
+            this.maxSpeed = _tempP.maxSpeed;
+            this.body.Friction = _tempP.friction;
+            this.body.GravityScale = _tempP.mass;
             Body.FixedRotation = true;
             SpriteBuilder _temp = new SpriteBuilder("player");
             spriteAnimation = _temp.ReturnedAnimation;
