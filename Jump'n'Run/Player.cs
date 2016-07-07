@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-
 namespace JumpAndRun
 {
     class Player
@@ -15,6 +14,7 @@ namespace JumpAndRun
         float movingSpeed;
         float maxSpeed;
         Animation spriteAnimation;
+
         public Player(Body body)
         {
             this.Body = body;
@@ -26,6 +26,7 @@ namespace JumpAndRun
             this.maxSpeed = _tempP.maxSpeed;
             this.body.Friction = _tempP.friction;
             this.body.GravityScale = _tempP.mass;
+            this.body.Restitution = .1f;
             Body.FixedRotation = true;
             SpriteBuilder _temp = new SpriteBuilder("player");
             spriteAnimation = _temp.ReturnedAnimation;
@@ -69,6 +70,15 @@ namespace JumpAndRun
         }
 
         /// <summary>
+        /// Returns if a player can jump.
+        /// </summary>
+        /// <returns></returns>
+        private bool canJump()
+        {
+
+        }
+
+        /// <summary>
         /// Moves the player in a direction.
         /// </summary>
         /// <param name="speed">Direction with additional speed vector</param>
@@ -79,7 +89,6 @@ namespace JumpAndRun
             {
                 speed /= speed;
             }
-
             if (speed < 0)
             {
                 if (GetSpeed().X > -maxSpeed)
