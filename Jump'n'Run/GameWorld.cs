@@ -18,6 +18,7 @@ namespace JumpAndRun
         private Player player;
         InputHandler input;
         List<Command> currentCommands;
+        TileMapBuilder tmb;
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 1));
@@ -25,7 +26,7 @@ namespace JumpAndRun
             player.Body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
             player.Body.BodyType = BodyType.Dynamic;
             player.Body.LinearVelocity = new Vector2(0, 0);
-            TileMapBuilder tmb = new TileMapBuilder(world);
+            tmb = new TileMapBuilder(world);
             debug = new DebugDraw(world, window);
             input = new InputHandler();
         }
@@ -41,6 +42,7 @@ namespace JumpAndRun
             target.SetView(setCameraToPlayer(target));
             debug.DrawDebugData();
             debug.DrawWorldTiles();
+            tmb.Draw(target, states);
         }
 
         private void HandleInputCommands()
