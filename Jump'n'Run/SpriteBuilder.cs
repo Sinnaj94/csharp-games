@@ -13,42 +13,73 @@ namespace JumpAndRun
     class SpriteBuilder
     {
         String dataSetName;
+        String name;
+        int startColumn;
+        int columnSize;
+        Animation returnedAnimation;
+
+
 
         public SpriteBuilder(String name)
         {
             Init(name);
         }
-        public void Init(String name)
+        public void Init(String databaseName)
         {
-            dataSetName = name;
+            dataSetName = databaseName;
 
             //DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\Sprite.json"));
             String json = File.ReadAllText(@"Resources\animations.json");
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(json);
-            
-            DataTable dataTable = dataSet.Tables["animations"];
+            DataTable dataTable = dataSet.Tables[databaseName];
             foreach (DataRow row in dataTable.Rows)
             {
 
                 try
                 {
-                    Output.Instance.print((String)row["name"]);
+                    startColumn = (int)(Int64)row["startColumn"];
+                    columnSize = (int)(Int64)row["columnSize"];
+                    name = (String)row["name"];
+                    returnedAnimation = new Animation(name, startColumn, columnSize);
+
                 }
                 catch (InvalidCastException e)
                 {
-                    Console.Out.WriteLine(e.Data);
+                    Console.Out.WriteLine("There was a cast error. Output: " + e.Data);
+                    break;
                 }
-
             }
-            
         }
+
+        internal Animation ReturnedAnimation
+        {
+            get
+            {
+                return returnedAnimation;
+            }
+
+            set
+            {
+                returnedAnimation = value;
+            }
+        }
+
+
     }
     class Animation
     {
+        public Animation(string name, int startColumn, int columnSize)
+        {
+            this.name = name;
+            this.startColumn = startColumn;
+            this.columnSize = columnSize;
+            //Output.Instance.print("Animation " + name + " created. Startcolumn: " + startColumn + ", Columnsize: " + columnSize);
+
+        }
         public string name { get; set; }
         public int startColumn { get; set; }
         public int columnSize { get; set; }
-        
+
 
 
     }

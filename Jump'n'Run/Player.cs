@@ -14,6 +14,7 @@ namespace JumpAndRun
         Vector2 jumpForce;
         float movingSpeed;
         float maxSpeed;
+        Animation spriteAnimation;
         public Player(Body body)
         {
             this.Body = body;
@@ -22,6 +23,8 @@ namespace JumpAndRun
             this.movingSpeed = 1f;
             this.maxSpeed = 1;
             Body.FixedRotation = true;
+            SpriteBuilder _temp = new SpriteBuilder("player");
+            spriteAnimation = _temp.ReturnedAnimation;
         }
 
         public Body Body

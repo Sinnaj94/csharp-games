@@ -29,7 +29,6 @@ namespace JumpAndRun
             SFML.Graphics.RenderWindow window = InitWindow();
             GameWorld world = new GameWorld(window);
             MainMenu menu = new MainMenu();
-            SpriteBuilder a = new SpriteBuilder("");
             while (window.IsOpen)
             {
                 window.Clear();
