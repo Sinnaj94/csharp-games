@@ -10,15 +10,18 @@ using FarseerPhysics.Common;
 using Microsoft.Xna.Framework;
 using FarseerPhysics.Common.PolygonManipulation;
 using FarseerPhysics.Common.Decomposition;
-
+using SFML.Graphics;
 
 namespace JumpAndRun
 {
-    class TileMapBuilder
+    class TileMapBuilder : SFML.Graphics.Drawable
     {
         World world;
+        List<SFML.Graphics.Drawable> TileSpriteList;
+
         static private void CreateShape(SFML.Graphics.Texture texture, World world)
         {
+            // Make collision Geo from bitmap
             // Get pixel data in array​
             byte[] bytes = texture.CopyToImage().Pixels;
             uint[] data = new uint[texture.Size.X * texture.Size.Y];
@@ -26,8 +29,6 @@ namespace JumpAndRun
             {
                 data[i / 4] = BitConverter.ToUInt32(bytes, i);
             }
-            // Get outline polygon from pixels
-           // Vertices verts = PolygonTools.CreatePolygon(data, (int)texture.Size.X, false);
 
             Byte myByte = 1;
             List<Vertices> _list = PolygonTools.CreatePolygon(data, (int)texture.Size.X, 0.05f, myByte, true, true);
@@ -47,28 +48,32 @@ namespace JumpAndRun
 
         public TileMapBuilder(FarseerPhysics.Dynamics.World world)
         {
+            TileSpriteList = new List<Drawable>();
             CreateShape(new SFML.Graphics.Texture(@"Resources\Tield_Datei.png"), world);
             SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\tileset.png");
             TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\Tield_Datei.tmx");
             var myTileset = test.Tilesets["tileset"];
-           /*
+
             foreach (TiledSharp.TmxLayer l in test.Layers)
             {
                 foreach (TiledSharp.TmxLayerTile t in l.Tiles)
                 {
                     if (t.Gid != 0)
                     {
-                        Body bodyToAdd = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32), 10);
-                        bodyToAdd.Position = new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToSimUnits(t.X * 32), ConvertUnits.ToSimUnits(t.Y * 32));
-                        SFML.Graphics.Sprite bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 30 - 1) * 32, t.Gid / 30 * 32, 32, 32));     
-                        bodyToAdd.BodyType = BodyType.Static;
+                        SFML.Graphics.Sprite bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 30 - 1) * 32, t.Gid / 30 * 32, 32, 32));
                         bodySprite.Position = new SFML.System.Vector2f(t.X * 32 - 16, t.Y * 32 - 16);
-                        bodyToAdd.UserData = bodySprite;
-                        bodyToAdd.Enabled = false;
+                        TileSpriteList.Add(bodySprite);
                     }
                 }
             }
-            */
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            foreach (SFML.Graphics.Drawable d in TileSpriteList)
+            {
+                d.Draw(target, states);
+            }
         }
     }
 }
