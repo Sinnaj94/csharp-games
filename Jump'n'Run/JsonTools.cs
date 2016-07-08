@@ -164,7 +164,7 @@ namespace JumpAndRun
         public string name { get; set; }
         public int startColumn { get; set; }
         public int columnSize { get; set; }
-        private int rowSize;
+        private int rowSize; 
         public void getAnimation()
         {
             //TODO: Outsourcing
