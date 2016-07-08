@@ -5,16 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using SFML.Graphics;
+using SFML.System;
+
 namespace JumpAndRun
 {
-    class Player
+    class Player : SFML.Graphics.Drawable
     {
         Body body;
         Vector2 jumpForce;
         float movingSpeed;
         float maxSpeed;
         Animation spriteAnimation;
-
+        Texture playerTexture;
+        Sprite playerSprite;
         public Player(Body body)
         {
             this.Body = body;
@@ -30,6 +34,9 @@ namespace JumpAndRun
             Body.FixedRotation = true;
             SpriteBuilder _temp = new SpriteBuilder("player");
             spriteAnimation = _temp.ReturnedAnimation;
+            //Texture stuff
+            playerTexture = new Texture(@"Resources/Character.png");
+            playerSprite = new Sprite(playerTexture);
         }
 
         public Body Body
@@ -69,12 +76,14 @@ namespace JumpAndRun
             return Body.GetLinearVelocityFromLocalPoint(Body.Position);
         }
 
+
         /// <summary>
         /// Returns if a player can jump.
         /// </summary>
         /// <returns></returns>
         private bool canJump()
         {
+            return false;
 
         }
 
@@ -104,6 +113,19 @@ namespace JumpAndRun
 
                 }
             }
+        }
+
+        private Vector2f toVector2f(Vector2 _in)
+        {
+
+            
+            return new Vector2f(_in.X*100, _in.Y*100);
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            playerSprite.Position = toVector2f(body.Position);
+            playerSprite.Draw(target, states);
         }
     }
 }

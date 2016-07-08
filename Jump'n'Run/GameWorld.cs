@@ -43,6 +43,7 @@ namespace JumpAndRun
             debug.DrawDebugData();
             debug.DrawWorldTiles();
             tmb.Draw(target, states);
+            player.Draw(target, states);
         }
 
         private void HandleInputCommands()
@@ -57,8 +58,10 @@ namespace JumpAndRun
 
         public void Update()
         {
+
             HandleInputCommands();
             world.Step(.01639344262f);
+
         }
     }
 }
