@@ -16,7 +16,6 @@ namespace JumpAndRun
 {
     class TileMapBuilder : SFML.Graphics.Drawable
     {
-        World world;
         List<SFML.Graphics.Drawable> TileSpriteList;
 
         static private void CreateShape(SFML.Graphics.Texture texture, World world)
