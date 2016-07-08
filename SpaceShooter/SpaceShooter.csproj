@@ -207,6 +207,7 @@
     <Error Condition="!Exists('..\packages\Graphnode.SFML.Net.2.3\build\Graphnode.SFML.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Graphnode.SFML.Net.2.3\build\Graphnode.SFML.Net.targets'))" />
   </Target>
   <Import Project="..\packages\Graphnode.SFML.Net.2.3\build\Graphnode.SFML.Net.targets" Condition="Exists('..\packages\Graphnode.SFML.Net.2.3\build\Graphnode.SFML.Net.targets')" />
+  <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

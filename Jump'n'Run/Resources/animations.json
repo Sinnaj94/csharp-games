@@ -1,5 +1,5 @@
 ﻿{
-    "animations": [
+    "player": [
         {
             "name": "walkright",
             "startColumn": 0,
@@ -7,7 +7,7 @@
         },
         {
             "name": "walkleft",
-            "startcolumn": 5,
+            "startColumn": 5,
             "columnSize": 5
         },
         {
