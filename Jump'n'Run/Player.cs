@@ -33,10 +33,11 @@ namespace JumpAndRun
             this.body.Restitution = .1f;
             Body.FixedRotation = true;
             SpriteBuilder _temp = new SpriteBuilder("player");
-            spriteAnimation = _temp.ReturnedAnimation;
+            _temp.AnimationList.getAnimation("idle");
             //Texture stuff
             playerTexture = new Texture(@"Resources/Character.png");
             playerSprite = new Sprite(playerTexture);
+            playerSprite.TextureRect = new IntRect(0, 0, 200, 100);
         }
 
         public Body Body
