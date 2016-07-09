@@ -17,7 +17,7 @@ namespace JumpAndRun
     class TileMapBuilder : SFML.Graphics.Drawable
     {
         List<SFML.Graphics.Drawable> TileSpriteList;
-
+        Map map;
         static private void CreateShape(SFML.Graphics.Texture texture, World world)
         {
             // Make collision Geo from bitmap
@@ -45,23 +45,40 @@ namespace JumpAndRun
             }
         }
 
-        public TileMapBuilder(FarseerPhysics.Dynamics.World world)
+        public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map)
         {
             TileSpriteList = new List<Drawable>();
             CreateShape(new SFML.Graphics.Texture(@"Resources\Tield_Datei.png"), world);
             SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\tileset.png");
             TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\Tield_Datei.tmx");
             var myTileset = test.Tilesets["tileset"];
+            Vertices navigationVerts = new Vertices();
+            this.map = map;
 
             foreach (TiledSharp.TmxLayer l in test.Layers)
             {
                 foreach (TiledSharp.TmxLayerTile t in l.Tiles)
                 {
+                    SFML.Graphics.Sprite bodySprite = null;
+
                     if (t.Gid != 0)
                     {
-                        SFML.Graphics.Sprite bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 30 - 1) * 32, t.Gid / 30 * 32, 32, 32));
+                        bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 30 - 1) * 32, t.Gid / 30 * 32, 32, 32));
                         bodySprite.Position = new SFML.System.Vector2f(t.X * 32 - 16, t.Y * 32 - 16);
-                        TileSpriteList.Add(bodySprite);
+                       // TileSpriteList.Add(bodySprite);
+
+                    }                     
+
+                    if (l.Name == "collidable")
+                    {
+                        if (t.Gid != 0)
+                        {
+                            map.AddTile(t.X, t.Y, bodySprite, true);
+                        }
+                        else
+                        {
+                            map.AddTile(t.X, t.Y, bodySprite, false);
+                        }
                     }
                 }
             }

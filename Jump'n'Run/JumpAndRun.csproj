@@ -74,6 +74,7 @@
     <Compile Include="InputHandler.cs" />
     <Compile Include="JsonTools.cs" />
     <Compile Include="Manager\ManageText.cs" />
+    <Compile Include="map\Map.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="DebugDraw.cs" />
     <Compile Include="Game.cs" />
@@ -81,7 +82,14 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="pathfinding\Node.cs" />
+    <Compile Include="pathfinding\NodeState.cs" />
+    <Compile Include="pathfinding\PathFinder.cs" />
+    <Compile Include="pathfinding\Point.cs" />
+    <Compile Include="pathfinding\Program.cs" />
+    <Compile Include="pathfinding\SearchParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="map\Tile.cs" />
     <Compile Include="TileMapBuilder.cs" />
     <Compile Include="Vector2fExtensions.cs" />
   </ItemGroup>

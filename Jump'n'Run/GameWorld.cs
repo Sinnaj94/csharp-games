@@ -19,6 +19,8 @@ namespace JumpAndRun
         InputHandler input;
         List<Command> currentCommands;
         TileMapBuilder tmb;
+        Map map;
+        bool[,] testmap;
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 1));
@@ -26,10 +28,48 @@ namespace JumpAndRun
             player.Body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
             player.Body.BodyType = BodyType.Dynamic;
             player.Body.LinearVelocity = new Vector2(0, 0);
-            tmb = new TileMapBuilder(world);
+            map = new Map(100, 100, 32);
+            tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
             input = new InputHandler();
+            pathfindigtest();
         }
+
+        public void pathfindigtest()
+        {
+            Point start = new Point(1, 1);
+            Point end = new Point(1, 20);
+            SearchParameters sp = new SearchParameters(start, end, map);
+            //Start with a clear map (don't add any obstacles)
+           // InitializeMap();
+            PathFinder pathFinder = new PathFinder(sp);
+            List<Point> path = pathFinder.FindPath();
+
+            foreach(Point p in path)
+            {
+                Console.WriteLine("X: " + p.X + "Y: " + p.Y);
+            }
+         //   ShowRoute("The algorithm should find a direct path without obstacles:", path);
+        }
+
+        private void InitializeMap()
+        {
+            //  □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □
+            //  □ S □ □ □ F □
+            //  □ □ □ □ □ □ □
+            //  □ □ □ □ □ □ □
+
+            this.testmap = new bool[7, 5];
+            for (int y = 0; y < 5; y++)
+                for (int x = 0; x < 7; x++)
+                    testmap[x, y] = true;
+
+            var startLocation = new Point(1, 2);
+            var endLocation = new Point(5, 2);
+            //  this.searchParameters = new SearchParameters(startLocation, endLocation, map);
+        }
+
 
         public View setCameraToPlayer(RenderTarget target)
         {
@@ -44,6 +84,7 @@ namespace JumpAndRun
             debug.DrawWorldTiles();
             tmb.Draw(target, states);
             player.Draw(target, states);
+            map.Draw(target, states);
         }
 
         private void HandleInputCommands()
