@@ -21,9 +21,9 @@ namespace JumpAndRun
         Animation idleAnimation;
         Texture playerTexture;
         Sprite playerSprite;
+        Vector2 bodySize;
 
-
-        public Player(Body body)
+        public Player(Body body, Vector2 bodySize)
         {
             this.Body = body;
             //TODO: Outsourcing of Forces 
@@ -46,6 +46,7 @@ namespace JumpAndRun
             body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
             body.BodyType = BodyType.Dynamic;
             body.LinearVelocity = new Vector2(0, 0);
+            this.bodySize = new Vector2(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32));
         }
 
         public Body Body
@@ -110,8 +111,11 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            playerSprite.Position = Vector2fExtensions.toVector2f(body.Position);
+            
+            playerSprite.Position = Vector2fExtensions.toVector2f(body.Position-bodySize);
+
             playerSprite.TextureRect = idleAnimation.animate();
+
             playerSprite.Draw(target, states);
         }
 

@@ -2,18 +2,24 @@
     "player": [
         {
             "name": "walkright",
+            "startRow": 4,
             "startColumn": 0,
-            "columnSize": 5
+            "endRow":  3,
+            "endColumn": 1
         },
         {
             "name": "walkleft",
-            "startColumn": 5,
-            "columnSize": 5
+            "startRow": 4,
+            "startColumn": 0,
+            "endRow":  3,
+            "endColumn": 1
         },
         {
             "name": "idle",
-            "startColumn": 11,
-            "columnSize": 5
+            "startRow": 4,
+            "startColumn": 0,
+            "endRow":  3,
+            "endColumn": 1
         }
     ]
 }

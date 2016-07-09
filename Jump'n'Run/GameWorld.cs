@@ -25,7 +25,8 @@ namespace JumpAndRun
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 1));
-            player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10));
+            Vector2 playerSize = new Vector2(64, 64);
+            player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(playerSize.X), ConvertUnits.ToSimUnits(playerSize.Y), 10),playerSize);
             enemy = new JumpingEnemy(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10));
             
             map = new Map(100, 100, 32);

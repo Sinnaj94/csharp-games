@@ -14,9 +14,9 @@ namespace JumpAndRun
     {
         String dataSetName;
         String name;
-        int startColumn;
-        int columnSize;
+
         AnimationManager animationList;
+        private int columnSize;
 
         internal AnimationManager AnimationList
         {
@@ -50,10 +50,13 @@ namespace JumpAndRun
 
                 try
                 {
-                    startColumn = (int)(Int64)row["startColumn"];
-                    columnSize = (int)(Int64)row["columnSize"];
+                    int startRow = (int)(Int64)row["startRow"];
+                    int startColumn = (int)(Int64)row["startColumn"];
+                    int endRow = (int)(Int64)row["endRow"];
+                    int endColumn = (int)(Int64)row["endColumn"];
+
                     name = (String)row["name"];
-                    Animation _temp = new Animation(name, startColumn, columnSize);
+                    Animation _temp = new Animation(name, startRow, startColumn, endRow, endColumn);
                     AnimationList.Add(_temp);
 
                 }
@@ -153,8 +156,10 @@ namespace JumpAndRun
     {
 
         public string name { get; set; }
+        public int startRow { get; set; }
         public int startColumn { get; set; }
-        public int columnSize { get; set; }
+        public int endRow { get; set; }
+        public int endColumn { get; set; }
         Vector2u sheetSize;
         Clock c;
         public List<IntRect> RectangleList
@@ -176,11 +181,13 @@ namespace JumpAndRun
         int currentFrame;
         Time frameChangeTime;
 
-        public Animation(string name, int startColumn, int columnSize)
+        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn)
         {
             this.name = name;
+            this.startRow = startRow;
             this.startColumn = startColumn;
-            this.columnSize = columnSize;
+            this.endRow = endRow;
+            this.endColumn = endColumn;
             //Output.Instance.print("Animation " + name + " created. Startcolumn: " + startColumn + ", Columnsize: " + columnSize);
             rowSize = 6;
             RectangleList = new List<IntRect>();
@@ -196,17 +203,29 @@ namespace JumpAndRun
         {
 
             //TODO: Outsourcing
-            //Go through X
-
-            for (int c = startColumn; c < startColumn + columnSize - 1; c++)
+            //Go through Columns (Y)
+            for (int c = 0; c < sheetSize.Y; c++)
             {
-
                 //Go thorugh Y
-                for (int r = 0; r < rowSize; r++)
+                for (int r = 0; r < sheetSize.X; r++)
                 {
+                    if (c == startColumn)
+                    {
+                        if (r >= startRow)
+                        {
+                            RectangleList.Add(getRect(r, c, texture));
+                        }
+                    }else if(c == endColumn)
+                    {
+                        if (r <= endRow)
+                        {
+                            RectangleList.Add(getRect(r, c, texture));
+                        }
+                    }else if (c > startColumn && c < endColumn)
+                    {
+                        RectangleList.Add(getRect(r, c, texture));
+                    }
 
-
-                    RectangleList.Add(getRect(r, c, texture));
                 }
             }
             size = RectangleList.Count;
@@ -216,14 +235,14 @@ namespace JumpAndRun
 
         private IntRect getRect(int x, int y, Texture texture)
         {
-            IntRect _temp = new IntRect((int)(x * texture.Size.X / sheetSize.X), (int)(y* texture.Size.Y / sheetSize.Y), (int)(texture.Size.X / sheetSize.X ), (int)(texture.Size.Y / sheetSize.Y ));
+            IntRect _temp = new IntRect(x * 64, y * 64, 64, 64);
             Console.Out.WriteLine(" " + _temp);
             return _temp;
         }
 
         public IntRect animate()
         {
-            if(c.ElapsedTime > frameChangeTime)
+            if (c.ElapsedTime > frameChangeTime)
             {
                 changeFrame();
                 c = new Clock();
@@ -233,7 +252,7 @@ namespace JumpAndRun
 
         private void changeFrame()
         {
-            if(currentFrame + 1 < size)
+            if (currentFrame + 1 < size)
             {
                 currentFrame++;
             }

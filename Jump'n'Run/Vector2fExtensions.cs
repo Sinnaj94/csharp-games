@@ -16,7 +16,7 @@ namespace JumpAndRun
         public static Vector2 ToSimVector(this SFML.System.Vector2f v) {return new Vector2(ConvertUnits.ToSimUnits(v.X), ConvertUnits.ToSimUnits(v.Y)); }
         public static SFML.System.Vector2f toVector2f(Vector2 _in)
         {
-            return new SFML.System.Vector2f(_in.X * 100, _in.Y * 100);
+            return new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(_in.X), ConvertUnits.ToDisplayUnits(_in.Y ));
         }
     }
 }
