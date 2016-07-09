@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
+    <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="JsonTools.cs" />
@@ -125,8 +126,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Character.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Resources\sprites\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\tileset.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

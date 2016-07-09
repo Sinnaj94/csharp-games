@@ -16,6 +16,7 @@ namespace JumpAndRun
         private World world;
         DebugDraw debug;
         private Player player;
+        Enemy enemy; 
         InputHandler input;
         List<Command> currentCommands;
         TileMapBuilder tmb;
@@ -25,9 +26,8 @@ namespace JumpAndRun
         {
             world = new World(new Vector2(0, 1));
             player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10));
-            player.Body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
-            player.Body.BodyType = BodyType.Dynamic;
-            player.Body.LinearVelocity = new Vector2(0, 0);
+            enemy = new JumpingEnemy(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10));
+            
             map = new Map(100, 100, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);

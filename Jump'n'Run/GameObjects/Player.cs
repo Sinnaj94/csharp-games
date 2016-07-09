@@ -8,6 +8,7 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using SFML.System;
+using FarseerPhysics;
 
 namespace JumpAndRun
 {
@@ -17,7 +18,7 @@ namespace JumpAndRun
         Vector2 jumpForce;
         float movingSpeed;
         float maxSpeed;
-        Animation spriteAnimation;
+        Animation idleAnimation;
         Texture playerTexture;
         Sprite playerSprite;
 
@@ -36,11 +37,15 @@ namespace JumpAndRun
             this.body.Restitution = .1f;
             Body.FixedRotation = true;
             SpriteBuilder _temp = new SpriteBuilder("player");
-            _temp.AnimationList.getAnimation("idle");
+            
             //Texture stuff
-            playerTexture = new Texture(@"Resources/Character.png");
+            playerTexture = new Texture(@"Resources/sprites/player.png");
             playerSprite = new Sprite(playerTexture);
-            playerSprite.TextureRect = new IntRect(0, 0, 200, 100);
+            idleAnimation = _temp.AnimationList.getAnimation("walkright",playerTexture);
+            playerSprite.TextureRect = idleAnimation.RectangleList[0];
+            body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
+            body.BodyType = BodyType.Dynamic;
+            body.LinearVelocity = new Vector2(0, 0);
         }
 
         public Body Body
@@ -106,6 +111,7 @@ namespace JumpAndRun
         public void Draw(RenderTarget target, RenderStates states)
         {
             playerSprite.Position = Vector2fExtensions.toVector2f(body.Position);
+            playerSprite.TextureRect = idleAnimation.animate();
             playerSprite.Draw(target, states);
         }
 

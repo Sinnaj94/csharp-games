@@ -125,10 +125,11 @@ namespace JumpAndRun
             animationList.Add(_animation);
         }
 
-        public void getAnimation(String animationName)
+        public Animation getAnimation(String animationName, Texture texture)
         {
             Animation workingAnimation = searchAnimation(animationName);
-            workingAnimation.getAnimation();
+            workingAnimation.getAnimation(texture);
+            return workingAnimation;
         }
 
         private Animation searchAnimation(String animationName)
@@ -137,7 +138,7 @@ namespace JumpAndRun
             {
                 if (animationName == _a.name)
                 {
-                    
+
                     return _a;
                 }
             }
@@ -146,10 +147,35 @@ namespace JumpAndRun
         }
     }
 
-    
+
 
     class Animation
     {
+
+        public string name { get; set; }
+        public int startColumn { get; set; }
+        public int columnSize { get; set; }
+        Vector2u sheetSize;
+        Clock c;
+        public List<IntRect> RectangleList
+        {
+            get
+            {
+                return rectangleList;
+            }
+
+            set
+            {
+                rectangleList = value;
+            }
+        }
+
+        private int rowSize;
+        private List<IntRect> rectangleList;
+        int size;
+        int currentFrame;
+        Time frameChangeTime;
+
         public Animation(string name, int startColumn, int columnSize)
         {
             this.name = name;
@@ -157,26 +183,63 @@ namespace JumpAndRun
             this.columnSize = columnSize;
             //Output.Instance.print("Animation " + name + " created. Startcolumn: " + startColumn + ", Columnsize: " + columnSize);
             rowSize = 6;
+            RectangleList = new List<IntRect>();
+            sheetSize = new Vector2u(6, 21);
+            c = new Clock();
+            currentFrame = 0;
+            frameChangeTime = Time.FromMilliseconds(100);
         }
 
 
 
-        public string name { get; set; }
-        public int startColumn { get; set; }
-        public int columnSize { get; set; }
-        private int rowSize; 
-        public void getAnimation()
+        public List<IntRect> getAnimation(Texture texture)
         {
+
             //TODO: Outsourcing
             //Go through X
-            for (int x = 0; x < rowSize-1; x++)
+
+            for (int c = startColumn; c < startColumn + columnSize - 1; c++)
             {
-                for(int y = startColumn; y <columnSize - 1; y++)
+
+                //Go thorugh Y
+                for (int r = 0; r < rowSize; r++)
                 {
 
+
+                    RectangleList.Add(getRect(r, c, texture));
                 }
             }
+            size = RectangleList.Count;
+            return RectangleList;
 
+        }
+
+        private IntRect getRect(int x, int y, Texture texture)
+        {
+            IntRect _temp = new IntRect((int)(x * texture.Size.X / sheetSize.X), (int)(y* texture.Size.Y / sheetSize.Y), (int)(texture.Size.X / sheetSize.X ), (int)(texture.Size.Y / sheetSize.Y ));
+            return _temp;
+        }
+
+        public IntRect animate()
+        {
+            if(c.ElapsedTime > frameChangeTime)
+            {
+                changeFrame();
+                c = new Clock();
+            }
+            return rectangleList[currentFrame];
+        }
+
+        private void changeFrame()
+        {
+            if(currentFrame + 1 < size)
+            {
+                currentFrame++;
+            }
+            else
+            {
+                currentFrame = 0;
+            }
         }
     }
 
