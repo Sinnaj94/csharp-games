@@ -39,7 +39,7 @@ namespace JumpAndRun
             SpriteBuilder _temp = new SpriteBuilder("player");
             
             //Texture stuff
-            playerTexture = new Texture(@"Resources/sprites/player.png");
+            playerTexture = new Texture(@"Resources/Character.png");
             playerSprite = new Sprite(playerTexture);
             idleAnimation = _temp.AnimationList.getAnimation("walkright",playerTexture);
             playerSprite.TextureRect = idleAnimation.RectangleList[0];

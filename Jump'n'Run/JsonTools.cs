@@ -184,7 +184,7 @@ namespace JumpAndRun
             //Output.Instance.print("Animation " + name + " created. Startcolumn: " + startColumn + ", Columnsize: " + columnSize);
             rowSize = 6;
             RectangleList = new List<IntRect>();
-            sheetSize = new Vector2u(6, 21);
+            sheetSize = new Vector2u(8, 9);
             c = new Clock();
             currentFrame = 0;
             frameChangeTime = Time.FromMilliseconds(100);
@@ -217,6 +217,7 @@ namespace JumpAndRun
         private IntRect getRect(int x, int y, Texture texture)
         {
             IntRect _temp = new IntRect((int)(x * texture.Size.X / sheetSize.X), (int)(y* texture.Size.Y / sheetSize.Y), (int)(texture.Size.X / sheetSize.X ), (int)(texture.Size.Y / sheetSize.Y ));
+            Console.Out.WriteLine(" " + _temp);
             return _temp;
         }
 
