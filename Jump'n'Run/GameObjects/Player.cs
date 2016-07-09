@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ using SFML.System;
 
 namespace JumpAndRun
 {
-    class Player : SFML.Graphics.Drawable
+    class Player : GameObject,  SFML.Graphics.Drawable
     {
         Body body;
         Vector2 jumpForce;
@@ -19,6 +20,8 @@ namespace JumpAndRun
         Animation spriteAnimation;
         Texture playerTexture;
         Sprite playerSprite;
+
+
         public Player(Body body)
         {
             this.Body = body;
@@ -64,8 +67,6 @@ namespace JumpAndRun
                 Body.ApplyForce(jumpForce);
                 //Output.Instance.print("Player jumps");
             }
-
-
         }
 
         /// <summary>
@@ -85,7 +86,6 @@ namespace JumpAndRun
         private bool canJump()
         {
             return false;
-
         }
 
         /// <summary>
@@ -117,9 +117,7 @@ namespace JumpAndRun
         }
 
         private Vector2f toVector2f(Vector2 _in)
-        {
-
-            
+        {   
             return new Vector2f(_in.X*100, _in.Y*100);
         }
 
@@ -127,6 +125,11 @@ namespace JumpAndRun
         {
             playerSprite.Position = toVector2f(body.Position);
             playerSprite.Draw(target, states);
+        }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }
