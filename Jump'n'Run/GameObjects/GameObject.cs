@@ -14,7 +14,7 @@ namespace JumpAndRun
     {
         // FARSSER physics body for col. detection
         public World world;
-        public Body body;
+        public Body body { get; set; }
         public abstract void Update();
         public String name { get; set; }
         public int HP { get; set; }

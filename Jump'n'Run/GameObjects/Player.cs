@@ -13,7 +13,7 @@ namespace JumpAndRun
 {
     class Player : GameObject,  SFML.Graphics.Drawable
     {
-        Body body;
+
         Vector2 jumpForce;
         float movingSpeed;
         float maxSpeed;
@@ -56,9 +56,6 @@ namespace JumpAndRun
             }
         }
 
-        /// <summary>
-        /// Makes the Player Jump
-        /// </summary>
         public void Jump()
         {
             //TODO: If touches Ground
@@ -69,29 +66,17 @@ namespace JumpAndRun
             }
         }
 
-        /// <summary>
-        /// Returns the Current speed of the Player
-        /// </summary>
-        /// <returns>Current Speed of the Player</returns>
         private Vector2 GetSpeed()
         {
             return Body.GetLinearVelocityFromLocalPoint(Body.Position);
         }
 
-
-        /// <summary>
-        /// Returns if a player can jump.
-        /// </summary>
-        /// <returns></returns>
         private bool canJump()
         {
             return false;
         }
 
-        /// <summary>
-        /// Moves the player in a direction.
-        /// </summary>
-        /// <param name="speed">Direction with additional speed vector</param>
+
         public void move(float speed)
         {
             //Set speed to 1, if it is too big
@@ -116,14 +101,11 @@ namespace JumpAndRun
             }
         }
 
-        private Vector2f toVector2f(Vector2 _in)
-        {   
-            return new Vector2f(_in.X*100, _in.Y*100);
-        }
+
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            playerSprite.Position = toVector2f(body.Position);
+            playerSprite.Position = Vector2fExtensions.toVector2f(body.Position);
             playerSprite.Draw(target, states);
         }
 
