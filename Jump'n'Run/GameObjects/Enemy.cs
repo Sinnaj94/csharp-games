@@ -15,7 +15,7 @@ namespace JumpAndRun
     {
         float damage;
         List<Point> path;
-
+       
         public List<Point> Path
         {
             get
@@ -45,16 +45,30 @@ namespace JumpAndRun
 
         public void moveToTarget(Point target)
         {
-           
-            body.LinearVelocity = new Vector2((float)target.XSim - body.Position.X, (float)target.YSim - body.Position.Y);
-            body.LinearVelocity.Normalize();
-            body.LinearVelocity *= (float)maxSpeed;
-            
-           
             /*
-            float angle = (float)(Math.Atan2(target.XSim - body.WorldCenter.X, target.YSim - body.WorldCenter.Y) * -1);
-            body.Rotation = angle;
+            if(body.LinearVelocity.X < maxSpeed)
+            {
+                body.ApplyLinearImpulse(new Vector2(1, 0));
+            }
             */
+            Vector2 force = new Vector2(target.XSim - body.Position.X, target.YSim - body.Position.Y);
+            force.Normalize();
+            body.ApplyForce(new Vector2(force.X, 0));
+            
+            if (body.Position.Y > target.YSim)
+            {
+                Console.WriteLine(body.Position.Y + " < " + target.YSim);
+                body.ApplyForce(new Vector2(0, force.Y * 4));
+            }
+        }
+
+        public void jump(Point target)
+        {
+            if (body.LinearVelocity.Y < maxSpeed)
+            {
+                body.ApplyLinearImpulse(new Vector2(0, 2), new Vector2(target.XSim - body.Position.X, target.YSim - body.Position.Y));
+            }
+            
         }
 
         public void calculatePathToTarget(Point end, Map map)
@@ -76,7 +90,8 @@ namespace JumpAndRun
             //TODO: Make him Jump
             this.body = body;
             body.FixedRotation = true;
-            body.Restitution = 1f;
+            //   body.Restitution = 1f;
+            body.Mass = 10;
             body.BodyType = BodyType.Dynamic;
         }
         public override void Update()

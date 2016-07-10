@@ -32,7 +32,7 @@ namespace JumpAndRun
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
             input = new InputHandler();
-            enemy.calculatePathToTarget(new Point(10, 1), map);
+            enemy.calculatePathToTarget(new Point(10, 30), map);
         }
 
         public List<Point> pathfindigtest(Point start, Point end)
