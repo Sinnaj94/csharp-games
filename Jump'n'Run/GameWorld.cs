@@ -28,49 +28,20 @@ namespace JumpAndRun
             Vector2 playerSize = new Vector2(64, 64);
             player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(playerSize.X), ConvertUnits.ToSimUnits(playerSize.Y), 10),playerSize);
             enemy = new JumpingEnemy(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10));
-            
             map = new Map(100, 100, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
             input = new InputHandler();
-            pathfindigtest();
+            enemy.calculatePathToTarget(new Point(10, 1), map);
         }
 
-        public void pathfindigtest()
+        public List<Point> pathfindigtest(Point start, Point end)
         {
-            Point start = new Point(1, 1);
-            Point end = new Point(1, 20);
             SearchParameters sp = new SearchParameters(start, end, map);
-            //Start with a clear map (don't add any obstacles)
-           // InitializeMap();
             PathFinder pathFinder = new PathFinder(sp);
             List<Point> path = pathFinder.FindPath();
-
-            foreach(Point p in path)
-            {
-                Console.WriteLine("X: " + p.X + "Y: " + p.Y);
-            }
-         //   ShowRoute("The algorithm should find a direct path without obstacles:", path);
+            return path;
         }
-
-        private void InitializeMap()
-        {
-            //  □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □
-            //  □ S □ □ □ F □
-            //  □ □ □ □ □ □ □
-            //  □ □ □ □ □ □ □
-
-            this.testmap = new bool[7, 5];
-            for (int y = 0; y < 5; y++)
-                for (int x = 0; x < 7; x++)
-                    testmap[x, y] = true;
-
-            var startLocation = new Point(1, 2);
-            var endLocation = new Point(5, 2);
-            //  this.searchParameters = new SearchParameters(startLocation, endLocation, map);
-        }
-
 
         public View setCameraToPlayer(RenderTarget target)
         {
@@ -100,7 +71,7 @@ namespace JumpAndRun
 
         public void Update()
         {
-
+            enemy.Update();
             HandleInputCommands();
             player.Update();
             world.Step(.01639344262f);
