@@ -3,7 +3,7 @@
     "mass": 2,
     "acceleration": 10,
     "maxSpeed": 2,
-    "jumpStrength": 250,
-    "friction": 1
+    "jumpStrength": 50,
+    "friction": 2
 
 }
