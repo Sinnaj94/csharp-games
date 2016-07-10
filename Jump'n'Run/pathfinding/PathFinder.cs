@@ -128,36 +128,6 @@ namespace JumpAndRun
                 // Ignore non-walkable nodes
                 if (!node.IsWalkable)
                     continue;
- 
-                // check left
-                if(x >= 1 && y >= 1)
-                {
-                    if(nodes[x-1,y].IsWalkable && !nodes[x - 1, y - 1].IsWalkable)
-                    {
-                        continue;
-                    }
-                }
-
-                // check right
-                if (nodes[x + 1, y].IsWalkable && !nodes[x + 1, y + 1].IsWalkable)
-                    {
-                        continue;
-                    }
-                
-                // check fall right
-                if(nodes[x+1,y].IsWalkable && nodes[x + 1, y + 1].IsWalkable)
-                    {
-                        int i = 1;
-                        while (i <= 10)
-                        {
-                        i++;
-                        if (!nodes[x+1,y + i].IsWalkable)
-                                {
-                                    continue;
-                                }
-                        }
-                    }
-
 
                 // Ignore already-closed nodes
                 if (node.State == NodeState.Closed)

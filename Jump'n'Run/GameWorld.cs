@@ -24,15 +24,16 @@ namespace JumpAndRun
         bool[,] testmap;
         public GameWorld(RenderWindow window)
         {
-            world = new World(new Vector2(0, 1));
+            world = new World(new Vector2(0, 0));
             Vector2 playerSize = new Vector2(64, 64);
             player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(playerSize.X), ConvertUnits.ToSimUnits(playerSize.Y), 10),playerSize);
-            enemy = new JumpingEnemy(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10), world);
+            enemy = new JumpingEnemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
+            enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(128), ConvertUnits.ToSimUnits(10));
             map = new Map(100, 100, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
             input = new InputHandler();
-            enemy.calculatePathToTarget(new Point(25, 22), map);
+            enemy.calculatePathToTarget(new Point(12, 14), map);
         }
 
         public List<Point> pathfindigtest(Point start, Point end)

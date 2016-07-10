@@ -52,6 +52,13 @@ namespace JumpAndRun
                 body.ApplyLinearImpulse(new Vector2(1, 0));
             }
             */
+
+            body.LinearVelocity = new Vector2((float)target.XSim - body.Position.X, (float)target.YSim - body.Position.Y);
+            body.LinearVelocity.Normalize();
+            body.LinearVelocity *= (float)maxSpeed;
+            
+            /*
+
             Vector2 force = new Vector2(target.XSim - body.Position.X, target.YSim - body.Position.Y);
             force.Normalize();
             body.ApplyForce(new Vector2(force.X, 0));
@@ -61,6 +68,7 @@ namespace JumpAndRun
                 Console.WriteLine(body.Position.Y + " < " + target.YSim);
                 body.ApplyForce(new Vector2(0, force.Y * 4));
             }
+            */
         }
 
         public void jump(Point target)
@@ -101,7 +109,7 @@ namespace JumpAndRun
         {
             this.world = world;
             Path = new List<Point>();
-            this.maxSpeed = 1;
+            this.maxSpeed = 3;
             //TODO: Make him Jump
             this.body = body;
             body.FixedRotation = true;
@@ -114,7 +122,7 @@ namespace JumpAndRun
             if(Path.Count != 0)
             {
                 moveToTarget(Path[0]);
-                if(Path[0].XSim - this.body.Position.X < 1)
+                if(Math.Abs(Path[0].XSim - this.body.Position.X) < 0.1 && Math.Abs(Path[0].YSim - this.body.Position.Y) < 0.1)
                 {
                     Path.Remove(Path.First());
                 }
