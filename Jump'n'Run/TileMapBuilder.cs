@@ -48,7 +48,7 @@ namespace JumpAndRun
         public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map)
         {
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(@"Resources\Tield_Datei.png"), world);
+            CreateShape(new SFML.Graphics.Texture(@"Resources\Tield_Datei3.png"), world);
             SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\tileset.png");
             TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\Tield_Datei.tmx");
             var myTileset = test.Tilesets["tileset"];
@@ -60,12 +60,12 @@ namespace JumpAndRun
                 foreach (TiledSharp.TmxLayerTile t in l.Tiles)
                 {
                     SFML.Graphics.Sprite bodySprite = null;
-
+                    
                     if (t.Gid != 0)
                     {
                         bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 30 - 1) * 32, t.Gid / 30 * 32, 32, 32));
                         bodySprite.Position = new SFML.System.Vector2f(t.X * 32 - 16, t.Y * 32 - 16);
-                       // TileSpriteList.Add(bodySprite);
+                        TileSpriteList.Add(bodySprite);
 
                     }                     
 

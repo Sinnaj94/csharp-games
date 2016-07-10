@@ -15,6 +15,7 @@ namespace JumpAndRun
     {
         float damage;
         List<Point> path;
+        public Body debugpath;
        
         public List<Point> Path
         {
@@ -40,7 +41,7 @@ namespace JumpAndRun
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
-            
+  
         }
 
         public void moveToTarget(Point target)
@@ -78,13 +79,27 @@ namespace JumpAndRun
             SearchParameters sp = new SearchParameters(start, end, map);
             PathFinder pathFinder = new PathFinder(sp);
             Path = pathFinder.FindPath();
+
+            FarseerPhysics.Common.Vertices verts = new FarseerPhysics.Common.Vertices();
+            foreach (Point p in Path)
+            {
+                verts.Add(new Vector2(p.XSim, p.YSim));
+            }
+            if (verts.Count != 0)
+            {
+                debugpath = FarseerPhysics.Factories.BodyFactory.CreateChainShape(world, verts);
+                debugpath.BodyType = BodyType.Static;
+                debugpath.Enabled = false;
+
+            }
         }
     }
 
     class JumpingEnemy : Enemy
     {
-        public JumpingEnemy(Body body)
+        public JumpingEnemy(Body body, World world)
         {
+            this.world = world;
             Path = new List<Point>();
             this.maxSpeed = 1;
             //TODO: Make him Jump

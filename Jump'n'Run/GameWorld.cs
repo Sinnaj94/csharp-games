@@ -27,12 +27,12 @@ namespace JumpAndRun
             world = new World(new Vector2(0, 1));
             Vector2 playerSize = new Vector2(64, 64);
             player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(playerSize.X), ConvertUnits.ToSimUnits(playerSize.Y), 10),playerSize);
-            enemy = new JumpingEnemy(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10));
+            enemy = new JumpingEnemy(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(30), ConvertUnits.ToSimUnits(60), 10), world);
             map = new Map(100, 100, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
             input = new InputHandler();
-            enemy.calculatePathToTarget(new Point(10, 30), map);
+            enemy.calculatePathToTarget(new Point(25, 22), map);
         }
 
         public List<Point> pathfindigtest(Point start, Point end)
@@ -75,7 +75,6 @@ namespace JumpAndRun
             HandleInputCommands();
             player.Update();
             world.Step(.01639344262f);
-
         }
     }
 }
