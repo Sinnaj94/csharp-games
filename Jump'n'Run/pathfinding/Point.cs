@@ -11,6 +11,22 @@
             this.y = y;
         }
 
+        public float XSim
+        {
+            get
+            {
+                return FarseerPhysics.ConvertUnits.ToSimUnits(x * 32);
+            }
+        }
+
+        public float YSim
+        {
+            get
+            {
+                return FarseerPhysics.ConvertUnits.ToSimUnits(y * 32);
+            }
+        }
+
         public int X
         {
             get
