@@ -12,10 +12,11 @@ using FarseerPhysics;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics.Contacts;
 
 namespace JumpAndRun
 {
-    class Player : GameObject,  SFML.Graphics.Drawable
+    class Player : GameObject, SFML.Graphics.Drawable
     {
 
         Vector2 jumpForce;
@@ -29,6 +30,9 @@ namespace JumpAndRun
         Texture playerTexture;
         Sprite playerSprite;
         Vector2 bodySize;
+        bool canJump;
+        bool jumpRequested;
+        bool faceLeft;
 
         public Player(Body body, Vector2 bodySize)
         {
@@ -44,11 +48,11 @@ namespace JumpAndRun
             this.body.Restitution = .1f;
             Body.FixedRotation = true;
             SpriteBuilder _temp = new SpriteBuilder("player");
-            
+
             //Texture stuff
             playerTexture = new Texture(@"Resources/Character.png");
             playerSprite = new Sprite(playerTexture);
-            idleAnimation = _temp.AnimationList.GetAnimation("idle",playerTexture);
+            idleAnimation = _temp.AnimationList.GetAnimation("idle", playerTexture);
             runAnimation = _temp.AnimationList.GetAnimation("run", playerTexture);
             walkAnimation = _temp.AnimationList.GetAnimation("walk", playerTexture);
             jumpAnimation = _temp.AnimationList.GetAnimation("jump", playerTexture);
@@ -59,14 +63,38 @@ namespace JumpAndRun
             this.bodySize = new Vector2(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32));
             //FixtureFactory.AttachRectangle(ConvertUnits.ToSimUnits(64), ConvertUnits.ToSimUnits(3), 1, new Vector2(0, ConvertUnits.ToSimUnits(35)), body);
 
-            PolygonShape _tempPolygon = new PolygonShape(PolygonTools.CreateRectangle(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(3), new Vector2(0, ConvertUnits.ToSimUnits(35)), 0),0);
-            
+            PolygonShape _tempPolygon = new PolygonShape(PolygonTools.CreateRectangle(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(3), new Vector2(0, ConvertUnits.ToSimUnits(35)), 0), 0);
+
             body.CreateFixture(_tempPolygon);
             body.FixtureList[1].IsSensor = true;
-            
+            canJump = false;
+            jumpRequested = false;
+            CreateCollisionListener();
+            faceLeft = false;
+        }
+
+
+
+        private void CreateCollisionListener()
+        {
+
+            body.FixtureList[1].OnCollision += Body_OnCollision;
+            body.FixtureList[1].OnSeparation += Body_OnSeperation;
+        }
+
+        private void Body_OnSeperation(Fixture fixtureA, Fixture fixtureB)
+        {
+            canJump = false;
 
         }
 
+        private bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            canJump = true;
+            Console.WriteLine(canJump + "");
+
+            return true;
+        }
 
         public Body Body
         {
@@ -84,11 +112,13 @@ namespace JumpAndRun
         public void Jump()
         {
             //TODO: If touches Ground
-            if (GetSpeed().Y == 0)
+            if (canJump)
             {
                 jumpAnimation.Restart();
                 Body.ApplyForce(jumpForce);
-                //Output.Instance.print("Player jumps");
+                Output.Instance.print("Player jumps");
+                jumpRequested = true;
+
             }
         }
 
@@ -97,10 +127,7 @@ namespace JumpAndRun
             return Body.GetLinearVelocityFromLocalPoint(Body.Position);
         }
 
-        private bool canJump()
-        {
-            return false;
-        }
+
 
 
         public void move(float speed)
@@ -112,25 +139,37 @@ namespace JumpAndRun
             }
             if (speed < 0)
             {
+                faceLeft = true;
                 if (GetSpeed().X > -maxSpeed)
                 {
+                    
                     Body.ApplyForce(new Vector2(movingSpeed * speed, 0));
                 }
             }
             else if (speed > 0)
             {
+                faceLeft = false;
                 if (GetSpeed().X < maxSpeed)
                 {
                     Body.ApplyForce(new Vector2(movingSpeed * speed, 0));
 
                 }
             }
+
         }
 
 
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            float _tempDirection = 1;
+            if (faceLeft)
+            {
+                _tempDirection *= -1;
+            }
+            bodySize = new Vector2(Math.Abs(bodySize.X) * _tempDirection, bodySize.Y);
+            playerSprite.Scale = new Vector2f(Math.Abs(playerSprite.Scale.X )* _tempDirection, playerSprite.Scale.Y);
+            
             playerSprite.Position = Vector2fExtensions.toVector2f(body.Position - bodySize);
 
             playerSprite.Draw(target, states);
@@ -138,27 +177,29 @@ namespace JumpAndRun
 
         public override void Update()
         {
-            if(GetSpeed().X == 0)
+            if (GetSpeed().X == 0)
             {
                 _currentAnimation = idleAnimation;
-            }else if(Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
+            }
+            else if (Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
             {
                 _currentAnimation = walkAnimation;
-            }else if(Math.Abs(GetSpeed().X) > 1)
+            }
+            else if (Math.Abs(GetSpeed().X) > 1)
             {
                 _currentAnimation = runAnimation;
 
             }
-            if (Math.Abs(GetSpeed().Y)> .1)
+            if (!canJump)
             {
                 _currentAnimation = jumpAnimation;
 
             }
 
             playerSprite.TextureRect = _currentAnimation.Animate();
-            
+
         }
     }
 
-    
+
 }
