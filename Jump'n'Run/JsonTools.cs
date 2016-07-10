@@ -56,7 +56,10 @@ namespace JumpAndRun
                     int endColumn = (int)(Int64)row["endColumn"];
 
                     name = (String)row["name"];
-                    Animation _temp = new Animation(name, startRow, startColumn, endRow, endColumn);
+                    bool playOnce = (bool)row["playOnce"];
+
+
+                    Animation _temp = new Animation(name, startRow, startColumn, endRow, endColumn, playOnce);
                     AnimationList.Add(_temp);
 
                 }
@@ -128,14 +131,14 @@ namespace JumpAndRun
             animationList.Add(_animation);
         }
 
-        public Animation getAnimation(String animationName, Texture texture)
+        public Animation GetAnimation(String animationName, Texture texture)
         {
-            Animation workingAnimation = searchAnimation(animationName);
-            workingAnimation.getAnimation(texture);
+            Animation workingAnimation = SearchAnimation(animationName);
+            workingAnimation.GetAnimation(texture);
             return workingAnimation;
         }
 
-        private Animation searchAnimation(String animationName)
+        private Animation SearchAnimation(String animationName)
         {
             foreach (Animation _a in animationList)
             {
@@ -160,6 +163,8 @@ namespace JumpAndRun
         public int startColumn { get; set; }
         public int endRow { get; set; }
         public int endColumn { get; set; }
+        public bool playOnce { get; set; }
+
         Vector2u sheetSize;
         Clock c;
         public List<IntRect> RectangleList
@@ -181,13 +186,14 @@ namespace JumpAndRun
         int currentFrame;
         Time frameChangeTime;
 
-        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn)
+        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce)
         {
             this.name = name;
             this.startRow = startRow;
             this.startColumn = startColumn;
             this.endRow = endRow;
             this.endColumn = endColumn;
+            this.playOnce = playOnce;
             //Output.Instance.print("Animation " + name + " created. Startcolumn: " + startColumn + ", Columnsize: " + columnSize);
             rowSize = 6;
             RectangleList = new List<IntRect>();
@@ -195,62 +201,86 @@ namespace JumpAndRun
             c = new Clock();
             currentFrame = 0;
             frameChangeTime = Time.FromMilliseconds(100);
+
+
         }
 
 
 
-        public List<IntRect> getAnimation(Texture texture)
+        public List<IntRect> GetAnimation(Texture texture)
         {
 
             //TODO: Outsourcing
             //Go through Columns (Y)
-            for (int c = 0; c < sheetSize.Y; c++)
+            if (startColumn == endColumn)
             {
-                //Go thorugh Y
-                for (int r = 0; r < sheetSize.X; r++)
+                for (int r = startRow; r <= endRow; r++)
                 {
-                    if (c == startColumn)
-                    {
-                        if (r >= startRow)
-                        {
-                            RectangleList.Add(getRect(r, c, texture));
-                        }
-                    }else if(c == endColumn)
-                    {
-                        if (r <= endRow)
-                        {
-                            RectangleList.Add(getRect(r, c, texture));
-                        }
-                    }else if (c > startColumn && c < endColumn)
-                    {
-                        RectangleList.Add(getRect(r, c, texture));
-                    }
-
+                    RectangleList.Add(GetRect(r, startColumn, texture));
                 }
             }
+            else
+            {
+                for (int c = startColumn; c < sheetSize.Y; c++)
+                {
+                    //Go thorugh Y
+                    for (int r = 0; r < sheetSize.X; r++)
+                    {
+
+                        if (c == startColumn)
+                        {
+                            if (r >= startRow)
+                            {
+                                RectangleList.Add(GetRect(r, c, texture));
+                            }
+                        }
+                        else if (c == endColumn)
+                        {
+                            if (r <= endRow)
+                            {
+                                RectangleList.Add(GetRect(r, c, texture));
+                            }
+                        }
+                        else if (c > startColumn && c < endColumn)
+                        {
+                            RectangleList.Add(GetRect(r, c, texture));
+                        }
+
+                    }
+                }
+            }
+
             size = RectangleList.Count;
             return RectangleList;
 
         }
 
-        private IntRect getRect(int x, int y, Texture texture)
+        private IntRect GetRect(int x, int y, Texture texture)
         {
             IntRect _temp = new IntRect(x * 64, y * 64, 64, 64);
-            Console.Out.WriteLine(" " + _temp);
+
+
             return _temp;
         }
 
-        public IntRect animate()
+        public void Restart()
+        {
+            currentFrame = 0;
+        }
+
+        public IntRect Animate()
         {
             if (c.ElapsedTime > frameChangeTime)
             {
-                changeFrame();
+                ChangeFrame();
                 c = new Clock();
             }
             return rectangleList[currentFrame];
         }
 
-        private void changeFrame()
+
+
+        private void ChangeFrame()
         {
             if (currentFrame + 1 < size)
             {
@@ -258,9 +288,15 @@ namespace JumpAndRun
             }
             else
             {
-                currentFrame = 0;
+                if (!playOnce)
+                {
+
+                    currentFrame = 0;
+                }
             }
         }
+
+
     }
 
 }

@@ -73,6 +73,7 @@ namespace JumpAndRun
         {
             enemy.Update();
             HandleInputCommands();
+            player.Update();
             world.Step(.01639344262f);
 
         }
