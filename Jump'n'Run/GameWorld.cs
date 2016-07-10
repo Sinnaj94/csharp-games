@@ -102,6 +102,7 @@ namespace JumpAndRun
         {
 
             HandleInputCommands();
+            player.Update();
             world.Step(.01639344262f);
 
         }

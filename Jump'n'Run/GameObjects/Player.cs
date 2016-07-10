@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using SFML.System;
 using FarseerPhysics;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Factories;
+using FarseerPhysics.Common;
 
 namespace JumpAndRun
 {
@@ -19,6 +22,10 @@ namespace JumpAndRun
         float movingSpeed;
         float maxSpeed;
         Animation idleAnimation;
+        Animation runAnimation;
+        Animation walkAnimation;
+        Animation jumpAnimation;
+        Animation _currentAnimation;
         Texture playerTexture;
         Sprite playerSprite;
         Vector2 bodySize;
@@ -41,13 +48,25 @@ namespace JumpAndRun
             //Texture stuff
             playerTexture = new Texture(@"Resources/Character.png");
             playerSprite = new Sprite(playerTexture);
-            idleAnimation = _temp.AnimationList.getAnimation("walkright",playerTexture);
+            idleAnimation = _temp.AnimationList.GetAnimation("idle",playerTexture);
+            runAnimation = _temp.AnimationList.GetAnimation("run", playerTexture);
+            walkAnimation = _temp.AnimationList.GetAnimation("walk", playerTexture);
+            jumpAnimation = _temp.AnimationList.GetAnimation("jump", playerTexture);
             playerSprite.TextureRect = idleAnimation.RectangleList[0];
             body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
             body.BodyType = BodyType.Dynamic;
             body.LinearVelocity = new Vector2(0, 0);
             this.bodySize = new Vector2(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32));
+            //FixtureFactory.AttachRectangle(ConvertUnits.ToSimUnits(64), ConvertUnits.ToSimUnits(3), 1, new Vector2(0, ConvertUnits.ToSimUnits(35)), body);
+
+            PolygonShape _tempPolygon = new PolygonShape(PolygonTools.CreateRectangle(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(3), new Vector2(0, ConvertUnits.ToSimUnits(35)), 0),0);
+            
+            body.CreateFixture(_tempPolygon);
+            body.FixtureList[1].IsSensor = true;
+            
+
         }
+
 
         public Body Body
         {
@@ -67,6 +86,7 @@ namespace JumpAndRun
             //TODO: If touches Ground
             if (GetSpeed().Y == 0)
             {
+                jumpAnimation.Restart();
                 Body.ApplyForce(jumpForce);
                 //Output.Instance.print("Player jumps");
             }
@@ -111,17 +131,34 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            
-            playerSprite.Position = Vector2fExtensions.toVector2f(body.Position-bodySize);
-
-            playerSprite.TextureRect = idleAnimation.animate();
+            playerSprite.Position = Vector2fExtensions.toVector2f(body.Position - bodySize);
 
             playerSprite.Draw(target, states);
         }
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            if(GetSpeed().X == 0)
+            {
+                _currentAnimation = idleAnimation;
+            }else if(Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
+            {
+                _currentAnimation = walkAnimation;
+            }else if(Math.Abs(GetSpeed().X) > 1)
+            {
+                _currentAnimation = runAnimation;
+
+            }
+            if (Math.Abs(GetSpeed().Y)> .1)
+            {
+                _currentAnimation = jumpAnimation;
+
+            }
+
+            playerSprite.TextureRect = _currentAnimation.Animate();
+            
         }
     }
+
+    
 }
