@@ -29,12 +29,29 @@ namespace JumpAndRun
         public double drot { get; set; }
         public double rotation { get; set; }
         public int[] SpriteBounds { get; set; }
+        public SFML.System.Vector2f CursorPosition { get; set; }
+        public void Move(float dx, float dy)
+        {
+            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
+        }
 
-        /// <summary>
-        /// Moves the Object at given speed DX. Multiplies with maxSpeed
-        /// </summary>
-        /// <param name="dx"></param>
-        /// <param name="dy"></param>
+        public void Rotate(double newRotation)
+        {
+            //this.body.Rotation = ConvertUnits.ToSimUnits(newRotation);
+            this.body.Rotation = (float)newRotation;
+            Console.WriteLine(newRotation);
+            this.body.AngularVelocity = 0;
+        }
+
+        public void RotateTo(float x, float y)
+        {
+            float angle = (float)(Math.Atan2(x - body.WorldCenter.X, y - body.WorldCenter.Y) * -1);
+            body.Rotation = angle;
+            //this.body.AngularVelocity = 0;
+
+        }
+
+    
 
     }
 }

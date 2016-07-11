@@ -16,66 +16,166 @@ using FarseerPhysics.Dynamics.Contacts;
 
 namespace JumpAndRun
 {
-    class Player : GameObject, SFML.Graphics.Drawable
-    {
 
-        Vector2 jumpForce;
-        float movingSpeed;
-        float maxSpeed;
+    abstract class AbstractCaracter : GameObject, SFML.Graphics.Drawable
+    {
         Animation idleAnimation;
         Animation runAnimation;
         Animation walkAnimation;
         Animation jumpAnimation;
         Animation _currentAnimation;
+        float movingSpeed;
         Texture playerTexture;
         Sprite playerSprite;
-        Vector2 bodySize;
-        bool canJump;
-        bool jumpRequested;
-        bool faceLeft;
-        Vector2 positionChangedVector;
 
-        public Player(Body body, Vector2 bodySize)
+        public void initAnimations(String jsonname, Texture texture)
         {
-            this.Body = body;
-            //TODO: Outsourcing of Forces 
-            PhysicsBuilder p = new PhysicsBuilder(@"Resources\physicsattributes.json");
+            SpriteBuilder _temp = new SpriteBuilder(jsonname);
+            PlayerTexture = texture;
+            PlayerSprite = new Sprite(PlayerTexture);
+            PlayerSprite.Origin += new Vector2f(16, 16);
+            IdleAnimation = _temp.AnimationList.GetAnimation("idle", PlayerTexture);
+            RunAnimation = _temp.AnimationList.GetAnimation("run", PlayerTexture);
+            WalkAnimation = _temp.AnimationList.GetAnimation("walk", PlayerTexture);
+            PlayerSprite.TextureRect = IdleAnimation.RectangleList[0];
+        }
+
+        public void InitPhysics(String jsonname)
+        {
+            PhysicsBuilder p = new PhysicsBuilder(jsonname);
             PhysicsSettings _tempP = p.PhysicsReturn;
-            this.jumpForce = new Vector2(0, -_tempP.jumpStrength);
-            this.movingSpeed = _tempP.acceleration;
+            this.MovingSpeed = _tempP.acceleration;
             this.maxSpeed = _tempP.maxSpeed;
             this.body.Friction = _tempP.friction;
             this.body.GravityScale = _tempP.mass;
             this.body.Restitution = .1f;
-            Body.FixedRotation = true;
-            SpriteBuilder _temp = new SpriteBuilder("player");
+        }
 
-            //Texture stuff
-            playerTexture = new Texture(@"Resources/Character.png");
-            playerSprite = new Sprite(playerTexture);
-            idleAnimation = _temp.AnimationList.GetAnimation("idle", playerTexture);
-            runAnimation = _temp.AnimationList.GetAnimation("run", playerTexture);
-            walkAnimation = _temp.AnimationList.GetAnimation("walk", playerTexture);
-            jumpAnimation = _temp.AnimationList.GetAnimation("jump", playerTexture);
-            playerSprite.TextureRect = idleAnimation.RectangleList[0];
-            body.Position = new Vector2(ConvertUnits.ToSimUnits(100), ConvertUnits.ToSimUnits(0));
+        public void Move(float dx, float dy)
+        {
+            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
+        }
+
+
+        internal Animation IdleAnimation
+        {
+            get
+            {
+                return idleAnimation;
+            }
+
+            set
+            {
+                idleAnimation = value;
+            }
+        }
+
+        internal Animation RunAnimation
+        {
+            get
+            {
+                return runAnimation;
+            }
+
+            set
+            {
+                runAnimation = value;
+            }
+        }
+
+        internal Animation WalkAnimation
+        {
+            get
+            {
+                return walkAnimation;
+            }
+
+            set
+            {
+                walkAnimation = value;
+            }
+        }
+
+        internal Animation CurrentAnimation
+        {
+            get
+            {
+                return _currentAnimation;
+            }
+
+            set
+            {
+                _currentAnimation = value;
+            }
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            PlayerSprite.Position = Vector2fExtensions.toVector2f(body.Position);
+            PlayerSprite.Rotation = MathHelper.ToDegrees(body.Rotation );
+            PlayerSprite.Draw(target, states);
+        }
+
+        public float MovingSpeed
+        {
+            get
+            {
+                return movingSpeed;
+            }
+
+            set
+            {
+                movingSpeed = value;
+            }
+        }
+
+        public Texture PlayerTexture
+        {
+            get
+            {
+                return playerTexture;
+            }
+
+            set
+            {
+                playerTexture = value;
+            }
+        }
+
+        public Sprite PlayerSprite
+        {
+            get
+            {
+                return playerSprite;
+            }
+
+            set
+            {
+                playerSprite = value;
+            }
+        }
+
+        public Vector2 GetSpeed()
+        {
+            return body.GetLinearVelocityFromLocalPoint(body.Position);
+        }
+
+    }
+
+    class Player : AbstractCaracter, SFML.Graphics.Drawable
+    {
+        Vector2 positionChangedVector;
+
+        public Player(Body body, Vector2 bodySize)
+        {
+            this.body = body;
+            initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
+            InitPhysics(@"Resources\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
             body.LinearVelocity = new Vector2(0, 0);
-            this.bodySize = new Vector2(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32));
-            //FixtureFactory.AttachRectangle(ConvertUnits.ToSimUnits(64), ConvertUnits.ToSimUnits(3), 1, new Vector2(0, ConvertUnits.ToSimUnits(35)), body);
-
-            PolygonShape _tempPolygon = new PolygonShape(PolygonTools.CreateRectangle(ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(3), new Vector2(0, ConvertUnits.ToSimUnits(35)), 0), 0);
-
-            body.CreateFixture(_tempPolygon);
-            body.FixtureList[1].IsSensor = true;
-            canJump = false;
-            jumpRequested = false;
-            CreateCollisionListener();
-            faceLeft = false;
-            this.positionChangedVector = body.Position;
-
-
         }
+
+
 
         public event EventHandler onPositionChanged;
 
@@ -93,60 +193,6 @@ namespace JumpAndRun
             }
         }
 
-        private void CreateCollisionListener()
-        {
-            body.FixtureList[1].OnCollision += Body_OnCollision;
-            body.FixtureList[1].OnSeparation += Body_OnSeperation;
-        }
-
-        private void Body_OnSeperation(Fixture fixtureA, Fixture fixtureB)
-        {
-            canJump = false;
-
-        }
-
-        private bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            canJump = true;
-            Console.WriteLine(canJump + "");
-
-            return true;
-        }
-
-        public Body Body
-        {
-            get
-            {
-                return body;
-            }
-
-            set
-            {
-                body = value;
-            }
-        }
-
-        public void Jump()
-        {
-            //TODO: If touches Ground
-            if (canJump)
-            {
-                jumpAnimation.Restart();
-                Body.ApplyForce(jumpForce);
-                Output.Instance.print("Player jumps");
-                jumpRequested = true;
-
-            }
-        }
-
-        private Vector2 GetSpeed()
-        {
-            return Body.GetLinearVelocityFromLocalPoint(Body.Position);
-        }
-
-
-
-
         public void move(float speed)
         {
             //Set speed to 1, if it is too big
@@ -154,68 +200,33 @@ namespace JumpAndRun
             {
                 speed /= speed;
             }
-            if (speed < 0)
-            {
-                faceLeft = true;
-                if (GetSpeed().X > -maxSpeed)
-                {
-                    
-                    Body.ApplyForce(new Vector2(movingSpeed * speed, 0));
-                }
-            }
-            else if (speed > 0)
-            {
-                faceLeft = false;
-                if (GetSpeed().X < maxSpeed)
-                {
-                    Body.ApplyForce(new Vector2(movingSpeed * speed, 0));
 
-                }
-            }
+            body.ApplyForce(new Vector2(MovingSpeed * speed, 0));
 
+           // body.LinearVelocity = new Vector2(MovingSpeed);
         }
 
 
 
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            float _tempDirection = 1;
-            if (faceLeft)
-            {
-                _tempDirection *= -1;
-            }
-            bodySize = new Vector2(Math.Abs(bodySize.X) * _tempDirection, bodySize.Y);
-            playerSprite.Scale = new Vector2f(Math.Abs(playerSprite.Scale.X )* _tempDirection, playerSprite.Scale.Y);
-            
-            playerSprite.Position = Vector2fExtensions.toVector2f(body.Position - bodySize);
 
-            playerSprite.Draw(target, states);
-        }
 
         public override void Update()
         {
             if (GetSpeed().X == 0)
             {
-                _currentAnimation = idleAnimation;
+                CurrentAnimation = IdleAnimation;
             }
             else if (Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
             {
-                _currentAnimation = walkAnimation;
+                CurrentAnimation = WalkAnimation;
             }
             else if (Math.Abs(GetSpeed().X) > 1)
             {
-                _currentAnimation = runAnimation;
-
+                CurrentAnimation = RunAnimation;
             }
-            if (!canJump)
-            {
-                _currentAnimation = jumpAnimation;
 
-            }
             CheckPositionChange();
-            playerSprite.TextureRect = _currentAnimation.Animate();      
+            PlayerSprite.TextureRect = CurrentAnimation.Animate();      
         }
     }
-
-
 }

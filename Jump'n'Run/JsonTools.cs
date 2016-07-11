@@ -257,7 +257,7 @@ namespace JumpAndRun
 
         private IntRect GetRect(int x, int y, Texture texture)
         {
-            IntRect _temp = new IntRect(x * 64, y * 64, 64, 64);
+            IntRect _temp = new IntRect(x * 32, y * 32, 32, 32);
 
 
             return _temp;

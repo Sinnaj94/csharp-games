@@ -2,38 +2,35 @@
     "player": [
         {
             "name": "run",
-            "startRow": 4,
-            "startColumn": 0,
-            "endRow": 3,
+            "startRow": 0,
+            "startColumn": 1,
+            "endRow": 7,
             "endColumn": 1,
             "playOnce":  false
         },
         {
             "name": "walk",
             "startRow": 0,
-            "startColumn": 4,
+            "startColumn": 1,
             "endRow": 7,
-            "endColumn": 4,
+            "endColumn": 1,
             "playOnce":  false
-
         },
         {
             "name": "jump",
-            "startRow": 2,
-            "startColumn": 5,
+            "startRow": 0,
+            "startColumn": 1,
             "endRow": 7,
-            "endColumn": 5,
-            "playOnce":  true
-
+            "endColumn": 1,
+            "playOnce":  false
         },
         {
             "name": "idle",
             "startRow": 0,
-            "startColumn": 8,
+            "startColumn": 1,
             "endRow": 0,
-            "endColumn": 8,
+            "endColumn": 1,
             "playOnce":  false
-
         }
     ]
 }

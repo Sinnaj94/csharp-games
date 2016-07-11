@@ -26,8 +26,8 @@ namespace JumpAndRun
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 0));
-            Vector2 playerSize = new Vector2(64, 64);
-            player = new Player(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(playerSize.X), ConvertUnits.ToSimUnits(playerSize.Y), 10),playerSize);
+            Vector2 playerSize = new Vector2(16, 16);
+            player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1),playerSize);
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
             enemy = new JumpingEnemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(128), ConvertUnits.ToSimUnits(128));
@@ -42,7 +42,7 @@ namespace JumpAndRun
         public View setCameraToPlayer(RenderTarget target)
         {
             SFML.System.Vector2f defaultSize = target.DefaultView.Size;
-            return new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.Body.Position.X), ConvertUnits.ToDisplayUnits(player.Body.Position.Y)), defaultSize);
+            return new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X), ConvertUnits.ToDisplayUnits(player.body.Position.Y)), defaultSize);
         }
 
         public void recalculatePath(object sender, EventArgs e)
@@ -62,7 +62,7 @@ namespace JumpAndRun
         {
             target.SetView(setCameraToPlayer(target));
             debug.DrawDebugData();
-            tmb.Draw(target, states);
+          //  tmb.Draw(target, states);
             player.Draw(target, states);
             enemy.Draw(target, states);
             //map.Draw(target, states);

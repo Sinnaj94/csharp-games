@@ -11,6 +11,9 @@ namespace JumpAndRun
         List<Command> commandList;
         Command _go;
         Command _jump;
+        Command turnCommand;
+        SFML.System.Vector2i mousePosition;
+
         //Keyboard
         Keyboard.Key leftKey;
         Keyboard.Key rightKey;
@@ -34,6 +37,8 @@ namespace JumpAndRun
             //Defining the Commands here
             _go = new GoCommand();
             _jump = new JumpCommand();
+            turnCommand = new TurnCommand();
+
             //Building the Commandlist
             commandList = new List<Command>();
 
@@ -45,7 +50,7 @@ namespace JumpAndRun
 
             ca = new CommandAttributes(1);
             caN = new CommandAttributes(-1);
-
+            mousePosition = Mouse.GetPosition();
         }
 
         private void setupJoystick(uint nr)
@@ -87,6 +92,17 @@ namespace JumpAndRun
             return Keyboard.IsKeyPressed(sKey);
         }
 
+        private bool MousePositionChanged()
+        {
+            SFML.System.Vector2i currentPos = Mouse.GetPosition();
+            if (currentPos.X != mousePosition.X || currentPos.Y != mousePosition.Y)
+            {
+                mousePosition = currentPos;
+                return true;
+            }
+            return false;
+        }
+
         private void HandleKeyboardInput()
         {
             if (KeyDown(leftKey))
@@ -100,6 +116,11 @@ namespace JumpAndRun
             if (KeyDown(jumpKey))
             {
                 AddCommandToList(_jump, ca);
+            }
+            if (MousePositionChanged())
+            {
+                CommandAttributes _ca = new CommandAttributes(mousePosition.X, mousePosition.Y);
+                AddCommandToList(turnCommand, _ca);
             }
         }
 

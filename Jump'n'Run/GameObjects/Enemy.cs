@@ -90,10 +90,14 @@ namespace JumpAndRun
             Point end = new Point((int)endVector.X / 32, (int)endVector.Y / 32);
             LinkedList<Tile> path = aStar.Search(start, end, null);
             Path = new List<Point>();
-            foreach(Tile t in path)
+            if(path != null)
             {
-                Path.Add(new Point(t.X, t.Y));
+                foreach (Tile t in path)
+                {
+                    Path.Add(new Point(t.X, t.Y));
+                }
             }
+  
         }
 
         public void calculatePathToSimTarget(Vector2 position, Map map)
