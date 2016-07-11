@@ -193,15 +193,21 @@ namespace JumpAndRun
             }
         }
 
-        public void move(float speed)
+        public void move(Vector2f speed)
         {
             //Set speed to 1, if it is too big
-            if (Math.Abs(speed) > 1)
+            
+            if (Math.Abs(speed.X) > 1)
             {
-                speed /= speed;
+                speed.X /= speed.X;
             }
 
-            body.ApplyForce(new Vector2(MovingSpeed * speed, 0));
+            if (Math.Abs(speed.Y) > 1)
+            {
+                speed.Y /= speed.Y;
+            }
+
+            body.ApplyForce(new Vector2(MovingSpeed * speed.X, MovingSpeed * speed.Y));
 
            // body.LinearVelocity = new Vector2(MovingSpeed);
         }

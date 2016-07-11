@@ -112,7 +112,7 @@ namespace JumpAndRun
     class PhysicsSettings
     {
         public int mass { get; set; }
-        public int acceleration { get; set; }
+        public float acceleration { get; set; }
         public int maxSpeed { get; set; }
         public int jumpStrength { get; set; }
         public int friction { get; set; }

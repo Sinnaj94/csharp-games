@@ -18,16 +18,21 @@ namespace JumpAndRun
         Keyboard.Key leftKey;
         Keyboard.Key rightKey;
         Keyboard.Key jumpKey;
-
+        Keyboard.Key downKey;
+        Keyboard.Key upKey;
         //Joystick
         uint jumpJoy;
         bool joystickConnected;
         uint joystickNr;
 
         //Standard Attributes
-        CommandAttributes ca;
+        CommandAttributes caX;
+        CommandAttributes caY;
+
         //Negative
-        CommandAttributes caN;
+        CommandAttributes caXN;
+        CommandAttributes caYN;
+
 
         //Axis definition
         Joystick.Axis runAxis;
@@ -48,8 +53,11 @@ namespace JumpAndRun
             //Setup the Keys of the Keyboard
             setupKeyboard();
 
-            ca = new CommandAttributes(1);
-            caN = new CommandAttributes(-1);
+            caX = new CommandAttributes(1);
+            caY = new CommandAttributes(0, 1);
+            caXN = new CommandAttributes(-1);
+            caYN = new CommandAttributes(0, -1);
+
             mousePosition = Mouse.GetPosition();
         }
 
@@ -77,6 +85,8 @@ namespace JumpAndRun
             leftKey = Keyboard.Key.A;
             rightKey = Keyboard.Key.D;
             jumpKey = Keyboard.Key.Space;
+            upKey = Keyboard.Key.W;
+            downKey = Keyboard.Key.S;
         }
 
         public List<Command> HandleInput()
@@ -107,15 +117,24 @@ namespace JumpAndRun
         {
             if (KeyDown(leftKey))
             {
-                AddCommandToList(_go, caN);
+                AddCommandToList(_go, caXN);
             }
             if (KeyDown(rightKey))
             {
-                AddCommandToList(_go, ca);
+                AddCommandToList(_go, caX);
             }
             if (KeyDown(jumpKey))
             {
-                AddCommandToList(_jump, ca);
+                AddCommandToList(_jump, caX);
+            }
+            if (KeyDown(upKey))
+            {
+                AddCommandToList(_go, caYN);
+            }
+            if (KeyDown(downKey))
+            {
+                AddCommandToList(_go, caY);
+
             }
             if (MousePositionChanged())
             {
@@ -150,14 +169,15 @@ namespace JumpAndRun
                 //Always update the Joystick (otherwise it doesn't work.)
                 Joystick.Update();
                 //Check for the Buttons to be pressed
-                if (Joystick.IsButtonPressed(joystickNr, jumpJoy)){
-                    AddCommandToList(_jump, ca);
+                if (Joystick.IsButtonPressed(joystickNr, jumpJoy))
+                {
+                    AddCommandToList(_jump, caX);
                 }
                 float _axisDirection = axisDirection(runAxis);
                 if (Math.Abs(_axisDirection) > threshold)
                 {
                     Output.Instance.print("Axis D " + _axisDirection);
-                    CommandAttributes _ca = new CommandAttributes(_axisDirection/100);
+                    CommandAttributes _ca = new CommandAttributes(_axisDirection / 100);
                     AddCommandToList(_go, _ca);
                 }
             }
@@ -165,7 +185,7 @@ namespace JumpAndRun
 
         private float axisDirection(Joystick.Axis axis)
         {
-            return Joystick.GetAxisPosition(joystickNr,axis);
+            return Joystick.GetAxisPosition(joystickNr, axis);
         }
 
         private void JoystickDebug()

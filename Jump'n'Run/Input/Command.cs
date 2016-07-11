@@ -119,7 +119,7 @@ namespace JumpAndRun
 
         public void Execute(Player p)
         {
-            p.move(ca.Strength.X);
+            p.move(ca.Strength);
         }
     }
 
