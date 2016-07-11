@@ -162,7 +162,7 @@ namespace JumpAndRun
 
     }
 
-    class Player : AbstractCaracter, SFML.Graphics.Drawable
+    class Player : AbstractCaracter
     {
         Vector2 positionChangedVector;
 
@@ -205,10 +205,6 @@ namespace JumpAndRun
 
            // body.LinearVelocity = new Vector2(MovingSpeed);
         }
-
-
-
-
 
         public override void Update()
         {
