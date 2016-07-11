@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace JumpAndRun
 {
-    public class Map : SFML.Graphics.Drawable
+    public class Map
     {
         Vector2 mapSize;
         Tile[,] tileArray;
@@ -33,17 +33,11 @@ namespace JumpAndRun
             }
         }
 
-        public void AddTile(int x, int y, Sprite tileSprite, bool isCollidable)
+        public void AddTile(int x, int y, bool isCollidable)
         {
-            TileArray[x, y] = new Tile(x, y, tileSprite, isCollidable);
+            TileArray[x, y] = new Tile(x, y, isCollidable);
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            foreach(Tile t in TileArray)
-            {
-                t.Draw(target, states);
-            }
-        }
+
     }
 }

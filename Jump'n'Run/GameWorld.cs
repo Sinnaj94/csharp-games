@@ -37,7 +37,6 @@ namespace JumpAndRun
             input = new InputHandler();
             recalculatePath(player, new EventArgs());
             aStar = new SpatialAStar<Tile, Object>(map.TileArray);
-
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -63,10 +62,10 @@ namespace JumpAndRun
         {
             target.SetView(setCameraToPlayer(target));
             debug.DrawDebugData();
-            debug.DrawWorldTiles();
             tmb.Draw(target, states);
             player.Draw(target, states);
-            map.Draw(target, states);
+            enemy.Draw(target, states);
+            //map.Draw(target, states);
         }
 
         private void HandleInputCommands()

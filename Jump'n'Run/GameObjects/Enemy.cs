@@ -16,7 +16,8 @@ namespace JumpAndRun
         float damage;
         List<Point> path;
         public Body debugpath;
-       
+        public SFML.Graphics.Sprite enemysprite;
+
         public List<Point> Path
         {
             get
@@ -41,34 +42,14 @@ namespace JumpAndRun
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
-  
+            enemysprite.Draw(target, states);
         }
 
         public void moveToTarget(Point target)
         {
-            /*
-            if(body.LinearVelocity.X < maxSpeed)
-            {
-                body.ApplyLinearImpulse(new Vector2(1, 0));
-            }
-            */
-
             body.LinearVelocity = new Vector2((float)target.XSim - body.Position.X, (float)target.YSim - body.Position.Y);
             body.LinearVelocity.Normalize();
             body.LinearVelocity *= (float)maxSpeed;
-            
-            /*
-
-            Vector2 force = new Vector2(target.XSim - body.Position.X, target.YSim - body.Position.Y);
-            force.Normalize();
-            body.ApplyForce(new Vector2(force.X, 0));
-            
-            if (body.Position.Y > target.YSim)
-            {
-                Console.WriteLine(body.Position.Y + " < " + target.YSim);
-                body.ApplyForce(new Vector2(0, force.Y * 4));
-            }
-            */
         }
 
         public void jump(Point target)
@@ -157,6 +138,7 @@ namespace JumpAndRun
             //   body.Restitution = 1f;
             body.Mass = 10;
             body.BodyType = BodyType.Dynamic;
+            enemysprite = new SFML.Graphics.Sprite(new Texture(@"Resources\Sprites\enemy1.png"), new IntRect(0, 0, 32, 32));
         }
         public override void Update()
         {
@@ -168,6 +150,7 @@ namespace JumpAndRun
                     Path.Remove(Path.First());
                 }
             }
+            enemysprite.Position = Vector2fExtensions.ToSf(body.Position);
         }
     }
 }

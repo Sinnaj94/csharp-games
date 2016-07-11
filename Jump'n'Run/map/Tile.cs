@@ -8,11 +8,11 @@ using SFML.Graphics;
 
 namespace JumpAndRun
 {
-    public class Tile : SFML.Graphics.Drawable, IPathNode<object>
+    public class Tile : IPathNode<object>
     {
         int x;
         int y;
-        SFML.Graphics.Sprite tileSprite { get; set; }
+      //  SFML.Graphics.Sprite tileSprite { get; set; }
         bool isCollidable;
 
         public int X
@@ -56,11 +56,11 @@ namespace JumpAndRun
 
         RectangleShape test;
 
-        public Tile(int x, int y, Sprite tileSprite, bool isCollidable)
+        public Tile(int x, int y, bool isCollidable)
         {
             this.x = x;
             this.y = y;
-            this.tileSprite = tileSprite;
+          //  this.tileSprite = tileSprite;
             this.isCollidable = isCollidable;
             initDebug();
         }
@@ -79,15 +79,7 @@ namespace JumpAndRun
             }
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            if(tileSprite != null)
-            {
-                tileSprite.Draw(target, states);
-            }
-            DebugDraw(target, states);
 
-        }
 
         public void DebugDraw(RenderTarget target, RenderStates states)
         {
