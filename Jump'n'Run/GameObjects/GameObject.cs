@@ -39,7 +39,6 @@ namespace JumpAndRun
         {
             //this.body.Rotation = ConvertUnits.ToSimUnits(newRotation);
             this.body.Rotation = (float)newRotation;
-            Console.WriteLine(newRotation);
             this.body.AngularVelocity = 0;
         }
 

@@ -21,6 +21,17 @@ namespace JumpAndRun
         {
             this.strength = new Vector2f(x, y);
         }
+
+        public bool IsValid()
+        {
+            return (strength.X != 0 || strength.Y != 0);
+        }
+
+        public void Add(Vector2f _add)
+        {
+            strength += _add;
+        }
+
         public Vector2f Strength
         {
             get

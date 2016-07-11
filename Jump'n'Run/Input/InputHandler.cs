@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Window;
+using SFML.System;
+
 namespace JumpAndRun
 {
     class InputHandler
@@ -115,13 +117,15 @@ namespace JumpAndRun
 
         private void HandleKeyboardInput()
         {
+            CommandAttributes _temp = new CommandAttributes(0, 0);
             if (KeyDown(leftKey))
             {
-                AddCommandToList(_go, caXN);
+                _temp.Add(new Vector2f(-1, 0));
             }
             if (KeyDown(rightKey))
             {
-                AddCommandToList(_go, caX);
+                _temp.Add(new Vector2f(1, 0));
+
             }
             if (KeyDown(jumpKey))
             {
@@ -129,12 +133,15 @@ namespace JumpAndRun
             }
             if (KeyDown(upKey))
             {
-                AddCommandToList(_go, caYN);
+                _temp.Add(new Vector2f(0, -1));
             }
             if (KeyDown(downKey))
             {
-                AddCommandToList(_go, caY);
-
+                _temp.Add(new Vector2f(0, 1));
+            }
+            if (_temp.IsValid())
+            {
+                AddCommandToList(_go, _temp);
             }
             if (MousePositionChanged())
             {
@@ -176,7 +183,6 @@ namespace JumpAndRun
                 float _axisDirection = axisDirection(runAxis);
                 if (Math.Abs(_axisDirection) > threshold)
                 {
-                    Output.Instance.print("Axis D " + _axisDirection);
                     CommandAttributes _ca = new CommandAttributes(_axisDirection / 100);
                     AddCommandToList(_go, _ca);
                 }

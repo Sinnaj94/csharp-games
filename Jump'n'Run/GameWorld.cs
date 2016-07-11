@@ -55,7 +55,6 @@ namespace JumpAndRun
         {
             // enemy.calculatePathToSimTarget(player.body.Position, map);
             enemy.calculatePathToSimTargetUsingAStart(player.body.Position, aStar);
-            Console.WriteLine("fired");
         }
 
         public void Draw(RenderTarget target, RenderStates states)
