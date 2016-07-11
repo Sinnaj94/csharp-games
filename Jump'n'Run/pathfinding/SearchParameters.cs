@@ -22,7 +22,7 @@ namespace JumpAndRun
         {
             this.StartLocation = startLocation;
             this.EndLocation = endLocation;
-            Map = new bool[100,100];
+            Map = new bool[map.TileArray.Length, map.TileArray.Length];
             foreach(Tile t in map.TileArray)
             {
                 this.Map[t.X, t.Y] = !t.IsCollidable;

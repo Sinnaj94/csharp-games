@@ -33,6 +33,7 @@ namespace JumpAndRun
         bool canJump;
         bool jumpRequested;
         bool faceLeft;
+        Vector2 positionChangedVector;
 
         public Player(Body body, Vector2 bodySize)
         {
@@ -71,13 +72,29 @@ namespace JumpAndRun
             jumpRequested = false;
             CreateCollisionListener();
             faceLeft = false;
+            this.positionChangedVector = body.Position;
+
+
         }
 
+        public event EventHandler onPositionChanged;
 
+        protected virtual void PositionChanged(EventArgs e)
+        {
+            if (onPositionChanged != null) onPositionChanged(this, e);
+        }
+
+        public void CheckPositionChange()
+        {
+            if(Math.Abs(positionChangedVector.X - this.body.Position.X) > .5f || Math.Abs(positionChangedVector.Y - this.body.Position.Y) > .5f)
+            {
+                positionChangedVector = this.body.Position;
+                PositionChanged(EventArgs.Empty);
+            }
+        }
 
         private void CreateCollisionListener()
         {
-
             body.FixtureList[1].OnCollision += Body_OnCollision;
             body.FixtureList[1].OnSeparation += Body_OnSeperation;
         }
@@ -195,9 +212,8 @@ namespace JumpAndRun
                 _currentAnimation = jumpAnimation;
 
             }
-
-            playerSprite.TextureRect = _currentAnimation.Animate();
-
+            CheckPositionChange();
+            playerSprite.TextureRect = _currentAnimation.Animate();      
         }
     }
 

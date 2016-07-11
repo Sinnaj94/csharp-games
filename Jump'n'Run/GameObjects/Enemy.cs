@@ -98,10 +98,38 @@ namespace JumpAndRun
                 debugpath = FarseerPhysics.Factories.BodyFactory.CreateChainShape(world, verts);
                 debugpath.BodyType = BodyType.Static;
                 debugpath.Enabled = false;
-
             }
         }
+        
+
+        public void calculatePathToSimTarget(Vector2 position, Map map)
+        {
+            Vector2f startVector = Vector2fExtensions.ToSf(this.body.Position);
+            Vector2f endVector =    Vector2fExtensions.ToSf(position);
+            Point start = new Point((int)startVector.X / 32, (int)startVector.Y / 32);
+            Point end = new Point((int)endVector.X / 32, (int)endVector.Y / 32);
+            SearchParameters sp = new SearchParameters(start, end, map);
+            PathFinder pathFinder = new PathFinder(sp);
+            Path = pathFinder.FindPath();
+
+            /*
+            FarseerPhysics.Common.Vertices verts = new FarseerPhysics.Common.Vertices();
+            foreach (Point p in Path)
+            {
+                verts.Add(new Vector2(p.XSim, p.YSim));
+            }
+            if (verts.Count != 0)
+            {
+                debugpath = FarseerPhysics.Factories.BodyFactory.CreateChainShape(world, verts);
+                debugpath.BodyType = BodyType.Static;
+                debugpath.Enabled = false;
+            }
+            */
+        }
     }
+
+
+
 
     class JumpingEnemy : Enemy
     {

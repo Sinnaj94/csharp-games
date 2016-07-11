@@ -32,7 +32,7 @@ namespace JumpAndRun
             Byte myByte = 1;
             List<Vertices> _list = PolygonTools.CreatePolygon(data, (int)texture.Size.X, 0.05f, myByte, true, true);
             Vertices verts = new Vertices();
-            Vector2 scale = ConvertUnits.ToSimUnits(new Vector2(2, 2));
+            Vector2 scale = ConvertUnits.ToSimUnits(new Vector2(1, 1));
 
             foreach (Vertices v in _list)
             {  
@@ -48,10 +48,10 @@ namespace JumpAndRun
         public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map)
         {
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(@"Resources\Tield_Datei.png"), world);
-            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\tileset.png");
-            TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\Tield_Datei.tmx");
-            var myTileset = test.Tilesets["tileset"];
+            CreateShape(new SFML.Graphics.Texture(@"Resources\neu.png"), world);
+            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\future-joy-tilee.png");
+            TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\neu.tmx");
+            var myTileset = test.Tilesets["future-joy-tilee"];
             Vertices navigationVerts = new Vertices();
             this.map = map;
 
@@ -63,13 +63,13 @@ namespace JumpAndRun
                     
                     if (t.Gid != 0)
                     {
-                        bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 30 - 1) * 32, t.Gid / 30 * 32, 32, 32));
+                        bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 32 - 1) * 32, t.Gid / 32 * 32, 32, 32));
                         bodySprite.Position = new SFML.System.Vector2f(t.X * 32 - 16, t.Y * 32 - 16);
                         //TileSpriteList.Add(bodySprite);
 
                     }                     
 
-                    if (l.Name == "collidable")
+                    if (l.Name == "walls")
                     {
                         if (t.Gid != 0)
                         {
