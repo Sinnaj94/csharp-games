@@ -8,7 +8,7 @@ using SFML.Graphics;
 
 namespace JumpAndRun
 {
-    public class Tile : SFML.Graphics.Drawable
+    public class Tile : SFML.Graphics.Drawable, IPathNode<object>
     {
         int x;
         int y;
@@ -95,5 +95,9 @@ namespace JumpAndRun
             test.Draw(target, states);
         }
 
+        public bool IsWalkable(object inContext)
+        {
+            return !IsCollidable;
+        }
     }
 }

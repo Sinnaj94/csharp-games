@@ -101,6 +101,19 @@ namespace JumpAndRun
             }
         }
         
+        public void calculatePathToSimTargetUsingAStart(Vector2 position, SpatialAStar<Tile, Object> aStar)
+        {
+            Vector2f startVector = Vector2fExtensions.ToSf(this.body.Position);
+            Vector2f endVector = Vector2fExtensions.ToSf(position);
+            Point start = new Point((int)startVector.X / 32, (int)startVector.Y / 32);
+            Point end = new Point((int)endVector.X / 32, (int)endVector.Y / 32);
+            LinkedList<Tile> path = aStar.Search(start, end, null);
+            Path = new List<Point>();
+            foreach(Tile t in path)
+            {
+                Path.Add(new Point(t.X, t.Y));
+            }
+        }
 
         public void calculatePathToSimTarget(Vector2 position, Map map)
         {

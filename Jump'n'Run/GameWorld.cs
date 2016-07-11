@@ -21,7 +21,8 @@ namespace JumpAndRun
         List<Command> currentCommands;
         TileMapBuilder tmb;
         Map map;
-        bool[,] testmap;
+        SpatialAStar<Tile, Object> aStar;
+
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 0));
@@ -35,7 +36,8 @@ namespace JumpAndRun
             debug = new DebugDraw(world, window);
             input = new InputHandler();
             recalculatePath(player, new EventArgs());
-            //enemy.calculatePathToTarget(player.body.Position, map);
+            aStar = new SpatialAStar<Tile, Object>(map.TileArray);
+
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -52,7 +54,8 @@ namespace JumpAndRun
 
         private void Player_onPositionChanged(object sender, EventArgs e)
         {
-            enemy.calculatePathToSimTarget(player.body.Position, map);
+            // enemy.calculatePathToSimTarget(player.body.Position, map);
+            enemy.calculatePathToSimTargetUsingAStart(player.body.Position, aStar);
             Console.WriteLine("fired");
         }
 

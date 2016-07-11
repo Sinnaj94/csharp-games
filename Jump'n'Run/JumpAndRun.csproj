@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AStern\PriorityQueue.cs" />
+    <Compile Include="AStern\SpatialAStar.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
