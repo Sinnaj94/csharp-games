@@ -48,13 +48,6 @@ namespace JumpAndRun
             }
         }
 
-        public void moveToTarget(Point target)
-        {
-            body.LinearVelocity = new Vector2((float)target.XSim - body.Position.X, (float)target.YSim - body.Position.Y);
-            body.LinearVelocity.Normalize();
-            body.LinearVelocity *= (float)maxSpeed;
-        }
-
         public void calculatePathToSimTargetUsingAStart(Vector2 position, Manhatten<Tile, Object> aStar)
         {
             Vector2f startVector = Vector2fExtensions.ToSf(this.body.Position);
@@ -77,30 +70,23 @@ namespace JumpAndRun
             Vector2 dif = new Vector2((float)target.XSim - body.Position.X, (float)target.YSim - body.Position.Y);
             dif.Normalize();
             body.LinearVelocity = dif;
-            //body.LinearVelocity *= (float)maxSpeed;
-             float angle = (float)(Math.Atan2(target.XSim - body.WorldCenter.X, target.YSim - body.WorldCenter.Y) * -1);
-            angle = (float)Math.Atan2(dif.X, dif.Y);
-            // body.Rotation = angle;
-          //  float angle = Vector2fExtensions.GetAngle(body.Position, new Vector2(target.XSim, target.YSim));
-            //angle = (angle * 180 / (float)Math.PI);
-
-
-            body.Rotation = angle -  1/2 * (float)Math.PI;
-            
-          //  Console.WriteLine("angel: " + body.Rotation );
-
+            float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
+            body.Rotation = angle - (float)Math.PI / 2;
         }
 
         public override void updateExtension()
         {
-            if (Path.Count != 0)
+            if (Path.Count >= 2)
             {
-              //  moveToTarget(Path[0]);
-                MoveAndRotateTo(Path[0]);
-                if (Math.Abs(Path[0].XSim - this.body.Position.X) < 0.1 && Math.Abs(Path[0].YSim - this.body.Position.Y) < 0.1)
+                MoveAndRotateTo(Path[1]);
+                if (Math.Abs(Path[1].XSim - this.body.Position.X) < 0.1 && Math.Abs(Path[1].YSim - this.body.Position.Y) < 0.1)
                 {
                     Path.Remove(Path.First());
                 }
+            }
+            else
+            {
+                body.LinearVelocity = new Vector2(0, 0);
             }
         }
 
@@ -115,10 +101,7 @@ namespace JumpAndRun
                     rect.FillColor = Color.Blue;
                     rect.Draw(target, states);
                 }
-            } else
-            {
-                body.LinearVelocity = new Vector2(0,0);
-            }
+            } 
         }
 
     }

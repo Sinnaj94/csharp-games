@@ -114,7 +114,6 @@ namespace JumpAndRun
         {
             Vector2 caSim = Vector2fExtensions.ToSimVector(ca.Strength);
             Vector2 dif =  p.body.Position - caSim;
-            
             dif.Normalize();
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
             p.body.Rotation = angle - (float)Math.PI / 2;

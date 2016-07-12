@@ -68,7 +68,7 @@ namespace JumpAndRun
                     if (t.Gid != 0)
                     {
                         bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 32 - 1) * 32, t.Gid / 32 * 32, 32, 32));
-                        bodySprite.Position = new SFML.System.Vector2f(t.X * 32 - 16, t.Y * 32 - 16);
+                        bodySprite.Position = new SFML.System.Vector2f(t.X * 32 , t.Y * 32 );
                         TileSpriteList.Add(bodySprite);
 
                     }                     
