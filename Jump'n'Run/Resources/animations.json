@@ -32,5 +32,40 @@
             "endColumn": 1,
             "playOnce":  false
         }
+    ],
+	
+	    "enemy": [
+        {
+            "name": "run",
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 7,
+            "endColumn": 0,
+            "playOnce":  false
+        },
+        {
+            "name": "walk",
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 7,
+            "endColumn": 0,
+            "playOnce":  false
+        },
+        {
+            "name": "jump",
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 7,
+            "endColumn": 0,
+            "playOnce":  false
+        },
+        {
+            "name": "idle",
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 0,
+            "endColumn": 0,
+            "playOnce":  false
+        }
     ]
 }

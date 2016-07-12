@@ -15,7 +15,7 @@
         {
             get
             {
-                return FarseerPhysics.ConvertUnits.ToSimUnits(x * 32);
+                return FarseerPhysics.ConvertUnits.ToSimUnits(x * 32 + 16);
             }
         }
 
@@ -23,7 +23,7 @@
         {
             get
             {
-                return FarseerPhysics.ConvertUnits.ToSimUnits(y * 32);
+                return FarseerPhysics.ConvertUnits.ToSimUnits(y * 32 + 16);
             }
         }
 

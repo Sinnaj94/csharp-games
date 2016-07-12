@@ -18,5 +18,20 @@ namespace JumpAndRun
         {
             return new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(_in.X), ConvertUnits.ToDisplayUnits(_in.Y ));
         }
+        public static float GetAngle(Vector2 A, Vector2 B)
+        {
+            // |A·B| = |A| |B| COS(θ)
+            // |A×B| = |A| |B| SIN(θ)
+
+            return (float)Math.Atan2(Cross(A, B), Dot(A, B));
+        }
+        public static float Dot(Vector2 A, Vector2 B)
+        {
+            return A.X * B.X + A.Y * B.Y;
+        }
+        public static float Cross(Vector2 A, Vector2 B)
+        {
+            return A.X * B.Y - A.Y * B.X;
+        }
     }
 }

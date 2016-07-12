@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace JumpAndRun
 {
-    public class Map
+    public class Map : Drawable
     {
         Vector2 mapSize;
         Tile[,] tileArray;
@@ -38,6 +38,12 @@ namespace JumpAndRun
             TileArray[x, y] = new Tile(x, y, isCollidable);
         }
 
-
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            foreach(Tile t in TileArray)
+            {
+                t.DebugDraw(target, states);
+            }
+        }
     }
 }
