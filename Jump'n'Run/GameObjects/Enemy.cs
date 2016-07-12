@@ -50,6 +50,7 @@ namespace JumpAndRun
 
         public void calculatePathToSimTargetUsingAStart(Vector2 position, Manhatten<Tile, Object> aStar)
         {
+            List<Point> backupPath = Path;
             Vector2f startVector = Vector2fExtensions.ToSf(this.body.Position);
             Vector2f endVector = Vector2fExtensions.ToSf(position);
             Point start = new Point((int)startVector.X / 32, (int)startVector.Y / 32);
@@ -62,6 +63,9 @@ namespace JumpAndRun
                 {
                     Path.Add(new Point(t.X, t.Y));
                 }
+            } else
+            {
+                Path = backupPath;
             }
         }
 
@@ -106,52 +110,3 @@ namespace JumpAndRun
 
     }
 }
-
-/*
-        public void calculatePathToSimTarget(Vector2 position, Map map)
-        {
-            Vector2f startVector = Vector2fExtensions.ToSf(this.body.Position);
-            Vector2f endVector =    Vector2fExtensions.ToSf(position);
-            Point start = new Point((int)startVector.X / 32, (int)startVector.Y / 32);
-            Point end = new Point((int)endVector.X / 32, (int)endVector.Y / 32);
-            SearchParameters sp = new SearchParameters(start, end, map);
-            PathFinder pathFinder = new PathFinder(sp);
-            Path = pathFinder.FindPath();
-
-            /*
-            FarseerPhysics.Common.Vertices verts = new FarseerPhysics.Common.Vertices();
-            foreach (Point p in Path)
-            {
-                verts.Add(new Vector2(p.XSim, p.YSim));
-            }
-            if (verts.Count != 0)
-            {
-                debugpath = FarseerPhysics.Factories.BodyFactory.CreateChainShape(world, verts);
-                debugpath.BodyType = BodyType.Static;
-                debugpath.Enabled = false;
-            }
-            
-        }
-
-        public void calculatePathToTarget(Point end, Map map)
-{
-    Vector2f startVector = Vector2fExtensions.ToSf(this.body.Position);
-    Point start = new Point((int)startVector.X / 32, (int)startVector.Y / 32);
-    SearchParameters sp = new SearchParameters(start, end, map);
-    PathFinder pathFinder = new PathFinder(sp);
-    Path = pathFinder.FindPath();
-
-    FarseerPhysics.Common.Vertices verts = new FarseerPhysics.Common.Vertices();
-    foreach (Point p in Path)
-    {
-        verts.Add(new Vector2(p.XSim, p.YSim));
-    }
-    if (verts.Count != 0)
-    {
-        debugpath = FarseerPhysics.Factories.BodyFactory.CreateChainShape(world, verts);
-        debugpath.BodyType = BodyType.Static;
-        debugpath.Enabled = false;
-    }
-}
-
-    */
