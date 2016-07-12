@@ -11,12 +11,23 @@ using Microsoft.Xna.Framework;
 
 namespace JumpAndRun
 {
-    abstract class Enemy : GameObject, SFML.Graphics.Drawable
+    class Enemy : AbstractCaracter, SFML.Graphics.Drawable
     {
         float damage;
         List<Point> path;
         public Body debugpath;
-        public SFML.Graphics.Sprite enemysprite;
+
+
+        public Enemy(Body body)
+        {
+            this.body = body;
+            Path = new List<Point>();
+            this.maxSpeed = 3;
+            initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
+            InitPhysics(@"Resources\physicsattributes.json");
+            body.BodyType = BodyType.Dynamic;
+
+        }
 
         public List<Point> Path
         {
@@ -29,11 +40,6 @@ namespace JumpAndRun
             {
                 path = value;
             }
-        }
-
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            enemysprite.Draw(target, states);
         }
 
         public void moveToTarget(Point target)
@@ -59,34 +65,17 @@ namespace JumpAndRun
                 }
             }
         }
-    }
 
-    class JumpingEnemy : Enemy
-    {
-        public JumpingEnemy(Body body, World world)
+        public override void updateExtension()
         {
-            this.world = world;
-            Path = new List<Point>();
-            this.maxSpeed = 3;
-            //TODO: Make him Jump
-            this.body = body;
-            body.FixedRotation = true;
-            //   body.Restitution = 1f;
-            body.Mass = 10;
-            body.BodyType = BodyType.Dynamic;
-            enemysprite = new SFML.Graphics.Sprite(new Texture(@"Resources\Sprites\enemy1.png"), new IntRect(0, 0, 32, 32));
-        }
-        public override void Update()
-        {
-            if(Path.Count != 0)
+            if (Path.Count != 0)
             {
                 moveToTarget(Path[0]);
-                if(Math.Abs(Path[0].XSim - this.body.Position.X) < 0.1 && Math.Abs(Path[0].YSim - this.body.Position.Y) < 0.1)
+                if (Math.Abs(Path[0].XSim - this.body.Position.X) < 0.1 && Math.Abs(Path[0].YSim - this.body.Position.Y) < 0.1)
                 {
                     Path.Remove(Path.First());
                 }
             }
-            enemysprite.Position = Vector2fExtensions.ToSf(body.Position);
         }
     }
 }

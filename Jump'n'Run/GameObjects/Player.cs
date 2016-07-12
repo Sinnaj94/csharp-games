@@ -28,6 +28,8 @@ namespace JumpAndRun
         Texture playerTexture;
         Sprite playerSprite;
 
+        public abstract void updateExtension();
+
         public void initAnimations(String jsonname, Texture texture)
         {
             SpriteBuilder _temp = new SpriteBuilder(jsonname);
@@ -56,6 +58,24 @@ namespace JumpAndRun
             body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
         }
 
+        public void move(Vector2f speed)
+        {
+            //Set speed to 1, if it is too big
+
+            if (Math.Abs(speed.X) > 1)
+            {
+                speed.X /= speed.X;
+            }
+
+            if (Math.Abs(speed.Y) > 1)
+            {
+                speed.Y /= speed.Y;
+            }
+
+            body.ApplyForce(new Vector2(MovingSpeed * speed.X, MovingSpeed * speed.Y));
+
+            // body.LinearVelocity = new Vector2(MovingSpeed);
+        }
 
         internal Animation IdleAnimation
         {
@@ -155,18 +175,37 @@ namespace JumpAndRun
             }
         }
 
+        public override void Update()
+        {
+            if (GetSpeed().X == 0)
+            {
+                CurrentAnimation = IdleAnimation;
+            }
+            else if (Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
+            {
+                CurrentAnimation = WalkAnimation;
+            }
+            else if (Math.Abs(GetSpeed().X) > 1)
+            {
+                CurrentAnimation = RunAnimation;
+            }
+
+            updateExtension();
+            PlayerSprite.TextureRect = CurrentAnimation.Animate();
+        }
+
         public Vector2 GetSpeed()
         {
             return body.GetLinearVelocityFromLocalPoint(body.Position);
         }
-
+       
     }
 
     class Player : AbstractCaracter
     {
         Vector2 positionChangedVector;
 
-        public Player(Body body, Vector2 bodySize)
+        public Player(Body body)
         {
             this.body = body;
             initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
@@ -193,42 +232,9 @@ namespace JumpAndRun
             }
         }
 
-        public void move(Vector2f speed)
+        public override void updateExtension()
         {
-            //Set speed to 1, if it is too big
-            
-            if (Math.Abs(speed.X) > 1)
-            {
-                speed.X /= speed.X;
-            }
-
-            if (Math.Abs(speed.Y) > 1)
-            {
-                speed.Y /= speed.Y;
-            }
-
-            body.ApplyForce(new Vector2(MovingSpeed * speed.X, MovingSpeed * speed.Y));
-
-           // body.LinearVelocity = new Vector2(MovingSpeed);
-        }
-
-        public override void Update()
-        {
-            if (GetSpeed().X == 0)
-            {
-                CurrentAnimation = IdleAnimation;
-            }
-            else if (Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
-            {
-                CurrentAnimation = WalkAnimation;
-            }
-            else if (Math.Abs(GetSpeed().X) > 1)
-            {
-                CurrentAnimation = RunAnimation;
-            }
-
             CheckPositionChange();
-            PlayerSprite.TextureRect = CurrentAnimation.Animate();      
         }
     }
 }

@@ -27,9 +27,9 @@ namespace JumpAndRun
         {
             world = new World(new Vector2(0, 0));
             Vector2 playerSize = new Vector2(16, 16);
-            player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1),playerSize);
+            player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1));
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
-            enemy = new JumpingEnemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
+            enemy = new Enemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1));
             enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(128), ConvertUnits.ToSimUnits(128));
             map = new Map(32, 32, 32);
             tmb = new TileMapBuilder(world, map);
