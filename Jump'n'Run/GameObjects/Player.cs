@@ -19,6 +19,7 @@ namespace JumpAndRun
             initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
             InitPhysics(@"Resources\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
+            body.FixedRotation = true;
             body.LinearVelocity = new Vector2(0, 0);
         }
 

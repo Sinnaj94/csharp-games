@@ -34,7 +34,7 @@ namespace JumpAndRun
             map = new Map(32, 32, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
-            input = new InputHandler();
+            input = new InputHandler(window);
             recalculatePath(player, new EventArgs());
             aStar = new Manhatten<Tile, Object>(map.TileArray);
         }
@@ -42,7 +42,10 @@ namespace JumpAndRun
         public View setCameraToPlayer(RenderTarget target)
         {
             SFML.System.Vector2f defaultSize = target.DefaultView.Size;
-            return new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X), ConvertUnits.ToDisplayUnits(player.body.Position.Y)), defaultSize);
+
+            View v = new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X), ConvertUnits.ToDisplayUnits(player.body.Position.Y)), defaultSize);
+
+            return v;
         }
 
         public void recalculatePath(object sender, EventArgs e)
@@ -61,7 +64,7 @@ namespace JumpAndRun
         {
             target.SetView(setCameraToPlayer(target));
             debug.DrawDebugData();
-           // tmb.Draw(target, states);
+            tmb.Draw(target, states);
             player.Draw(target, states);
             enemy.Draw(target, states);
             map.Draw(target, states);

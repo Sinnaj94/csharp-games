@@ -95,7 +95,7 @@ namespace JumpAndRun
         }
 
 
-        public void Execute(Player p)
+        public void _Execute(Player p)
         {
             Vector2f dif = Vector2fExtensions.ToSf(p.body.Position);
             // Vector2f dif = new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
@@ -110,6 +110,16 @@ namespace JumpAndRun
             p.CursorPosition = ca.Strength + dif;
         }
 
+        public void Execute(Player p)
+        {
+            Vector2 caSim = Vector2fExtensions.ToSimVector(ca.Strength);
+            Vector2 dif =  p.body.Position - caSim;
+            
+            dif.Normalize();
+            float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
+            p.body.Rotation = angle - (float)Math.PI / 2;
+            Console.WriteLine("angel: " + p.body.Rotation);
+        }
     }
 
     class GoCommand : Command

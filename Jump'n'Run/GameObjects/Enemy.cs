@@ -25,6 +25,7 @@ namespace JumpAndRun
             initAnimations("enemy", new Texture(@"Resources/Sprites/enemy1.png"));
             InitPhysics(@"Resources\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
+            body.FixedRotation = true;
            
             foreach(Fixture f in body.FixtureList)
             {
@@ -86,7 +87,7 @@ namespace JumpAndRun
 
             body.Rotation = angle -  1/2 * (float)Math.PI;
             
-            Console.WriteLine("angel: " + body.Rotation );
+          //  Console.WriteLine("angel: " + body.Rotation );
 
         }
 

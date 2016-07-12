@@ -15,7 +15,7 @@ namespace JumpAndRun
         Command _jump;
         Command turnCommand;
         SFML.System.Vector2i mousePosition;
-
+        SFML.Graphics.RenderWindow window;
         //Keyboard
         Keyboard.Key leftKey;
         Keyboard.Key rightKey;
@@ -39,7 +39,7 @@ namespace JumpAndRun
         //Axis definition
         Joystick.Axis runAxis;
         float threshold;
-        public InputHandler()
+        public InputHandler(SFML.Graphics.RenderWindow window)
         {
             //Defining the Commands here
             _go = new GoCommand();
@@ -59,8 +59,9 @@ namespace JumpAndRun
             caY = new CommandAttributes(0, 1);
             caXN = new CommandAttributes(-1);
             caYN = new CommandAttributes(0, -1);
-
+            
             mousePosition = Mouse.GetPosition();
+            this.window = window;
         }
 
         private void setupJoystick(uint nr)
@@ -107,6 +108,8 @@ namespace JumpAndRun
         private bool MousePositionChanged()
         {
             SFML.System.Vector2i currentPos = Mouse.GetPosition();
+            Vector2f worldPos = window.MapPixelToCoords(currentPos);
+     
             if (currentPos.X != mousePosition.X || currentPos.Y != mousePosition.Y)
             {
                 mousePosition = currentPos;
@@ -145,7 +148,8 @@ namespace JumpAndRun
             }
             if (MousePositionChanged())
             {
-                CommandAttributes _ca = new CommandAttributes(mousePosition.X, mousePosition.Y);
+                Vector2f worldPos = window.MapPixelToCoords(new Vector2i(mousePosition.X, mousePosition.Y));
+                CommandAttributes _ca = new CommandAttributes(worldPos.X, worldPos.Y);
                 AddCommandToList(turnCommand, _ca);
             }
         }
