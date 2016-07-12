@@ -26,8 +26,8 @@ namespace JumpAndRun
             InitPhysics(@"Resources\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
             body.FixedRotation = true;
-           
-            foreach(Fixture f in body.FixtureList)
+            body.LinearDamping = 10;
+            foreach (Fixture f in body.FixtureList)
             {
                 f.CollidesWith = Category.Cat2;
             }

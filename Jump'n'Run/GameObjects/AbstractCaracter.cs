@@ -58,7 +58,7 @@ namespace JumpAndRun
             body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
         }
 
-        public void move(Vector2f speed)
+        public virtual void move(Vector2f speed)
         {
             //Set speed to 1, if it is too big
 

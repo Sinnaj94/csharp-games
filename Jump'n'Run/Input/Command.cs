@@ -98,15 +98,11 @@ namespace JumpAndRun
         public void _Execute(Player p)
         {
             Vector2f dif = Vector2fExtensions.ToSf(p.body.Position);
-            // Vector2f dif = new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
-
             ca.Strength -= dif;
             Vector2 caSim = Vector2fExtensions.ToSimVector(ca.Strength);
             caSim -= p.body.Position;
             float angle = (float)(Math.Atan2(caSim.X - p.body.WorldCenter.X, caSim.Y - p.body.WorldCenter.Y) * -1);
             p.Rotate(angle);
-            // p.RotateTo(ConvertUnits.ToSimUnits(Ca.Strength.X), ConvertUnits.ToSimUnits(Ca.Strength.X));
-            // p.CursorPosition = strength + new Vector2f(ConvertUnits.ToDisplayUnits(p.body.Position.X), ConvertUnits.ToDisplayUnits(p.body.Position.Y));
             p.CursorPosition = ca.Strength + dif;
         }
 
@@ -117,7 +113,6 @@ namespace JumpAndRun
             dif.Normalize();
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
             p.body.Rotation = angle - (float)Math.PI / 2;
-            Console.WriteLine("angel: " + p.body.Rotation);
         }
     }
 

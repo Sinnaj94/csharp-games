@@ -160,7 +160,6 @@ namespace JumpAndRun
             {
                 item.Ca = ca;
                 commandList.Add(item);
-                //Output.Instance.print("Command " + item.ToString() + " was added.");
             }
             else
             {

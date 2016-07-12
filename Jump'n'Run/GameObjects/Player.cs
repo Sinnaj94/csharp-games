@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.System;
 
 namespace JumpAndRun
 {
@@ -19,6 +20,7 @@ namespace JumpAndRun
             initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
             InitPhysics(@"Resources\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
+            body.LinearDamping = 10;
             body.FixedRotation = true;
             body.LinearVelocity = new Vector2(0, 0);
         }
@@ -37,6 +39,22 @@ namespace JumpAndRun
                 positionChangedVector = this.body.Position;
                 PositionChanged(EventArgs.Empty);
             }
+        }
+
+        public override void move(Vector2f speed)
+        {
+
+            if (Math.Abs(speed.X) > 1)
+            {
+                speed.X /= speed.X;
+            }
+
+            if (Math.Abs(speed.Y) > 1)
+            {
+                speed.Y /= speed.Y;
+            }
+
+            body.LinearVelocity = (new Vector2((float)Math.Cos(body.Rotation), (float)Math.Sin(body.Rotation)));
         }
 
         public override void updateExtension()
