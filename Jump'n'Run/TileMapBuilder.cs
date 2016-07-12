@@ -52,10 +52,10 @@ namespace JumpAndRun
         public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map)
         {
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(@"Resources\neu.png"), world);
-            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\future-joy-tilee.png");
-            TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\neu.tmx");
-            var myTileset = test.Tilesets["future-joy-tilee"];
+            CreateShape(new SFML.Graphics.Texture(@"Resources\topdown_alpha.png"), world);
+            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\sprites\topdown.png");
+            TiledSharp.TmxMap test = new TiledSharp.TmxMap(@"Resources\topdown.tmx");
+            var myTileset = test.Tilesets["topdown"];
             Vertices navigationVerts = new Vertices();
             this.map = map;
 
@@ -67,7 +67,7 @@ namespace JumpAndRun
                     
                     if (t.Gid != 0)
                     {
-                        bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 32 - 1) * 32, t.Gid / 32 * 32, 32, 32));
+                        bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 27 - 1) * 37, t.Gid / 27 * 37, 32, 32));
                         bodySprite.Position = new SFML.System.Vector2f(t.X * 32 , t.Y * 32 );
                         TileSpriteList.Add(bodySprite);
 
