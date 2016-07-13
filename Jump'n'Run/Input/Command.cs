@@ -12,8 +12,14 @@ namespace JumpAndRun
     class CommandAttributes
     {
         Vector2f strength;
+        int attackNr;
+
+        public CommandAttributes(int nr,bool egal) {
+            this.attackNr = nr;
+        }
         public CommandAttributes(float x)
         {
+
             this.strength = new Vector2f(x, 0);
         }
 
@@ -60,6 +66,19 @@ namespace JumpAndRun
             set
             {
                 strength = value;
+            }
+        }
+
+        public int AttackNr
+        {
+            get
+            {
+                return attackNr;
+            }
+
+            set
+            {
+                attackNr = value;
             }
         }
     }
@@ -152,7 +171,7 @@ namespace JumpAndRun
 
         public void Execute(Player p)
         {
-            p.Statemachine.triggerAttack();
+            p.Statemachine.triggerAttack(ca.AttackNr);
         }
     }
 

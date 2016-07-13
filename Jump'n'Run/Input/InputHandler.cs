@@ -25,6 +25,7 @@ namespace JumpAndRun
         Keyboard.Key upKey;
         // Mouse
         Mouse.Button leftClick;
+        Mouse.Button rightClick;
         //Joystick
         uint jumpJoy;
         bool joystickConnected;
@@ -48,6 +49,7 @@ namespace JumpAndRun
 
         float threshold;
         private uint attackJoy;
+        private uint altAttackJoy;
 
         public InputHandler(SFML.Graphics.RenderWindow window)
         {
@@ -83,6 +85,7 @@ namespace JumpAndRun
                 joystickConnected = true;
                 jumpJoy = 0;
                 attackJoy = 11;
+                altAttackJoy = 10;
                 runAxis = Joystick.Axis.X;
                 upAxis = Joystick.Axis.Y;
                 rightAxisL = Joystick.Axis.Z;
@@ -105,6 +108,7 @@ namespace JumpAndRun
             upKey = Keyboard.Key.W;
             downKey = Keyboard.Key.S;
             leftClick = Mouse.Button.Left;
+            rightClick = Mouse.Button.Right;
         }
 
         public List<Command> HandleInput()
@@ -174,7 +178,13 @@ namespace JumpAndRun
             }
             if (mouseButtonDown(leftClick))
             {
-                AddCommandToList(attack, new CommandAttributes(1, 0));
+                CommandAttributes _t = new CommandAttributes(0, false);
+                AddCommandToList(attack, _t);
+            }
+            if (mouseButtonDown(rightClick))
+            {
+                CommandAttributes _t = new CommandAttributes(1, false);
+                AddCommandToList(attack, _t);
             }
         }
 
@@ -211,7 +221,14 @@ namespace JumpAndRun
                 }
                 if (Joystick.IsButtonPressed(joystickNr, attackJoy))
                 {
-                    AddCommandToList(attack, caX);
+                    CommandAttributes _t = new CommandAttributes(0, false);
+                    AddCommandToList(attack, _t);
+                }
+                if (Joystick.IsButtonPressed(joystickNr, altAttackJoy))
+                {
+                    CommandAttributes _t = new CommandAttributes(1, false);
+
+                    AddCommandToList(attack, _t);
                 }
                 float _axisDirection = axisDirection(runAxis);
                 float _axisDirectionY = axisDirection(upAxis);
