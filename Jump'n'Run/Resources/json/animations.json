@@ -67,6 +67,17 @@
             "pixelSize": 52,
             "pixelAbove": 112,
             "pixelLeft": 0
+        },
+        {
+            "name": "die",
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 2,
+            "endColumn": 0,
+            "playOnce": false,
+            "pixelSize": 52,
+            "pixelAbove": 112,
+            "pixelLeft": 0
         }
     ],
 
@@ -137,6 +148,17 @@
             "playOnce": false,
             "pixelSize": 32,
             "pixelAbove": 0,
+            "pixelLeft": 0
+        },
+        {
+            "name": "die",
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 10,
+            "endColumn": 0,
+            "playOnce": true,
+            "pixelSize": 60,
+            "pixelAbove": 164,
             "pixelLeft": 0
         }
     ]

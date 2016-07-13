@@ -24,7 +24,7 @@ namespace JumpAndRun
             idle = new Idle(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
             walk = new Walk(caracter, _temp.AnimationList.GetAnimation("walk", caracterTexture));
             attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture));
-            dead = new Dead(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture));
+            dead = new Dead(caracter, _temp.AnimationList.GetAnimation("die", caracterTexture));
             alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture));
 
             attack.Animation.SetSpeed(4);
