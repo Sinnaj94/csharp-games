@@ -155,7 +155,7 @@ namespace JumpAndRun
 
 
 
-    class Animation
+    public class Animation
     {
 
         public string name { get; set; }

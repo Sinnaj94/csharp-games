@@ -9,15 +9,14 @@ namespace JumpAndRun
     class Idle : State
     {
         AbstractCaracter caracter;
-        Animation animation;
-        public Idle(AbstractCaracter caracter)
+        public Idle(AbstractCaracter caracter, Animation animation)
         {
+            setAnimation(animation);
             this.caracter = caracter;
-            animation = caracter.IdleAnimation;
         }
         public override void Update()
         {
-            caracter.PlayerSprite.TextureRect = animation.Animate();
+            caracter.PlayerSprite.TextureRect = Animation.Animate();
         }
     }
 }

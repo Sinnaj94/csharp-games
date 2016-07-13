@@ -9,15 +9,14 @@ namespace JumpAndRun
     class Walk : State
     {
         AbstractCaracter caracter;
-        Animation animation;
-        public Walk(AbstractCaracter caracter)
+        public Walk(AbstractCaracter caracter, Animation animation)
         {
+            setAnimation(animation);
             this.caracter = caracter;
-            animation = caracter.WalkAnimation;
         }
         public override void Update()
         {
-            caracter.PlayerSprite.TextureRect = animation.Animate();
+            caracter.PlayerSprite.TextureRect = Animation.Animate();
         }
     }
 }

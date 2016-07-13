@@ -14,6 +14,11 @@ namespace JumpAndRun
 
     public abstract class State
     {
+        Animation animation;
+        public void setAnimation(Animation animation)
+        {
+            this.Animation = animation;
+        }
         public abstract void Update();
         private StateStatus status;    
         public void Started()
@@ -34,6 +39,18 @@ namespace JumpAndRun
             set
             {
                 status = value;
+            }
+        }
+        public Animation Animation
+        {
+            get
+            {
+                return animation;
+            }
+
+            set
+            {
+                animation = value;
             }
         }
     }
