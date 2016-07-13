@@ -57,9 +57,10 @@ namespace JumpAndRun
 
                     name = (String)row["name"];
                     bool playOnce = (bool)row["playOnce"];
-
-
-                    Animation _temp = new Animation(name, startRow, startColumn, endRow, endColumn, playOnce);
+                    int pixelSize = (int)(Int64)row["pixelSize"];
+                    //Pixel offset is an optional value
+                    Vector2i pixelOffset = new Vector2i((int)(Int64)row["pixelLeft"], (int)(Int64)row["pixelAbove"]);
+                    Animation _temp = new Animation(name, startRow, startColumn, endRow, endColumn, playOnce,pixelSize,pixelOffset);
                     AnimationList.Add(_temp);
 
                 }
@@ -180,13 +181,27 @@ namespace JumpAndRun
             }
         }
 
+        public int PixelSize
+        {
+            get
+            {
+                return pixelSize;
+            }
+
+            set
+            {
+                pixelSize = value;
+            }
+        }
+
         private int rowSize;
         private List<IntRect> rectangleList;
         int size;
         int currentFrame;
         Time frameChangeTime;
-
-        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce)
+        int pixelSize;
+        Vector2i pixelOffset;
+        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce,int pixelSize, Vector2i pixelOffset)
         {
             this.name = name;
             this.startRow = startRow;
@@ -194,13 +209,14 @@ namespace JumpAndRun
             this.endRow = endRow;
             this.endColumn = endColumn;
             this.playOnce = playOnce;
-            //Output.Instance.print("Animation " + name + " created. Startcolumn: " + startColumn + ", Columnsize: " + columnSize);
+            this.PixelSize = pixelSize;
+            this.pixelOffset = pixelOffset;
             rowSize = 6;
             RectangleList = new List<IntRect>();
             sheetSize = new Vector2u(8, 9);
             c = new Clock();
             currentFrame = 0;
-            frameChangeTime = Time.FromMilliseconds(100);
+            frameChangeTime = Time.FromMilliseconds(200);
 
 
         }
@@ -257,7 +273,7 @@ namespace JumpAndRun
 
         private IntRect GetRect(int x, int y, Texture texture)
         {
-            IntRect _temp = new IntRect(x * 32, y * 32, 32, 32);
+            IntRect _temp = new IntRect(x * PixelSize +pixelOffset.X, y * PixelSize + pixelOffset.Y, PixelSize, PixelSize);
 
 
             return _temp;
@@ -276,6 +292,10 @@ namespace JumpAndRun
                 c = new Clock();
             }
             return rectangleList[currentFrame];
+        }
+
+        public void SetSpeed(float factor) {
+            frameChangeTime = Time.FromMilliseconds((int)(200/factor));
         }
 
 

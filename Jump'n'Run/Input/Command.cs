@@ -22,6 +22,24 @@ namespace JumpAndRun
             this.strength = new Vector2f(x, y);
         }
 
+        public bool Normalize()
+        {
+            double v = Math.Pow(Math.Abs(strength.X), 2) + Math.Pow(Math.Abs(strength.Y), 2);
+            if (Math.Sqrt(v) > 1)
+            {
+                DoNormalization((float)Math.Pow(v,2));
+
+                return true;
+            }
+            return false;
+        }
+
+        private void DoNormalization(float v)
+        {
+            //TODO
+
+        }
+
         public bool IsValid()
         {
             return (strength.X != 0 || strength.Y != 0);
@@ -73,7 +91,7 @@ namespace JumpAndRun
 
         public void Execute(Player p)
         {
-           // p.Jump();
+            // p.Jump();
         }
     }
 
@@ -109,7 +127,7 @@ namespace JumpAndRun
         public void Execute(Player p)
         {
             Vector2 caSim = Vector2fExtensions.ToSimVector(ca.Strength);
-            Vector2 dif =  p.body.Position - caSim;
+            Vector2 dif = p.body.Position - caSim;
             dif.Normalize();
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
             p.body.Rotation = angle - (float)Math.PI / 2;

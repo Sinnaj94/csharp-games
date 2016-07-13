@@ -16,11 +16,12 @@ namespace JumpAndRun
         private World world;
         DebugDraw debug;
         private Player player;
-        Enemy enemy; 
+        Enemy enemy;
         InputHandler input;
         List<Command> currentCommands;
         TileMapBuilder tmb;
         Map map;
+        Background background;
         Manhatten<Tile, Object> aStar;
 
         public GameWorld(RenderWindow window)
@@ -37,6 +38,7 @@ namespace JumpAndRun
             input = new InputHandler(window);
             recalculatePath(player, new EventArgs());
             aStar = new Manhatten<Tile, Object>(map.TileArray);
+            background = new Background();
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -44,7 +46,7 @@ namespace JumpAndRun
             SFML.System.Vector2f defaultSize = target.DefaultView.Size;
 
             View v = new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X), ConvertUnits.ToDisplayUnits(player.body.Position.Y)), defaultSize);
-
+            background.Update(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X)-target.Size.X*.5f, ConvertUnits.ToDisplayUnits(player.body.Position.Y)-target.Size.Y*.5f));
             return v;
         }
 
@@ -62,19 +64,21 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            background.Draw(target, states);
+
             target.SetView(setCameraToPlayer(target));
-            debug.DrawDebugData();
+            //debug.DrawDebugData();
             tmb.Draw(target, states);
             player.Draw(target, states);
             enemy.Draw(target, states);
-            map.Draw(target, states);
-            enemy.DebugDraw(target, states);
+            //map.Draw(target, states);
+            //enemy.DebugDraw(target, states);
         }
 
         private void HandleInputCommands()
         {
             currentCommands = input.HandleInput();
-            foreach(Command c in currentCommands)
+            foreach (Command c in currentCommands)
             {
                 c.Execute(player);
             }

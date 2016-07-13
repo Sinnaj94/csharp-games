@@ -27,7 +27,7 @@ namespace JumpAndRun
         float movingSpeed;
         Texture playerTexture;
         Sprite playerSprite;
-
+        float threshold = .01f;
         public abstract void updateExtension();
 
         public void initAnimations(String jsonname, Texture texture)
@@ -53,10 +53,10 @@ namespace JumpAndRun
             this.body.Restitution = .1f;
         }
 
-        public void Move(float dx, float dy)
-        {
-            body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
-        }
+        /* public void Move(float dx, float dy)
+         {
+             body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
+         }*/
 
         public virtual void move(Vector2f speed)
         {
@@ -131,8 +131,10 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+
+            PlayerSprite.Rotation = MathHelper.ToDegrees(body.Rotation);
             PlayerSprite.Position = Vector2fExtensions.toVector2f(body.Position);
-            PlayerSprite.Rotation = MathHelper.ToDegrees(body.Rotation );
+
             PlayerSprite.Draw(target, states);
         }
 
@@ -177,17 +179,12 @@ namespace JumpAndRun
 
         public override void Update()
         {
-            if (GetSpeed().X == 0)
+
+            CurrentAnimation = IdleAnimation;
+            if (Math.Abs(GetSpeed().X) > threshold || Math.Abs(GetSpeed().Y) > threshold)
             {
-                CurrentAnimation = IdleAnimation;
-            }
-            else if (Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
-            {
+                WalkAnimation.SetSpeed(GetTotalSpeed() * 4);
                 CurrentAnimation = WalkAnimation;
-            }
-            else if (Math.Abs(GetSpeed().X) > 1)
-            {
-                CurrentAnimation = RunAnimation;
             }
 
             updateExtension();
@@ -198,10 +195,15 @@ namespace JumpAndRun
         {
             return body.GetLinearVelocityFromLocalPoint(body.Position);
         }
-       
+
+        private float GetTotalSpeed()
+        {
+
+            return (float)Math.Sqrt(Math.Pow(GetSpeed().X, 2) + Math.Pow(GetSpeed().Y, 2));
+        }
     }
 
-    
+
 }
 
 
