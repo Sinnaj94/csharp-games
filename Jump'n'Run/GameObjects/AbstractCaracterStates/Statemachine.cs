@@ -16,13 +16,15 @@ namespace JumpAndRun
         State idle;
         State walk;
         State attack;
-
+        State alternateAttack;
         public void initAnimations(String spriteJsonAttribute, Texture caracterTexture)
         {
             SpriteBuilder _temp = new SpriteBuilder(spriteJsonAttribute);
             idle = new Idle(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
             walk = new Walk(caracter, _temp.AnimationList.GetAnimation("walk", caracterTexture));
             attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture));
+            alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture));
+
             attack.Animation.SetSpeed(4);
         }
         public Statemachine(AbstractCaracter caracter, String spriteJsonAttribute, Texture caracterTextur)

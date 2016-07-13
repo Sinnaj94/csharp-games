@@ -48,13 +48,13 @@
         },
         {
             "name": "attack",
-            "startRow": 0,
+            "startRow": 3,
             "startColumn": 0,
-            "endRow": 2,
+            "endRow": 8,
             "endColumn": 0,
             "playOnce": false,
-            "pixelSize": 52,
-            "pixelAbove": 112,
+            "pixelSize": 48,
+            "pixelAbove": 64,
             "pixelLeft": 0
         },
         {
