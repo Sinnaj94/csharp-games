@@ -36,17 +36,15 @@ namespace JumpAndRun
             Vector2 speed = caracter.GetSpeed();
             speed.X = Math.Abs(speed.X);
             speed.Y = Math.Abs(speed.Y);
-
+            currentState = idle;
+            if (speed.X > .1 || speed.Y > .1)
+            {
+                currentState = walk;
+                walk.Animation.SetSpeed(caracter.GetTotalSpeed()*4);
+            }
             if (attack.Status == StateStatus.Running)
             {
                 currentState = attack;
-            }
-            else if (speed.X < .1 && speed.Y < .1)
-            {
-                currentState = idle;
-            } else if (speed.X < 1 || speed.X < 1)
-            {
-                currentState = walk;
             }
 
         }
@@ -57,7 +55,7 @@ namespace JumpAndRun
         }
         public void triggerAttack()
         {
-            if(attack.Status == StateStatus.Terminated)
+            if (attack.Status == StateStatus.Terminated)
             {
                 attack.Status = StateStatus.Running;
             }
