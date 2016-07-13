@@ -23,7 +23,7 @@ namespace JumpAndRun
         Map map;
         Background background;
         Manhatten<Tile, Object> aStar;
-
+        Crate _test;
         public GameWorld(RenderWindow window)
         {
             world = new World(new Vector2(0, 0));
@@ -39,6 +39,7 @@ namespace JumpAndRun
             recalculatePath(player, new EventArgs());
             aStar = new Manhatten<Tile, Object>(map.TileArray);
             background = new Background();
+            
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -67,12 +68,13 @@ namespace JumpAndRun
 
             target.SetView(setCameraToPlayer(target));
             debug.DrawDebugData();
-            tmb.Draw(target, states);
+            //tmb.Draw(target, states);
             enemy.Draw(target, states);
-
             player.Draw(target, states);
             map.Draw(target, states);
             enemy.DebugDraw(target, states);
+            
+
         }
 
         private void HandleInputCommands()

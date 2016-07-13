@@ -23,7 +23,7 @@ namespace JumpAndRun
 
 
             test.FillColor = colorRainbow.SwitchColorThrough();
-            test.OutlineThickness = 20;
+            //test.OutlineThickness = 20;
 
 
         }
