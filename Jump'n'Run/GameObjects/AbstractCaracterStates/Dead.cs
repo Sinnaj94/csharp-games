@@ -16,6 +16,7 @@ namespace JumpAndRun
         }
         public override void Update()
         {
+            caracter.PlayerSprite.Rotation = caracter.body.Rotation;
             caracter.PlayerSprite.TextureRect = Animation.Animate();
             caracter.body.Awake = false;
         }
