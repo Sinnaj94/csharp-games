@@ -107,7 +107,6 @@
     <None Include="Resources\buttons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\enemy1.psd" />
     <None Include="Resources\fonts\computer_pixel.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
