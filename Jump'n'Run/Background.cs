@@ -10,13 +10,11 @@ namespace JumpAndRun
         RectangleShape test;
 
         ColorRainbow colorRainbow;
-        ColorRainbow colorRainbowO;
 
 
         public Background()
         {
-            colorRainbow = new ColorRainbow(Time.FromMilliseconds(500), new Color(255, 255, 255),0);
-            colorRainbowO = new ColorRainbow(Time.FromMilliseconds(500), new Color(255, 255, 255), 51);
+            colorRainbow = new ColorRainbow(Time.FromMilliseconds(3000), new Color(255, 255, 255),0);
 
 
             test = new RectangleShape();
@@ -45,7 +43,6 @@ namespace JumpAndRun
             test.Size = (new SFML.System.Vector2f(target.DefaultView.Size.X - test.OutlineThickness*2, target.DefaultView.Size.Y - test.OutlineThickness*2));
 
             test.FillColor = colorRainbow.SwitchColorThrough();
-            test.OutlineColor = colorRainbowO.SwitchColorThrough();
 
 
             test.Draw(target, states);

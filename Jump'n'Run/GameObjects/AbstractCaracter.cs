@@ -76,6 +76,8 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            float _temp = statemachine.CurrentState.Animation.PixelSize;
+            PlayerSprite.Origin = new Vector2f(_temp/2, _temp/2);
             PlayerSprite.Position = Vector2fExtensions.toVector2f(body.Position);
             PlayerSprite.Rotation = MathHelper.ToDegrees(body.Rotation );
             PlayerSprite.Draw(target, states);

@@ -8,12 +8,26 @@ using FarseerPhysics.Factories;
 using FarseerPhysics;
 using Microsoft.Xna.Framework;
 using FarseerPhysics.Dynamics;
+using SFML.System;
 
 namespace JumpAndRun
 {
     abstract class AbstractPhysicsObject : GameObject, SFML.Graphics.Drawable
     {
+        Sprite sprite;
 
+        public Sprite Sprite
+        {
+            get
+            {
+                return sprite;
+            }
+
+            set
+            {
+                sprite = value;
+            }
+        }
 
         public void Init(Body b)
         {
@@ -23,7 +37,12 @@ namespace JumpAndRun
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
-            throw new NotImplementedException();
+            Sprite.Origin = new Vector2f(Sprite.Texture.Size.X/2, Sprite.Texture.Size.Y/2);
+            Sprite.Rotation = body.Rotation*180/(float)Math.PI;
+
+            Sprite.Position = Vector2fExtensions.toVector2f(body.Position);
+
+            Sprite.Draw(target, states);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace JumpAndRun
             background = new Background();        
             initLightCone(window);
             updateLightCone(window);
-            
+            _test = new Crate(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32), 1));
         }
         public void initLightCone(RenderWindow window)
         {
@@ -99,7 +99,6 @@ namespace JumpAndRun
             target.SetView(setCameraToPlayer(target));
 
             debug.DrawDebugData();
-            //tmb.Draw(target, states);
 
             tmb.Draw(target, states);
 
@@ -108,8 +107,8 @@ namespace JumpAndRun
             map.Draw(target, states);
             enemy.DebugDraw(target, states);
 
-            
 
+            _test.Draw(target, states);
             updateLightCone(window);
             darkSprite.Draw(target, states);
 
