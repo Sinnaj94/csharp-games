@@ -78,6 +78,8 @@
     <Compile Include="GameObjects\AbstractCaracterStates\Statemachine.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Walk.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\Projectiles\AbstractProjectile.cs" />
+    <Compile Include="GameObjects\Projectiles\MeleeProjectile.cs" />
     <Compile Include="Input\Command.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
