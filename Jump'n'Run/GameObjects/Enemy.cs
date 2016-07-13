@@ -75,7 +75,7 @@ namespace JumpAndRun
             dif.Normalize();
             body.LinearVelocity = dif;
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
-            body.Rotation = angle - (float)Math.PI / 2;
+            body.Rotation = angle + (float)Math.PI / 2;
         }
 
         public override void updateExtension()
