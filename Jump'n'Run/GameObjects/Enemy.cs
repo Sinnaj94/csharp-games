@@ -88,6 +88,7 @@ namespace JumpAndRun
             else
             {
                 body.LinearVelocity = new Vector2(0, 0);
+                Statemachine.triggerAttack();
             }
         }
         public void DebugDraw(RenderTarget target, RenderStates states)

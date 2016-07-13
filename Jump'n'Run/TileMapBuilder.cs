@@ -65,7 +65,11 @@ namespace JumpAndRun
                     {
                         bodySprite = new SFML.Graphics.Sprite(tilemap, new SFML.Graphics.IntRect((t.Gid % 27 - 1) * 37, t.Gid / 27 * 37, 32, 32));
                         bodySprite.Position = new SFML.System.Vector2f(t.X * 32 , t.Y * 32 );
+                        Sprite nightTexture = bodySprite;
+                      //  nightTexture.Color = new Color(0, 0, 0, 80);
+                        nightTexture.Color = new Color(128, 128, 128, 200);
                         TileSpriteList.Add(bodySprite);
+                        TileSpriteList.Add(nightTexture);
 
                     }                     
 

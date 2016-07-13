@@ -66,8 +66,8 @@ namespace JumpAndRun
             background.Draw(target, states);
 
             target.SetView(setCameraToPlayer(target));
-            debug.DrawDebugData();
-            //tmb.Draw(target, states);
+            //debug.DrawDebugData();
+            tmb.Draw(target, states);
             enemy.Draw(target, states);
 
             player.Draw(target, states);
