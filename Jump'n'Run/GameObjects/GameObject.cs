@@ -34,14 +34,12 @@ namespace JumpAndRun
         {
             body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
         }
-
         public void Rotate(double newRotation)
         {
             //this.body.Rotation = ConvertUnits.ToSimUnits(newRotation);
             this.body.Rotation = (float)newRotation;
             this.body.AngularVelocity = 0;
         }
-
         public void RotateTo(float x, float y)
         {
             float angle = (float)(Math.Atan2(x - body.WorldCenter.X, y - body.WorldCenter.Y) * -1);

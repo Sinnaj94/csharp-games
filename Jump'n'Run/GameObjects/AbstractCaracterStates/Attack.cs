@@ -10,7 +10,7 @@ namespace JumpAndRun
     class Attack : State
     {
         AbstractCaracter caracter;
-
+        AbstractProjectile projectile;
         public Attack(AbstractCaracter caracter, Animation animation)
         {
             setAnimation(animation);
@@ -22,12 +22,21 @@ namespace JumpAndRun
             if(Status == StateStatus.Running)
             {
                 caracter.PlayerSprite.TextureRect = Animation.Animate();
+                if(projectile == null)
+                {
+                    projectile = new MeleeProjectile(caracter);
+                } else
+                {
+                    projectile.Update();
+                }
             }    
 
             if (this.Animation.Terminated)
             {
                 Status = StateStatus.Terminated;
                 this.Animation.Restart();
+                projectile.body.Dispose();
+                projectile = null;
             } 
         }
     }

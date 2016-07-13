@@ -17,8 +17,9 @@ namespace JumpAndRun
         List<Point> path;
         public Body debugpath;
 
-        public Enemy(Body body)
+        public Enemy(Body body, World world)
         {
+            this.world = world;
             this.body = body;
             Path = new List<Point>();
             this.maxSpeed = 3;
