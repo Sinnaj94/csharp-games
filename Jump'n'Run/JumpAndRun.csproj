@@ -82,6 +82,7 @@
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Projectiles\AbstractProjectile.cs" />
     <Compile Include="GameObjects\Projectiles\MeleeProjectile.cs" />
+    <Compile Include="GameObjects\Projectiles\RangeProjectile.cs" />
     <Compile Include="Input\Command.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObject.cs" />

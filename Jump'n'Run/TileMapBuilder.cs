@@ -42,10 +42,6 @@ namespace JumpAndRun
                 List<Fixture> fixtures = FixtureFactory.AttachCompoundPolygon(
                     FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(SimplifyTools.DouglasPeuckerSimplify(v, 0.05f), TriangulationAlgorithm.Bayazit, false, 0.05f),
                     1, body); 
-                foreach(Fixture f in fixtures)
-                {
-                    f.CollidesWith = Category.Cat1;
-                }
             }
         }
 
