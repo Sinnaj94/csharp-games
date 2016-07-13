@@ -30,12 +30,11 @@ namespace JumpAndRun
             body.LinearDamping = 10;
             foreach (Fixture f in body.FixtureList)
             {
-                f.CollidesWith = Category.Cat2;
+                f.CollidesWith = Category.Cat3;
             }
 
             body.FixedRotation = true;
         }
-
         public List<Point> Path
         {
             get
@@ -48,7 +47,6 @@ namespace JumpAndRun
                 path = value;
             }
         }
-
         public void calculatePathToSimTargetUsingAStart(Vector2 position, Manhatten<Tile, Object> aStar)
         {
             List<Point> backupPath = Path;
@@ -69,7 +67,6 @@ namespace JumpAndRun
                 Path = backupPath;
             }
         }
-
         public void MoveAndRotateTo(Point target)
         {
             Vector2 dif = new Vector2((float)target.XSim - body.Position.X, (float)target.YSim - body.Position.Y);
@@ -78,7 +75,6 @@ namespace JumpAndRun
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
             body.Rotation = angle + (float)Math.PI / 2;
         }
-
         public override void updateExtension()
         {
             if (Path.Count >= 2)
@@ -94,7 +90,6 @@ namespace JumpAndRun
                 body.LinearVelocity = new Vector2(0, 0);
             }
         }
-
         public void DebugDraw(RenderTarget target, RenderStates states)
         {
             if(Path.Count > 0)

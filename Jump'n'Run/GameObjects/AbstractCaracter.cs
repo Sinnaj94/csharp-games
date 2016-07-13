@@ -46,6 +46,8 @@ namespace JumpAndRun
             this.body.Friction = _tempP.friction;
             this.body.GravityScale = _tempP.mass;
             this.body.Restitution = .1f;
+            body.SleepingAllowed = false;
+            body.OnCollision += new OnCollisionEventHandler(Body_OnCollision);
         }
 
         public void Move(float dx, float dy)
@@ -79,6 +81,17 @@ namespace JumpAndRun
             PlayerSprite.Draw(target, states);
         }
 
+        public bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            Vector2 contactNormal;
+            FarseerPhysics.Common.FixedArray2<Vector2> contactPoints;
+            contact.GetWorldManifold(out contactNormal, out contactPoints);
+            if (fixtureB.CollisionCategories == Category.Cat3)
+            {
+                this.isDead = true;
+            }
+            return true;
+        }
         public float MovingSpeed
         {
             get
@@ -91,7 +104,6 @@ namespace JumpAndRun
                 movingSpeed = value;
             }
         }
-
         public Texture PlayerTexture
         {
             get
@@ -104,7 +116,6 @@ namespace JumpAndRun
                 playerTexture = value;
             }
         }
-
         public Sprite PlayerSprite
         {
             get
@@ -117,7 +128,6 @@ namespace JumpAndRun
                 playerSprite = value;
             }
         }
-
         public Statemachine Statemachine
         {
             get
@@ -130,13 +140,12 @@ namespace JumpAndRun
                 statemachine = value;
             }
         }
-
         public override void Update()
         {
             Statemachine.Update();
-            updateExtension();
+            if (!isDead) { updateExtension(); }
+            
         }
-
         public Vector2 GetSpeed()
         {
             return body.GetLinearVelocityFromLocalPoint(body.Position);

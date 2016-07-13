@@ -17,6 +17,7 @@ namespace JumpAndRun
         public Body body { get; set; }
         public abstract void Update();
         public String name { get; set; }
+        public bool isDead { get; set; }
         public int HP { get; set; }
         public int maxHP { get; set; }
         public int price { get; set; }

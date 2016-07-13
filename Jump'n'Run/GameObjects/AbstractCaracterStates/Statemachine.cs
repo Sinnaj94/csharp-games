@@ -17,12 +17,14 @@ namespace JumpAndRun
         State walk;
         State attack;
         State alternateAttack;
+        State dead;
         public void initAnimations(String spriteJsonAttribute, Texture caracterTexture)
         {
             SpriteBuilder _temp = new SpriteBuilder(spriteJsonAttribute);
             idle = new Idle(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
             walk = new Walk(caracter, _temp.AnimationList.GetAnimation("walk", caracterTexture));
             attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture));
+            dead = new Dead(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture));
             alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture));
 
             attack.Animation.SetSpeed(4);
@@ -39,15 +41,20 @@ namespace JumpAndRun
             speed.X = Math.Abs(speed.X);
             speed.Y = Math.Abs(speed.Y);
             currentState = idle;
-            if (speed.X > .1 || speed.Y > .1)
+            if(caracter.isDead == true)
+            {
+                currentState = dead;
+            }
+            else if (attack.Status == StateStatus.Running)
+            {
+                currentState = attack;
+            }
+            else if (speed.X > .1 || speed.Y > .1)
             {
                 currentState = walk;
                 walk.Animation.SetSpeed(caracter.GetTotalSpeed()*4);
             }
-            if (attack.Status == StateStatus.Running)
-            {
-                currentState = attack;
-            }
+
 
         }
         public void Update()

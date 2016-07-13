@@ -15,10 +15,10 @@ namespace JumpAndRun
         public MeleeProjectile(AbstractCaracter caracter)
         {
             this.Caracter = caracter;
-            this.world = caracter.world;
+            this.world = Caracter.world;
             this.body = new Body(world, caracter.body.Position);
             CircleShape circle = new CircleShape(ConvertUnits.ToSimUnits(10), 10);
-            circle.Position += caracter.getBodyDirection() / 7;
+            circle.Position += Caracter.getBodyDirection() * 2.2f * circle.Radius;
             body.CreateFixture(circle);
             body.IsSensor = true;
             // Cat3 for projectiles
