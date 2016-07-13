@@ -72,6 +72,10 @@
     <Compile Include="AStern\Manhatten.cs" />
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\Idle.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\State.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\Statemachine.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\Walk.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Input\Command.cs" />
     <Compile Include="GameObjects\Enemy.cs" />

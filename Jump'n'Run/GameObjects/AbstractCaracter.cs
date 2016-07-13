@@ -17,7 +17,7 @@ using FarseerPhysics.Dynamics.Contacts;
 namespace JumpAndRun
 {
 
-    abstract class AbstractCaracter : GameObject, SFML.Graphics.Drawable
+    public abstract class AbstractCaracter : GameObject, SFML.Graphics.Drawable
     {
         Animation idleAnimation;
         Animation runAnimation;
@@ -27,11 +27,13 @@ namespace JumpAndRun
         float movingSpeed;
         Texture playerTexture;
         Sprite playerSprite;
+        Statemachine statemachine;
 
         public abstract void updateExtension();
 
         public void initAnimations(String jsonname, Texture texture)
         {
+            
             SpriteBuilder _temp = new SpriteBuilder(jsonname);
             PlayerTexture = texture;
             PlayerSprite = new Sprite(PlayerTexture);
@@ -40,6 +42,7 @@ namespace JumpAndRun
             RunAnimation = _temp.AnimationList.GetAnimation("run", PlayerTexture);
             WalkAnimation = _temp.AnimationList.GetAnimation("walk", PlayerTexture);
             PlayerSprite.TextureRect = IdleAnimation.RectangleList[0];
+            statemachine = new Statemachine(this);
         }
 
         public void InitPhysics(String jsonname)
@@ -177,21 +180,8 @@ namespace JumpAndRun
 
         public override void Update()
         {
-            if (GetSpeed().X == 0)
-            {
-                CurrentAnimation = IdleAnimation;
-            }
-            else if (Math.Abs(GetSpeed().X) > 0 && Math.Abs(GetSpeed().X) < 1)
-            {
-                CurrentAnimation = WalkAnimation;
-            }
-            else if (Math.Abs(GetSpeed().X) > 1)
-            {
-                CurrentAnimation = RunAnimation;
-            }
-
+            statemachine.Update();
             updateExtension();
-            PlayerSprite.TextureRect = CurrentAnimation.Animate();
         }
 
         public Vector2 GetSpeed()

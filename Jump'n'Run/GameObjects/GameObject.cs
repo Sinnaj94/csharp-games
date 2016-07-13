@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace JumpAndRun
 {
-    abstract class GameObject
+    public abstract class GameObject
     {
         // FARSSER physics body for col. detection
         public World world;
