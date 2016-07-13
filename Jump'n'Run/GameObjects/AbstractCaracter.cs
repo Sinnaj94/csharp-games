@@ -124,13 +124,7 @@ namespace JumpAndRun
         {
 
 
-            CurrentAnimation = IdleAnimation;
-            if (Math.Abs(GetSpeed().X) > threshold || Math.Abs(GetSpeed().Y) > threshold)
-            {
-                WalkAnimation.SetSpeed(GetTotalSpeed() * 4);
-                CurrentAnimation = WalkAnimation;
-            }
-
+            
 
             statemachine.Update();
 
@@ -143,7 +137,7 @@ namespace JumpAndRun
         }
 
 
-        private float GetTotalSpeed()
+        public float GetTotalSpeed()
         {
 
             return (float)Math.Sqrt(Math.Pow(GetSpeed().X, 2) + Math.Pow(GetSpeed().Y, 2));
