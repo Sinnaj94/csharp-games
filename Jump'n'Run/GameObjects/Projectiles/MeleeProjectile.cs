@@ -11,7 +11,7 @@ namespace JumpAndRun
         
         public MeleeProjectile(AbstractCaracter caracter)
         {
-            this.body = new Body
+          
         }
 
     }

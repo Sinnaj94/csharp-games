@@ -201,10 +201,10 @@ namespace JumpAndRun
         Time frameChangeTime;
         int pixelSize;
         Vector2i pixelOffset;
-        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce,int pixelSize, Vector2i pixelOffset)
+       // public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce,int pixelSize, Vector2i pixelOffset);
         bool terminated;
 
-        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce)
+        public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce, int pixelSize, Vector2i pixelOffset)
         {
             this.name = name;
             this.startRow = startRow;
@@ -317,18 +317,7 @@ namespace JumpAndRun
                 Terminated = true;
             }
             }
-        public List<IntRect> RectangleList
-        {
-            get
-            {
-                return rectangleList;
-        }
 
-            set
-            {
-                rectangleList = value;
-            }
-        }
         public bool Terminated
         {
             get

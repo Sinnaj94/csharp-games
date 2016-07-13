@@ -41,7 +41,10 @@
             "startColumn": 1,
             "endRow": 0,
             "endColumn": 1,
-            "playOnce":  false
+            "playOnce":  false,
+			"pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
         },
 		{
             "name": "attack",
@@ -49,7 +52,10 @@
             "startColumn": 2,
             "endRow": 11,
             "endColumn": 2,
-            "playOnce":  false
+            "playOnce":  false,
+			"pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
         }
     ],
 	
@@ -97,7 +103,7 @@
             "playOnce": false,
             "pixelSize": 32,
             "pixelAbove": 0,
-            "pixelLeft": 0
+            "pixelLeft": 0,
             "playOnce":  false
         },
 		{
@@ -106,7 +112,10 @@
             "startColumn": 2,
             "endRow": 11,
             "endColumn": 2,
-            "playOnce":  false
+            "playOnce":  false,
+		    "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
         }
     ]
 }
