@@ -33,7 +33,7 @@
             "pixelSize": 32,
             "pixelAbove": 0,
             "pixelLeft": 0
-             
+
         },
         {
             "name": "idle",
@@ -41,25 +41,36 @@
             "startColumn": 1,
             "endRow": 0,
             "endColumn": 1,
-            "playOnce":  false,
-			"pixelSize": 32,
+            "playOnce": false,
+            "pixelSize": 32,
             "pixelAbove": 0,
             "pixelLeft": 0
         },
-		{
+        {
             "name": "attack",
             "startRow": 3,
             "startColumn": 0,
             "endRow": 8,
             "endColumn": 0,
-            "playOnce":  false,
-			"pixelSize": 48,
+            "playOnce": false,
+            "pixelSize": 48,
             "pixelAbove": 64,
+            "pixelLeft": 0
+        },
+        {
+            "name": "altattack",
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 2,
+            "endColumn": 0,
+            "playOnce": false,
+            "pixelSize": 52,
+            "pixelAbove": 112,
             "pixelLeft": 0
         }
     ],
-	
-	    "enemy": [
+
+    "enemy": [
         {
             "name": "run",
             "startRow": 0,
@@ -104,16 +115,27 @@
             "pixelSize": 32,
             "pixelAbove": 0,
             "pixelLeft": 0,
-            "playOnce":  false
+            "playOnce": false
         },
-		{
+        {
             "name": "attack",
             "startRow": 0,
             "startColumn": 2,
             "endRow": 11,
             "endColumn": 2,
-            "playOnce":  false,
-		    "pixelSize": 32,
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
+        },
+        {
+            "name": "altattack",
+            "startRow": 0,
+            "startColumn": 2,
+            "endRow": 11,
+            "endColumn": 2,
+            "playOnce": false,
+            "pixelSize": 32,
             "pixelAbove": 0,
             "pixelLeft": 0
         }
