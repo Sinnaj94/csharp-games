@@ -58,7 +58,6 @@ namespace JumpAndRun
 
         private void Player_onPositionChanged(object sender, EventArgs e)
         {
-            // enemy.calculatePathToSimTarget(player.body.Position, map);
             enemy.calculatePathToSimTargetUsingAStart(player.body.Position, aStar);
         }
 

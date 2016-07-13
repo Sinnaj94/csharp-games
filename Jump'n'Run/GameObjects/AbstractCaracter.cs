@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,29 +17,24 @@ using FarseerPhysics.Dynamics.Contacts;
 namespace JumpAndRun
 {
 
-    abstract class AbstractCaracter : GameObject, SFML.Graphics.Drawable
+    public abstract class AbstractCaracter : GameObject, SFML.Graphics.Drawable
     {
-        Animation idleAnimation;
-        Animation runAnimation;
-        Animation walkAnimation;
-        Animation jumpAnimation;
-        Animation _currentAnimation;
         float movingSpeed;
         Texture playerTexture;
         Sprite playerSprite;
+
         float threshold = .01f;
+
+        Statemachine statemachine;
+
         public abstract void updateExtension();
 
         public void initAnimations(String jsonname, Texture texture)
         {
-            SpriteBuilder _temp = new SpriteBuilder(jsonname);
             PlayerTexture = texture;
             PlayerSprite = new Sprite(PlayerTexture);
             PlayerSprite.Origin += new Vector2f(16, 16);
-            IdleAnimation = _temp.AnimationList.GetAnimation("idle", PlayerTexture);
-            RunAnimation = _temp.AnimationList.GetAnimation("run", PlayerTexture);
-            WalkAnimation = _temp.AnimationList.GetAnimation("walk", PlayerTexture);
-            PlayerSprite.TextureRect = IdleAnimation.RectangleList[0];
+            statemachine = new Statemachine(this, jsonname, texture);
         }
 
         public void InitPhysics(String jsonname)
@@ -75,58 +70,6 @@ namespace JumpAndRun
             body.ApplyForce(new Vector2(MovingSpeed * speed.X, MovingSpeed * speed.Y));
 
             // body.LinearVelocity = new Vector2(MovingSpeed);
-        }
-
-        internal Animation IdleAnimation
-        {
-            get
-            {
-                return idleAnimation;
-            }
-
-            set
-            {
-                idleAnimation = value;
-            }
-        }
-
-        internal Animation RunAnimation
-        {
-            get
-            {
-                return runAnimation;
-            }
-
-            set
-            {
-                runAnimation = value;
-            }
-        }
-
-        internal Animation WalkAnimation
-        {
-            get
-            {
-                return walkAnimation;
-            }
-
-            set
-            {
-                walkAnimation = value;
-            }
-        }
-
-        internal Animation CurrentAnimation
-        {
-            get
-            {
-                return _currentAnimation;
-            }
-
-            set
-            {
-                _currentAnimation = value;
-            }
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -180,6 +123,7 @@ namespace JumpAndRun
         public override void Update()
         {
 
+
             CurrentAnimation = IdleAnimation;
             if (Math.Abs(GetSpeed().X) > threshold || Math.Abs(GetSpeed().Y) > threshold)
             {
@@ -187,14 +131,17 @@ namespace JumpAndRun
                 CurrentAnimation = WalkAnimation;
             }
 
+
+            statemachine.Update();
+
             updateExtension();
-            PlayerSprite.TextureRect = CurrentAnimation.Animate();
         }
 
         public Vector2 GetSpeed()
         {
             return body.GetLinearVelocityFromLocalPoint(body.Position);
         }
+
 
         private float GetTotalSpeed()
         {

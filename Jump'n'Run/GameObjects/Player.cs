@@ -18,7 +18,7 @@ namespace JumpAndRun
         {
             this.body = body;
             initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
-            InitPhysics(@"Resources\physicsattributes.json");
+            InitPhysics(@"Resources\json\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
             body.LinearDamping = 10;
             body.FixedRotation = true;

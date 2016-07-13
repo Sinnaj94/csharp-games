@@ -72,7 +72,10 @@
     <Compile Include="AStern\Manhatten.cs" />
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
-    <Compile Include="Background.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\Idle.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\State.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\Statemachine.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\Walk.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Input\Command.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
@@ -88,12 +91,7 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="GameObjects\AbstractCaracter.cs" />
-    <Compile Include="pathfinding\Node.cs" />
-    <Compile Include="pathfinding\NodeState.cs" />
-    <Compile Include="pathfinding\PathFinder.cs" />
-    <Compile Include="pathfinding\Point.cs" />
-    <Compile Include="pathfinding\Program.cs" />
-    <Compile Include="pathfinding\SearchParameters.cs" />
+    <Compile Include="AStern\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="map\Tile.cs" />
     <Compile Include="TileMapBuilder.cs" />
@@ -102,12 +100,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Resources\animations.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\buttons.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\fonts\computer_pixel.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -117,16 +109,19 @@
     <None Include="Resources\fonts\Starjhol.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\neu.tmx">
+    <None Include="Resources\json\animations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\physicsattributes.json">
+    <None Include="Resources\json\buttons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Tield_Datei.tmx">
+    <None Include="Resources\json\physicsattributes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\topdown.tmx">
+    <None Include="Resources\psd\mainscreen.psd" />
+    <None Include="Resources\psd\MRP_U_G.psd" />
+    <None Include="Resources\psd\TrumpPSD.psd" />
+    <None Include="Resources\Tile\topdown.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -137,37 +132,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\neu.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\spritesheet_tiles.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\sprites\enemy1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\future-joy-tilee.png">
+    <Content Include="Resources\Tile\topdown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\topdown.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Tield_Datei3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\topdown_alpha.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="Resources\Character.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Content Include="Resources\sprites\tileset.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Tield_Datei.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Tield_Datei2.png">
+    <Content Include="Resources\Tile\topdown_alpha.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

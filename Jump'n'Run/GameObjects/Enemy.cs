@@ -23,7 +23,7 @@ namespace JumpAndRun
             Path = new List<Point>();
             this.maxSpeed = 3;
             initAnimations("enemy", new Texture(@"Resources/Sprites/enemy1.png"));
-            InitPhysics(@"Resources\physicsattributes.json");
+            InitPhysics(@"Resources\json\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
             body.FixedRotation = true;
             body.LinearDamping = 10;
@@ -75,7 +75,7 @@ namespace JumpAndRun
             dif.Normalize();
             body.LinearVelocity = dif;
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
-            body.Rotation = angle - (float)Math.PI / 2;
+            body.Rotation = angle + (float)Math.PI / 2;
         }
 
         public override void updateExtension()

@@ -67,7 +67,7 @@ namespace JumpAndRun
         public void Init(String name)
         {
             dataSetName = name;
-            DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources/buttons.json"));
+            DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources/json/buttons.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
             ButtonList = new List<Button>();
             foreach (DataRow row in dataTable.Rows)
