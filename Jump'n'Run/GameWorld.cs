@@ -23,9 +23,15 @@ namespace JumpAndRun
         Map map;
         Background background;
         Manhatten<Tile, Object> aStar;
+        RenderTexture darkTex;
+        Sprite darkSprite;
+        Texture lightTex;
+        SFML.Graphics.RenderWindow window;
+        Sprite lightSprite;
 
         public GameWorld(RenderWindow window)
         {
+            this.window = window;
             world = new World(new Vector2(0, 0));
             Vector2 playerSize = new Vector2(16, 16);
             player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
@@ -38,13 +44,34 @@ namespace JumpAndRun
             input = new InputHandler(window);
             recalculatePath(player, new EventArgs());
             aStar = new Manhatten<Tile, Object>(map.TileArray);
-            background = new Background();
+            background = new Background();        
+            initLightCone(window);
+            updateLightCone(window);
+            
+        }
+        public void initLightCone(RenderWindow window)
+        {
+            darkTex = new RenderTexture(1920, 1080);
+            darkSprite = new Sprite(darkTex.Texture);
+            darkSprite.Origin = new SFML.System.Vector2f(darkSprite.Texture.Size.X / 2, darkSprite.Texture.Size.Y / 2);
+            darkTex.Clear(new Color(0, 0, 0, 200));
+            darkTex.Display();
+            lightTex = new Texture(@"Resources/sprites/sprite.png");
+            lightSprite = new Sprite(lightTex);
+            lightSprite.Origin = new SFML.System.Vector2f(lightSprite.Texture.Size.X / 2, lightSprite.Texture.Size.Y / 2);
+            lightSprite.Position = window.GetView().Center;
+            darkTex.Draw(lightSprite, new RenderStates(BlendMode.Multiply));
+            darkTex.Display();
+        }
+
+        public void updateLightCone(RenderWindow window)
+        {
+            darkSprite.Position = window.GetView().Center;
         }
 
         public View setCameraToPlayer(RenderTarget target)
         {
             SFML.System.Vector2f defaultSize = target.DefaultView.Size;
-
             View v = new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X), ConvertUnits.ToDisplayUnits(player.body.Position.Y)), defaultSize);
             background.Update(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X)-target.Size.X*.5f, ConvertUnits.ToDisplayUnits(player.body.Position.Y)-target.Size.Y*.5f));
             return v;
@@ -64,15 +91,14 @@ namespace JumpAndRun
         public void Draw(RenderTarget target, RenderStates states)
         {
             background.Draw(target, states);
-
             target.SetView(setCameraToPlayer(target));
-            //debug.DrawDebugData();
             tmb.Draw(target, states);
             enemy.Draw(target, states);
-
             player.Draw(target, states);
-            //map.Draw(target, states);
-            //enemy.DebugDraw(target, states);
+            map.Draw(target, states);
+            enemy.DebugDraw(target, states);
+            updateLightCone(window);
+            darkSprite.Draw(target, states);
         }
 
         private void HandleInputCommands()
