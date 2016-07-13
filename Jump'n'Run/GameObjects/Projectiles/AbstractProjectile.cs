@@ -8,9 +8,19 @@ namespace JumpAndRun
 {
     public abstract class AbstractProjectile : GameObject
     {
-        public override void Update()
+        AbstractCaracter caracter;
+        public AbstractCaracter Caracter
         {
-            throw new NotImplementedException();
+            get
+            {
+                return caracter;
+            }
+
+            set
+            {
+                caracter = value;
+            }
         }
+        public abstract override void Update();
     }
 }

@@ -141,8 +141,12 @@ namespace JumpAndRun
         {
             return body.GetLinearVelocityFromLocalPoint(body.Position);
         }
-
-
+        public Vector2 getBodyDirection()
+        {
+            Vector2 direction = new Vector2((float)Math.Cos(body.Rotation), (float)Math.Sin(body.Rotation));
+            direction.Normalize();
+            return direction;
+        }
         public float GetTotalSpeed()
         {
 

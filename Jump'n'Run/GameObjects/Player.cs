@@ -14,8 +14,9 @@ namespace JumpAndRun
     {
         Vector2 positionChangedVector;
 
-        public Player(Body body)
+        public Player(Body body, World world)
         {
+            this.world = world;
             this.body = body;
             initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
             InitPhysics(@"Resources\json\physicsattributes.json");

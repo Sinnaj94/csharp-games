@@ -28,9 +28,9 @@ namespace JumpAndRun
         {
             world = new World(new Vector2(0, 0));
             Vector2 playerSize = new Vector2(16, 16);
-            player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1));
+            player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
-            enemy = new Enemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1));
+            enemy = new Enemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(128), ConvertUnits.ToSimUnits(128));
             map = new Map(32, 32, 32);
             tmb = new TileMapBuilder(world, map);
@@ -66,8 +66,8 @@ namespace JumpAndRun
             background.Draw(target, states);
 
             target.SetView(setCameraToPlayer(target));
-            //debug.DrawDebugData();
-            tmb.Draw(target, states);
+            debug.DrawDebugData();
+            //tmb.Draw(target, states);
             player.Draw(target, states);
             enemy.Draw(target, states);
             //map.Draw(target, states);
