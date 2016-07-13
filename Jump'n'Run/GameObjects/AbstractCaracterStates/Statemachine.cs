@@ -28,6 +28,8 @@ namespace JumpAndRun
             alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture));
 
             attack.Animation.SetSpeed(4);
+            alternateAttack.Animation.SetSpeed(4);
+
         }
         public Statemachine(AbstractCaracter caracter, String spriteJsonAttribute, Texture caracterTextur)
         {
@@ -48,6 +50,9 @@ namespace JumpAndRun
             else if (attack.Status == StateStatus.Running)
             {
                 currentState = attack;
+            }else if(alternateAttack.Status == StateStatus.Running)
+            {
+                currentState = alternateAttack;
             }
             else if (speed.X > .1 || speed.Y > .1)
             {
@@ -62,12 +67,24 @@ namespace JumpAndRun
             SwitchState();
             CurrentState.Update();
         }
-        public void triggerAttack()
+        public void triggerAttack(int nr)
         {
-            if (attack.Status == StateStatus.Terminated)
+            switch (nr)
             {
-                attack.Status = StateStatus.Running;
+                case 0:
+                    if (attack.Status == StateStatus.Terminated)
+                    {
+                        attack.Status = StateStatus.Running;
+                    }
+                    break;
+                case 1:
+                    if (alternateAttack.Status == StateStatus.Terminated)
+                    {
+                        alternateAttack.Status = StateStatus.Running;
+                    }
+                    break;
             }
+            
         }
         public State CurrentState
         {
