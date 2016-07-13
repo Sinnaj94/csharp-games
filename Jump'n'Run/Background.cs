@@ -8,37 +8,64 @@ namespace JumpAndRun
     class Background : SFML.Graphics.Drawable
     {
         RectangleShape test;
-        Color _rectColor;
-        Random r;
-        byte _r;
-        byte _g;
-        byte _b;
-        Color _tempColor;
-        Clock c;
-        Time a;
-        int time;
-        int actualFrames;
+
+        ColorRainbow colorRainbow;
+
+
         public Background()
         {
-            _rectColor = new Color(255,255,255);
+            colorRainbow = new ColorRainbow(Time.FromMilliseconds(500), new Color(255, 255, 255),0);
+
             test = new RectangleShape();
-            r = new Random();
-            c = new Clock();
-            a = Time.FromMilliseconds(2000);
-           
+
+
+            test.FillColor = colorRainbow.SwitchColorThrough();
+
+
 
         }
 
         public void Update(Vector2f newPosition)
         {
             test.Position = newPosition;
+
         }
 
-        private void SwitchColorThrough()
+
+
+        public void Draw(RenderTarget target, RenderStates states)
         {
-            if(c.ElapsedTime > a)
+            test.FillColor = colorRainbow.SwitchColorThrough();
+
+
+            test.Size = (new SFML.System.Vector2f(target.DefaultView.Size.X, target.DefaultView.Size.Y));
+            test.Draw(target, states);
+        }
+    }
+
+    class ColorRainbow
+    {
+        int time;
+        int actualFrames;
+        Color _rectColor;
+        Color _tempColor;
+        Color _randomColor;
+        Clock c;
+        Time a;
+        Random r;
+        public ColorRainbow(Time fadeTime, Color startColor,int seed)
+        {
+            _rectColor = startColor;
+            r = new Random(seed);
+            c = new Clock();
+            a = fadeTime;
+        }
+
+        public Color SwitchColorThrough()
+        {
+            if (c.ElapsedTime > a)
             {
-                _tempColor = _rectColor;
+                _tempColor = _randomColor;
                 RandomColor();
                 c = new Clock();
                 actualFrames = time;
@@ -48,26 +75,27 @@ namespace JumpAndRun
             time++;
             float percent = (float)time / (float)actualFrames;
 
-            
-            
-            _rectColor = new Color((byte)(_tempColor.R*(1-percent)+_r*percent), (byte)(_tempColor.G *(1-percent)+ _g * percent), (byte)(_tempColor.B*(1-percent) + _b * percent));
-            test.FillColor = _rectColor;
+
+
+            return ColorDifference(percent);
+        }
+
+        private Color ColorDifference(float percent)
+        {
+            return new Color((byte)(_tempColor.R * (1 - percent) + _randomColor.R * percent), (byte)(_tempColor.G * (1 - percent) + _randomColor.G * percent), (byte)(_tempColor.B * (1 - percent) + _randomColor.B * percent));
+
         }
 
         private void RandomColor()
         {
-            _r = (byte)r.Next(0, 255);
-            _g = (byte)r.Next(0, 255);
-            _b = (byte)r.Next(0, 255);
+            _randomColor.R = (byte)r.Next(0, 255);
+            _randomColor.G = (byte)r.Next(0, 255);
+            _randomColor.B = (byte)r.Next(0, 255);
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            SwitchColorThrough();
+    }
+    class MultipleRectangle
+    {
 
-            test.Size = (new SFML.System.Vector2f(target.DefaultView.Size.X, target.DefaultView.Size.Y));
-            
-            test.Draw(target, states);
-        }
     }
 }
