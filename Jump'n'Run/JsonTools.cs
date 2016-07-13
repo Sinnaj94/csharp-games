@@ -40,7 +40,7 @@ namespace JumpAndRun
             dataSetName = databaseName;
 
             //DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\Sprite.json"));
-            String json = File.ReadAllText(@"Resources\animations.json");
+            String json = File.ReadAllText(@"Resources/json/animations.json");
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(json);
             DataTable dataTable = dataSet.Tables[databaseName];
             //Create an Animation Manager

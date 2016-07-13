@@ -23,7 +23,7 @@ namespace JumpAndRun
             Path = new List<Point>();
             this.maxSpeed = 3;
             initAnimations("enemy", new Texture(@"Resources/Sprites/enemy1.png"));
-            InitPhysics(@"Resources\physicsattributes.json");
+            InitPhysics(@"Resources\json\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
             body.FixedRotation = true;
             body.LinearDamping = 10;
