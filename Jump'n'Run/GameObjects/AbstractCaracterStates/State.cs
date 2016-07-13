@@ -8,6 +8,7 @@ namespace JumpAndRun
 {
     public enum StateStatus
     {
+        Start,
         Running,
         Terminated
     }

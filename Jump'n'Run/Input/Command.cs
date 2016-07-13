@@ -116,6 +116,28 @@ namespace JumpAndRun
         }
     }
 
+    class AttackCommand : Command
+    {
+        CommandAttributes ca;
+        public CommandAttributes Ca
+        {
+            get
+            {
+                return ca;
+            }
+
+            set
+            {
+                ca = value;
+            }
+        }
+
+        public void Execute(Player p)
+        {
+            p.Statemachine.triggerAttack();
+        }
+    }
+
     class GoCommand : Command
     {
         CommandAttributes ca;
@@ -137,6 +159,4 @@ namespace JumpAndRun
             p.move(ca.Strength);
         }
     }
-
-
 }

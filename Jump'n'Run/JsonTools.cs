@@ -167,24 +167,12 @@ namespace JumpAndRun
 
         Vector2u sheetSize;
         Clock c;
-        public List<IntRect> RectangleList
-        {
-            get
-            {
-                return rectangleList;
-            }
-
-            set
-            {
-                rectangleList = value;
-            }
-        }
-
         private int rowSize;
         private List<IntRect> rectangleList;
         int size;
         int currentFrame;
         Time frameChangeTime;
+        bool terminated;
 
         public Animation(String name, int startRow, int startColumn, int endRow, int endColumn, bool playOnce)
         {
@@ -201,12 +189,7 @@ namespace JumpAndRun
             c = new Clock();
             currentFrame = 0;
             frameChangeTime = Time.FromMilliseconds(100);
-
-
         }
-
-
-
         public List<IntRect> GetAnimation(Texture texture)
         {
 
@@ -254,7 +237,6 @@ namespace JumpAndRun
             return RectangleList;
 
         }
-
         private IntRect GetRect(int x, int y, Texture texture)
         {
             IntRect _temp = new IntRect(x * 32, y * 32, 32, 32);
@@ -262,12 +244,11 @@ namespace JumpAndRun
 
             return _temp;
         }
-
         public void Restart()
         {
             currentFrame = 0;
+            Terminated = false;
         }
-
         public IntRect Animate()
         {
             if (c.ElapsedTime > frameChangeTime)
@@ -277,9 +258,6 @@ namespace JumpAndRun
             }
             return rectangleList[currentFrame];
         }
-
-
-
         private void ChangeFrame()
         {
             if (currentFrame + 1 < size)
@@ -293,10 +271,33 @@ namespace JumpAndRun
 
                     currentFrame = 0;
                 }
+                Terminated = true;
             }
         }
+        public List<IntRect> RectangleList
+        {
+            get
+            {
+                return rectangleList;
+            }
 
+            set
+            {
+                rectangleList = value;
+            }
+        }
+        public bool Terminated
+        {
+            get
+            {
+                return terminated;
+            }
 
+            set
+            {
+                terminated = value;
+            }
+        }
     }
 
 }

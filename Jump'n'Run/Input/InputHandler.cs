@@ -14,6 +14,7 @@ namespace JumpAndRun
         Command _go;
         Command _jump;
         Command turnCommand;
+        Command attack;
         SFML.System.Vector2i mousePosition;
         SFML.Graphics.RenderWindow window;
         //Keyboard
@@ -22,6 +23,8 @@ namespace JumpAndRun
         Keyboard.Key jumpKey;
         Keyboard.Key downKey;
         Keyboard.Key upKey;
+        // Mouse
+        Mouse.Button leftClick;
         //Joystick
         uint jumpJoy;
         bool joystickConnected;
@@ -45,7 +48,7 @@ namespace JumpAndRun
             _go = new GoCommand();
             _jump = new JumpCommand();
             turnCommand = new TurnCommand();
-
+            attack = new AttackCommand();
             //Building the Commandlist
             commandList = new List<Command>();
 
@@ -90,6 +93,7 @@ namespace JumpAndRun
             jumpKey = Keyboard.Key.Space;
             upKey = Keyboard.Key.W;
             downKey = Keyboard.Key.S;
+            leftClick = Mouse.Button.Left;
         }
 
         public List<Command> HandleInput()
@@ -103,6 +107,10 @@ namespace JumpAndRun
         private bool KeyDown(Keyboard.Key sKey)
         {
             return Keyboard.IsKeyPressed(sKey);
+        }
+        private bool mouseButtonDown(Mouse.Button mButton)
+        {
+            return Mouse.IsButtonPressed(mButton);
         }
 
         private bool MousePositionChanged()
@@ -151,6 +159,10 @@ namespace JumpAndRun
                 Vector2f worldPos = window.MapPixelToCoords(new Vector2i(mousePosition.X, mousePosition.Y));
                 CommandAttributes _ca = new CommandAttributes(worldPos.X, worldPos.Y);
                 AddCommandToList(turnCommand, _ca);
+            }
+            if (mouseButtonDown(leftClick))
+            {
+                AddCommandToList(attack, new CommandAttributes(1,0));
             }
         }
 

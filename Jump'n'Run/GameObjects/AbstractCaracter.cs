@@ -31,7 +31,7 @@ namespace JumpAndRun
             PlayerTexture = texture;
             PlayerSprite = new Sprite(PlayerTexture);
             PlayerSprite.Origin += new Vector2f(16, 16);
-            statemachine = new Statemachine(this, jsonname, texture);
+            Statemachine = new Statemachine(this, jsonname, texture);
         }
 
         public void InitPhysics(String jsonname)
@@ -115,9 +115,22 @@ namespace JumpAndRun
             }
         }
 
+        public Statemachine Statemachine
+        {
+            get
+            {
+                return statemachine;
+            }
+
+            set
+            {
+                statemachine = value;
+            }
+        }
+
         public override void Update()
         {
-            statemachine.Update();
+            Statemachine.Update();
             updateExtension();
         }
 
