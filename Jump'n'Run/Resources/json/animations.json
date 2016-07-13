@@ -6,7 +6,10 @@
             "startColumn": 1,
             "endRow": 7,
             "endColumn": 1,
-            "playOnce":  false
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
         },
         {
             "name": "walk",
@@ -14,7 +17,11 @@
             "startColumn": 1,
             "endRow": 7,
             "endColumn": 1,
-            "playOnce":  false
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
+
         },
         {
             "name": "jump",
@@ -22,7 +29,11 @@
             "startColumn": 1,
             "endRow": 7,
             "endColumn": 1,
-            "playOnce":  false
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
+             
         },
         {
             "name": "idle",
@@ -49,7 +60,11 @@
             "startColumn": 0,
             "endRow": 7,
             "endColumn": 0,
-            "playOnce":  false
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
+
         },
         {
             "name": "walk",
@@ -57,7 +72,10 @@
             "startColumn": 0,
             "endRow": 7,
             "endColumn": 0,
-            "playOnce":  false
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
         },
         {
             "name": "jump",
@@ -65,7 +83,10 @@
             "startColumn": 0,
             "endRow": 7,
             "endColumn": 0,
-            "playOnce":  false
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
         },
         {
             "name": "idle",
@@ -73,6 +94,10 @@
             "startColumn": 0,
             "endRow": 0,
             "endColumn": 0,
+            "playOnce": false,
+            "pixelSize": 32,
+            "pixelAbove": 0,
+            "pixelLeft": 0
             "playOnce":  false
         },
 		{

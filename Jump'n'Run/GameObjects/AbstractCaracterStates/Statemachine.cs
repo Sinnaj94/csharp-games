@@ -43,11 +43,12 @@ namespace JumpAndRun
             else if (speed.X < .1 && speed.Y < .1)
             {
                 currentState = idle;
-            }
-            else if (speed.X < 1 && speed.Y < 1)
+            if (Math.Abs(caracter.GetSpeed().X) > .1 || Math.Abs(caracter.GetSpeed().Y) > .1)
             {
+                walk.Animation.SetSpeed(caracter.GetTotalSpeed() * 4);
                 currentState = walk;
             }
+
         }
         public void Update()
         {

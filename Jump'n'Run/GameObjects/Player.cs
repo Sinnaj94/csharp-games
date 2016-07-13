@@ -40,7 +40,7 @@ namespace JumpAndRun
                 PositionChanged(EventArgs.Empty);
             }
         }
-
+        /*
         public override void move(Vector2f speed)
         {
 
@@ -55,7 +55,7 @@ namespace JumpAndRun
             }
 
             body.LinearVelocity = (new Vector2((float)Math.Cos(body.Rotation), (float)Math.Sin(body.Rotation)));
-        }
+        }*/
 
         public override void updateExtension()
         {

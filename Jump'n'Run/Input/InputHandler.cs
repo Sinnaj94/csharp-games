@@ -152,6 +152,7 @@ namespace JumpAndRun
             }
             if (_temp.IsValid())
             {
+                _temp.Normalize();
                 AddCommandToList(_go, _temp);
             }
             if (MousePositionChanged())
@@ -165,6 +166,8 @@ namespace JumpAndRun
                 AddCommandToList(attack, new CommandAttributes(1,0));
             }
         }
+
+
 
         private void AddCommandToList(Command item, CommandAttributes ca)
         {

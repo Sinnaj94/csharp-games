@@ -73,6 +73,7 @@
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Attack.cs" />
+    <Compile Include="Background.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Idle.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\State.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Statemachine.cs" />

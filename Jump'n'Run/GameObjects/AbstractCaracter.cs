@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +22,9 @@ namespace JumpAndRun
         float movingSpeed;
         Texture playerTexture;
         Sprite playerSprite;
+
+        float threshold = .01f;
+
         Statemachine statemachine;
 
         public abstract void updateExtension();
@@ -138,5 +141,16 @@ namespace JumpAndRun
         {
             return body.GetLinearVelocityFromLocalPoint(body.Position);
         }
+
+
+        public float GetTotalSpeed()
+        {
+
+            return (float)Math.Sqrt(Math.Pow(GetSpeed().X, 2) + Math.Pow(GetSpeed().Y, 2));
+        }
     }
+
+
 }
+
+

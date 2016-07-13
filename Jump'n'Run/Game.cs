@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
+using SFML.Graphics;
 
 namespace JumpAndRun
 {
