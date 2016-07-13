@@ -41,7 +41,14 @@ namespace JumpAndRun
 
         //Axis definition
         Joystick.Axis runAxis;
+        Joystick.Axis upAxis;
+
+        Joystick.Axis rightAxisL;
+        Joystick.Axis rightAxisU;
+
         float threshold;
+        private uint attackJoy;
+
         public InputHandler(SFML.Graphics.RenderWindow window)
         {
             //Defining the Commands here
@@ -62,7 +69,7 @@ namespace JumpAndRun
             caY = new CommandAttributes(0, 1);
             caXN = new CommandAttributes(-1);
             caYN = new CommandAttributes(0, -1);
-            
+
             mousePosition = Mouse.GetPosition();
             this.window = window;
         }
@@ -75,8 +82,12 @@ namespace JumpAndRun
                 Output.Instance.print("Joystick is connected and will be used.");
                 joystickConnected = true;
                 jumpJoy = 0;
+                attackJoy = 11;
                 runAxis = Joystick.Axis.X;
-                threshold = .01f;
+                upAxis = Joystick.Axis.Y;
+                rightAxisL = Joystick.Axis.Z;
+                rightAxisU = Joystick.Axis.R;
+                threshold = 1f;
             }
             else
             {
@@ -117,7 +128,7 @@ namespace JumpAndRun
         {
             SFML.System.Vector2i currentPos = Mouse.GetPosition();
             Vector2f worldPos = window.MapPixelToCoords(currentPos);
-     
+
             if (currentPos.X != mousePosition.X || currentPos.Y != mousePosition.Y)
             {
                 mousePosition = currentPos;
@@ -163,7 +174,7 @@ namespace JumpAndRun
             }
             if (mouseButtonDown(leftClick))
             {
-                AddCommandToList(attack, new CommandAttributes(1,0));
+                AddCommandToList(attack, new CommandAttributes(1, 0));
             }
         }
 
@@ -198,18 +209,36 @@ namespace JumpAndRun
                 {
                     AddCommandToList(_jump, caX);
                 }
-                float _axisDirection = axisDirection(runAxis);
-                if (Math.Abs(_axisDirection) > threshold)
+                if (Joystick.IsButtonPressed(joystickNr, attackJoy))
                 {
-                    CommandAttributes _ca = new CommandAttributes(_axisDirection / 100);
+                    AddCommandToList(attack, caX);
+                }
+                float _axisDirection = axisDirection(runAxis);
+                float _axisDirectionY = axisDirection(upAxis);
+
+                if (Math.Abs(_axisDirection) > threshold || Math.Abs(_axisDirectionY) > threshold)
+                {
+                    CommandAttributes _ca = new CommandAttributes(_axisDirection / 100, _axisDirectionY / 100);
                     AddCommandToList(_go, _ca);
                 }
+
+                float _axisRightL = axisDirection(rightAxisL);
+                float _axisRightU = axisDirection(rightAxisU);
+                if (Math.Abs(_axisRightU) > 50 || Math.Abs(_axisRightL) > 50)
+                {
+                    Vector2f worldPos = window.MapPixelToCoords(new Vector2i((int)(_axisRightL + window.DefaultView.Size.X / 2), (int)(_axisRightU + window.DefaultView.Size.Y / 2)));
+                    CommandAttributes _ca = new CommandAttributes(worldPos.X, worldPos.Y);
+
+                    AddCommandToList(turnCommand, _ca);
+                }
+                JoystickDebug();
             }
         }
 
         private float axisDirection(Joystick.Axis axis)
         {
             return Joystick.GetAxisPosition(joystickNr, axis);
+
         }
 
         private void JoystickDebug()
