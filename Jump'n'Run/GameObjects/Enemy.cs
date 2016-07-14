@@ -20,6 +20,7 @@ namespace JumpAndRun
         List<Point> path;
         public Body debugpath;
         Body radar;
+        String rayhit;
 
         public Enemy(Body body, World world)
         {
@@ -34,46 +35,42 @@ namespace JumpAndRun
             body.BodyType = BodyType.Dynamic;
             body.FixedRotation = true;
             body.LinearDamping = 10;
-            foreach (Fixture f in body.FixtureList)
-            {
-                f.CollidesWith = Category.Cat3 | Category.Cat4;
-            }
             initLineOfSight();
+         //   body.CollidesWith = Category.Cat3;
         }
-
         public void initLineOfSight()
         {
             Vertices triangle = new Vertices();
             triangle.Add(new Vector2(0, -body.Position.Y));
-            triangle.Add(new Vector2(2, 5));
-            triangle.Add(new Vector2(-2, 5));
+            triangle.Add(new Vector2(7, 8));
+            triangle.Add(new Vector2(-7, 8));
             body.FixedRotation = true;
-            radar = FarseerPhysics.Factories.BodyFactory.CreatePolygon(world, triangle, 10);
+            radar = FarseerPhysics.Factories.BodyFactory.CreatePolygon(world, triangle, 1);
             radar.Rotation = body.Rotation - (float)Math.PI / 2;
             PolygonShape p = new PolygonShape(triangle, 10);
             radar.Position = this.body.Position;
             radar.IsSensor = true;
             radar.OnCollision += Radar_OnCollision;
         }
-
         private bool Radar_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
         {
             createLineOfSight(fixtureB.Body.Position);
             return false;
         }
-
         public void createLineOfSight(Vector2 targetPosition)
         {
          //   Vector2 tmp = this.body.Position + 400 * new Vector2(ConvertUnits.ToSimUnits(this.getBodyDirection().X), ConvertUnits.ToSimUnits(this.getBodyDirection().Y));
             world.RayCast(RayCallBack, this.body.Position, targetPosition);
         }
-
         private float RayCallBack(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
         {
             //  Console.WriteLine("JO");
+            if (fixture.Body.UserData != null)
+            {
+                rayhit = "" + fixture.Body.UserData;
+            }
             if (fixture.Body.UserData == "player")
             {
-                isWaiting = false;
                 return fraction;
             }
             else
@@ -81,7 +78,6 @@ namespace JumpAndRun
                 return 0f;
             }
         }
-
         public List<Point> Path
         {
             get
@@ -122,7 +118,6 @@ namespace JumpAndRun
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
             body.Rotation = angle + (float)Math.PI / 2;
         }
-
         public void Follow()
         {
             if (Path.Count >= 2)
@@ -139,17 +134,18 @@ namespace JumpAndRun
                 Statemachine.triggerAttack(0);
             }
         }
-
         public override void updateExtension()
         {
+            if (rayhit == "player")
+            {
+                isWaiting = false;
+            }
             radar.Position = body.Position;
             radar.Rotation = body.Rotation - (float)Math.PI / 2;
 
             if (!isWaiting) {
                 Follow();
-            }
-
-            
+            }        
         }
         public void DebugDraw(RenderTarget target, RenderStates states)
         {
