@@ -119,6 +119,45 @@ namespace JumpAndRun
         public int friction { get; set; }
     }
 
+    class LevelBuilder
+    {
+        String dataSetName;
+        List<Level> _levelsReturn;
+
+        public LevelBuilder(String databaseName)
+        {
+            Init(databaseName);
+        }
+
+        internal List<Level> Level
+        {
+            get
+            {
+                return _levelsReturn;
+            }
+
+            set
+            {
+                _levelsReturn = value;
+            }
+        }
+
+        public void Init(String databaseName)
+        {
+            dataSetName = databaseName;
+            String json = File.ReadAllText(databaseName);
+            Level = JsonConvert.DeserializeObject<List<Level>>(json);
+        }
+    }
+
+    class Level
+    {
+        public string AlphaTexture { get; set; }
+        public string TilemapImage { get; set; }
+        public string TMX { get; set; }
+        public string Tilesetname { get; set; }
+    }
+
     class AnimationManager
     {
         List<Animation> animationList;
@@ -153,8 +192,6 @@ namespace JumpAndRun
             return null;
         }
     }
-
-
 
     public class Animation
     {

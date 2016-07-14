@@ -16,7 +16,6 @@ namespace JumpAndRun
         private World world;
         DebugDraw debug;
         private Player player;
-        Enemy enemy;
         InputHandler input;
         List<Command> currentCommands;
         TileMapBuilder tmb;
@@ -41,12 +40,8 @@ namespace JumpAndRun
             input = new InputHandler(window);
             recalculatePath(player, new EventArgs());
             aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
-
             background = new Background();
             lightcone = new Lightcone(window);
-
-
-
 
             List<Vector2> a = tmb.GetObjectPositions();
             foreach(Vector2 t in a)
@@ -54,7 +49,6 @@ namespace JumpAndRun
                 _test.Add(new Football(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f), t));
             }
         }
-
 
         public View setCameraToPlayer(RenderTarget target)
         {

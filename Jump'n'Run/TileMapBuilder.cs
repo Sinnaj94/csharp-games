@@ -51,15 +51,16 @@ namespace JumpAndRun
             }
         }
 
-        public TileMapBuilder(FarseerPhysics.Dynamics.World world, EnemyContainer eContrainer)
+        public TileMapBuilder(World world, EnemyContainer eContrainer)
         {
+            LevelBuilder l = new LevelBuilder(@"Resources\json\level.json");
+            List<Level> level = l.Level;
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(@"Resources\Tile\topdown_alpha.png"), world);
-            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\Tile\topdown.png");
-            test = new TiledSharp.TmxMap(@"Resources\Tile\topdown.tmx");
-            var myTileset = test.Tilesets["topdown"];
+            CreateShape(new SFML.Graphics.Texture(level[0].AlphaTexture), world);
+            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(level[0].TilemapImage);
+            test = new TiledSharp.TmxMap(level[0].TMX);
+            var myTileset = test.Tilesets[level[0].Tilesetname];
             Map newMap = new Map(test.Width, test.Height, test.TileWidth);
-         //   Vertices navigationVerts = new Vertices();
             this.Map = newMap;
             parseTileLayer(tilemap);
             parseObjectLayer(eContrainer);
