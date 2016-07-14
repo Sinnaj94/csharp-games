@@ -33,8 +33,20 @@ namespace JumpAndRun
         {
             body = b;
             body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(128));
-
+            body.OnCollision += Body_OnCollision;
         }
+
+        private bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+        {
+            Vector2 _delta = fixtureA.Body.Position - fixtureB.Body.Position;
+            _delta *= 100;
+            if(fixtureB.CollisionCategories == Category.Cat3)
+            {
+                body.ApplyForce(_delta);
+            }
+            return true;
+        }
+
         public void Draw(RenderTarget target, RenderStates states)
         {
             Sprite.Origin = new Vector2f(Sprite.Texture.Size.X/2, Sprite.Texture.Size.Y/2);

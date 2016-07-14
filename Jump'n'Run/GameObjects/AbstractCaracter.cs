@@ -88,8 +88,10 @@ namespace JumpAndRun
             Vector2 contactNormal;
             FarseerPhysics.Common.FixedArray2<Vector2> contactPoints;
             contact.GetWorldManifold(out contactNormal, out contactPoints);
+            
             if (fixtureB.CollisionCategories == Category.Cat3)
             {
+                Console.WriteLine("ABC");
                 this.isDead = true;
             }
             return true;
