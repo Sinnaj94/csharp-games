@@ -81,6 +81,7 @@
     <Compile Include="GameObjects\AbstractCaracterStates\Waiting.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Walk.cs" />
     <Compile Include="GameObjects\AbstractPhysicsObject.cs" />
+    <Compile Include="GameObjects\Football.cs" />
     <Compile Include="GameObjects\Crate.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Projectiles\AbstractProjectile.cs" />
@@ -148,6 +149,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\enemy1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\football.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\rot.png">
