@@ -19,7 +19,6 @@ namespace JumpAndRun
             b.AngularDamping = 1.5f;
             Sprite = new Sprite(new Texture(@"Resources\sprites\crate.png"));
             b.Position = position;
-            b.CollisionCategories = Category.Cat4;
         }
         public override void Update()
         {

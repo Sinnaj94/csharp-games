@@ -36,14 +36,14 @@ namespace JumpAndRun
             body.FixedRotation = true;
             body.LinearDamping = 10;
             initLineOfSight();
-         //   body.CollidesWith = Category.Cat3;
+            body.CollidesWith = Category.Cat3;
         }
         public void initLineOfSight()
         {
             Vertices triangle = new Vertices();
             triangle.Add(new Vector2(0, -body.Position.Y));
-            triangle.Add(new Vector2(7, 8));
-            triangle.Add(new Vector2(-7, 8));
+            triangle.Add(new Vector2(5, 5));
+            triangle.Add(new Vector2(-5, 5));
             body.FixedRotation = true;
             radar = FarseerPhysics.Factories.BodyFactory.CreatePolygon(world, triangle, 1);
             radar.Rotation = body.Rotation - (float)Math.PI / 2;
@@ -51,20 +51,20 @@ namespace JumpAndRun
             radar.Position = this.body.Position;
             radar.IsSensor = true;
             radar.OnCollision += Radar_OnCollision;
+            radar.CollisionCategories = Category.Cat1;
         }
         private bool Radar_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
         {
             createLineOfSight(fixtureB.Body.Position);
+            Console.WriteLine("trig");
             return false;
         }
         public void createLineOfSight(Vector2 targetPosition)
         {
-         //   Vector2 tmp = this.body.Position + 400 * new Vector2(ConvertUnits.ToSimUnits(this.getBodyDirection().X), ConvertUnits.ToSimUnits(this.getBodyDirection().Y));
             world.RayCast(RayCallBack, this.body.Position, targetPosition);
         }
         private float RayCallBack(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
         {
-            //  Console.WriteLine("JO");
             if (fixture.Body.UserData != null)
             {
                 rayhit = "" + fixture.Body.UserData;
