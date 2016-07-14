@@ -30,10 +30,10 @@ namespace JumpAndRun
         Texture lightTex;
         SFML.Graphics.RenderWindow window;
         Sprite lightSprite;
-        List<Crate> _test;
+        List<Football> _test;
         public GameWorld(RenderWindow window)
         {
-            _test = new List<Crate>();
+            _test = new List<Football>();
             this.window = window;
             world = new World(new Vector2(0, 0));
             Vector2 playerSize = new Vector2(16, 16);
@@ -55,7 +55,7 @@ namespace JumpAndRun
             List<Vector2> a = tmb.GetObjectPositions();
             foreach(Vector2 t in a)
             {
-                _test.Add(new Crate(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32), 1), t));
+                _test.Add(new Football(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f), t));
             }
         }
         public void initLightCone(RenderWindow window)
@@ -114,16 +114,16 @@ namespace JumpAndRun
             background.Draw(target, states);
             target.SetView(setCameraToPlayer(target));
 
-            debug.DrawDebugData();
+            //debug.DrawDebugData();
 
-           // tmb.Draw(target, states);
+            tmb.Draw(target, states);
 
             enemy.Draw(target, states);
             player.Draw(target, states);
             //map.Draw(target, states);
             //enemy.DebugDraw(target, states);
 
-            foreach(Crate c in _test)
+            foreach(Football c in _test)
             {
                 c.Draw(target, states);
 
