@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
+using FarseerPhysics;
 
 namespace JumpAndRun
 {
@@ -18,6 +19,7 @@ namespace JumpAndRun
         {
             this.world = world;
             this.body = body;
+            body.UserData = "player";
             initAnimations("player", new Texture(@"Resources/Sprites/enemy1.png"));
             InitPhysics(@"Resources\json\physicsattributes.json");
             body.BodyType = BodyType.Dynamic;
@@ -41,6 +43,7 @@ namespace JumpAndRun
                 PositionChanged(EventArgs.Empty);
             }
         }
+
         /*
         public override void move(Vector2f speed)
         {
@@ -57,6 +60,7 @@ namespace JumpAndRun
 
             body.LinearVelocity = (new Vector2((float)Math.Cos(body.Rotation), (float)Math.Sin(body.Rotation)));
         }*/
+
 
         public override void updateExtension()
         {

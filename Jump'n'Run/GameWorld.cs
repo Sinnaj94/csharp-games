@@ -40,7 +40,7 @@ namespace JumpAndRun
             player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
             enemy = new Enemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
-            enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(128), ConvertUnits.ToSimUnits(128));
+            enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(256), ConvertUnits.ToSimUnits(256));
             map = new Map(64, 32, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
@@ -51,6 +51,7 @@ namespace JumpAndRun
             background = new Background();
             initLightCone(window);
             updateLightCone(window);
+           
             List<Vector2> a = tmb.GetObjectPositions();
             foreach(Vector2 t in a)
             {
@@ -67,6 +68,7 @@ namespace JumpAndRun
             darkTex.Display();
             lightTex = new Texture(@"Resources/sprites/sprite.png");
             lightSprite = new Sprite(lightTex);
+            lightSprite.Scale = new SFML.System.Vector2f(2, 2);
             lightSprite.Origin = new SFML.System.Vector2f(lightSprite.Texture.Size.X / 2, lightSprite.Texture.Size.Y / 2);
             lightSprite.Position = window.GetView().Center;
 
@@ -114,10 +116,10 @@ namespace JumpAndRun
 
             debug.DrawDebugData();
 
-            //tmb.Draw(target, states);
+           // tmb.Draw(target, states);
 
-            //enemy.Draw(target, states);
-            //player.Draw(target, states);
+            enemy.Draw(target, states);
+            player.Draw(target, states);
             //map.Draw(target, states);
             //enemy.DebugDraw(target, states);
 
@@ -127,7 +129,7 @@ namespace JumpAndRun
 
             }
             updateLightCone(window);
-            //darkSprite.Draw(target, states);
+            darkSprite.Draw(target, states);
 
         }
 

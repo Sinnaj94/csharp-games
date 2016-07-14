@@ -78,6 +78,7 @@
     <Compile Include="GameObjects\AbstractCaracterStates\Idle.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\State.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Statemachine.cs" />
+    <Compile Include="GameObjects\AbstractCaracterStates\Waiting.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Walk.cs" />
     <Compile Include="GameObjects\AbstractPhysicsObject.cs" />
     <Compile Include="GameObjects\Crate.cs" />

@@ -16,6 +16,7 @@ namespace JumpAndRun
         public World world;
         public Body body { get; set; }
         public abstract void Update();
+        public bool isWaiting { get; set; }
         public String name { get; set; }
         public bool isDead { get; set; }
         public bool isGameOver { get; set; }

@@ -18,6 +18,8 @@ namespace JumpAndRun
         State attack;
         State alternateAttack;
         State dead;
+        State waiting;
+
         public void initAnimations(String spriteJsonAttribute, Texture caracterTexture)
         {
             SpriteBuilder _temp = new SpriteBuilder(spriteJsonAttribute);
@@ -26,6 +28,7 @@ namespace JumpAndRun
             attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture));
             dead = new Dead(caracter, _temp.AnimationList.GetAnimation("die", caracterTexture));
             alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture));
+            waiting = new Waiting(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
 
             attack.Animation.SetSpeed(4);
             alternateAttack.Animation.SetSpeed(4);
@@ -46,6 +49,8 @@ namespace JumpAndRun
             if(caracter.isDead == true)
             {
                 currentState = dead;
+            } else if(caracter.isWaiting) {
+                currentState = waiting;
             }
             else if (attack.Status == StateStatus.Running)
             {

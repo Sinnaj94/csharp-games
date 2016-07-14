@@ -8,6 +8,7 @@ using SFML.Graphics;
 using SFML.System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using FarseerPhysics;
 
 namespace JumpAndRun
 {
@@ -19,8 +20,10 @@ namespace JumpAndRun
 
         public Enemy(Body body, World world)
         {
+            this.isWaiting = true;
             this.world = world;
             this.body = body;
+            body.UserData = "Enemy";
             Path = new List<Point>();
             this.maxSpeed = 3;
             initAnimations("enemy", new Texture(@"Resources/Sprites/enemy1.png"));
@@ -30,11 +33,33 @@ namespace JumpAndRun
             body.LinearDamping = 10;
             foreach (Fixture f in body.FixtureList)
             {
-                f.CollidesWith = Category.Cat3;
+                f.CollidesWith = Category.Cat3 | Category.Cat4;
             }
 
             body.FixedRotation = true;
+
         }
+
+        public void createLineOfSight()
+        {
+            Vector2 tmp = this.body.Position + 400 * new Vector2(ConvertUnits.ToSimUnits(this.getBodyDirection().X), ConvertUnits.ToSimUnits(this.getBodyDirection().Y));
+            world.RayCast(RayCallBack, this.body.Position, tmp);
+        }
+
+        private float RayCallBack(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
+        {
+            //  Console.WriteLine("JO");
+            if (fixture.Body.UserData == "player")
+            {
+                isWaiting = false;
+                return fraction;
+            }
+            else
+            {
+                return 0f;
+            }
+        }
+
         public List<Point> Path
         {
             get
@@ -75,7 +100,8 @@ namespace JumpAndRun
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
             body.Rotation = angle + (float)Math.PI / 2;
         }
-        public override void updateExtension()
+
+        public void Follow()
         {
             if (Path.Count >= 2)
             {
@@ -90,6 +116,19 @@ namespace JumpAndRun
                 body.LinearVelocity = new Vector2(0, 0);
                 Statemachine.triggerAttack(0);
             }
+        }
+
+        public override void updateExtension()
+        {
+            if (isWaiting)
+            {
+                createLineOfSight();
+            } else
+            {
+                Follow();
+            }
+
+            
         }
         public void DebugDraw(RenderTarget target, RenderStates states)
         {
