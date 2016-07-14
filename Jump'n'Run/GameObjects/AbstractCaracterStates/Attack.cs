@@ -1,4 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,48 @@ namespace JumpAndRun
 {
     class Attack : State
     {
+        Clock c;
+        Time fireRate;
         AbstractCaracter caracter;
         AbstractProjectile projectile;
-        public Attack(AbstractCaracter caracter, Animation animation)
+        int nr;
+        public Attack(AbstractCaracter caracter, Animation animation, int nr)
         {
             setAnimation(animation);
             this.caracter = caracter;
             Status = StateStatus.Terminated;
+            this.nr = nr;
+            c = new Clock();
+            fireRate = Time.FromMilliseconds(500);
         }
+
+
         public override void Update()
         {
-            if(Status == StateStatus.Running)
+            if (Status == StateStatus.Running)
             {
                 caracter.PlayerSprite.TextureRect = Animation.Animate();
-                if(projectile == null)
+                if (projectile == null)
                 {
-                    projectile = new MeleeProjectile(caracter);
-                } else
+                    if (nr == 0)
+                    {
+                        projectile = new MeleeProjectile(caracter);
+
+                    }
+                    else if (nr == 1)
+                    {
+
+                        projectile = new RangeProjectile(caracter);
+                        c = new Clock();
+
+
+                    }
+                }
+                else
                 {
                     projectile.Update();
                 }
-            }    
+            }
 
             if (this.Animation.Terminated)
             {
@@ -37,7 +59,7 @@ namespace JumpAndRun
                 this.Animation.Restart();
                 projectile.body.Dispose();
                 projectile = null;
-            } 
+            }
         }
     }
 }

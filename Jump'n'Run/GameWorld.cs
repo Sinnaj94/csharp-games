@@ -118,7 +118,7 @@ namespace JumpAndRun
             background.Draw(target, states);
             target.SetView(setCameraToPlayer(target));
 
-           // debug.DrawDebugData();
+            //debug.DrawDebugData();
 
             tmb.Draw(target, states);
             eContrainer.Draw(target, states);

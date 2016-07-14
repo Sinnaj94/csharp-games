@@ -25,9 +25,9 @@ namespace JumpAndRun
             SpriteBuilder _temp = new SpriteBuilder(spriteJsonAttribute);
             idle = new Idle(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
             walk = new Walk(caracter, _temp.AnimationList.GetAnimation("walk", caracterTexture));
-            attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture));
+            attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture),0);
             dead = new Dead(caracter, _temp.AnimationList.GetAnimation("die", caracterTexture));
-            alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture));
+            alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture),1);
             waiting = new Waiting(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
 
             attack.Animation.SetSpeed(4);
