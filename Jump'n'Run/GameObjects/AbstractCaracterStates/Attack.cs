@@ -36,7 +36,7 @@ namespace JumpAndRun
                     if (nr == 0)
                     {
                         projectile = new MeleeProjectile(caracter);
-
+                        ManageSound.Instance.swoosh();
                     }
                     else if (nr == 1)
                     {
