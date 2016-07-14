@@ -13,7 +13,9 @@ namespace JumpAndRun
         private static ManageSound instance;
 
         List<Sound> sounds;
+        List<Sound> footsteps;
         Music backgroundMusic;
+        Random r;
         private ManageSound()
         {
             sounds = new List<Sound>
@@ -22,6 +24,12 @@ namespace JumpAndRun
 
 
             };
+            footsteps = new List<Sound>();
+            for(int i = 1; i <= 5; i++)
+            {
+                footsteps.Add(new Sound(new SoundBuffer((@"Resources\sounds\footsteps\" + i + ".ogg"))));
+            }
+            r = new Random(DateTime.Now.Millisecond);
             //backgroundMusic = new Music(@"Resources/song.ogg");
             //backgroundMusic.Volume = 50;
             //backgroundMusic.Loop = true;
@@ -63,6 +71,12 @@ namespace JumpAndRun
         public void swoosh()
         {
             sounds[0].Play();
+        }
+
+        public void footStep()
+        {
+            int _r = r.Next(0, 5);
+            footsteps[_r].Play();
         }
 
 

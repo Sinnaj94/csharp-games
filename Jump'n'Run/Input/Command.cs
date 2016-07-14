@@ -175,6 +175,7 @@ namespace JumpAndRun
         }
     }
 
+
     class GoCommand : Command
     {
         CommandAttributes ca;

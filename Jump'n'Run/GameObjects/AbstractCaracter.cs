@@ -55,9 +55,20 @@ namespace JumpAndRun
             body.ApplyLinearImpulse(new Microsoft.Xna.Framework.Vector2(ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dx, ConvertUnits.ToDisplayUnits((float)maxSpeed) * (float)dy), body.WorldCenter);
         }
 
+        Clock _footStepClock = new Clock();
+        Time footStepTime = Time.FromMilliseconds(200);
         public virtual void move(Vector2f speed)
         {
             //Set speed to 1, if it is too big
+            if (_footStepClock.ElapsedTime > footStepTime)
+            {
+                ManageSound.Instance.footStep();
+                _footStepClock = new Clock();
+                int _tempTime = 200-(int)(((Math.Abs(speed.X) + Math.Abs(speed.Y))*100)/2);
+                footStepTime = Time.FromMilliseconds(_tempTime * 2);
+                Console.WriteLine(_tempTime);
+                
+            }
 
             if (Math.Abs(speed.X) > 1)
             {
@@ -77,9 +88,9 @@ namespace JumpAndRun
         public void Draw(RenderTarget target, RenderStates states)
         {
             float _temp = statemachine.CurrentState.Animation.PixelSize;
-            PlayerSprite.Origin = new Vector2f(_temp/2, _temp/2);
+            PlayerSprite.Origin = new Vector2f(_temp / 2, _temp / 2);
             PlayerSprite.Position = Vector2fExtensions.toVector2f(body.Position);
-            PlayerSprite.Rotation = MathHelper.ToDegrees(body.Rotation );
+            PlayerSprite.Rotation = MathHelper.ToDegrees(body.Rotation);
             PlayerSprite.Draw(target, states);
         }
 
@@ -88,7 +99,7 @@ namespace JumpAndRun
             Vector2 contactNormal;
             FarseerPhysics.Common.FixedArray2<Vector2> contactPoints;
             contact.GetWorldManifold(out contactNormal, out contactPoints);
-            
+
             if (fixtureB.CollisionCategories == Category.Cat3)
             {
                 Console.WriteLine("ABC");
@@ -148,7 +159,7 @@ namespace JumpAndRun
         {
             Statemachine.Update();
             if (!isDead) { updateExtension(); }
-            
+
         }
         public Vector2 GetSpeed()
         {

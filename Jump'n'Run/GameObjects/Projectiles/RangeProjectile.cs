@@ -36,7 +36,6 @@ namespace JumpAndRun
             Vector2 contactNormal;
             FarseerPhysics.Common.FixedArray2<Vector2> contactPoints;
             contact.GetWorldManifold(out contactNormal, out contactPoints);
-            Console.WriteLine("Trig");
             body.Awake = false;
             return true;
         }
