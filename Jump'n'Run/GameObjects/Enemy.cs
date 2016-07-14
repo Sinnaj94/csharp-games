@@ -36,7 +36,7 @@ namespace JumpAndRun
             body.FixedRotation = true;
             body.LinearDamping = 10;
             initLineOfSight();
-            body.CollidesWith = Category.Cat4;
+            body.CollidesWith = Category.Cat4 | Category.Cat3;
         }
         public void initLineOfSight()
         {
