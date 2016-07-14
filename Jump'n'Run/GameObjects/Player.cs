@@ -27,9 +27,7 @@ namespace JumpAndRun
             body.LinearDamping = 10;
             body.FixedRotation = true;
             body.LinearVelocity = new Vector2(0, 0);
-
-
-
+            body.CollisionCategories = Category.Cat1;
         }
 
         public event EventHandler onPositionChanged;
