@@ -59,20 +59,22 @@ namespace JumpAndRun
         Time footStepTime = Time.FromMilliseconds(200);
         public virtual void move(Vector2f speed)
         {
+
             //Set speed to 1, if it is too big
+            if (Math.Abs(speed.X) > 1)
+            {
+                speed.X /= speed.X;
+            }
+            
             if (_footStepClock.ElapsedTime > footStepTime)
             {
                 ManageSound.Instance.footStep();
                 _footStepClock = new Clock();
-                int _tempTime = 200-(int)(((Math.Abs(speed.X) + Math.Abs(speed.Y))*100)/2);
-                footStepTime = Time.FromMilliseconds(_tempTime * 2);
-                Console.WriteLine(_tempTime);
-                
-            }
 
-            if (Math.Abs(speed.X) > 1)
-            {
-                speed.X /= speed.X;
+                int _tempTime = 120 - (int)(((Math.Abs(speed.X) + Math.Abs(speed.Y)) * 100) / 2);
+                footStepTime = Time.FromMilliseconds(_tempTime * 500 / 100);
+                Console.WriteLine(_tempTime);
+
             }
 
             if (Math.Abs(speed.Y) > 1)
