@@ -23,14 +23,17 @@ namespace JumpAndRun
         Map map;
         Background background;
         Manhatten<Tile, Object> aStar;
+
+
         RenderTexture darkTex;
         Sprite darkSprite;
         Texture lightTex;
         SFML.Graphics.RenderWindow window;
         Sprite lightSprite;
-
+        List<Crate> _test;
         public GameWorld(RenderWindow window)
         {
+            _test = new List<Crate>();
             this.window = window;
             world = new World(new Vector2(0, 0));
             Vector2 playerSize = new Vector2(16, 16);
@@ -38,16 +41,21 @@ namespace JumpAndRun
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
             enemy = new Enemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(128), ConvertUnits.ToSimUnits(128));
-            map = new Map(32, 32, 32);
+            map = new Map(64, 32, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
             recalculatePath(player, new EventArgs());
             aStar = new Manhatten<Tile, Object>(map.TileArray);
-            background = new Background();        
+
+            background = new Background();
             initLightCone(window);
             updateLightCone(window);
-            
+            List<Vector2> a = tmb.GetObjectPositions();
+            foreach(Vector2 t in a)
+            {
+                _test.Add(new Crate(BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32), 1), t));
+            }
         }
         public void initLightCone(RenderWindow window)
         {
@@ -77,13 +85,14 @@ namespace JumpAndRun
         public void updateLightCone(RenderWindow window)
         {
             darkSprite.Position = window.GetView().Center;
+
         }
 
         public View setCameraToPlayer(RenderTarget target)
         {
             SFML.System.Vector2f defaultSize = target.DefaultView.Size;
             View v = new View(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X), ConvertUnits.ToDisplayUnits(player.body.Position.Y)), defaultSize);
-            background.Update(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X)-target.Size.X*.5f, ConvertUnits.ToDisplayUnits(player.body.Position.Y)-target.Size.Y*.5f));
+            background.Update(new SFML.System.Vector2f(ConvertUnits.ToDisplayUnits(player.body.Position.X) - target.Size.X * .5f, ConvertUnits.ToDisplayUnits(player.body.Position.Y) - target.Size.Y * .5f));
             return v;
         }
 
@@ -102,13 +111,24 @@ namespace JumpAndRun
         {
             background.Draw(target, states);
             target.SetView(setCameraToPlayer(target));
-            tmb.Draw(target, states);
-            enemy.Draw(target, states);
-            player.Draw(target, states);
-            map.Draw(target, states);
-            enemy.DebugDraw(target, states);
+
+            debug.DrawDebugData();
+
+            //tmb.Draw(target, states);
+
+            //enemy.Draw(target, states);
+            //player.Draw(target, states);
+            //map.Draw(target, states);
+            //enemy.DebugDraw(target, states);
+
+            foreach(Crate c in _test)
+            {
+                c.Draw(target, states);
+
+            }
             updateLightCone(window);
-            darkSprite.Draw(target, states);
+            //darkSprite.Draw(target, states);
+
         }
 
         private void HandleInputCommands()
