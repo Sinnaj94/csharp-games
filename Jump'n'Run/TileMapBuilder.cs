@@ -49,15 +49,43 @@ namespace JumpAndRun
             }
         }
 
-        public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map)
+        public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map, EnemyContainer eContrainer)
         {
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(@"Resources\Tile\football_alpha.png"), world);
+            CreateShape(new SFML.Graphics.Texture(@"Resources\Tile\topdown2_alpha.png"), world);
             SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\Tile\topdown.png");
-            test = new TiledSharp.TmxMap(@"Resources\Tile\football.tmx");
+            test = new TiledSharp.TmxMap(@"Resources\Tile\topdown2.tmx");
             var myTileset = test.Tilesets["topdown"];
-            Vertices navigationVerts = new Vertices();
+         //   Vertices navigationVerts = new Vertices();
             this.map = map;
+            parseTileLayer(tilemap);
+            parseObjectLayer(eContrainer);
+
+        }
+
+        public void parseObjectLayer(EnemyContainer eContrainer)
+        {
+            foreach (TiledSharp.TmxObjectGroup g in test.ObjectGroups)
+            {
+                foreach (TiledSharp.TmxObject o in g.Objects)
+                {
+                    int id = o.Tile.Gid;
+                    switch (id)
+                    {
+                        case 485:
+                            eContrainer.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)), (float)((Math.PI / 180) * o.Rotation - (float)Math.PI / 2));
+                            break;
+                        default:
+                            Console.WriteLine("unknown gid");
+                            break;
+                    }
+
+                }
+            }
+        }
+
+        public void parseTileLayer(Texture tilemap)
+        {
             foreach (TiledSharp.TmxLayer l in test.Layers)
             {
                 foreach (TiledSharp.TmxLayerTile t in l.Tiles)
@@ -71,15 +99,9 @@ namespace JumpAndRun
                         Sprite nightTexture = bodySprite;
                         nightTexture.Color = new Color(0, 0, 0, 80);
                         nightTexture.Color = new Color(128, 128, 128, 200);
-
-
-
-
                         TileSpriteList.Add(bodySprite);
                         TileSpriteList.Add(nightTexture);
-
                     }
-
                     if (l.Name == "walls")
                     {
                         if (t.Gid != 0)
@@ -92,26 +114,19 @@ namespace JumpAndRun
                         }
                     }
                 }
-
-
             }
-
-
         }
 
         public List<Vector2> GetObjectPositions()
         {
             List<Vector2> _return = new List<Vector2>();
             TiledSharp.TmxObjectGroup liste = test.ObjectGroups[0];
-            //foreach (TiledSharp.TmxObjectGroup liste in test.ObjectGroups)
-            //{
             foreach (TiledSharp.TmxObject o in liste.Objects)
             {
                 _return.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)));
 
             }
             return _return;
-            //}
         }
 
         public void Draw(RenderTarget target, RenderStates states)

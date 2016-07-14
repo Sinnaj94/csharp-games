@@ -23,7 +23,7 @@ namespace JumpAndRun
         Map map;
         Background background;
         Manhatten<Tile, Object> aStar;
-
+        EnemyContainer eContrainer;
 
         RenderTexture darkTex;
         Sprite darkSprite;
@@ -39,10 +39,12 @@ namespace JumpAndRun
             Vector2 playerSize = new Vector2(16, 16);
             player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
-            enemy = new Enemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
-            enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(256), ConvertUnits.ToSimUnits(256));
-            map = new Map(85, 51, 32);
-            tmb = new TileMapBuilder(world, map);
+
+            map = new Map(64, 32, 32);
+
+            eContrainer = new EnemyContainer(world);
+
+            tmb = new TileMapBuilder(world, map, eContrainer);
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
             recalculatePath(player, new EventArgs());
@@ -51,7 +53,9 @@ namespace JumpAndRun
             background = new Background();
             initLightCone(window);
             updateLightCone(window);
-           
+
+            
+
             List<Vector2> a = tmb.GetObjectPositions();
             foreach(Vector2 t in a)
             {
@@ -106,7 +110,7 @@ namespace JumpAndRun
 
         private void Player_onPositionChanged(object sender, EventArgs e)
         {
-            enemy.calculatePathToSimTargetUsingAStart(player.body.Position, aStar);
+            eContrainer.updatePaths(player.body.Position, aStar);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -114,11 +118,10 @@ namespace JumpAndRun
             background.Draw(target, states);
             target.SetView(setCameraToPlayer(target));
 
-            //debug.DrawDebugData();
+           // debug.DrawDebugData();
 
             tmb.Draw(target, states);
-
-            enemy.Draw(target, states);
+            eContrainer.Draw(target, states);
             player.Draw(target, states);
             //map.Draw(target, states);
             //enemy.DebugDraw(target, states);
@@ -145,7 +148,7 @@ namespace JumpAndRun
 
         public void Update()
         {
-            enemy.Update();
+            eContrainer.Update();
             HandleInputCommands();
             player.Update();
             world.Step(.01639344262f);

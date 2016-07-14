@@ -36,7 +36,7 @@ namespace JumpAndRun
             body.FixedRotation = true;
             body.LinearDamping = 10;
             initLineOfSight();
-            body.CollidesWith = Category.Cat3;
+            body.CollidesWith = Category.Cat4;
         }
         public void initLineOfSight()
         {
@@ -51,7 +51,7 @@ namespace JumpAndRun
             radar.Position = this.body.Position;
             radar.IsSensor = true;
             radar.OnCollision += Radar_OnCollision;
-            radar.CollisionCategories = Category.Cat1;
+            radar.CollidesWith =  Category.Cat2;
         }
         private bool Radar_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
         {

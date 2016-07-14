@@ -22,7 +22,7 @@ namespace JumpAndRun
         }
         public override void Update()
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
 
