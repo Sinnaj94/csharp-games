@@ -51,6 +51,7 @@ namespace JumpAndRun
         }
         public void initLightCone(RenderWindow window)
         {
+            
             darkTex = new RenderTexture(1920, 1080);
             darkSprite = new Sprite(darkTex.Texture);
             darkSprite.Origin = new SFML.System.Vector2f(darkSprite.Texture.Size.X / 2, darkSprite.Texture.Size.Y / 2);
@@ -60,6 +61,15 @@ namespace JumpAndRun
             lightSprite = new Sprite(lightTex);
             lightSprite.Origin = new SFML.System.Vector2f(lightSprite.Texture.Size.X / 2, lightSprite.Texture.Size.Y / 2);
             lightSprite.Position = window.GetView().Center;
+
+            Texture rot = new Texture(@"Resources/sprites/rot.png");
+            Sprite rotSprite = new Sprite(rot);
+            rotSprite.Origin = new SFML.System.Vector2f(rotSprite.Texture.Size.X / 2, rotSprite.Texture.Size.Y / 2);
+            rotSprite.Position = window.GetView().Center;
+
+            
+            //darkTex.Display();
+           // darkTex.Draw(rotSprite, new RenderStates(BlendMode.Add));
             darkTex.Draw(lightSprite, new RenderStates(BlendMode.Multiply));
             darkTex.Display();
         }
