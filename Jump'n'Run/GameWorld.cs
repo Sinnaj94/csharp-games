@@ -23,13 +23,10 @@ namespace JumpAndRun
         Background background;
         Manhatten<Tile, Object> aStar;
         EnemyContainer eContrainer;
-
-        RenderTexture darkTex;
-        Sprite darkSprite;
-        Texture lightTex;
         SFML.Graphics.RenderWindow window;
-        Sprite lightSprite;
         List<Football> _test;
+        Lightcone lightcone;
+
         public GameWorld(RenderWindow window)
         {
             _test = new List<Football>();
@@ -38,11 +35,7 @@ namespace JumpAndRun
             Vector2 playerSize = new Vector2(16, 16);
             player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
-
-
-
             eContrainer = new EnemyContainer(world);
-
             tmb = new TileMapBuilder(world, eContrainer);
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
@@ -50,10 +43,10 @@ namespace JumpAndRun
             aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
 
             background = new Background();
-            initLightCone(window);
-            updateLightCone(window);
-           
-            
+            lightcone = new Lightcone(window);
+
+
+
 
             List<Vector2> a = tmb.GetObjectPositions();
             foreach(Vector2 t in a)
@@ -61,37 +54,7 @@ namespace JumpAndRun
                 _test.Add(new Football(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f), t));
             }
         }
-        public void initLightCone(RenderWindow window)
-        {
-            
-            darkTex = new RenderTexture(1920, 1080);
-            darkSprite = new Sprite(darkTex.Texture);
-            darkSprite.Origin = new SFML.System.Vector2f(darkSprite.Texture.Size.X / 2, darkSprite.Texture.Size.Y / 2);
-            darkTex.Clear(new Color(0, 0, 0, 200));
-            darkTex.Display();
-            lightTex = new Texture(@"Resources/sprites/sprite.png");
-            lightSprite = new Sprite(lightTex);
-            lightSprite.Scale = new SFML.System.Vector2f(2, 2);
-            lightSprite.Origin = new SFML.System.Vector2f(lightSprite.Texture.Size.X / 2, lightSprite.Texture.Size.Y / 2);
-            lightSprite.Position = window.GetView().Center;
 
-            Texture rot = new Texture(@"Resources/sprites/rot.png");
-            Sprite rotSprite = new Sprite(rot);
-            rotSprite.Origin = new SFML.System.Vector2f(rotSprite.Texture.Size.X / 2, rotSprite.Texture.Size.Y / 2);
-            rotSprite.Position = window.GetView().Center;
-
-            
-            //darkTex.Display();
-           // darkTex.Draw(rotSprite, new RenderStates(BlendMode.Add));
-            darkTex.Draw(lightSprite, new RenderStates(BlendMode.Multiply));
-            darkTex.Display();
-        }
-
-        public void updateLightCone(RenderWindow window)
-        {
-            darkSprite.Position = window.GetView().Center;
-
-        }
 
         public View setCameraToPlayer(RenderTarget target)
         {
@@ -130,8 +93,7 @@ namespace JumpAndRun
                 c.Draw(target, states);
 
             }
-            updateLightCone(window);
-            darkSprite.Draw(target, states);
+            lightcone.Draw(target, states);
 
         }
 
