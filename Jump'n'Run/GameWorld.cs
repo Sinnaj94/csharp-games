@@ -41,7 +41,7 @@ namespace JumpAndRun
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
             enemy = new Enemy(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             enemy.body.Position = new Vector2(ConvertUnits.ToSimUnits(256), ConvertUnits.ToSimUnits(256));
-            map = new Map(64, 32, 32);
+            map = new Map(85, 51, 32);
             tmb = new TileMapBuilder(world, map);
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);

@@ -51,9 +51,9 @@ namespace JumpAndRun
         public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map)
         {
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(@"Resources\Tile\topdown2_alpha.png"), world);
+            CreateShape(new SFML.Graphics.Texture(@"Resources\Tile\football_alpha.png"), world);
             SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\Tile\topdown.png");
-            test = new TiledSharp.TmxMap(@"Resources\Tile\topdown2.tmx");
+            test = new TiledSharp.TmxMap(@"Resources\Tile\football.tmx");
             var myTileset = test.Tilesets["topdown"];
             Vertices navigationVerts = new Vertices();
             this.map = map;

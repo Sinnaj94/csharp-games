@@ -131,6 +131,9 @@
     <None Include="Resources\psd\mainscreen.psd" />
     <None Include="Resources\psd\MRP_U_G.psd" />
     <None Include="Resources\psd\TrumpPSD.psd" />
+    <Content Include="Resources\Tile\football.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Tile\topdown.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -158,6 +161,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\sprite.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Tile\football_alpha.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Tile\topdown.png">
