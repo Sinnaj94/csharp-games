@@ -11,21 +11,21 @@ namespace JumpAndRun
     {
 
         private static ManageSound instance;
-        
+
         List<Sound> sounds;
         Music backgroundMusic;
         private ManageSound()
         {
             sounds = new List<Sound>
             {
-                new Sound(new SoundBuffer(@"Resources\swoosh.wav")),
+                new Sound(new SoundBuffer(@"Resources\sounds\swoosh.wav")),
 
 
-        };
-            backgroundMusic = new Music(@"Resources/song.ogg");
-            backgroundMusic.Volume = 50;
-            backgroundMusic.Loop = true;
-            
+            };
+            //backgroundMusic = new Music(@"Resources/song.ogg");
+            //backgroundMusic.Volume = 50;
+            //backgroundMusic.Loop = true;
+
         }
 
         public void StartPlayingMusic()
@@ -53,37 +53,18 @@ namespace JumpAndRun
 
         public void setVolume(int volume)
         {
-            foreach(Sound s in sounds)
+            foreach (Sound s in sounds)
             {
                 s.Volume = volume;
             }
             backgroundMusic.Volume = volume / 2;
         }
 
-        public void shoot()
+        public void swoosh()
         {
             sounds[0].Play();
         }
 
-        public void shoot1()
-        {
-            sounds[1].Play();
-        }
-
-        public void select()
-        {
-            sounds[2].Play();
-        }
-
-        public void enter()
-        {
-            sounds[3].Play();
-        }
-
-        public void textelement()
-        {
-            sounds[4].Play();
-        }
 
     }
 }
