@@ -9,6 +9,8 @@ using SFML.System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using FarseerPhysics;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
 
 namespace JumpAndRun
 {
@@ -17,6 +19,7 @@ namespace JumpAndRun
         float damage;
         List<Point> path;
         public Body debugpath;
+        Body radar;
 
         public Enemy(Body body, World world)
         {
@@ -35,15 +38,34 @@ namespace JumpAndRun
             {
                 f.CollidesWith = Category.Cat3 | Category.Cat4;
             }
-
-            body.FixedRotation = true;
-
+            initLineOfSight();
         }
 
-        public void createLineOfSight()
+        public void initLineOfSight()
         {
-            Vector2 tmp = this.body.Position + 400 * new Vector2(ConvertUnits.ToSimUnits(this.getBodyDirection().X), ConvertUnits.ToSimUnits(this.getBodyDirection().Y));
-            world.RayCast(RayCallBack, this.body.Position, tmp);
+            Vertices triangle = new Vertices();
+            triangle.Add(new Vector2(0, -body.Position.Y));
+            triangle.Add(new Vector2(2, 5));
+            triangle.Add(new Vector2(-2, 5));
+            body.FixedRotation = true;
+            radar = FarseerPhysics.Factories.BodyFactory.CreatePolygon(world, triangle, 10);
+            radar.Rotation = body.Rotation - (float)Math.PI / 2;
+            PolygonShape p = new PolygonShape(triangle, 10);
+            radar.Position = this.body.Position;
+            radar.IsSensor = true;
+            radar.OnCollision += Radar_OnCollision;
+        }
+
+        private bool Radar_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+        {
+            createLineOfSight(fixtureB.Body.Position);
+            return false;
+        }
+
+        public void createLineOfSight(Vector2 targetPosition)
+        {
+         //   Vector2 tmp = this.body.Position + 400 * new Vector2(ConvertUnits.ToSimUnits(this.getBodyDirection().X), ConvertUnits.ToSimUnits(this.getBodyDirection().Y));
+            world.RayCast(RayCallBack, this.body.Position, targetPosition);
         }
 
         private float RayCallBack(Fixture fixture, Vector2 point, Vector2 normal, float fraction)
@@ -120,11 +142,10 @@ namespace JumpAndRun
 
         public override void updateExtension()
         {
-            if (isWaiting)
-            {
-                createLineOfSight();
-            } else
-            {
+            radar.Position = body.Position;
+            radar.Rotation = body.Rotation - (float)Math.PI / 2;
+
+            if (!isWaiting) {
                 Follow();
             }
 

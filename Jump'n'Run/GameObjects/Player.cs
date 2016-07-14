@@ -14,6 +14,7 @@ namespace JumpAndRun
     class Player : AbstractCaracter
     {
         Vector2 positionChangedVector;
+        
 
         public Player(Body body, World world)
         {
@@ -26,6 +27,9 @@ namespace JumpAndRun
             body.LinearDamping = 10;
             body.FixedRotation = true;
             body.LinearVelocity = new Vector2(0, 0);
+
+
+
         }
 
         public event EventHandler onPositionChanged;
@@ -65,6 +69,7 @@ namespace JumpAndRun
         public override void updateExtension()
         {
             CheckPositionChange();
+           
         }
     }
 }
