@@ -73,8 +73,9 @@
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
     <Compile Include="EnemyContainer\EnemyContainer.cs" />
+    <Compile Include="FX\Lightcone.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Attack.cs" />
-    <Compile Include="Background.cs" />
+    <Compile Include="FX\Background.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Dead.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Idle.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\State.cs" />
