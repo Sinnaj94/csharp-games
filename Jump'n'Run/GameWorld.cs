@@ -53,7 +53,7 @@ namespace JumpAndRun
             background = new Background();
             initLightCone(window);
             updateLightCone(window);
-
+           
             
 
             List<Vector2> a = tmb.GetObjectPositions();
