@@ -21,6 +21,8 @@ namespace JumpAndRun
         Map map;
         TiledSharp.TmxMap test;
 
+
+
         static private void CreateShape(SFML.Graphics.Texture texture, World world)
         {
             // Make collision Geo from bitmap
@@ -49,18 +51,18 @@ namespace JumpAndRun
             }
         }
 
-        public TileMapBuilder(FarseerPhysics.Dynamics.World world, Map map, EnemyContainer eContrainer)
+        public TileMapBuilder(FarseerPhysics.Dynamics.World world, EnemyContainer eContrainer)
         {
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(@"Resources\Tile\topdown2_alpha.png"), world);
+            CreateShape(new SFML.Graphics.Texture(@"Resources\Tile\topdown_alpha.png"), world);
             SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(@"Resources\Tile\topdown.png");
-            test = new TiledSharp.TmxMap(@"Resources\Tile\topdown2.tmx");
+            test = new TiledSharp.TmxMap(@"Resources\Tile\topdown.tmx");
             var myTileset = test.Tilesets["topdown"];
+            Map newMap = new Map(test.Width, test.Height, test.TileWidth);
          //   Vertices navigationVerts = new Vertices();
-            this.map = map;
+            this.Map = newMap;
             parseTileLayer(tilemap);
             parseObjectLayer(eContrainer);
-
         }
 
         public void parseObjectLayer(EnemyContainer eContrainer)
@@ -106,11 +108,11 @@ namespace JumpAndRun
                     {
                         if (t.Gid != 0)
                         {
-                            map.AddTile(t.X, t.Y, true);
+                            Map.AddTile(t.X, t.Y, true);
                         }
                         else
                         {
-                            map.AddTile(t.X, t.Y, false);
+                            Map.AddTile(t.X, t.Y, false);
                         }
                     }
                 }
@@ -120,13 +122,30 @@ namespace JumpAndRun
         public List<Vector2> GetObjectPositions()
         {
             List<Vector2> _return = new List<Vector2>();
-            TiledSharp.TmxObjectGroup liste = test.ObjectGroups[0];
-            foreach (TiledSharp.TmxObject o in liste.Objects)
+            if(test.ObjectGroups.Count > 0)
             {
-                _return.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)));
+                TiledSharp.TmxObjectGroup liste = test.ObjectGroups[0];
+                foreach (TiledSharp.TmxObject o in liste.Objects)
+                {
+                    _return.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)));
 
+                }
             }
+
             return _return;
+        }
+
+        public Map Map
+        {
+            get
+            {
+                return map;
+            }
+
+            set
+            {
+                map = value;
+            }
         }
 
         public void Draw(RenderTarget target, RenderStates states)

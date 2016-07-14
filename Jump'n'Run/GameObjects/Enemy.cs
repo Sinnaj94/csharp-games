@@ -56,7 +56,6 @@ namespace JumpAndRun
         private bool Radar_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
         {
             createLineOfSight(fixtureB.Body.Position);
-            Console.WriteLine("trig");
             return false;
         }
         public void createLineOfSight(Vector2 targetPosition)

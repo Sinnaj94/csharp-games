@@ -20,7 +20,6 @@ namespace JumpAndRun
         InputHandler input;
         List<Command> currentCommands;
         TileMapBuilder tmb;
-        Map map;
         Background background;
         Manhatten<Tile, Object> aStar;
         EnemyContainer eContrainer;
@@ -40,15 +39,15 @@ namespace JumpAndRun
             player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
 
-            map = new Map(64, 32, 32);
+
 
             eContrainer = new EnemyContainer(world);
 
-            tmb = new TileMapBuilder(world, map, eContrainer);
+            tmb = new TileMapBuilder(world, eContrainer);
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
             recalculatePath(player, new EventArgs());
-            aStar = new Manhatten<Tile, Object>(map.TileArray);
+            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
 
             background = new Background();
             initLightCone(window);
@@ -141,7 +140,10 @@ namespace JumpAndRun
             currentCommands = input.HandleInput();
             foreach (Command c in currentCommands)
             {
-                c.Execute(player);
+                if (!player.isDead)
+                {
+                    c.Execute(player);
+                }
             }
             input.ResetInput();
         }
