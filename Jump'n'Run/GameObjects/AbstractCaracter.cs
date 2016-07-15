@@ -29,6 +29,18 @@ namespace JumpAndRun
 
         public abstract void updateExtension();
 
+        public int hasRangedAttack()
+        {
+            if(bulletCount <= 0)
+            {
+                return 0;
+            } else
+            {
+                bulletCount--;
+                return 1;
+            }
+        }
+
         public void initAnimations(String jsonname, Texture texture)
         {
             PlayerTexture = texture;
