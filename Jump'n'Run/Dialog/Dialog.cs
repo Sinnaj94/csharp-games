@@ -10,7 +10,7 @@ using SFML.Graphics;
 using SFML.System;
 namespace JumpAndRun
 {
-    class Dialog : SFML.Graphics.Drawable
+    class Dialog : AbstractNavigation, SFML.Graphics.Drawable
     {
         //Clock is for timed events
         Clock c;
@@ -21,7 +21,7 @@ namespace JumpAndRun
         bool active;
 
         int currentDialog;
-        public bool Active
+        public override bool Active
         {
             get
             {
@@ -60,11 +60,11 @@ namespace JumpAndRun
                     String currentScene = (String)row["scene"];
                     if (currentSpeaker != "none")
                     {
-                        DialogElement temp = new DialogElement(currentSpeaker,currentText,currentPlane,currentScene);
+                        DialogElement temp = new DialogElement(currentSpeaker, currentText, currentPlane, currentScene);
                         dialogList.Add(temp);
                     }
 
-                    
+
                 }
                 catch (InvalidCastException e)
                 {
@@ -75,45 +75,40 @@ namespace JumpAndRun
 
 
 
-        public void Draw(RenderTarget target, RenderStates states)
+        public override void Draw(RenderTarget target, RenderStates states)
         {
             Vector2f defaultSize = target.DefaultView.Size;
-            target.SetView(new View(new Vector2f(defaultSize.X/2,defaultSize.Y/2),defaultSize));
+            target.SetView(new View(new Vector2f(defaultSize.X / 2, defaultSize.Y / 2), defaultSize));
             dialogList[currentDialog].Draw(target, states);
-            
+
         }
 
-        public void Update()
+        public override void Update()
         {
             dialogList[currentDialog].Update();
-            
+
         }
 
 
-        
 
-        public void selectCurrent()
+
+        public override void Enter()
         {
-            if (c.ElapsedTime.AsMilliseconds() >= milliseconds)
+            Console.WriteLine("ATTEMEEMEMEMEPT");
+
+            if (dialogList[currentDialog].textDone())
             {
-                if (dialogList[currentDialog].textDone())
+                if (currentDialog + 1 < dialogList.Count)
                 {
-                    if (currentDialog + 1 < dialogList.Count)
-                    {
-                        currentDialog++;
-                    }
-                    else
-                    {
-                        Active = false;
-                    }
+                    currentDialog++;
                 }
                 else
                 {
-                    dialogList[currentDialog].showAllText();
+                    Active = false;
                 }
-                
-                c = new Clock();
             }
+
+
 
         }
 

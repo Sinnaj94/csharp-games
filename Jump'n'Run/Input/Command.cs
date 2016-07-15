@@ -235,6 +235,37 @@ namespace JumpAndRun
         }
     }
 
+
+    interface MenuCommand
+    {
+        void Execute(AbstractNavigation a);
+    }
+    class MenuDownCommand : MenuCommand
+    {
+
+
+        public void Execute(AbstractNavigation a)
+        {
+            a.NavigateDown();
+        }
+    }
+    class MenuUpCommand : MenuCommand
+    {
+
+        public void Execute(AbstractNavigation a)
+        {
+            a.NavigateUp();
+        }
+    }
+    class MenuEnterCommand : MenuCommand
+    {
+
+        public void Execute(AbstractNavigation a)
+        {
+            a.Enter();
+        }
+    }
+
     class restartCommand : GameCommand
     {
         public void Execute(GameWorld gameworld)
@@ -243,5 +274,6 @@ namespace JumpAndRun
             gameworld.initLevel();
         }
     }
+
 
 }
