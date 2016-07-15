@@ -11,7 +11,8 @@ namespace JumpAndRun
 {
     public class MeleeProjectile : AbstractProjectile
     {
-        
+        bool exists = true;
+
         public MeleeProjectile(AbstractCaracter caracter)
         {
             this.Caracter = caracter;
@@ -23,15 +24,21 @@ namespace JumpAndRun
             body.IsSensor = true;
             // Cat3 for projectiles
             body.CollisionCategories = Category.Cat3;
+            caracter.body.OnCollision += Body_OnCollision;
+        }
+
+        private bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+        {
+            this.body.Dispose();
+            exists = false;
+            return false;
         }
 
         public override void Update()
         {
-            this.body.Position = Caracter.body.Position;
-            if (!Caracter.body.Awake)
+            if (exists)
             {
-                this.body.Dispose();
-                this.body = null;
+                this.body.Position = Caracter.body.Position;
             }
         }
     }
