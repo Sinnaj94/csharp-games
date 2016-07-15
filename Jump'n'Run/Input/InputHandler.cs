@@ -287,6 +287,10 @@ namespace JumpAndRun
 
                     AddCommandToList(turnCommand, _ca);
                 }
+                if (Joystick.IsButtonPressed(0, 14))
+                {
+                    AddCommandToGameCommandList(restartCommand);
+                }
                 JoystickDebug();
             }
         }

@@ -36,7 +36,7 @@ namespace JumpAndRun
             InputHandlerMenu inputMenu = new InputHandlerMenu();
             List<MenuCommand> _temp;
             world.Update();
-
+            ManageSound.Instance.StartPlayingMusic();
             while (window.IsOpen)
             {
                 window.Clear();
