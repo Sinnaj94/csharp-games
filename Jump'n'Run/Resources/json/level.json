@@ -1,5 +1,10 @@
 ﻿[
-    
+    {
+        "AlphaTexture": "Resources\/Tile\/tutorial.png",
+        "TilemapImage": "Resources\/Tile\/topdown.png",
+        "TMX": "Resources\/Tile\/Tutorial.tmx",
+        "Tilesetname": "topdown"
+    },
     {
         "AlphaTexture": "Resources\/Tile\/topdown_alpha.png",
         "TilemapImage": "Resources\/Tile\/topdown.png",

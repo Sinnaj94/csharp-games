@@ -121,6 +121,9 @@
     <Compile Include="Vector2fExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Tile\tutorial.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Resources\buttons\template.psd" />
@@ -245,6 +248,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Tile\topdown2.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Tile\tutorial.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
