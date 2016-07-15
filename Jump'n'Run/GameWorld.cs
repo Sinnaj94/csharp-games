@@ -30,8 +30,6 @@ namespace JumpAndRun
         StatusBar statusbar;
         GameOver gameover;
 
-
-
         public GameWorld(RenderWindow window)
         {
             this.window = window;
@@ -77,26 +75,20 @@ namespace JumpAndRun
             background.Draw(target, states);
             if (!player.isDead)
             {
-
-                //debug.DrawDebugData();
                 tmb.Draw(target, states);
+                debug.DrawDebugData();
                 collectables.Draw(target, states);
                 eContrainer.Draw(target, states);
                 player.Draw(target, states);
-                //map.Draw(target, states);
-                //enemy.DebugDraw(target, states);
                 foreach (AbstractPhysicsObject c in _test)
                 {
                     c.Draw(target, states);
-
                 }
-
                 statusbar.Draw(target, states);
             }
             else
             {
                 gameover.Draw(target, states);
-
             }
             lightcone.Draw(target, states);
         }
@@ -123,7 +115,6 @@ namespace JumpAndRun
 
         public void Update()
         {
-
             window.SetView(setCameraToPlayer(window));
             if (eContrainer.AllEnemyDead && !player.isDead)
             {
