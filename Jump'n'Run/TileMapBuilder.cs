@@ -51,7 +51,7 @@ namespace JumpAndRun
             }
         }
 
-        public TileMapBuilder(World world, EnemyContainer eContrainer)
+        public TileMapBuilder(World world, EnemyContainer eContrainer, ref Player player)
         {
             LevelBuilder l = new LevelBuilder(@"Resources\json\level.json");
             List<Level> level = l.Level;
@@ -63,10 +63,10 @@ namespace JumpAndRun
             Map newMap = new Map(test.Width, test.Height, test.TileWidth);
             this.Map = newMap;
             parseTileLayer(tilemap);
-            parseObjectLayer(eContrainer);
+            parseObjectLayer(world, eContrainer, ref player);
         }
 
-        public void parseObjectLayer(EnemyContainer eContrainer)
+        public void parseObjectLayer(World world, EnemyContainer eContrainer, ref Player player)
         {
             foreach (TiledSharp.TmxObjectGroup g in test.ObjectGroups)
             {
@@ -77,6 +77,10 @@ namespace JumpAndRun
                     {
                         case 485:
                             eContrainer.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)), (float)((Math.PI / 180) * o.Rotation - (float)Math.PI / 2));
+                            break;
+                        case 458:
+                            player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
+                            player.body.Position = new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y));
                             break;
                         default:
                             Console.WriteLine("unknown gid");

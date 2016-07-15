@@ -31,23 +31,30 @@ namespace JumpAndRun
             _test = new List<Football>();
             this.window = window;
             world = new World(new Vector2(0, 0));
-            Vector2 playerSize = new Vector2(16, 16);
-            player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
-            player.body.Position = new Vector2(ConvertUnits.ToSimUnits(200), ConvertUnits.ToSimUnits(200));
-            eContrainer = new EnemyContainer(world);
-            tmb = new TileMapBuilder(world, eContrainer);
+
+            initLevel();
+
+
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
-            recalculatePath(player, new EventArgs());
+
             aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
             background = new Background();
             lightcone = new Lightcone(window);
 
             List<Vector2> a = tmb.GetObjectPositions();
+
             foreach(Vector2 t in a)
             {
                 _test.Add(new Football(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f), t));
             }
+        }
+
+        public void initLevel()
+        {
+            eContrainer = new EnemyContainer(world);
+            tmb = new TileMapBuilder(world, eContrainer, ref player);
+            recalculatePath(player, new EventArgs());
         }
 
         public View setCameraToPlayer(RenderTarget target)
