@@ -151,16 +151,7 @@
   <object id="14" gid="538" x="886.667" y="294.666" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="caracter">
-  <object id="13" gid="485" x="342.21" y="651.352" width="32" height="32" rotation="-276.835"/>
-  <object id="15" gid="485" x="346.491" y="276.801" width="32" height="32" rotation="-249.85"/>
-  <object id="16" gid="485" x="762.464" y="546.615" width="32" height="32" rotation="-141.899"/>
-  <object id="17" gid="485" x="722.666" y="684" width="32" height="32"/>
-  <object id="18" gid="485" x="908.722" y="806.388" width="32" height="32" rotation="-122.091"/>
-  <object id="19" gid="485" x="893.453" y="920.627" width="32" height="32" rotation="-58.944"/>
-  <object id="20" gid="485" x="225.333" y="681.333" width="32" height="32"/>
-  <object id="21" gid="485" x="527.47" y="209.563" width="32" height="32" rotation="-71.6137"/>
-  <object id="22" gid="485" x="901.713" y="147.413" width="32" height="32" rotation="-96.5179"/>
-  <object id="23" gid="485" x="126.603" y="110.083" width="32" height="32" rotation="-249.539"/>
+  <object id="17" gid="485" x="418.666" y="293.333" width="32" height="32"/>
   <object id="24" gid="458" x="794.667" y="317.333" width="32" height="32"/>
  </objectgroup>
 </map>
