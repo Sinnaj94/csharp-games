@@ -183,8 +183,8 @@ namespace JumpAndRun
             }
             if (mouseButtonDown(rightClick))
             {
-                CommandAttributes _t = new CommandAttributes(1, false);
-                AddCommandToList(attack, _t);
+                //CommandAttributes _t = new CommandAttributes(1, false);
+                //AddCommandToList(attack, _t);
             }
         }
 
