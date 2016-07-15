@@ -49,24 +49,23 @@ namespace JumpAndRun
                     m.Execute(dialog);
                 }
 
+                window.Draw(world);
+
                 inputMenu.Flush();
                 if (menu.Active)
                 {
                     window.Draw(menu);
                 } else
                 {
-                    window.Draw(world);
+                    if (dialog.Active)
+                    {
+                        dialog.Update();
+                        window.Draw(dialog);
+                    } else
+                    {
+                        world.Update();
+                    }
                 }
-                //DIALOG
-                if (dialog.Active && !menu.Active)
-                {
-                    dialog.Update();
-                    window.Draw(dialog);
-                } else
-                {
-                    world.Update();
-                }
-                
                 window.Display();
             }
         }
