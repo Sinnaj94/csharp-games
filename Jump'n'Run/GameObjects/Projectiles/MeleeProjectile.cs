@@ -28,6 +28,11 @@ namespace JumpAndRun
         public override void Update()
         {
             this.body.Position = Caracter.body.Position;
+            if (!Caracter.body.Awake)
+            {
+                this.body.Dispose();
+                this.body = null;
+            }
         }
     }
 }
