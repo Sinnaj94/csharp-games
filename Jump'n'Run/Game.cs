@@ -70,9 +70,6 @@ namespace JumpAndRun
                 {
                     dialog.Update();
                     window.Draw(dialog);
-                } else
-                {
-                    world.Update();
                 }
                 
                 window.Display();
