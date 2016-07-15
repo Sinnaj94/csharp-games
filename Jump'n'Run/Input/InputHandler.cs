@@ -11,10 +11,14 @@ namespace JumpAndRun
     class InputHandler
     {
         List<Command> commandList;
+        List<GameCommand> gameCommandList;
         Command _go;
         Command _jump;
         Command turnCommand;
         Command attack;
+        Command escapeCommand;
+        GameCommand restartCommand;
+
         SFML.System.Vector2i mousePosition;
         SFML.Graphics.RenderWindow window;
         //Keyboard
@@ -23,6 +27,8 @@ namespace JumpAndRun
         Keyboard.Key jumpKey;
         Keyboard.Key downKey;
         Keyboard.Key upKey;
+        Keyboard.Key rKey;
+        Keyboard.Key escKey;
         // Mouse
         Mouse.Button leftClick;
         Mouse.Button rightClick;
@@ -65,6 +71,8 @@ namespace JumpAndRun
             attack = new AttackCommand();
             //Building the Commandlist
             commandList = new List<Command>();
+            GameCommandList = new List<GameCommand>();
+            restartCommand = new restartCommand();
 
             //Setup the Joysticksettings
             joystickNr = 0;
@@ -114,6 +122,8 @@ namespace JumpAndRun
             jumpKey = Keyboard.Key.Space;
             upKey = Keyboard.Key.W;
             downKey = Keyboard.Key.S;
+            escKey = Keyboard.Key.Escape;
+            rKey = Keyboard.Key.R;
             leftClick = Mouse.Button.Left;
             rightClick = Mouse.Button.Right;
         }
@@ -151,6 +161,20 @@ namespace JumpAndRun
         }
 
         bool attackWasDown = false;
+
+        internal List<GameCommand> GameCommandList
+        {
+            get
+            {
+                return gameCommandList;
+            }
+
+            set
+            {
+                gameCommandList = value;
+            }
+        }
+
         private void HandleKeyboardInput()
         {
             CommandAttributes _temp = new CommandAttributes(0, 0);
@@ -161,7 +185,6 @@ namespace JumpAndRun
             if (KeyDown(rightKey))
             {
                 _temp.Add(new Vector2f(1, 0));
-
             }
             if (KeyDown(jumpKey))
             {
@@ -189,17 +212,21 @@ namespace JumpAndRun
             if (mouseButtonDown(leftClick))
             {
                 AddCommandToList(attack, timed);
-                
             }
-
-            if (mouseButtonDown(rightClick))
+            if (KeyDown(escKey))
             {
-                //CommandAttributes _t = new CommandAttributes(1, false);
-                //AddCommandToList(attack, _t);
+                System.Environment.Exit(0);
+            }
+            if (KeyDown(rKey))
+            {
+                AddCommandToGameCommandList(restartCommand);
             }
         }
 
-
+        private void AddCommandToGameCommandList(GameCommand item)
+        {
+            GameCommandList.Add(item);
+        }
 
         private void AddCommandToList(Command item, CommandAttributes ca)
         {
@@ -217,6 +244,7 @@ namespace JumpAndRun
         public void ResetInput()
         {
             commandList = new List<Command>();
+            gameCommandList = new List<GameCommand>();
         }
 
         private void HandleJoystickInput()

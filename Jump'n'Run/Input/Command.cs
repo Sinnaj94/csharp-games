@@ -119,6 +119,11 @@ namespace JumpAndRun
         void Execute(Player p);
     }
 
+    interface GameCommand
+    {
+        void Execute(GameWorld gameworld);
+    }
+
     //Command patterns:
     class JumpCommand : Command
     {
@@ -229,4 +234,13 @@ namespace JumpAndRun
             p.move(ca.Strength);
         }
     }
+
+    class restartCommand : GameCommand
+    {
+        public void Execute(GameWorld gameworld)
+        {
+            gameworld.initLevel();
+        }
+    }
+
 }
