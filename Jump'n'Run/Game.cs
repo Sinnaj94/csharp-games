@@ -33,7 +33,8 @@ namespace JumpAndRun
             GameWorld world = new GameWorld(window);
             MainMenu menu = new MainMenu();
             Dialog dialog = new Dialog("1");
-
+            Bullet _tempTest;
+            _tempTest = new Bullet(10);
             while (window.IsOpen)
             {
                 window.Clear();
@@ -45,6 +46,7 @@ namespace JumpAndRun
                 //DIALOG
                 dialog.Update();
                 window.Draw(dialog);
+                window.Draw(_tempTest);
                 window.Display();
             }
         }

@@ -46,7 +46,6 @@ namespace JumpAndRun
             this.dataSetName = dataSetName;
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\json\dialogs.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
-
             dialogList = new List<DialogElement>();
             foreach (DataRow row in dataTable.Rows)
             {
@@ -87,6 +86,7 @@ namespace JumpAndRun
         public void Update()
         {
             dialogList[currentDialog].Update();
+            
         }
 
 
