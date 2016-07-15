@@ -270,6 +270,7 @@ namespace JumpAndRun
     {
         public void Execute(GameWorld gameworld)
         {
+            gameworld.Tmb.Currentlevel = 0;
             gameworld.initLevel();
         }
     }

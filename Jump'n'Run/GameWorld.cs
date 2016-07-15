@@ -30,31 +30,27 @@ namespace JumpAndRun
         StatusBar statusbar;
         GameOver gameover;
 
+
+
         public GameWorld(RenderWindow window)
         {
             this.window = window;
-            tmb = new TileMapBuilder();
+            Tmb = new TileMapBuilder();
             gameover = new GameOver();
             initLevel();
             lightcone = new Lightcone(window);
-
-
         }
 
         public void initLevel()
         {
-
-            tmb.initLevel(ref world, ref eContrainer, ref player, ref collectables);
+            Tmb.initLevel(ref world, ref eContrainer, ref player, ref collectables);
             recalculatePath(player, new EventArgs());
             background = new Background();
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
-            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
+            aStar = new Manhatten<Tile, Object>(Tmb.Map.TileArray);
             statusbar = new StatusBar();
-
-            _test = tmb.GetObjectPositions(world);
-
-
+            _test = Tmb.GetObjectPositions(world);
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -82,8 +78,8 @@ namespace JumpAndRun
             if (!player.isDead)
             {
 
-                debug.DrawDebugData();
-                //tmb.Draw(target, states);
+                //debug.DrawDebugData();
+                tmb.Draw(target, states);
                 collectables.Draw(target, states);
                 eContrainer.Draw(target, states);
                 player.Draw(target, states);
@@ -138,6 +134,19 @@ namespace JumpAndRun
             player.Update();
             statusbar.Update(player.BulletCount, eContrainer.EnemyCount);
             world.Step(.01639344262f);
+        }
+
+        internal TileMapBuilder Tmb
+        {
+            get
+            {
+                return tmb;
+            }
+
+            set
+            {
+                tmb = value;
+            }
         }
     }
 }
