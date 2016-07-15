@@ -11,6 +11,7 @@ namespace JumpAndRun
     {
 
         Sprite sprite;
+        bool wasColected;
 
         public void Draw(RenderTarget target, RenderStates states)
         {
@@ -32,6 +33,19 @@ namespace JumpAndRun
             set
             {
                 sprite = value;
+            }
+        }
+
+        public bool WasColected
+        {
+            get
+            {
+                return wasColected;
+            }
+
+            set
+            {
+                wasColected = value;
             }
         }
     }

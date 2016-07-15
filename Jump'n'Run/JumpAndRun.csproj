@@ -72,6 +72,7 @@
     <Compile Include="AStern\Manhatten.cs" />
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
+    <Compile Include="Container\CollectableContainer.cs" />
     <Compile Include="Dialog\Dialog.cs" />
     <Compile Include="Dialog\DialogElement.cs" />
     <Compile Include="EnemyContainer\EnemyContainer.cs" />
@@ -163,7 +164,13 @@
     <Content Include="Resources\dialogitems\destroyedxwing.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\dialogitems\dialogbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\dialogitems\explosion.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\face.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\dialogitems\instructor.png">
@@ -206,6 +213,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\bullet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\bulletSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\EnemyStatusBar.png">

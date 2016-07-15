@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="31">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="36">
  <tileset firstgid="1" name="topdown" tilewidth="32" tileheight="32" spacing="5" tilecount="540" columns="27">
   <image source="topdown.png" width="994" height="735"/>
  </tileset>

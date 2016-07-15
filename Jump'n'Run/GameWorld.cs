@@ -26,18 +26,19 @@ namespace JumpAndRun
         List<Football> _test;
         Lightcone lightcone;
         StatusBar statusbar = new StatusBar();
+        CollectableContainer collectables;
 
         public GameWorld(RenderWindow window)
         {
             _test = new List<Football>();
             this.window = window;
             tmb = new TileMapBuilder();
-     
+
             initLevel();
             lightcone = new Lightcone(window);
             List<Vector2> a = tmb.GetObjectPositions();
 
-            foreach(Vector2 t in a)
+            foreach (Vector2 t in a)
             {
                 _test.Add(new Football(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f), t));
             }
@@ -45,12 +46,12 @@ namespace JumpAndRun
 
         public void initLevel()
         {
-            tmb.initLevel(ref world, ref eContrainer, ref player);         
+            tmb.initLevel(ref world, ref eContrainer, ref player, ref collectables);
             recalculatePath(player, new EventArgs());
             background = new Background();
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
-            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray); 
+            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -73,16 +74,18 @@ namespace JumpAndRun
         }
 
         public void Draw(RenderTarget target, RenderStates states)
-        {        
+        {
             background.Draw(target, states);
-          //  debug.DrawDebugData();
 
+            //debug.DrawDebugData();
             tmb.Draw(target, states);
+            collectables.Draw(target, states);
             eContrainer.Draw(target, states);
             player.Draw(target, states);
             //map.Draw(target, states);
             //enemy.DebugDraw(target, states);
-           
+
+
             foreach (Football c in _test)
             {
                 c.Draw(target, states);
