@@ -22,7 +22,7 @@ namespace JumpAndRun
         float movingSpeed;
         Texture playerTexture;
         Sprite playerSprite;
-
+        int bulletCount;
         float threshold = .01f;
 
         Statemachine statemachine;
@@ -157,6 +157,20 @@ namespace JumpAndRun
                 statemachine = value;
             }
         }
+
+        public int BulletCount
+        {
+            get
+            {
+                return bulletCount;
+            }
+
+            set
+            {
+                bulletCount = value;
+            }
+        }
+
         public override void Update()
         {
             Statemachine.Update();

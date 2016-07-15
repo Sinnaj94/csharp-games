@@ -42,8 +42,8 @@ namespace JumpAndRun
                 window.Draw(world);
               //  window.Draw(menu);
                 //DIALOG
-              //  dialog.Update();
-              //  window.Draw(dialog);
+               dialog.Update();
+                window.Draw(dialog);
                 window.Display();
             }
         }
