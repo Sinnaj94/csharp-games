@@ -44,6 +44,7 @@ namespace JumpAndRun
                 v.Scale(scale);
                 //    v.Translate(ConvertUnits.ToSimUnits(new Vector2(-16, -16)));
                 Body body = new Body(world);
+                body.SleepingAllowed = false;
                 body.UserData = "wall";
                 List<Fixture> fixtures = FixtureFactory.AttachCompoundPolygon(
                     FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(SimplifyTools.DouglasPeuckerSimplify(v, 0.05f), TriangulationAlgorithm.Bayazit, false, 0.05f),

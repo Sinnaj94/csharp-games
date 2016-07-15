@@ -125,6 +125,7 @@ namespace JumpAndRun
             player.Update();
             statusbar.Update(player.BulletCount, eContrainer.EnemyCount);
             world.Step(.01639344262f);
+
         }
 
         internal TileMapBuilder Tmb

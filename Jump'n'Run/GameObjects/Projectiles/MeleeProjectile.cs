@@ -29,8 +29,9 @@ namespace JumpAndRun
 
         private bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
         {
-            this.body.Dispose();
+            this.body = null;
             exists = false;
+       //     Console.WriteLine("asd");
             return false;
         }
 
