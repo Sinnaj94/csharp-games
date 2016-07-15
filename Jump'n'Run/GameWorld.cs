@@ -76,10 +76,10 @@ namespace JumpAndRun
         {
             background.Draw(target, states);
 
-            //debug.DrawDebugData();
+            debug.DrawDebugData();
 
 
-            tmb.Draw(target, states);
+            //tmb.Draw(target, states);
             eContrainer.Draw(target, states);
             player.Draw(target, states);
             //map.Draw(target, states);

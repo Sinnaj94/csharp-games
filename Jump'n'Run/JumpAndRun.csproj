@@ -75,6 +75,7 @@
     <Compile Include="Dialog\Dialog.cs" />
     <Compile Include="Dialog\DialogElement.cs" />
     <Compile Include="EnemyContainer\EnemyContainer.cs" />
+    <Compile Include="FX\Bullet.cs" />
     <Compile Include="FX\Lightcone.cs" />
     <Compile Include="FX\StatusBar.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Attack.cs" />
@@ -186,6 +187,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\dialogitems\xwing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fx\glow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sounds\rumble.wav">
