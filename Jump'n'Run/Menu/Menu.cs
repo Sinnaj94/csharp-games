@@ -12,7 +12,7 @@ using SFML.System;
 namespace JumpAndRun
 {
 
-    class Menu : SFML.Graphics.Drawable
+    class Menu : AbstractNavigation, SFML.Graphics.Drawable
     {
         //Clock is for timed events
 

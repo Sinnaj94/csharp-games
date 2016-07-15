@@ -10,7 +10,7 @@ using SFML.Graphics;
 using SFML.System;
 namespace JumpAndRun
 {
-    class Dialog : SFML.Graphics.Drawable
+    class Dialog : AbstractNavigation,SFML.Graphics.Drawable
     {
         //Clock is for timed events
         Clock c;

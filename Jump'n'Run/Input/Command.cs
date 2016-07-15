@@ -229,4 +229,46 @@ namespace JumpAndRun
             p.move(ca.Strength);
         }
     }
+
+    interface MenuCommand
+    {
+        void Execute(Dialog d);
+        void Execute(Menu m);
+    }
+    class MenuDownCommand : MenuCommand
+    {
+        public void Execute(Menu m)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Execute(Dialog d)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    class MenuUpCommand : MenuCommand
+    {
+        public void Execute(Menu m)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Execute(Dialog d)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    class MenuAcceptCommand : MenuCommand
+    {
+        public void Execute(Menu m)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Execute(Dialog d)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

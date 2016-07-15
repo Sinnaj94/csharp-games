@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractNavigation.cs" />
     <Compile Include="AStern\Manhatten.cs" />
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="Input\InputHandler.cs" />
+    <Compile Include="Input\InputHandlerMenu.cs" />
     <Compile Include="JsonTools.cs" />
     <Compile Include="Manager\ManageText.cs" />
     <Compile Include="Manager\ManageSound.cs" />
