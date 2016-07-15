@@ -95,7 +95,7 @@
     <Compile Include="Input\InputHandler.cs" />
     <Compile Include="JsonTools.cs" />
     <Compile Include="Manager\ManageText.cs" />
-    <Compile Include="ManageSound.cs" />
+    <Compile Include="Manager\ManageSound.cs" />
     <Compile Include="map\Map.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="DebugDraw.cs" />
@@ -152,12 +152,33 @@
     <None Include="Resources\psd\mainscreen.psd" />
     <None Include="Resources\psd\MRP_U_G.psd" />
     <None Include="Resources\psd\TrumpPSD.psd" />
+    <Content Include="Resources\sounds\rumble.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sounds\machinegun.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\sounds\swoosh.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sounds\wood\Wood_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sounds\wood\Wood_02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sounds\wood\Wood_03.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sounds\wood\Wood_04.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Tile\football.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\sounds\splatter.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Tile\topdown.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

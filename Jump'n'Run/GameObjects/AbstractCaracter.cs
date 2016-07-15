@@ -104,7 +104,7 @@ namespace JumpAndRun
 
             if (fixtureB.CollisionCategories == Category.Cat3)
             {
-                Console.WriteLine("ABC");
+                ManageSound.Instance.splatter();
                 this.isDead = true;
             }
             return true;
