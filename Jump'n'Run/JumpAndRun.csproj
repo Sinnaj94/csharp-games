@@ -76,6 +76,7 @@
     <Compile Include="Dialog\DialogElement.cs" />
     <Compile Include="EnemyContainer\EnemyContainer.cs" />
     <Compile Include="FX\Lightcone.cs" />
+    <Compile Include="FX\StatusBar.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Attack.cs" />
     <Compile Include="FX\Background.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Dead.cs" />
@@ -200,6 +201,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sounds\wood\Wood_04.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\bullet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\EnemyStatusBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Tile\football.tmx">

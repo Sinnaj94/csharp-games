@@ -49,7 +49,6 @@ namespace JumpAndRun
                 if (!e.isDead && Player.isDead)
                 {
                     
-                    Console.WriteLine("Trig");
                 } else
                 {
                     e.Update();
@@ -59,13 +58,7 @@ namespace JumpAndRun
                 {
                     AllEnemyDead = false;
                 }
-            }
-
-            if (AllEnemyDead)
-            {
-                Console.WriteLine("ALL DEAD");
-            }
-            
+            }         
         }
 
         public void Draw(RenderTarget target, RenderStates states)

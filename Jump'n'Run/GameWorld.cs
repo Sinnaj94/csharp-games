@@ -25,6 +25,7 @@ namespace JumpAndRun
         SFML.Graphics.RenderWindow window;
         List<Football> _test;
         Lightcone lightcone;
+        StatusBar statusbar = new StatusBar();
 
         public GameWorld(RenderWindow window)
         {
@@ -74,21 +75,21 @@ namespace JumpAndRun
         public void Draw(RenderTarget target, RenderStates states)
         {        
             background.Draw(target, states);
-            debug.DrawDebugData();
+          //  debug.DrawDebugData();
 
-           // tmb.Draw(target, states);
+            tmb.Draw(target, states);
             eContrainer.Draw(target, states);
             player.Draw(target, states);
             //map.Draw(target, states);
             //enemy.DebugDraw(target, states);
-
-            foreach(Football c in _test)
+           
+            foreach (Football c in _test)
             {
                 c.Draw(target, states);
 
             }
             lightcone.Draw(target, states);
-
+            statusbar.Draw(target, states);
         }
 
         private void HandleInputCommands()

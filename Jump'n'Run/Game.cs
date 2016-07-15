@@ -40,10 +40,10 @@ namespace JumpAndRun
                 window.Clear();
                 world.Update();
                 window.Draw(world);
-                window.Draw(menu);
+              //  window.Draw(menu);
                 //DIALOG
-                dialog.Update();
-                window.Draw(dialog);
+              //  dialog.Update();
+              //  window.Draw(dialog);
                 window.Display();
             }
         }
