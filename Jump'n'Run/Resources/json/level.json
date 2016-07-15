@@ -1,8 +1,8 @@
 ﻿[
     {
-        "AlphaTexture": "Resources\/Tile\/tutorial.png",
+        "AlphaTexture": "Resources\/Tile\/topdown_alpha.png",
         "TilemapImage": "Resources\/Tile\/topdown.png",
-        "TMX": "Resources\/Tile\/Tutorial.tmx",
+        "TMX": "Resources\/Tile\/topdown.tmx",
         "Tilesetname": "topdown"
     },
     {
@@ -15,6 +15,18 @@
         "AlphaTexture": "Resources\/Tile\/topdown2_alpha.png",
         "TilemapImage": "Resources\/Tile\/topdown.png",
         "TMX": "Resources\/Tile\/topdown2.tmx",
+        "Tilesetname": "topdown"
+    },
+    {
+        "AlphaTexture": "Resources\/Tile\/topdown3_alpha.png",
+        "TilemapImage": "Resources\/Tile\/topdown.png",
+        "TMX": "Resources\/Tile\/topdown3.tmx",
+        "Tilesetname": "topdown"
+    },
+    {
+        "AlphaTexture": "Resources\/Tile\/football_alpha.png",
+        "TilemapImage": "Resources\/Tile\/topdown.png",
+        "TMX": "Resources\/Tile\/football.tmx",
         "Tilesetname": "topdown"
     }
 ]

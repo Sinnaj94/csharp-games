@@ -167,11 +167,9 @@ namespace JumpAndRun
                     //ManageSound.Instance.StartPlayingMusic();
                     break;
                 case 1:
-                    //TODO
-                    break;
-                case 2:
                     System.Environment.Exit(0);
                     break;
+                    
 
                     
             }
