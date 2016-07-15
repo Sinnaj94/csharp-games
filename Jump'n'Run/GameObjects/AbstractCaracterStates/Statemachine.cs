@@ -91,6 +91,8 @@ namespace JumpAndRun
             }
             
         }
+
+        public void setToWaiting() { CurrentState = waiting; }
         public State CurrentState
         {
             get

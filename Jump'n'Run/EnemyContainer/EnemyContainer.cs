@@ -16,6 +16,7 @@ namespace JumpAndRun
         private List<Enemy> container;
         private World world;
         bool allEnemyDead;
+        Player player;
 
         public EnemyContainer(World world)
         {
@@ -45,7 +46,15 @@ namespace JumpAndRun
 
             foreach (Enemy e in container)
             {
-                e.Update();
+                if (!e.isDead && Player.isDead)
+                {
+                    
+                    Console.WriteLine("Trig");
+                } else
+                {
+                    e.Update();
+                }
+
                 if (!e.isDead)
                 {
                     AllEnemyDead = false;
@@ -77,6 +86,19 @@ namespace JumpAndRun
             set
             {
                 allEnemyDead = value;
+            }
+        }
+
+        internal Player Player
+        {
+            get
+            {
+                return player;
+            }
+
+            set
+            {
+                player = value;
             }
         }
     }
