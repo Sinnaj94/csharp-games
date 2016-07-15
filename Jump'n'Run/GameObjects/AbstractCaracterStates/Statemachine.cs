@@ -25,7 +25,7 @@ namespace JumpAndRun
             SpriteBuilder _temp = new SpriteBuilder(spriteJsonAttribute);
             idle = new Idle(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
             walk = new Walk(caracter, _temp.AnimationList.GetAnimation("walk", caracterTexture));
-            attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture),caracter.hasRangedAttack());
+            attack = new Attack(caracter, _temp.AnimationList.GetAnimation("attack", caracterTexture),0);
             dead = new Dead(caracter, _temp.AnimationList.GetAnimation("die", caracterTexture));
             alternateAttack = new Attack(caracter, _temp.AnimationList.GetAnimation("altattack", caracterTexture),1);
             waiting = new Waiting(caracter, _temp.AnimationList.GetAnimation("idle", caracterTexture));
@@ -74,6 +74,16 @@ namespace JumpAndRun
         }
         public void triggerAttack(int nr)
         {
+
+            if(caracter.BulletCount > 0)
+            {
+                nr = 1;
+                caracter.BulletCount--;
+            } else
+            {
+                nr = 0;
+            }
+
             switch (nr)
             {
                 case 0:
