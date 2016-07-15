@@ -23,8 +23,8 @@ namespace JumpAndRun
             SFML.Graphics.RenderWindow window = new SFML.Graphics.RenderWindow(VideoMode.FullscreenModes[0], "Jump'n'Run", Styles.Fullscreen);
             window.SetVerticalSyncEnabled(true);
             window.SetFramerateLimit(61);
-            
-            
+
+
             return window;
         }
 
@@ -40,10 +40,12 @@ namespace JumpAndRun
                 window.Clear();
                 world.Update();
                 window.Draw(world);
+
                 //window.Draw(menu);
+
                 //DIALOG
-                dialog.Update();
-                window.Draw(dialog);
+                //  dialog.Update();
+                //  window.Draw(dialog);
                 window.Display();
             }
         }
