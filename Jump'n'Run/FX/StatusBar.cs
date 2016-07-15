@@ -26,10 +26,15 @@ namespace JumpAndRun
             EnemyCounter = new Text("5", ManageText.Instance.TextFont);
             BulletCounter.CharacterSize *= 3;
             BulletCounter.Origin = new SFML.System.Vector2f(0, 0);
+
             EnemyCounter.CharacterSize *= 3;
             EnemyCounter.Origin = new SFML.System.Vector2f(0, 0);
         }
-
+        public void Update(int bulletCount, int enemyLeft)
+        {
+            BulletCounter.DisplayedString = "" + bulletCount;
+            EnemyCounter.DisplayedString = "" + enemyLeft;
+        }
         public void Draw(RenderTarget target, RenderStates states)
         {
             bulletSprite.Position = target.GetView().Center - target.GetView().Size * .5f;

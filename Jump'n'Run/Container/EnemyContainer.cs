@@ -13,10 +13,11 @@ namespace JumpAndRun
 {
     class EnemyContainer : SFML.Graphics.Drawable
     {
-        private List<Enemy> container;
-        private World world;
+        List<Enemy> container;
+        World world;
         bool allEnemyDead;
         Player player;
+        int enemyCount;
 
         public EnemyContainer(World world)
         {
@@ -43,9 +44,11 @@ namespace JumpAndRun
         public void Update()
         {
             AllEnemyDead = true;
+            enemyCount = 0;
 
             foreach (Enemy e in container)
             {
+
                 if (!e.isDead && Player.isDead)
                 {
                     
@@ -56,6 +59,7 @@ namespace JumpAndRun
 
                 if (!e.isDead)
                 {
+                    enemyCount++;
                     AllEnemyDead = false;
                 }
             }         
@@ -92,6 +96,19 @@ namespace JumpAndRun
             set
             {
                 player = value;
+            }
+        }
+
+        public int EnemyCount
+        {
+            get
+            {
+                return enemyCount;
+            }
+
+            set
+            {
+                enemyCount = value;
             }
         }
     }

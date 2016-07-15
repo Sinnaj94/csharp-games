@@ -20,10 +20,9 @@ namespace JumpAndRun
 
         static SFML.Graphics.RenderWindow InitWindow()
         {
-            SFML.Graphics.RenderWindow window = new SFML.Graphics.RenderWindow(VideoMode.FullscreenModes[0], "Jump'n'Run", Styles.Fullscreen);
+            SFML.Graphics.RenderWindow window = new SFML.Graphics.RenderWindow(VideoMode.FullscreenModes[0], "Top Down", Styles.Fullscreen);
             window.SetVerticalSyncEnabled(true);
             window.SetFramerateLimit(61);
-            
             
             return window;
         }

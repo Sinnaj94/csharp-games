@@ -25,8 +25,8 @@ namespace JumpAndRun
         SFML.Graphics.RenderWindow window;
         List<Football> _test;
         Lightcone lightcone;
-        StatusBar statusbar = new StatusBar();
         CollectableContainer collectables;
+        StatusBar statusbar;
 
         public GameWorld(RenderWindow window)
         {
@@ -52,6 +52,7 @@ namespace JumpAndRun
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
             aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
+            statusbar = new StatusBar();
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -118,6 +119,7 @@ namespace JumpAndRun
             eContrainer.Update();
             HandleInputCommands();
             player.Update();
+            statusbar.Update(player.BulletCount, eContrainer.EnemyCount);
             world.Step(.01639344262f);
         }
     }

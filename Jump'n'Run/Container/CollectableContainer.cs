@@ -13,9 +13,10 @@ namespace JumpAndRun
 {
     class CollectableContainer : SFML.Graphics.Drawable
     {
-        private List<CollectableBullet> container;
-        private World world;
+        List<CollectableBullet> container;
+        World world;
         Texture texture;
+        Player player;
 
         public CollectableContainer(World world)
         {
@@ -34,12 +35,26 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            foreach (CollectableBullet b in container)
+            for (int i = container.Count - 1; i >= 0; i--)
             {
-                if (!b.WasColected)
+                container[i].Draw(target, states);
+                if (container[i].WasColected)
                 {
-                    b.Draw(target, states);
+                    container.RemoveAt(i);
+                    player.BulletCount++;
                 }
+            }
+        }
+        internal Player Player
+        {
+            get
+            {
+                return player;
+            }
+
+            set
+            {
+                player = value;
             }
         }
     }

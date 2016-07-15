@@ -23,6 +23,15 @@ namespace JumpAndRun
             Sprite.Origin += new SFML.System.Vector2f(texture.Size.X / 2, texture.Size.Y / 2);
             Sprite.Position = Vector2fExtensions.ToSf(position);
             Sprite.Rotation = rotation;
+            this.body.OnCollision += Body_OnCollision;
+        }
+
+        private bool Body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+        {
+            Console.WriteLine("Bullet Collected");
+            WasColected = true;
+            this.body.Dispose();
+            return false;
         }
     }
 }

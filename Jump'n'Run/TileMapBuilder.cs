@@ -90,6 +90,7 @@ namespace JumpAndRun
                             player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
                             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y));
                             eContrainer.Player = player;
+                            collectables.Player = player;
                             break;
 
                         // ENEMY
