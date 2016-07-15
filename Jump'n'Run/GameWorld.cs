@@ -24,7 +24,7 @@ namespace JumpAndRun
         Manhatten<Tile, Object> aStar;
         EnemyContainer eContrainer;
         SFML.Graphics.RenderWindow window;
-        List<Football> _test;
+        List<AbstractPhysicsObject> _test;
         Lightcone lightcone;
         CollectableContainer collectables;
         StatusBar statusbar;
@@ -32,22 +32,18 @@ namespace JumpAndRun
 
         public GameWorld(RenderWindow window)
         {
-            _test = new List<Football>();
             this.window = window;
             tmb = new TileMapBuilder();
             gameover = new GameOver();
             initLevel();
             lightcone = new Lightcone(window);
-            List<Vector2> a = tmb.GetObjectPositions();
 
-            foreach (Vector2 t in a)
-            {
-                _test.Add(new Football(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f), t));
-            }
+
         }
 
         public void initLevel()
         {
+
             tmb.initLevel(ref world, ref eContrainer, ref player, ref collectables);
             recalculatePath(player, new EventArgs());
             background = new Background();
@@ -55,6 +51,10 @@ namespace JumpAndRun
             input = new InputHandler(window);
             aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
             statusbar = new StatusBar();
+
+            _test = tmb.GetObjectPositions(world);
+
+
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -78,7 +78,7 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-                background.Draw(target, states);
+            background.Draw(target, states);
             if (!player.isDead)
             {
 
@@ -89,16 +89,18 @@ namespace JumpAndRun
                 player.Draw(target, states);
                 //map.Draw(target, states);
                 //enemy.DebugDraw(target, states);
-                foreach (Football c in _test)
+                foreach (AbstractPhysicsObject c in _test)
                 {
                     c.Draw(target, states);
 
                 }
-                
+
                 statusbar.Draw(target, states);
-            } else
+            }
+            else
             {
                 gameover.Draw(target, states);
+
             }
             lightcone.Draw(target, states);
         }

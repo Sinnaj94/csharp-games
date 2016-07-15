@@ -1,4 +1,6 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using System;
@@ -11,8 +13,9 @@ namespace JumpAndRun
 {
     class Crate : AbstractPhysicsObject
     {
-        public Crate(Body b, Vector2 position)
+        public Crate(World world, Vector2 position)
         {
+            Body b = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(32), ConvertUnits.ToSimUnits(32), 1);
             Init(b);
             b.BodyType = BodyType.Dynamic;
             b.LinearDamping = 1.5f;

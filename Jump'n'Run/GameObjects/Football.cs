@@ -1,4 +1,6 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using System;
@@ -11,8 +13,11 @@ namespace JumpAndRun
 {
     class Football : AbstractPhysicsObject
     {
-        public Football(Body b, Vector2 position)
+
+
+        public Football(World world, Vector2 position)
         {
+            Body b = BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f,position);
             Init(b);
             b.BodyType = BodyType.Dynamic;
             //b.LinearDamping = .5f;
@@ -21,6 +26,7 @@ namespace JumpAndRun
             Sprite = new Sprite(new Texture(@"Resources\sprites\football.png"));
             b.Position = position;
             b.CollisionCategories = Category.Cat4;
+            this.body = b;
         }
         public override void Update()
         {

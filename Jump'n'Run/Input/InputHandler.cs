@@ -260,14 +260,13 @@ namespace JumpAndRun
                 }
                 if (Joystick.IsButtonPressed(joystickNr, attackJoy))
                 {
-                    CommandAttributes _t = new CommandAttributes(0, false);
-                    AddCommandToList(attack, _t);
+                    AddCommandToList(attack, timed);
                 }
                 if (Joystick.IsButtonPressed(joystickNr, altAttackJoy))
                 {
-                    CommandAttributes _t = new CommandAttributes(1, false);
+                    //CommandAttributes _t = new CommandAttributes(1, false);
 
-                    AddCommandToList(attack, _t);
+                    //AddCommandToList(attack, _t);
                 }
                 float _axisDirection = axisDirection(runAxis);
                 float _axisDirectionY = axisDirection(upAxis);
