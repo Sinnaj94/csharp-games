@@ -21,6 +21,7 @@ namespace JumpAndRun
         public Body debugpath;
         Body radar;
         String rayhit;
+        Vector2 playerPosition;
 
         public Enemy(Body body, World world)
         {
@@ -42,8 +43,8 @@ namespace JumpAndRun
         {
             Vertices triangle = new Vertices();
             triangle.Add(new Vector2(0, -body.Position.Y));
-            triangle.Add(new Vector2(5, 5));
-            triangle.Add(new Vector2(-5, 5));
+            triangle.Add(new Vector2(3, 3));
+            triangle.Add(new Vector2(-3, 3));
             body.FixedRotation = true;
             radar = FarseerPhysics.Factories.BodyFactory.CreatePolygon(world, triangle, 1);
             radar.Rotation = body.Rotation - (float)Math.PI / 2;
@@ -91,6 +92,7 @@ namespace JumpAndRun
         }
         public void calculatePathToSimTargetUsingAStart(Vector2 position, Manhatten<Tile, Object> aStar)
         {
+            playerPosition = position;
             List<Point> backupPath = Path;
             Vector2f startVector = Vector2fExtensions.ToSf(this.body.Position);
             Vector2f endVector = Vector2fExtensions.ToSf(position);
@@ -117,9 +119,17 @@ namespace JumpAndRun
             float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
             body.Rotation = angle + (float)Math.PI / 2;
         }
+        public void attackMove()
+        {
+            Vector2 dif = playerPosition - body.Position;
+            dif.Normalize();
+            body.LinearVelocity = dif * 1.3f;
+            float angle = (float)(Math.Atan2(dif.X, dif.Y) * -1);
+            body.Rotation = angle + (float)Math.PI / 2;
+        }
         public void Follow()
         {
-            if (Path.Count >= 2)
+            if (Path.Count >= 4)
             {
                 MoveAndRotateTo(Path[1]);
                 if (Math.Abs(Path[1].XSim - this.body.Position.X) < 0.1 && Math.Abs(Path[1].YSim - this.body.Position.Y) < 0.1)
@@ -129,7 +139,8 @@ namespace JumpAndRun
             }
             else
             {
-                body.LinearVelocity = new Vector2(0, 0);
+               // body.LinearVelocity = new Vector2(0, 0);
+                attackMove();
                 Statemachine.triggerAttack(0);
             }
         }
