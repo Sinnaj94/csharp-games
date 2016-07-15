@@ -33,7 +33,7 @@ namespace JumpAndRun
             SFML.Graphics.RenderWindow window = InitWindow();
             GameWorld world = new GameWorld(window);
             MainMenu menu = new MainMenu();
-
+            Dialog dialog = new Dialog("1");
 
             while (window.IsOpen)
             {
@@ -41,6 +41,9 @@ namespace JumpAndRun
                 world.Update();
                 window.Draw(world);
                 window.Draw(menu);
+                //DIALOG
+                dialog.Update();
+                window.Draw(dialog);
                 window.Display();
             }
         }

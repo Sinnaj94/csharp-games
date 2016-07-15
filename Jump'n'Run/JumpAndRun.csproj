@@ -72,6 +72,8 @@
     <Compile Include="AStern\Manhatten.cs" />
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
+    <Compile Include="Dialog\Dialog.cs" />
+    <Compile Include="Dialog\DialogElement.cs" />
     <Compile Include="EnemyContainer\EnemyContainer.cs" />
     <Compile Include="FX\Lightcone.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Attack.cs" />
@@ -113,6 +115,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Resources\json\dialogs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\fonts\computer_pixel.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -152,6 +157,30 @@
     <None Include="Resources\psd\mainscreen.psd" />
     <None Include="Resources\psd\MRP_U_G.psd" />
     <None Include="Resources\psd\TrumpPSD.psd" />
+    <Content Include="Resources\dialogitems\destroyedxwing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\explosion.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\instructor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\Mr_Pug.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\Mr_Trump.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\space.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\twing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dialogitems\xwing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\sounds\rumble.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
