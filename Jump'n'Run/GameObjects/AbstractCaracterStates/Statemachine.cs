@@ -64,8 +64,6 @@ namespace JumpAndRun
                 currentState = walk;
                 walk.Animation.SetSpeed(caracter.GetTotalSpeed()*4);
             }
-
-
         }
         public void Update()
         {

@@ -25,6 +25,11 @@ namespace JumpAndRun
             fireRate = Time.FromMilliseconds(500);
         }
 
+        public void dispose()
+        {
+            this.projectile.body.Dispose();
+            this.projectile.body = null;
+        }
 
         public override void Update()
         {
