@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="36">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="61">
  <tileset firstgid="1" name="topdown" tilewidth="32" tileheight="32" spacing="5" tilecount="540" columns="27">
   <image source="topdown.png" width="994" height="735"/>
  </tileset>
@@ -147,9 +147,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="testobjects">
-  <object id="14" gid="538" x="886.667" y="294.666" width="32" height="32"/>
- </objectgroup>
+ <objectgroup name="testobjects"/>
  <objectgroup name="caracter">
   <object id="17" gid="485" x="418.666" y="293.333" width="32" height="32"/>
   <object id="24" gid="458" x="794.667" y="317.333" width="32" height="32"/>

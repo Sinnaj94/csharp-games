@@ -147,15 +147,27 @@ namespace JumpAndRun
             }
         }
 
-        public List<Vector2> GetObjectPositions()
+        public List<AbstractPhysicsObject> GetObjectPositions(World world)
         {
-            List<Vector2> _return = new List<Vector2>();
+            List<AbstractPhysicsObject> _return = new List<AbstractPhysicsObject>();
             if(test.ObjectGroups.Count > 0)
             {
                 TiledSharp.TmxObjectGroup liste = test.ObjectGroups[0];
                 foreach (TiledSharp.TmxObject o in liste.Objects)
                 {
-                    _return.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)));
+                    int id = o.Tile.Gid;
+                    Vector2 position = new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y));
+                    switch (id)
+                    {
+                        case 459:
+                            _return.Add(new Crate(world, position));
+
+                            break;
+                        case 486:
+                            _return.Add(new Football(world, position));
+                            break;
+                    }
+                    Console.Out.WriteLine(o.Tile.Gid);
 
                 }
             }

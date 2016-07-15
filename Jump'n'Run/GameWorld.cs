@@ -23,29 +23,25 @@ namespace JumpAndRun
         Manhatten<Tile, Object> aStar;
         EnemyContainer eContrainer;
         SFML.Graphics.RenderWindow window;
-        List<Football> _test;
+        List<AbstractPhysicsObject> _test;
         Lightcone lightcone;
         CollectableContainer collectables;
         StatusBar statusbar;
 
         public GameWorld(RenderWindow window)
         {
-            _test = new List<Football>();
             this.window = window;
             tmb = new TileMapBuilder();
 
             initLevel();
             lightcone = new Lightcone(window);
-            List<Vector2> a = tmb.GetObjectPositions();
-
-            foreach (Vector2 t in a)
-            {
-                _test.Add(new Football(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(16), 1f), t));
-            }
+            
+            
         }
 
         public void initLevel()
         {
+
             tmb.initLevel(ref world, ref eContrainer, ref player, ref collectables);
             recalculatePath(player, new EventArgs());
             background = new Background();
@@ -53,6 +49,10 @@ namespace JumpAndRun
             input = new InputHandler(window);
             aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
             statusbar = new StatusBar();
+
+            _test = tmb.GetObjectPositions(world);
+
+
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -79,8 +79,8 @@ namespace JumpAndRun
             background.Draw(target, states);
 
 
-            //debug.DrawDebugData();
-            tmb.Draw(target, states);
+           debug.DrawDebugData();
+            //tmb.Draw(target, states);
             collectables.Draw(target, states);
 
             eContrainer.Draw(target, states);
@@ -88,10 +88,10 @@ namespace JumpAndRun
             //map.Draw(target, states);
             //enemy.DebugDraw(target, states);
 
-
-            foreach (Football c in _test)
+            foreach (AbstractPhysicsObject c in _test)
             {
                 c.Draw(target, states);
+                
 
             }
             lightcone.Draw(target, states);
