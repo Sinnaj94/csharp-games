@@ -13,8 +13,12 @@ namespace JumpAndRun
     {
         Vector2f strength;
         int attackNr;
-
-        public CommandAttributes(int nr,bool egal) {
+        Clock c;
+        Time time;
+        bool initiatedClock;
+        public CommandAttributes(int nr, bool egal)
+        {
+            initiatedClock = false;
             this.attackNr = nr;
         }
         public CommandAttributes(float x)
@@ -23,9 +27,33 @@ namespace JumpAndRun
             this.strength = new Vector2f(x, 0);
         }
 
+        public CommandAttributes(Time t)
+        {
+            InitClock(t);
+        }
+
         public CommandAttributes(float x, float y)
         {
             this.strength = new Vector2f(x, y);
+        }
+
+        public bool TimesUp()
+        {
+
+            if (c.ElapsedTime > time)
+            {
+                InitClock(time);
+                return true;
+            }
+            return false;
+        }
+
+        public void InitClock(Time t)
+        {
+
+            c = new Clock();
+            time = t;
+
         }
 
         public bool Normalize()
@@ -33,7 +61,7 @@ namespace JumpAndRun
             double v = Math.Pow(Math.Abs(strength.X), 2) + Math.Pow(Math.Abs(strength.Y), 2);
             if (Math.Sqrt(v) > 1)
             {
-                DoNormalization((float)Math.Pow(v,2));
+                DoNormalization((float)Math.Pow(v, 2));
 
                 return true;
             }
@@ -171,7 +199,11 @@ namespace JumpAndRun
 
         public void Execute(Player p)
         {
-            p.Statemachine.triggerAttack(ca.AttackNr);
+            if (ca.TimesUp())
+            {
+                p.Statemachine.triggerAttack(ca.AttackNr);
+
+            }
         }
     }
 

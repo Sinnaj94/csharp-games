@@ -39,6 +39,9 @@ namespace JumpAndRun
         CommandAttributes caXN;
         CommandAttributes caYN;
 
+        //Clock
+        CommandAttributes timed;
+
 
         //Axis definition
         Joystick.Axis runAxis;
@@ -50,6 +53,8 @@ namespace JumpAndRun
         float threshold;
         private uint attackJoy;
         private uint altAttackJoy;
+        
+
 
         public InputHandler(SFML.Graphics.RenderWindow window)
         {
@@ -71,6 +76,7 @@ namespace JumpAndRun
             caY = new CommandAttributes(0, 1);
             caXN = new CommandAttributes(-1);
             caYN = new CommandAttributes(0, -1);
+            timed = new CommandAttributes(Time.FromSeconds(.5f));
 
             mousePosition = Mouse.GetPosition();
             this.window = window;
@@ -122,8 +128,11 @@ namespace JumpAndRun
 
         private bool KeyDown(Keyboard.Key sKey)
         {
+
             return Keyboard.IsKeyPressed(sKey);
         }
+
+
         private bool mouseButtonDown(Mouse.Button mButton)
         {
              return Mouse.IsButtonPressed(mButton);
@@ -142,6 +151,7 @@ namespace JumpAndRun
             return false;
         }
 
+        bool attackWasDown = false;
         private void HandleKeyboardInput()
         {
             CommandAttributes _temp = new CommandAttributes(0, 0);
@@ -179,9 +189,10 @@ namespace JumpAndRun
             }
             if (mouseButtonDown(leftClick))
             {
-                CommandAttributes _t = new CommandAttributes(0, false);
-                AddCommandToList(attack, _t);
+                AddCommandToList(attack, timed);
+                
             }
+
             if (mouseButtonDown(rightClick))
             {
                 //CommandAttributes _t = new CommandAttributes(1, false);
