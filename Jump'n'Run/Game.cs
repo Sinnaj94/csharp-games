@@ -22,7 +22,7 @@ namespace JumpAndRun
         {
             SFML.Graphics.RenderWindow window = new SFML.Graphics.RenderWindow(VideoMode.FullscreenModes[0], "Top Down", Styles.Fullscreen);
             window.SetVerticalSyncEnabled(true);
-            window.SetFramerateLimit(61);   
+            window.SetFramerateLimit(61);
             return window;
         }
 
@@ -32,10 +32,8 @@ namespace JumpAndRun
             GameWorld world = new GameWorld(window);
             AbstractNavigation menu = new MainMenu();
             AbstractNavigation dialog = new Dialog("1");
-            InputHandlerMenu inputMenu= new InputHandlerMenu();
-            Bullet _tempTest;
+            InputHandlerMenu inputMenu = new InputHandlerMenu();
             List<MenuCommand> _temp;
-            _tempTest = new Bullet(10);
 
             while (window.IsOpen)
             {
@@ -47,24 +45,31 @@ namespace JumpAndRun
 
 
                 //INPUT HANDLING AGAIN!
-                _temp= inputMenu.HandleInput();
-                foreach(MenuCommand m in _temp)
+                _temp = inputMenu.HandleInput();
+                foreach (MenuCommand m in _temp)
                 {
+                    
                     m.Execute(menu);
+
+
                     m.Execute(dialog);
+
+
 
                 }
                 inputMenu.Flush();
+                if (menu.Active)
+                {
+                    window.Draw(menu);
 
-                //window.Draw(menu);
+                }
                 //DIALOG
-                if (dialog.Active)
+                if (dialog.Active && !menu.Active)
                 {
                     dialog.Update();
                     window.Draw(dialog);
                 }
-                
-                window.Draw(_tempTest);
+
                 window.Display();
             }
         }

@@ -14,6 +14,7 @@ namespace JumpAndRun
 
     class Menu : AbstractNavigation, SFML.Graphics.Drawable
     {
+        bool active;
         //Clock is for timed events
 
         String dataSetName;
@@ -49,6 +50,19 @@ namespace JumpAndRun
             }
         }
 
+        public override bool Active
+        {
+            get
+            {
+                return active;
+            }
+
+            set
+            {
+                active = value;
+            }
+        }
+
         /// <summary>
         ///Constructs a new Menu out of the json file "buttons.json" in the Resources Folder. Currently only works with the Main_Menu array.
         /// </summary>
@@ -70,6 +84,7 @@ namespace JumpAndRun
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources/json/buttons.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
             ButtonList = new List<Button>();
+            Active = true;
             foreach (DataRow row in dataTable.Rows)
             {
 
@@ -148,24 +163,17 @@ namespace JumpAndRun
             switch (Selected)
             {
                 case 0:
-                    //Manager.Active = false;
+                    Active = false;
                     //ManageSound.Instance.StartPlayingMusic();
                     break;
                 case 1:
                     //TODO
                     break;
                 case 2:
-                    //Manager.Menu = new SettingsMenu(Manager);
-                    break;
-                case 3:
-                    //Manager.Menu = new CreditsMenu(Manager);
-                    break;
-                case 4:
-                    //Manager.Menu = new HelpMenu(Manager);
-                    break;
-                case 5:
                     System.Environment.Exit(0);
                     break;
+
+                    
             }
 
         }

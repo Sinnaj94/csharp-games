@@ -246,7 +246,11 @@ namespace JumpAndRun
 
         public void Execute(AbstractNavigation a)
         {
-            a.NavigateDown();
+            if (a.Active)
+            {
+                a.NavigateDown();
+
+            }
         }
     }
     class MenuUpCommand : MenuCommand
@@ -254,7 +258,12 @@ namespace JumpAndRun
 
         public void Execute(AbstractNavigation a)
         {
-            a.NavigateUp();
+            if (a.Active)
+            {
+
+                a.NavigateUp();
+            }
+
         }
     }
     class MenuEnterCommand : MenuCommand
@@ -262,7 +271,10 @@ namespace JumpAndRun
 
         public void Execute(AbstractNavigation a)
         {
-            a.Enter();
+            if (a.Active)
+            {
+                a.Enter();
+            }
         }
     }
 
