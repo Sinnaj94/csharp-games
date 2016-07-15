@@ -15,11 +15,12 @@ namespace JumpAndRun
         MenuCommand enter;
         Clock menuDelayClock;
         Time delayTime;
+        uint joystickEnter;
         List<MenuCommand> commandList;
         public InputHandlerMenu()
         {
             menuDelayClock = new Clock();
-            delayTime = Time.FromSeconds(.5f);
+            delayTime = Time.FromSeconds(.1f);
             commandList = new List<MenuCommand>();
             up = new MenuUpCommand();
             down = new MenuDownCommand();
@@ -31,14 +32,40 @@ namespace JumpAndRun
             if(menuDelayClock.ElapsedTime > delayTime)
             {
                 HandleKeyboardInput();
+                HandleControllerInput();
 
             }
             return commandList;
         }
 
+        private void HandleControllerInput()
+        {
+            Joystick.Update();
+            if (Joystick.IsButtonPressed(0, 14))
+            {
+                AddCommandToList(enter);
+            }
+            if (axisDirection(Joystick.Axis.Y) > .2)
+            {
+                AddCommandToList(down);
+
+            }
+            if (axisDirection(Joystick.Axis.Y) < -.2)
+            {
+                AddCommandToList(up);
+
+            }
+        }
+
         public void Flush()
         {
             commandList = new List<MenuCommand>();
+
+        }
+
+        private float axisDirection(Joystick.Axis axis)
+        {
+            return Joystick.GetAxisPosition(0, axis);
 
         }
 
@@ -77,5 +104,7 @@ namespace JumpAndRun
                 Output.Instance.print("Command was not added, because it already exists.");
             }
         }
+
+
     }
 }

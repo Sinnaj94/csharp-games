@@ -160,7 +160,7 @@ namespace JumpAndRun
             return false;
         }
 
-        bool attackWasDown = false;
+
 
         internal List<GameCommand> GameCommandList
         {
@@ -249,6 +249,7 @@ namespace JumpAndRun
 
         private void HandleJoystickInput()
         {
+            
             if (joystickConnected)
             {
                 //Always update the Joystick (otherwise it doesn't work.)
