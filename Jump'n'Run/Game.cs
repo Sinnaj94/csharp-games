@@ -33,38 +33,33 @@ namespace JumpAndRun
             AbstractNavigation menu = new MainMenu();
             AbstractNavigation dialog = new Dialog("1");
             InputHandlerMenu inputMenu= new InputHandlerMenu();
-            Bullet _tempTest;
             List<MenuCommand> _temp;
-            _tempTest = new Bullet(10);
 
             while (window.IsOpen)
             {
                 window.Clear();
-                world.Update();
                 window.Draw(world);
 
-
-
-
-                //INPUT HANDLING AGAIN!
                 _temp= inputMenu.HandleInput();
+
                 foreach(MenuCommand m in _temp)
                 {
                     m.Execute(menu);
                     m.Execute(dialog);
 
                 }
+
                 inputMenu.Flush();
 
-                //window.Draw(menu);
-                //DIALOG
                 if (dialog.Active)
                 {
                     dialog.Update();
                     window.Draw(dialog);
+                } else
+                {
+                    world.Update();
                 }
-                
-                window.Draw(_tempTest);
+
                 window.Display();
             }
         }
