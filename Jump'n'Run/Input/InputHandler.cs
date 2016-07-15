@@ -76,6 +76,7 @@ namespace JumpAndRun
             this.window = window;
         }
 
+
         private void setupJoystick(uint nr)
         {
             Joystick.Update();
@@ -125,7 +126,7 @@ namespace JumpAndRun
         }
         private bool mouseButtonDown(Mouse.Button mButton)
         {
-            return Mouse.IsButtonPressed(mButton);
+             return Mouse.IsButtonPressed(mButton);
         }
 
         private bool MousePositionChanged()

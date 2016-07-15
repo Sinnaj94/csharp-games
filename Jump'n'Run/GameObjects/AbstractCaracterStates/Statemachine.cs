@@ -72,6 +72,7 @@ namespace JumpAndRun
             SwitchState();
             CurrentState.Update();
         }
+
         public void triggerAttack(int nr)
         {
 
