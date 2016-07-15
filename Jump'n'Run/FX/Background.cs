@@ -40,7 +40,7 @@ namespace JumpAndRun
         }
         public void Draw(RenderTarget target, RenderStates states)
         {
-            test.Size = (new SFML.System.Vector2f(target.DefaultView.Size.X - test.OutlineThickness*2, target.DefaultView.Size.Y - test.OutlineThickness*2));
+            test.Size = (new SFML.System.Vector2f(target.DefaultView.Size.X *2- test.OutlineThickness*2, target.DefaultView.Size.Y*2 - test.OutlineThickness*2));
 
             test.FillColor = colorRainbow.SwitchColorThrough();
 
