@@ -1,14 +1,20 @@
 ﻿[
-			{
-				"AlphaTexture": "Resources\/Tile\/topdown_alpha.png",
-				"TilemapImage": "Resources\/Tile\/topdown.png",
-				"TMX": "Resources\/Tile\/topdown.tmx",
-				"Tilesetname": "topdown"
-			},
-						{
-				"AlphaTexture": "Resources\/Tile\/topdown2_alpha.png",
-				"TilemapImage": "Resources\/Tile\/topdown.png",
-				"TMX": "Resources\/Tile\/topdown2.tmx",
-				"Tilesetname": "topdown"
-			}
+    {
+        "AlphaTexture": "Resources\/Tile\/mainmenu_alpha.png",
+        "TilemapImage": "Resources\/Tile\/topdown.png",
+        "TMX": "Resources\/Tile\/mainmenu.tmx",
+        "Tilesetname": "topdown"
+    },
+    {
+        "AlphaTexture": "Resources\/Tile\/topdown_alpha.png",
+        "TilemapImage": "Resources\/Tile\/topdown.png",
+        "TMX": "Resources\/Tile\/topdown.tmx",
+        "Tilesetname": "topdown"
+    },
+    {
+        "AlphaTexture": "Resources\/Tile\/topdown2_alpha.png",
+        "TilemapImage": "Resources\/Tile\/topdown.png",
+        "TMX": "Resources\/Tile\/topdown2.tmx",
+        "Tilesetname": "topdown"
+    }
 ]
