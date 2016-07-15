@@ -1,4 +1,5 @@
-﻿using SFML.Window;
+﻿using SFML.System;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,13 @@ namespace JumpAndRun
         MenuCommand up;
         MenuCommand down;
         MenuCommand enter;
-
+        Clock menuDelayClock;
+        Time delayTime;
         List<MenuCommand> commandList;
         public InputHandlerMenu()
         {
+            menuDelayClock = new Clock();
+            delayTime = Time.FromSeconds(.5f);
             commandList = new List<MenuCommand>();
             up = new MenuUpCommand();
             down = new MenuDownCommand();
@@ -24,7 +28,11 @@ namespace JumpAndRun
 
         public List<MenuCommand> HandleInput()
         {
-            HandleKeyboardInput();
+            if(menuDelayClock.ElapsedTime > delayTime)
+            {
+                HandleKeyboardInput();
+
+            }
             return commandList;
         }
 
@@ -46,7 +54,7 @@ namespace JumpAndRun
                 AddCommandToList(down);
 
             }
-            if (KeyDown(Keyboard.Key.C))
+            if (KeyDown(Keyboard.Key.Return))
             {
                 AddCommandToList(enter);
             }
@@ -61,6 +69,7 @@ namespace JumpAndRun
         {
             if (!commandList.Contains(item))
             {
+                menuDelayClock = new Clock();
                 commandList.Add(item);
             }
             else

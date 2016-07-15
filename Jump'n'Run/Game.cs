@@ -11,6 +11,7 @@ using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 using SFML.Graphics;
+using SFML.System;
 
 namespace JumpAndRun
 {
@@ -34,28 +35,24 @@ namespace JumpAndRun
             AbstractNavigation dialog = new Dialog("1");
             InputHandlerMenu inputMenu = new InputHandlerMenu();
             List<MenuCommand> _temp;
+            world.Update();
 
             while (window.IsOpen)
             {
                 window.Clear();
-                world.Update();
+                if (!menu.Active)
+                {
+                    world.Update();
+
+                }
                 window.Draw(world);
-
-
-
 
                 //INPUT HANDLING AGAIN!
                 _temp = inputMenu.HandleInput();
                 foreach (MenuCommand m in _temp)
                 {
-                    
                     m.Execute(menu);
-
-
                     m.Execute(dialog);
-
-
-
                 }
                 inputMenu.Flush();
                 if (menu.Active)
