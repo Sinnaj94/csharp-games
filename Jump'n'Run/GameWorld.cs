@@ -27,13 +27,14 @@ namespace JumpAndRun
         Lightcone lightcone;
         CollectableContainer collectables;
         StatusBar statusbar;
+        GameOver gameover;
 
         public GameWorld(RenderWindow window)
         {
             _test = new List<Football>();
             this.window = window;
             tmb = new TileMapBuilder();
-
+            gameover = new GameOver();
             initLevel();
             lightcone = new Lightcone(window);
             List<Vector2> a = tmb.GetObjectPositions();
@@ -76,26 +77,29 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            background.Draw(target, states);
-
-
-            debug.DrawDebugData();
-            //tmb.Draw(target, states);
-            collectables.Draw(target, states);
-
-            eContrainer.Draw(target, states);
-            player.Draw(target, states);
-            //map.Draw(target, states);
-            //enemy.DebugDraw(target, states);
-
-
-            foreach (Football c in _test)
+                background.Draw(target, states);
+            if (!player.isDead)
             {
-                c.Draw(target, states);
 
+                debug.DrawDebugData();
+                //tmb.Draw(target, states);
+                collectables.Draw(target, states);
+                eContrainer.Draw(target, states);
+                player.Draw(target, states);
+                //map.Draw(target, states);
+                //enemy.DebugDraw(target, states);
+                foreach (Football c in _test)
+                {
+                    c.Draw(target, states);
+
+                }
+                
+                statusbar.Draw(target, states);
+            } else
+            {
+                gameover.Draw(target, states);
             }
             lightcone.Draw(target, states);
-            statusbar.Draw(target, states);
         }
 
         private void HandleInputCommands()
@@ -113,8 +117,9 @@ namespace JumpAndRun
 
         public void Update()
         {
+
             window.SetView(setCameraToPlayer(window));
-            if (eContrainer.AllEnemyDead)
+            if (eContrainer.AllEnemyDead && !player.isDead)
             {
                 initLevel();
             }

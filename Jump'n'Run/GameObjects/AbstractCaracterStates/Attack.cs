@@ -43,8 +43,6 @@ namespace JumpAndRun
                         ManageSound.Instance.machinegun();
                         projectile = new RangeProjectile(caracter);
                         c = new Clock();
-
-
                     }
                 }
                 else

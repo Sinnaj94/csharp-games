@@ -128,7 +128,6 @@ namespace JumpAndRun
 
         private bool KeyDown(Keyboard.Key sKey)
         {
-
             return Keyboard.IsKeyPressed(sKey);
         }
 
