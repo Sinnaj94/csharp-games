@@ -32,7 +32,6 @@ namespace JumpAndRun
             SFML.Graphics.RenderWindow window = InitWindow();
             GameWorld world = new GameWorld(window);
             AbstractNavigation menu = new MainMenu();
-
             AbstractNavigation dialog = new Dialog("1");
             InputHandlerMenu inputMenu = new InputHandlerMenu();
             List<MenuCommand> _temp;
@@ -42,36 +41,31 @@ namespace JumpAndRun
             {
                 window.Clear();
 
-                if (!menu.Active)
-                {
-                    world.Update();
-
-                }
-                window.Draw(world);
-
                 //INPUT HANDLING AGAIN!
                 _temp = inputMenu.HandleInput();
                 foreach (MenuCommand m in _temp)
                 {
-
                     m.Execute(menu);
                     m.Execute(dialog);
                 }
 
+                window.Draw(world);
+
                 inputMenu.Flush();
                 if (menu.Active)
                 {
-
                     window.Draw(menu);
-
-                }
-                //DIALOG
-                if (dialog.Active && !menu.Active)
+                } else
                 {
-                    dialog.Update();
-                    window.Draw(dialog);
+                    if (dialog.Active)
+                    {
+                        dialog.Update();
+                        window.Draw(dialog);
+                    } else
+                    {
+                        world.Update();
+                    }
                 }
-                
                 window.Display();
             }
         }
