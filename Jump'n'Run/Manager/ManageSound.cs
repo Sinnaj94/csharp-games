@@ -25,6 +25,8 @@ namespace JumpAndRun
                 new Sound(new SoundBuffer(@"Resources\sounds\splatter.ogg")),
                 new Sound(new SoundBuffer(@"Resources\sounds\machinegun.wav")),
                 new Sound(new SoundBuffer(@"Resources\sounds\rumble.wav")),
+                new Sound(new SoundBuffer(@"Resources\sounds\textelement.wav")),
+
 
             };
             
@@ -41,9 +43,10 @@ namespace JumpAndRun
                 woodList.Add(new Sound(new SoundBuffer((@"Resources\sounds\wood\Wood_0" + i + ".wav"))));
             }
             r = new Random(DateTime.Now.Millisecond);
-            //backgroundMusic = new Music(@"Resources/song.ogg");
-            //backgroundMusic.Volume = 50;
-            //backgroundMusic.Loop = true;
+            backgroundMusic = new Music(@"Resources/sounds/music.ogg");
+            backgroundMusic.Volume = 50;
+
+            backgroundMusic.Loop = true;
             Init();
         }
 
@@ -106,6 +109,11 @@ namespace JumpAndRun
         public void machinegun()
         {
             sounds[2].Play();
+        }
+
+        public void textelement()
+        {
+            sounds[3].Play();
         }
 
         public void wood()

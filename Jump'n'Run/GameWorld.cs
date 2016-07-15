@@ -76,7 +76,7 @@ namespace JumpAndRun
             if (!player.isDead)
             {
                 tmb.Draw(target, states);
-               debug.DrawDebugData();
+                //debug.DrawDebugData();
                 collectables.Draw(target, states);
                 eContrainer.Draw(target, states);
                 player.Draw(target, states);
@@ -88,6 +88,10 @@ namespace JumpAndRun
             }
             else
             {
+                tmb.Draw(target, states);
+                player.Draw(target, states);
+                eContrainer.Draw(target, states);
+
                 gameover.Draw(target, states);
             }
             lightcone.Draw(target, states);
