@@ -18,6 +18,7 @@ namespace JumpAndRun
         private Player player;
         InputHandler input;
         List<Command> currentCommands;
+        List<GameCommand> currentGameCommands;
         TileMapBuilder tmb;
         Background background;
         Manhatten<Tile, Object> aStar;
@@ -107,6 +108,7 @@ namespace JumpAndRun
         private void HandleInputCommands()
         {
             currentCommands = input.HandleInput();
+            currentGameCommands = input.GameCommandList;
             foreach (Command c in currentCommands)
             {
                 if (!player.isDead)
@@ -114,6 +116,12 @@ namespace JumpAndRun
                     c.Execute(player);
                 }
             }
+
+            foreach (GameCommand c in currentGameCommands)
+            {
+                c.Execute(this);
+            }
+
             input.ResetInput();
         }
 

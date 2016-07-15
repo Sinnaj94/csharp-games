@@ -88,7 +88,7 @@ namespace JumpAndRun
             ButtonList[Selected].Selected = true;
         }
 
-        public virtual void Draw(RenderTarget target, RenderStates states)
+        public override void Draw(RenderTarget target, RenderStates states)
         {
             //background.Draw(target, states);
 
@@ -100,7 +100,7 @@ namespace JumpAndRun
 
 
 
-        public void navigateUp()
+        public override void NavigateUp()
         {
             ButtonList[Selected].Selected = false;
             if (Selected - 1 < 0)
@@ -115,7 +115,7 @@ namespace JumpAndRun
             //ManageSound.Instance.select();
         }
 
-        public void navigateDown()
+        public override void NavigateDown()
         {
             ButtonList[Selected].Selected = false;
             if (Selected + 1 >= ButtonList.Count)
@@ -130,7 +130,7 @@ namespace JumpAndRun
             //ManageSound.Instance.select();
         }
 
-        public virtual void selectCurrent()
+        public override void Enter()
         {
             //ManageSound.Instance.enter();
         }
@@ -142,9 +142,9 @@ namespace JumpAndRun
         {
             Init("Main_Menu");
         }
-        public override void selectCurrent()
+        public override void Enter()
         {
-            base.selectCurrent();
+            base.Enter();
             switch (Selected)
             {
                 case 0:

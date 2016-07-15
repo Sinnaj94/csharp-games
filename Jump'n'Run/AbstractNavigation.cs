@@ -3,24 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Graphics;
 
 namespace JumpAndRun
 {
-    abstract class AbstractNavigation
+    abstract class AbstractNavigation : SFML.Graphics.Drawable
     {
-        public void NavigateUp()
+
+
+        public virtual void NavigateUp()
         {
 
         }
 
-        public void NavigateDown()
+        public virtual void NavigateDown()
         {
 
         }
 
-        public void Enter()
+        public virtual void Enter()
+        { 
+
+        }
+
+        public virtual bool Active
+        {
+            get
+            {
+                return false;
+            }
+
+            set
+            {
+                
+            }
+        }
+
+        public virtual void Update()
         {
 
+        }
+
+        public virtual void Draw(RenderTarget target, RenderStates states)
+        {
+            throw new NotImplementedException();
         }
     }
 }

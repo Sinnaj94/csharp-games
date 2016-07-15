@@ -119,6 +119,11 @@ namespace JumpAndRun
         void Execute(Player p);
     }
 
+    interface GameCommand
+    {
+        void Execute(GameWorld gameworld);
+    }
+
     //Command patterns:
     class JumpCommand : Command
     {
@@ -230,45 +235,44 @@ namespace JumpAndRun
         }
     }
 
+
     interface MenuCommand
     {
-        void Execute(Dialog d);
-        void Execute(Menu m);
+        void Execute(AbstractNavigation a);
     }
     class MenuDownCommand : MenuCommand
     {
-        public void Execute(Menu m)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Execute(Dialog d)
+
+        public void Execute(AbstractNavigation a)
         {
-            throw new NotImplementedException();
+            a.NavigateDown();
         }
     }
     class MenuUpCommand : MenuCommand
     {
-        public void Execute(Menu m)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Execute(Dialog d)
+        public void Execute(AbstractNavigation a)
         {
-            throw new NotImplementedException();
+            a.NavigateUp();
         }
     }
-    class MenuAcceptCommand : MenuCommand
+    class MenuEnterCommand : MenuCommand
     {
-        public void Execute(Menu m)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Execute(Dialog d)
+        public void Execute(AbstractNavigation a)
         {
-            throw new NotImplementedException();
+            a.Enter();
         }
     }
+
+    class restartCommand : GameCommand
+    {
+        public void Execute(GameWorld gameworld)
+        {
+            gameworld.initLevel();
+        }
+    }
+
+
 }
