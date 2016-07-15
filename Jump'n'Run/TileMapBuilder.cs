@@ -20,8 +20,7 @@ namespace JumpAndRun
         List<SFML.Graphics.Drawable> TileSpriteList;
         Map map;
         TiledSharp.TmxMap test;
-        int currentlevel = 1;
-
+        int currentlevel = 0;
 
         static private void CreateShape(SFML.Graphics.Texture texture, World world)
         {
@@ -56,7 +55,15 @@ namespace JumpAndRun
         {
             LevelBuilder l = new LevelBuilder(@"Resources\json\level.json");
             List<Level> level = l.Level;
-            return level[currentlevel++];
+            if(level.Count > Currentlevel)
+            {
+                Currentlevel++;
+                return level[Currentlevel - 1];
+            } else
+            {
+                return level[0];
+            }
+           
         }
 
         public void initLevel(ref World world, ref EnemyContainer eContrainer, ref Player player, ref CollectableContainer collectables)
@@ -184,6 +191,19 @@ namespace JumpAndRun
             set
             {
                 map = value;
+            }
+        }
+
+        public int Currentlevel
+        {
+            get
+            {
+                return currentlevel;
+            }
+
+            set
+            {
+                currentlevel = value;
             }
         }
 
