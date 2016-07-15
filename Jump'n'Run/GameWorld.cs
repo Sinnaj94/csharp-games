@@ -30,17 +30,9 @@ namespace JumpAndRun
         {
             _test = new List<Football>();
             this.window = window;
-            world = new World(new Vector2(0, 0));
-
+            tmb = new TileMapBuilder();
+     
             initLevel();
-
-
-            debug = new DebugDraw(world, window);
-            input = new InputHandler(window);
-
-            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
-            background = new Background();
-            lightcone = new Lightcone(window);
 
             List<Vector2> a = tmb.GetObjectPositions();
 
@@ -52,9 +44,13 @@ namespace JumpAndRun
 
         public void initLevel()
         {
-            eContrainer = new EnemyContainer(world);
-            tmb = new TileMapBuilder(world, eContrainer, ref player);
+            tmb.initLevel(ref world, ref eContrainer, ref player);
             recalculatePath(player, new EventArgs());
+            debug = new DebugDraw(world, window);
+            input = new InputHandler(window);
+            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
+            background = new Background();
+            lightcone = new Lightcone(window);
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -78,9 +74,8 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            background.Draw(target, states);
             target.SetView(setCameraToPlayer(target));
-
+            background.Draw(target, states);
             //debug.DrawDebugData();
 
             tmb.Draw(target, states);
@@ -113,6 +108,10 @@ namespace JumpAndRun
 
         public void Update()
         {
+            if (eContrainer.AllEnemyDead)
+            {
+                initLevel();
+            }
             eContrainer.Update();
             HandleInputCommands();
             player.Update();

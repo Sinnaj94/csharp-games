@@ -20,7 +20,7 @@ namespace JumpAndRun
         List<SFML.Graphics.Drawable> TileSpriteList;
         Map map;
         TiledSharp.TmxMap test;
-
+        int currentlevel = 1;
 
 
         static private void CreateShape(SFML.Graphics.Texture texture, World world)
@@ -35,6 +35,7 @@ namespace JumpAndRun
             }
 
             Byte myByte = 1;
+            
             List<Vertices> _list = PolygonTools.CreatePolygon(data, (int)texture.Size.X, 0.05f, myByte, true, true);
             Vertices verts = new Vertices();
             Vector2 scale = ConvertUnits.ToSimUnits(new Vector2(1, 1));
@@ -51,15 +52,23 @@ namespace JumpAndRun
             }
         }
 
-        public TileMapBuilder(World world, EnemyContainer eContrainer, ref Player player)
+        public Level getNextLevel()
         {
             LevelBuilder l = new LevelBuilder(@"Resources\json\level.json");
             List<Level> level = l.Level;
+            return level[currentlevel++];
+        }
+
+        public void initLevel(ref World world, ref EnemyContainer eContrainer, ref Player player)
+        {
+            world = new World(new Vector2(0, 0));
+            eContrainer = new EnemyContainer(world);       
+            Level level = getNextLevel();
             TileSpriteList = new List<Drawable>();
-            CreateShape(new SFML.Graphics.Texture(level[0].AlphaTexture), world);
-            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(level[0].TilemapImage);
-            test = new TiledSharp.TmxMap(level[0].TMX);
-            var myTileset = test.Tilesets[level[0].Tilesetname];
+            CreateShape(new SFML.Graphics.Texture(level.AlphaTexture), world);
+            SFML.Graphics.Texture tilemap = new SFML.Graphics.Texture(level.TilemapImage);
+            test = new TiledSharp.TmxMap(level.TMX);
+            var myTileset = test.Tilesets[level.Tilesetname];
             Map newMap = new Map(test.Width, test.Height, test.TileWidth);
             this.Map = newMap;
             parseTileLayer(tilemap);

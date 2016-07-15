@@ -15,6 +15,8 @@ namespace JumpAndRun
     {
         private List<Enemy> container;
         private World world;
+        bool allEnemyDead;
+
         public EnemyContainer(World world)
         {
             this.world = world;
@@ -39,10 +41,22 @@ namespace JumpAndRun
 
         public void Update()
         {
+            AllEnemyDead = true;
+
             foreach (Enemy e in container)
             {
                 e.Update();
+                if (!e.isDead)
+                {
+                    AllEnemyDead = false;
+                }
             }
+
+            if (AllEnemyDead)
+            {
+                Console.WriteLine("ALL DEAD");
+            }
+            
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -50,6 +64,19 @@ namespace JumpAndRun
             foreach(Enemy e in container)
             {
                 e.Draw(target, states);
+            }
+        }
+
+        public bool AllEnemyDead
+        {
+            get
+            {
+                return allEnemyDead;
+            }
+
+            set
+            {
+                allEnemyDead = value;
             }
         }
     }
