@@ -80,13 +80,16 @@ namespace JumpAndRun
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            Console.WriteLine(target.GetView().Center);
+            Vector2f defaultSize = target.DefaultView.Size;
+            target.SetView(new View(new Vector2f(defaultSize.X/2,defaultSize.Y/2),defaultSize));
             dialogList[currentDialog].Draw(target, states);
             
         }
 
         public void Update()
         {
-
+            dialogList[currentDialog].Update();
         }
 
 

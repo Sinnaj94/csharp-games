@@ -1,30 +1,17 @@
 {
     "1": [
         {
-            "speaker": "Resources/dialogitems/Mr_Pug.png",
-            "plane": "Resources/dialogitems/destroyedxwing.png",
-            "scene": "Resources/dialogitems/explosion.jpg",
+            "speaker": "Resources/dialogitems/face.png",
+            "plane": "Resources/dialogitems/face.png",
+            "scene": "Resources/dialogitems/dialogbg.png",
             "text": "MAYDAY, MAYDAY! Commander P. Ug speaking!\nDoes any- *zrkkk* -one hear *zrrk* me?\nPLEASE *zrrrkkk* HELP *zrrk*"
         },
         {
-            "speaker": "Resources/dialogitems/Mr_Trump.png",
-            "plane": "Resources/dialogitems/twing.png",
-            "scene": "Resources/dialogitems/space.jpg",
+            "speaker": "Resources/dialogitems/face.png",
+            "plane": "Resources/dialogitems/face.png",
+            "scene": "Resources/dialogitems/dialogbg.png",
 
             "text": "HAHAHA! YOU THINK YOU CAN STOP ME!\nI'm the Trumpinator!\nI will destroy you like a mexican god!\nHere, have a little taste of my army!"
-        },
-        {
-            "speaker": "Resources/dialogitems/Mr_Pug.png",
-            "plane": "Resources/dialogitems/destroyedxwing.png",
-            "scene": "Resources/dialogitems/explosion.jpg",
-            "text": "WE MUST *zrrrrrrk* ELIMINATE THAT *zrrrrrkrkrkrkr* SCUM!!!\n*ZRRRRRRK*\nDO YOUR BEST SOLDIER\n-Signal Lost-"
-        },
-        {
-            "speaker": "Resources/dialogitems/instructor.png",
-            "plane": "Resources/dialogitems/instructor.png",
-            "scene": "Resources/dialogitems/space.jpg",
-
-            "text": "Go destroy every ship that crosses your path!\nPress P if you need a pause and Arrow Up to buy a new Ship if you got the money!"
         }
     ]
 }
