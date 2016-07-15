@@ -15,7 +15,7 @@ namespace JumpAndRun
         SFML.Graphics.RenderWindow window;
         Sprite lightSprite;
 
-        public Lightcone(RenderWindow window)
+        public Lightcone(RenderWindow  window)
         {
             this.window = window;
             SetupDarkSprite();
@@ -44,7 +44,6 @@ namespace JumpAndRun
         public void updateLightCone(RenderWindow window)
         {
             darkSprite.Position = window.GetView().Center;
-
         }
 
         public void Draw(RenderTarget target, RenderStates states)

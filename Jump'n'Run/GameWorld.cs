@@ -33,7 +33,7 @@ namespace JumpAndRun
             tmb = new TileMapBuilder();
      
             initLevel();
-
+            lightcone = new Lightcone(window);
             List<Vector2> a = tmb.GetObjectPositions();
 
             foreach(Vector2 t in a)
@@ -44,13 +44,12 @@ namespace JumpAndRun
 
         public void initLevel()
         {
-            tmb.initLevel(ref world, ref eContrainer, ref player);
+            tmb.initLevel(ref world, ref eContrainer, ref player);         
             recalculatePath(player, new EventArgs());
+            background = new Background();
             debug = new DebugDraw(world, window);
             input = new InputHandler(window);
-            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray);
-            background = new Background();
-            lightcone = new Lightcone(window);
+            aStar = new Manhatten<Tile, Object>(tmb.Map.TileArray); 
         }
 
         public View setCameraToPlayer(RenderTarget target)
@@ -73,8 +72,7 @@ namespace JumpAndRun
         }
 
         public void Draw(RenderTarget target, RenderStates states)
-        {
-            target.SetView(setCameraToPlayer(target));
+        {        
             background.Draw(target, states);
             //debug.DrawDebugData();
 
@@ -108,6 +106,7 @@ namespace JumpAndRun
 
         public void Update()
         {
+            window.SetView(setCameraToPlayer(window));
             if (eContrainer.AllEnemyDead)
             {
                 initLevel();
