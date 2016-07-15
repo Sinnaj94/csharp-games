@@ -72,6 +72,7 @@
     <Compile Include="AStern\Manhatten.cs" />
     <Compile Include="AStern\PriorityQueue.cs" />
     <Compile Include="AStern\SpatialAStar.cs" />
+    <Compile Include="Container\CollectableContainer.cs" />
     <Compile Include="Dialog\Dialog.cs" />
     <Compile Include="Dialog\DialogElement.cs" />
     <Compile Include="EnemyContainer\EnemyContainer.cs" />
@@ -86,7 +87,9 @@
     <Compile Include="GameObjects\AbstractCaracterStates\Statemachine.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Waiting.cs" />
     <Compile Include="GameObjects\AbstractCaracterStates\Walk.cs" />
+    <Compile Include="GameObjects\Collectable\AbstractCollectable.cs" />
     <Compile Include="GameObjects\AbstractPhysicsObject.cs" />
+    <Compile Include="GameObjects\Collectable\CollectableBullet.cs" />
     <Compile Include="GameObjects\Football.cs" />
     <Compile Include="GameObjects\Crate.cs" />
     <Compile Include="GameObjects\Player.cs" />
@@ -117,6 +120,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Resources\buttons\template.psd" />
     <None Include="Resources\json\dialogs.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -159,6 +163,9 @@
     <None Include="Resources\psd\mainscreen.psd" />
     <None Include="Resources\psd\MRP_U_G.psd" />
     <None Include="Resources\psd\TrumpPSD.psd" />
+    <Content Include="Resources\buttons\a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\dialogitems\destroyedxwing.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -214,6 +221,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\bullet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\bulletSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\EnemyStatusBar.png">

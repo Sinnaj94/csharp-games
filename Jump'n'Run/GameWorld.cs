@@ -26,6 +26,7 @@ namespace JumpAndRun
         List<Football> _test;
         Lightcone lightcone;
         StatusBar statusbar = new StatusBar();
+        CollectableContainer collectables;
 
         public GameWorld(RenderWindow window)
         {
@@ -45,7 +46,7 @@ namespace JumpAndRun
 
         public void initLevel()
         {
-            tmb.initLevel(ref world, ref eContrainer, ref player);
+            tmb.initLevel(ref world, ref eContrainer, ref player, ref collectables);
             recalculatePath(player, new EventArgs());
             background = new Background();
             debug = new DebugDraw(world, window);
@@ -76,10 +77,11 @@ namespace JumpAndRun
         {
             background.Draw(target, states);
 
-            debug.DrawDebugData();
 
+            //debug.DrawDebugData();
+            tmb.Draw(target, states);
+            collectables.Draw(target, states);
 
-            //tmb.Draw(target, states);
             eContrainer.Draw(target, states);
             player.Draw(target, states);
             //map.Draw(target, states);

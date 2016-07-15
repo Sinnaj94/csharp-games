@@ -22,6 +22,7 @@ namespace JumpAndRun
         int textSpeed;
         Clock timed;
         Vector2f floatingPosition;
+        Sprite buttonASprite;
         //TODO: Auslagern
         public DialogElement(String imgSource,String text,String planeSource, String bgSource)
         {
@@ -44,8 +45,12 @@ namespace JumpAndRun
             c = new Clock();
             edge.Position = new Vector2f(0, speakerSprite.Position.Y);
             edge.FillColor = new Color(0, 0, 0, 100);
-            textSpeed = 100;
+            textSpeed = 50;
             timed = new Clock();
+            buttonASprite = new Sprite(new Texture(@"Resources/buttons/a.png"));
+            buttonASprite.Origin = new Vector2f(buttonASprite.Texture.Size.X/2, buttonASprite.Texture.Size.Y/2);
+            buttonASprite.Position = new Vector2f(1920 * .5f, 1080 * .85f);
+            Console.WriteLine(buttonASprite.Origin + "");
         }
 
         
@@ -78,6 +83,11 @@ namespace JumpAndRun
 
             speakerSprite.Draw(target, states);
             shownText.Draw(target, states);
+            if (textDone())
+            {
+                buttonASprite.Scale = new Vector2f((float)Math.Abs(Math.Sin(timed.ElapsedTime.AsSeconds()) * 1) + .2f, (float)Math.Abs(Math.Sin(timed.ElapsedTime.AsSeconds()) * 1) + .2f);
+                buttonASprite.Draw(target, states);
+            }
         }
 
         public void showAllText()

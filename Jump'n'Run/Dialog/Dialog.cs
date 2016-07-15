@@ -46,7 +46,6 @@ namespace JumpAndRun
             this.dataSetName = dataSetName;
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(@"Resources\json\dialogs.json"));
             DataTable dataTable = dataSet.Tables[dataSetName];
-
             dialogList = new List<DialogElement>();
             foreach (DataRow row in dataTable.Rows)
             {
@@ -71,16 +70,13 @@ namespace JumpAndRun
                 {
                     Console.Out.WriteLine(e.Data);
                 }
-
             }
-
         }
 
 
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            Console.WriteLine(target.GetView().Center);
             Vector2f defaultSize = target.DefaultView.Size;
             target.SetView(new View(new Vector2f(defaultSize.X/2,defaultSize.Y/2),defaultSize));
             dialogList[currentDialog].Draw(target, states);
@@ -90,6 +86,7 @@ namespace JumpAndRun
         public void Update()
         {
             dialogList[currentDialog].Update();
+            
         }
 
 

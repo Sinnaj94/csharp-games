@@ -59,10 +59,11 @@ namespace JumpAndRun
             return level[currentlevel++];
         }
 
-        public void initLevel(ref World world, ref EnemyContainer eContrainer, ref Player player)
+        public void initLevel(ref World world, ref EnemyContainer eContrainer, ref Player player, ref CollectableContainer collectables)
         {
             world = new World(new Vector2(0, 0));
-            eContrainer = new EnemyContainer(world);       
+            eContrainer = new EnemyContainer(world);
+            collectables = new CollectableContainer(world);
             Level level = getNextLevel();
             TileSpriteList = new List<Drawable>();
             CreateShape(new SFML.Graphics.Texture(level.AlphaTexture), world);
@@ -72,10 +73,10 @@ namespace JumpAndRun
             Map newMap = new Map(test.Width, test.Height, test.TileWidth);
             this.Map = newMap;
             parseTileLayer(tilemap);
-            parseObjectLayer(world, eContrainer, ref player);
+            parseObjectLayer(world, eContrainer, ref player, collectables);
         }
 
-        public void parseObjectLayer(World world, EnemyContainer eContrainer, ref Player player)
+        public void parseObjectLayer(World world, EnemyContainer eContrainer, ref Player player, CollectableContainer collectables)
         {
             foreach (TiledSharp.TmxObjectGroup g in test.ObjectGroups)
             {
@@ -84,14 +85,25 @@ namespace JumpAndRun
                     int id = o.Tile.Gid;
                     switch (id)
                     {
-                        case 485:
-                            eContrainer.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)), (float)((Math.PI / 180) * o.Rotation - (float)Math.PI / 2));
-                            break;
+                        // Spawnpoint
                         case 458:
                             player = new Player(BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(10), 1), world);
                             player.body.Position = new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y));
                             eContrainer.Player = player;
                             break;
+
+                        // ENEMY
+                        case 485:
+                            eContrainer.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)), (float)((Math.PI / 180) * o.Rotation - (float)Math.PI / 2));
+                            break;
+
+                        // BulletCollectable
+                        case 512:
+                            collectables.Add(new Vector2(ConvertUnits.ToSimUnits(o.X), ConvertUnits.ToSimUnits(o.Y)), (float)((Math.PI / 180) * o.Rotation - (float)Math.PI / 2));
+                           // collectables.Add(new Vector2(0,0), 0);
+                            break;
+                        
+                      
                         default:
                             Console.WriteLine("unknown gid");
                             break;
